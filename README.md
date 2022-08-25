@@ -1,0 +1,2 @@
+# documentation
+The neurobagel documentation
