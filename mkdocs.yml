@@ -1,3 +1,15 @@
 site_name: Neurobagel Documentation
 theme:
   name: material
+  palette:
+    primary: pink
+    accent: light blue
+  font:
+    text: IBM Plex Sans
+    code: IBM Plex Mono
+
+
+# Page Navigation
+nav:
+  - Welcome: "index.md"
+  - Developer Documentation: "dev.md"
