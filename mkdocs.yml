@@ -7,7 +7,7 @@ theme:
   font:
     text: IBM Plex Sans
     code: IBM Plex Mono
-
+repo_url: https://github.com/neurobagel/documentation
 
 # Page Navigation
 nav:
