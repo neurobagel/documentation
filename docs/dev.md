@@ -1,3 +1,0 @@
-# Dev
-
-How to contribute.

@@ -12,4 +12,9 @@ repo_url: https://github.com/neurobagel/documentation
 # Page Navigation
 nav:
   - Welcome: "index.md"
-  - Developer Documentation: "dev.md"
+
+markdown_extensions:
+  - tables
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
