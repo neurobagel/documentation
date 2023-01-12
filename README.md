@@ -15,3 +15,15 @@ To spin up the side locally while you edit it, run:
 `mkdocs serve`
 
 More details are in the [mkdocs documentation](https://squidfunk.github.io/mkdocs-material/creating-your-site/#previewing-as-you-write).
+
+## Deploy
+
+At the moment we are using mkdocs to deploy directly to gh-pages.
+
+When your local build runs well, commit the changes to the `main` branch with a PR and then call
+
+```bash
+mkdocs gh-deploy
+```
+
+See the [docs for more details](https://www.mkdocs.org/user-guide/deploying-your-docs/).
