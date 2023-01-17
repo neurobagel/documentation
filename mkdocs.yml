@@ -12,6 +12,7 @@ repo_url: https://github.com/neurobagel/documentation
 # Page Navigation
 nav:
   - Welcome: "index.md"
+  - Data Models: "datamodels.md"
 
 markdown_extensions:
   - tables
