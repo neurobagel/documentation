@@ -13,6 +13,7 @@ repo_url: https://github.com/neurobagel/documentation
 nav:
   - Welcome: "index.md"
   - Data Models: "datamodels.md"
+  - Data dictionaries: "dictionaries.md"
 
 markdown_extensions:
   - tables

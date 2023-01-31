@@ -84,3 +84,5 @@ And here is the same example with Neurobagel annotations added:
 }
 ```
 
+### Special attributes
+
