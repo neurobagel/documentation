@@ -38,7 +38,7 @@ Here is an example of a BIDS data dictionary:
 
 And here is the same example with Neurobagel annotations added:
 
-```json
+```json hl_lines="5-14 22-41"
 {
   "age": {
     "Description": "age of the participant",
