@@ -1,8 +1,14 @@
 ### 8. Run MR image processing pipelines
+
+---
+
 Curating dataset into BIDS format simplifies running several commonly used pipelines. Each pipeline follows similar steps:
    - Specify pipeline container (i.e. Singularity image / recipe) 
    - Run single participant test. This uses sample participant from /test_data/bids as input and generates output in the /test_data/<pipeline> dir. 
    - Run entire dataset (provided single participant test is successful)
+
+---
+
 
 #### 8.1 [fMRIPrep](https://fmriprep.org/en/stable/) (including FreeSurfer) 
    - Use [run_fmriprep](workflow/proc_pipe/fmriprep/run_fmriprep.py) script to run fmriprep pipeline. 

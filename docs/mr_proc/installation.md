@@ -1,4 +1,10 @@
-## Installation and Setup
+## Code installation and dataset setup
+
+---
+
+mr_proc workflow comprises mr_proc codebase that operates on mr_proc dataset with a specific directory structure, which is initialized with a mr_proc_setup,sh script. 
+
+---
 
 ### mr_proc code+env installation
    - Change dir to where you want to clone this repo, e.g.: `cd /home/<user>/projects/<my_project>/code/`
@@ -8,7 +14,6 @@
    - Change dir to `mr_proc` 
    - Install python dependencies: `pip install -e .`  
 
-### mr_proc dataset directory Setup 
-   - mr_proc expects following directory tree with several *mandatory* subdirs and files. 
-   - You can run `scripts/mr_proc_setup.sh` to create this directory tree. 
-   - You can run `scripts/mr_proc_stutus.sh` check status of your dataset
+### mr_proc dataset directory setup 
+   - Run `scripts/mr_proc_setup.sh` to create mr_proc dataset directory tree
+   
