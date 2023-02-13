@@ -14,7 +14,7 @@ nav:
   - Welcome: "index.md"
   - Data Models: "datamodels.md"
   - Data dictionaries: "dictionaries.md"
-  - mr_proc: 
+  - MR Proc user guide: 
     - Overview: "mr_proc/overview.md"
     - Installation: "mr_proc/installation.md"
     - Configs: "mr_proc/configs.md"
