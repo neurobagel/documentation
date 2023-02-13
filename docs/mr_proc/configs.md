@@ -8,7 +8,7 @@ mr_proc consists of two global files for specifying local paths and recruitment 
 
 ### Global configs: `global_configs.json`
    - This is a dataset specific file and needs to be modified based on local configs and paths
-   - This file is used as an input to the `run scripts` to read, process and track available data
+   - This file is used as an input to all workflow `run scripts` to read, process and track available data
    - Copy, rename, and populate [sample_global_configs.json](https://github.com/neurodatascience/mr_proc/blob/main/sample_global_configs.json) 
    - This file contains:
       - Path to mr_proc_dataset
