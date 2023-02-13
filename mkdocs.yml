@@ -14,6 +14,17 @@ nav:
   - Welcome: "index.md"
   - Data Models: "datamodels.md"
   - Data dictionaries: "dictionaries.md"
+  - MR Proc user guide: 
+    - Overview: "mr_proc/overview.md"
+    - Installation: "mr_proc/installation.md"
+    - Configs: "mr_proc/configs.md"
+    - "Code organization": "mr_proc/code_org.md"
+    - "Data organization": "mr_proc/data_org.md"
+    - Workflow:
+      - "DICOM organization": "mr_proc/workflow/dicom_org.md"
+      - "BIDS conversion": "mr_proc/workflow/bids_conv.md"
+      - Pipeline specific instructions:
+        - fmriprep: "mr_proc/workflow/proc_pipe/fmriprep.md"
 
 markdown_extensions:
   - tables
