@@ -20,7 +20,7 @@ nav:
     - Configs: "mr_proc/configs.md"
     - "Code organization": "mr_proc/code_org.md"
     - "Data organization": "mr_proc/data_org.md"
-    - workflow:
+    - Workflow:
       - "DICOM organization": "mr_proc/workflow/dicom_org.md"
       - "BIDS conversion": "mr_proc/workflow/bids_conv.md"
       - proc_pipe:
