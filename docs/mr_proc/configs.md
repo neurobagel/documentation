@@ -17,7 +17,7 @@ mr_proc consists of two global files for specifying local paths and recruitment 
 
 !!! Suggestion
 
-    Although not mandatory, the preferred location would be: `<DATASET_ROOT>/proc/global_configs.json`
+    Although not mandatory, for consistency the preferred location would be: `<DATASET_ROOT>/proc/global_configs.json`.
 
 ### Subject manifest: `mr_proc_manifest.csv`
    - This list serves as the **ground-truth** for subject availability
