@@ -2,7 +2,7 @@
 
 ---
 
-mr_proc workflow comprises mr_proc codebase that operates on mr_proc dataset with a specific directory structure, which is initialized with a mr_proc_setup,sh script. 
+mr_proc workflow comprises mr_proc codebase that operates on mr_proc dataset with a specific directory structure, which is initialized with a mr_proc_setup.sh script. 
 
 ---
 
@@ -17,3 +17,11 @@ mr_proc workflow comprises mr_proc codebase that operates on mr_proc dataset wit
 ### mr_proc dataset directory setup 
    - Run `scripts/mr_proc_setup.sh` to create mr_proc dataset directory tree
    
+> Sample cmd:
+```
+mr_proc_setup.sh <data_disk> <DATASET_ROOT>
+```
+
+!!! Suggestion
+
+    We suggest to name <DATASET_ROOT> after a study or a cohort. 

@@ -20,6 +20,11 @@ nav:
     - Configs: "mr_proc/configs.md"
     - "Code organization": "mr_proc/code_org.md"
     - "Data organization": "mr_proc/data_org.md"
+    - workflow:
+      - "DICOM organization": "mr_proc/workflow/dicom_org.md"
+      - "BIDS conversion": "mr_proc/workflow/bids_conv.md"
+      - proc_pipe:
+        - fmriprep: "mr_proc/workflow/proc_pipe/fmriprep.md"
 
 markdown_extensions:
   - tables

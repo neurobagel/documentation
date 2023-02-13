@@ -7,8 +7,8 @@ mr_proc codebase consists of three modules:
 ---
 
 1. scritps: 
-    i. Intialize a mr_proc dataset
-    ii. Run a mr_proc workflow (i.e. batch call to workflow scipts) 
+    - Intialize a mr_proc dataset
+    - Run a mr_proc workflow (i.e. batch call to workflow scipts) 
 2. workflow:
     - MRI data
         - Custom script to organize raw dicoms (i.e. scanner output) into a flat participant-level directory. 
