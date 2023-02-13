@@ -10,7 +10,7 @@ This is a dataset specific process and needs to be customized based on local sca
 
 - Copy / download all "raw dicoms" in the `<DATASET_ROOT>/scratch/raw_dicoms` directory.
 - Modify [run_dicom_org.py](https://github.com/neurodatascience/mr_proc/blob/main/workflow/dicom_org/run_dicom_org.py) to:
-    -  Validate: Excludeds certain individual dicom files that are invalid or contain scanner-derived data not compatible with BIDS conversion.
+    -  Validate: Excludes certain individual dicom files that are invalid or contain scanner-derived data not compatible with BIDS conversion.
     -  Symlink (*): Creates symlinks from `raw_dicoms/` to the `<DATASET_ROOT>/dicom`, where all participant specific dicoms are in a flat list. 
 
 > Sample cmd:
