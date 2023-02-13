@@ -14,7 +14,7 @@ BIDS conversion is done using [Heudiconv](https://heudiconv.readthedocs.io/en/la
    - Run `stage_1` to generate a list of available protocols from the DICOM header. These protocols are listed in `<DATASET_ROOT>/bids/.heudiconv/<participant_id>/info/dicominfo_ses-<session_id>.tsv`
    
 > Sample cmd:
-```python
+```bash
 python run_bids_conv.py \
    --global_config <global_config_file> \
    --session_id 01 \
