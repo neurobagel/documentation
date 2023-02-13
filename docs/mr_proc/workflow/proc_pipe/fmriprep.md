@@ -27,7 +27,7 @@ Curating dataset into BIDS format simplifies running several commonly used MRI p
     For machines with Internet connections, all required templates are automatically downloaded duing the fMRIPrep run.
     
 > Sample cmd:
-```python
+```bash
 python run_fmriprep.py \
    --global_config <global_config_file> \
    --participant_id MNI01 \
