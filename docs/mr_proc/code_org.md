@@ -6,7 +6,7 @@ mr_proc codebase consists of three modules:
 
 ---
 
-1. scritps: 
+1. scripts: 
     - Intialize a mr_proc dataset
     - Run a mr_proc workflow (i.e. batch call to workflow scipts) 
 2. workflow:
