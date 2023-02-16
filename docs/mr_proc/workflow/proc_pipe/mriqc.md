@@ -29,29 +29,3 @@ python run_mriqc.py \
 !!! note
 	A run for a participant is considered successful when the participant's log file reads `Participant level finished successfully`
 
-
-### Evaluate MRIQC Results
-- Use [eval_mriqc_results.py](https://github.com/neurodatascience/mr_proc/blob/main/workflow/proc_pipe/mriqc/eval_mriqc_results.py) to determine how many subjects successfully passed through the MRIQC pipeline
-	- Mandatory: Pass in a [JSON configuration file](https://github.com/neurodatascience/mr_proc/blob/main/workflow/proc_pipe/mriqc/mriqc_config.json) that contains the input directory, the results directory, the absolute path to the list of subjects, the desired file types, the desired session ID and the output CSV filename
-!!! note
-	Multiple sessions can be evaluated, but each session will require a new job running this script
-!!! note
-	By default, the script will evaluate if T1w and BOLD MRI data participant files were processed, but other file types can be passed in through the JSON file
-> Sample cmd:
-```bash
-python eval.py \
-	mriqc_config.json \
-	>> RESULTS_DIR/mriqc_eval_err.log
-```
-
-- After a successful run of the script, a CSV file named by default `status.csv` should appear in the results directory along with an error output log meant to track errors that may occur
-- An example status CSV snippet:
-
-| participant_id | session_id | T1w | BOLD   |
-| -------------- | ---------- | --- | ------ |
-| sub-01         | 01     | Success  | Success |
-| sub-02         | 01     | Success  | Fail |
-| sub-03         | 01     | Fail  | Success |
-| sub-04         | 01     | Fail  | Fail |
-| ...            |            |     |        |
-
