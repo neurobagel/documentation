@@ -14,20 +14,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
 
       - name: Set up python 3.10
-      - uses: actions/setup-python@v4
+        uses: actions/setup-python@v4
         with:
           python-version: "3.10"
       
       - name: Set up cache for output
-      - uses: actions/cache@v2
+        uses: actions/cache@v2
         with:
           key: ${{ github.ref }}
           path: .cache
 
       - name: Deploy
-      - run: |
+        run: |
           pip install mkdocs-material 
           mkdocs gh-deploy --force
