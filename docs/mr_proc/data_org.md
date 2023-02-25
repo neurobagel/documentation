@@ -19,7 +19,5 @@ Directories:
 - `proc`: space for config and log files of the processing pipelines
 - `backups`: data backup space (tars)
 - `releases`: data releases (symlinks)
-- `test_data`: a small subset of raw data to test workflows
-
 
 ![data_org](../imgs/data_org.jpg)
