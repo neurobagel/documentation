@@ -49,6 +49,11 @@ python run_bids_conv.py \
 ```
 
 
+!!! note
+
+    Once `heuristic.py` is finalized, only `stage_2` needs to be run peridodically unless new scan protocol is added.
+
+
 ### BIDS validator
 - Make sure you have the appropriate bids_validator container in your `<DATASET_ROOT>/proc/global_configs.json`
 - Use [run_bids_val.sh](https://github.com/neurodatascience/mr_proc/blob/main/workflow/bids_conv/scripts/run_bids_val.sh) to check for errors and warnings

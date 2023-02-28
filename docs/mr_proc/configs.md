@@ -23,7 +23,7 @@ mr_proc consists of two global files for specifying local paths and recruitment 
    - This list serves as the **ground-truth** for subject availability
    - Update the `mr_proc_manifest.csv` in `<DATASET_ROOT>/tabular/demographics` comprising at least `participant_id`,`session`, `age`,`sex`,`group` (typically a diagnosis) columns.  
    - New participant details should be appended upon recruitment
-   - `participant_id` in this list are used to link MRI and tabular data 
+   - `participant_id` in this list are used to link MRI (i.e. `bids_id`)and tabular data 
    - Participants with multiple sessions should be added as separate rows
 
 

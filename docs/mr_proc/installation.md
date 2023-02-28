@@ -23,8 +23,8 @@ mr_proc_setup.sh <data_disk> <DATASET_ROOT>
 ```
 
 - `data_disk`: data storage location on a local disk
-- `DATASET_ROOT>`: root (starting point) of the mr_proc structured dataset
+- `DATASET_ROOT`: root (starting point) of the mr_proc structured dataset
 
 !!! Suggestion
 
-    We suggest naming <DATASET_ROOT> after a study or a cohort. 
+    We suggest naming <DATASET_ROOT> directory after a study or a cohort. 
