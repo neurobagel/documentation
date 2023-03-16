@@ -15,11 +15,11 @@ mr_proc workflow comprises mr_proc codebase that operates on mr_proc dataset wit
    - Install python dependencies: `pip install -e .`  
 
 ### mr_proc dataset directory setup 
-   - Run `scripts/mr_proc_setup.sh` to create mr_proc dataset directory tree
+   - Run `python tree.py` to create mr_proc dataset directory tree
    
 > Sample cmd:
-```bash
-mr_proc_setup.sh <data_disk> <DATASET_ROOT>
+```python
+python tree.py --mr_proc_root <DATASET_ROOT>
 ```
 
 - `data_disk`: data storage location on a local disk
