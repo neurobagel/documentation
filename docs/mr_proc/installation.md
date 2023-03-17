@@ -2,7 +2,7 @@
 
 ---
 
-mr_proc workflow comprises mr_proc codebase that operates on mr_proc dataset with a specific directory structure, which is initialized with a mr_proc_setup.sh script. 
+mr_proc workflow comprises mr_proc codebase that operates on mr_proc dataset with a specific directory structure, which is initialized with a tree.py script. 
 
 ---
 
@@ -27,4 +27,4 @@ python tree.py --mr_proc_root <DATASET_ROOT>
 
 !!! Suggestion
 
-    We suggest naming <DATASET_ROOT> directory after a study or a cohort. 
+    We suggest naming DATASET_ROOT directory after a study or a cohort. 
