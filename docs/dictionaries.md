@@ -1,7 +1,8 @@
 # Neurobagel Data Dictionaries
 
 The Neurobagel annotator creates a BIDS compatible data dictionary
-and augments the information that BIDS recommends with unambiguous semantic tags.
+and augments the information that BIDS recommends with unambiguous 
+semantic tags.
 
 Below we'll outline several special cases using the following example `participants.tsv` file:
 
