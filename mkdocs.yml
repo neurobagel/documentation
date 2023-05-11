@@ -12,8 +12,9 @@ repo_url: https://github.com/neurobagel/documentation
 # Page Navigation
 nav:
   - Welcome: "index.md"
-  - Data Models: "datamodels.md"
+  - Data models: "datamodels.md"
   - Data dictionaries: "dictionaries.md"
+  - Controlled term naming: "term_naming_standards.md"
   - MR Proc user guide: 
     - Overview: "mr_proc/overview.md"
     - Installation: "mr_proc/installation.md"

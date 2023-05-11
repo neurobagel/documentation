@@ -1,4 +1,4 @@
-# Standards for controlled term naming
+# Neurobagel standards for controlled term naming
 
 ## Naming conventions
 ### Namespace prefixes
