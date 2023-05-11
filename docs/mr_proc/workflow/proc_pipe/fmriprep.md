@@ -1,17 +1,24 @@
-### fMRIPrep image processing pipeline
+### Objective
 
 ---
 
-Curating dataset into BIDS format simplifies running several commonly used MRI processing pipelines such as [fMRIPrep](https://fmriprep.org/en/stable/) (BIDSApp). A standard fMRIPrep run also include FreeSurfer processing.
+Run [fMRIPrep](https://fmriprep.org/en/stable/) pipeline on BIDS formatted dataset. Note that a standard fMRIPrep run also include FreeSurfer processing.
    
 ---
 
+### Key directories and files
 
-### [fMRIPrep](https://fmriprep.org/en/stable/) (including FreeSurfer)
+- `<DATASET_ROOT>/bids`
+- `<DATASET_ROOT>/derivatives/fmriprep/`
+- `<DATASET_ROOT>/derivatives/freesurfer/`
+- `bids_filter.json`
+
+### Procedure
+
 - Ensure you have the appropriate fMRIPrep container listed in your `global_configs.json` 
 - Use [run_fmriprep.py](https://github.com/neurodatascience/mr_proc/blob/main/workflow/proc_pipe/fmriprep/run_fmriprep.py) script to run fmriprep pipeline. 
 - You can run "anatomical only" workflow by adding `--anat_only` flag
-- (Optional) Copy+Rename [sample_heuristic.py](https://github.com/neurodatascience/mr_proc/blob/main/workflow/bids_conv/sample_heuristic.py) to `bids_filter.py` in the code repo itself. Then edit `bids_filter.py` to filter certain modalities / acquisitions. This is common when you have multiple T1w acquisitions (e.g. Neuromelanin, SPIR etc.) in the BIDS directory. 
+- (Optional) Copy+Rename [sample_bids_filter.json](https://github.com/neurodatascience/mr_proc/blob/main/workflow/proc_pipe/fmriprep/sample_bids_filter.json) to `bids_filter.json` in the code repo itself. Then edit `bids_filter.json` to filter certain modalities / acquisitions. This is common when you have multiple T1w acquisitions (e.g. Neuromelanin, SPIR etc.) for a given modality. 
 
 !!! note
 

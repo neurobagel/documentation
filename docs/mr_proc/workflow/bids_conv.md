@@ -1,13 +1,19 @@
-## DICOM to BIDS conversion
+## Objective
 
 ---
 
-BIDS conversion is done using [Heudiconv](https://heudiconv.readthedocs.io/en/latest/) ([tutorial](https://neuroimaging-core-docs.readthedocs.io/en/latest/pages/heudiconv.html)). 
+Convert DICOMs to BIDS using [Heudiconv](https://heudiconv.readthedocs.io/en/latest/) ([tutorial](https://neuroimaging-core-docs.readthedocs.io/en/latest/pages/heudiconv.html)). 
 
 ---
 
    
-### BIDS conversion
+### Key directories and files
+
+- `<DATASET_ROOT>/dicom`
+- `<DATASET_ROOT>/bids`
+- `heuristic.py`
+
+### Procedure
 
 - Ensure you have the appropriate HeuDiConv container listed in your `global_configs.json`
 - Use [run_bids_conv.py](https://github.com/neurodatascience/mr_proc/blob/main/workflow/bids_conv/run_bids_conv.py) to run HeuDiConv `stage_1` and `stage_2`.  
@@ -17,7 +23,7 @@ BIDS conversion is done using [Heudiconv](https://heudiconv.readthedocs.io/en/la
 ```bash
 python run_bids_conv.py \
    --global_config <global_config_file> \
-   --session_id 01 \
+   --session_id <session_id> \
    --stage 1
 ```
       
@@ -38,9 +44,14 @@ python run_bids_conv.py \
 ```python
 python run_bids_conv.py \
    --global_config <global_config_file> \
-   --session_id 01 \
+   --session_id <session_id> \
    --stage 2
 ```
+
+
+!!! note
+
+    Once `heuristic.py` is finalized, only `stage_2` needs to be run peridodically unless new scan protocol is added.
 
 
 ### BIDS validator
