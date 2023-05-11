@@ -113,7 +113,7 @@ The `IsAbout` relation uses a term from the Neurobagel namespace because
 
 ## Sex
 
-Terms are from the SNOMED-CT ontology.
+Terms are from the SNOMED-CT ontology, which has controlled terms aligning with BIDS `participants.tsv` descriptions for sex.
 
 ```json
 {
