@@ -14,7 +14,7 @@ nav:
   - Welcome: "index.md"
   - Data models: "datamodels.md"
   - Data dictionaries: "dictionaries.md"
-  - Controlled term naming: "term_naming_standards.md"
+  - Naming conventions for terms: "term_naming_standards.md"
   - MR Proc user guide: 
     - Overview: "mr_proc/overview.md"
     - Installation: "mr_proc/installation.md"
