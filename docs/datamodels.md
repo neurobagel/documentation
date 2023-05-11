@@ -1,4 +1,4 @@
-# Neurobagel Datamodels
+# Neurobagel Data Models
 
 ## Data Dictionaries
 
@@ -45,11 +45,11 @@ And here is the same example with Neurobagel annotations added:
     "Units": "years",
     "Annotations": {
       "IsAbout": {
-        "TermURL": "http://purl.obolibrary.org/obo/NCIT_C25150",
+        "TermURL": "http://neurobagel.org/vocab/Age",
         "Label": "Age"
       },
-      "Unit": {
-        "TermURL": "xsd:integer",
+      "Transformation": {
+        "TermURL": "http://neurobagel.org/vocab/int",
         "Label": "Integer"
       }
     }
@@ -62,16 +62,16 @@ And here is the same example with Neurobagel annotations added:
     },
     "Annotations": {
       "IsAbout": {
-        "TermURL": "http://purl.obolibrary.org/obo/NCIT_C28421",
+        "TermURL": "http://neurobagel.org/vocab/Sex",
         "Label": "Sex"
       },
       "Levels": {
         "M": {
-          "TermURL": "http://purl.obolibrary.org/obo/NCIT_C20197",
+          "TermURL": "http://purl.bioontology.org/ontology/SNOMEDCT/248153007",
           "Label": "Male"
         },
         "F": {
-          "TermURL": "http://purl.obolibrary.org/obo/NCIT_C16576",
+          "TermURL": "http://purl.bioontology.org/ontology/SNOMEDCT/248152002",
           "Label": "Female"
         }
       },
@@ -84,5 +84,9 @@ And here is the same example with Neurobagel annotations added:
 }
 ```
 
-### Special attributes
+Note that we use a Neurobagel namespace (URI: http://neurobagel.org/vocab/) for controlled terms representing classes or properties that we model, such as `"Age"` and `"Sex"`, but that these can have equivalent terms in another namespace we are using. For example, the following terms from the Neurobagel annotations above are conceptually equivalent to terms from the SNOMED-CT namespace:
 
+| Neurobagel namespace term       | External controlled vocabulary term                     |
+|---------------------------------|---------------------------------------------------------|
+| http://neurobagel.org/vocab/Age | http://purl.bioontology.org/ontology/SNOMEDCT/397669002 |
+| http://neurobagel.org/vocab/Sex | http://purl.bioontology.org/ontology/SNOMEDCT/184100006 |
