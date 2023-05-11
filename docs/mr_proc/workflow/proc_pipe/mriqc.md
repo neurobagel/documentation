@@ -39,7 +39,7 @@ python run_mriqc.py \
 	Multiple sessions can be evaluated, but each session will require a new job running this script
 
 > Sample cmd:
-```bash
+```python
  from mriqc_tracker import tracker_configs 
  
  results = {}
