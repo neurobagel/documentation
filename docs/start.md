@@ -85,3 +85,115 @@ you have two general options:
     All of these steps can also be achieved via Stardog-Studio manually.
     Please refer to the 
     [official docs](https://docs.stardog.com/stardog-applications/studio/) to learn how.
+
+
+### Change the superuser password
+
+When you first launch Stardog, 
+a default `admin` user with superuser privilege
+will automatically be created for you.
+You should first change the password of this user:
+
+
+```console
+curl -X PUT -i -u "admin:admin" http://localhost:5820/admin/users/admin/pwd \
+--data '{"password": "NewPassword"}'
+```
+
+### Create a new user
+
+The `.env` file created as part of the `docker compose` setup instructions
+declares the `USERNAME` and `PASSWORD` for the API user.
+The API will send requests to the graph using these credentials.
+When you launch Stardog for the first time, 
+we have to create this user:
+
+```console
+curl -X POST -i -u "admin:NewPassword" http://localhost:5820/admin/users \
+-H 'Content-Type: application/json' \
+--data '{
+    "username": "NewUser",
+    "password": [
+        "NewUserPassword"
+    ]
+}'
+```
+
+Confirm that the new user exists:
+
+```console
+curl -u "admin:NewPassword" http://localhost:5820/admin/users
+```
+
+!!! note
+    Make sure to use the exact `USERNAME` and `PASSWORD` you
+    defined in the `.env` file when creating the new user.
+    Otherwise the API will not have the correct permission
+    to query the graph.
+
+Now we need to give our new user read and write permission for 
+this database:
+
+```console
+curl -X PUT -i -u "admin:NewPassword" http://localhost:5820/admin/permissions/user/NewUser \
+-H 'Content-Type: application/json' \
+--data '{
+    "action": "ALL",
+    "resource_type": "DB",
+    "resource": [
+        "test_data"
+    ]
+}'
+```
+
+!!! note
+
+    For simplicity's sake, here we give `"ALL"` permission to the user.
+    The Stardog API provide more fine grained permission control.
+    See [the official API documentation](https://stardog-union.github.io/http-docs/#tag/Permissions/operation/addUserPermission).
+
+
+### Create new database
+
+When you first launch Stardog,
+there are no graph databases.
+You have to create a new one to store
+your metadata.
+
+If you have defined a custom `GRAPH_DB` name in the `.env` file,
+make sure to create a database with a matching name.
+By default the API will query a graph database
+with a name of `test_data`.
+
+```console
+curl -X POST -i -u "admin:admin" http://localhost:5820/admin/databases \
+--form 'root="{\"dbname\":\"test_data\"}"'
+```
+
+
+Refer to the Stardog API documentation for additional options:
+
+
+
+
+
+Now do this:
+
+1. Create a user with the name and password in the .env (if doesn't exist yet)
+2. Create database with name in the .env (if not there yet)
+3. Give user access to database
+4. Add data to database from example data
+
+And all of that should happen as part of a bunch of curl calls,
+that we document in the documentation.
+
+
+<!-- termynal -->
+
+```
+$ docker ps
+CONTAINER ID   IMAGE                                  COMMAND                  CREATED       STATUS       PORTS                                       NAMES
+f5a53291d31b   neurobagel/api:latest                  "uvicorn app.main:ap…"   5 hours ago   Up 5 hours   0.0.0.0:8000->8000/tcp, :::8000->8000/tcp   stardog-trial-run-api-1
+e2b824503f09   stardog/stardog:8.2.2-java11-preview   "/opt/stardog/bin/st…"   7 hours ago   Up 5 hours   0.0.0.0:5820->5820/tcp, :::5820->5820/tcp   stardog-trial-run-graph-1
+
+```
