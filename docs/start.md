@@ -30,10 +30,7 @@ The Neurobagel ecosystem consists of four tools:
 
     Add Neurobagel figure for overview.
 
-
-## Getting started
-
-### Get a license for the graph store
+## Get a license for Stardog
 
 We use Stardog as our Graph store application. 
 Stardog has a free, annually renewable license for academic use.
@@ -59,8 +56,32 @@ You will need to download the license in a place that is accessible
 to your new Stardog instance when it is launched (see below).
 
 
-### Launch the API and Graph stack
+## Launch the API and Graph stack
 
 Please [follow the instructions here](https://github.com/neurobagel/api/blob/main/README.md#docker) 
 to pull the API and Stardog Docker images
 and then launch both via `docker compose` (Option 1).
+
+Your license file has to be in the `STARDOG_HOME` directory.
+
+## Setup for the first run
+
+When you launch the Stardog graph for the first time,
+there are a couple of setup steps that need to be done. 
+These will not have to be repeated for subsequent starts.
+
+To intereact with the Stardog graph, 
+you have two general options:
+
+1. Send HTTP request against the HTTP API of the Stardog graph instance (e.g. with `curl`). See [https://stardog-union.github.io/http-docs/](https://stardog-union.github.io/http-docs/) for a full reference of API endpoints
+2. Use the free Stardog-Studio web app. See the [Stardog documention](https://docs.stardog.com/stardog-applications/dockerized_access#stardog-studio) for instruction to deploy Stardog-Studio as a Docker container.
+
+
+!!! info 
+    Stardog-Studio is the most accessible way 
+    of manually interacting with a Stardog instance. 
+    Here we will focus instead on using the HTTP API for configuration,
+    as this allows programmatic access.
+    All of these steps can also be achieved via Stardog-Studio manually.
+    Please refer to the 
+    [official docs](https://docs.stardog.com/stardog-applications/studio/) to learn how.
