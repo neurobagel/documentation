@@ -131,28 +131,6 @@ curl -u "admin:NewPassword" http://localhost:5820/admin/users
     Otherwise the API will not have the correct permission
     to query the graph.
 
-Now we need to give our new user read and write permission for 
-this database:
-
-```console
-curl -X PUT -i -u "admin:NewPassword" http://localhost:5820/admin/permissions/user/NewUser \
--H 'Content-Type: application/json' \
---data '{
-    "action": "ALL",
-    "resource_type": "DB",
-    "resource": [
-        "test_data"
-    ]
-}'
-```
-
-!!! note
-
-    For simplicity's sake, here we give `"ALL"` permission to the user.
-    The Stardog API provide more fine grained permission control.
-    See [the official API documentation](https://stardog-union.github.io/http-docs/#tag/Permissions/operation/addUserPermission).
-
-
 ### Create new database
 
 When you first launch Stardog,
@@ -170,30 +148,39 @@ curl -X POST -i -u "admin:admin" http://localhost:5820/admin/databases \
 --form 'root="{\"dbname\":\"test_data\"}"'
 ```
 
+Now we need to give our new user read and write permission for 
+this database:
 
-Refer to the Stardog API documentation for additional options:
-
-
-
-
-
-Now do this:
-
-1. Create a user with the name and password in the .env (if doesn't exist yet)
-2. Create database with name in the .env (if not there yet)
-3. Give user access to database
-4. Add data to database from example data
-
-And all of that should happen as part of a bunch of curl calls,
-that we document in the documentation.
-
-
-<!-- termynal -->
-
+```console
+curl -X PUT -i -u "admin:NewPassword" http://localhost:5820/admin/permissions/user/NewUser \
+-H 'Content-Type: application/json' \
+--data '{
+    "action": "ALL",
+    "resource_type": "DB",
+    "resource": [
+        "test_data"
+    ]
+}'
 ```
-$ docker ps
-CONTAINER ID   IMAGE                                  COMMAND                  CREATED       STATUS       PORTS                                       NAMES
-f5a53291d31b   neurobagel/api:latest                  "uvicorn app.main:ap…"   5 hours ago   Up 5 hours   0.0.0.0:8000->8000/tcp, :::8000->8000/tcp   stardog-trial-run-api-1
-e2b824503f09   stardog/stardog:8.2.2-java11-preview   "/opt/stardog/bin/st…"   7 hours ago   Up 5 hours   0.0.0.0:5820->5820/tcp, :::5820->5820/tcp   stardog-trial-run-graph-1
 
+??? note "Finer permission control is also"
+
+    For simplicity's sake, here we give `"ALL"` permission to the user.
+    The Stardog API provide more fine grained permission control.
+    See [the official API documentation](https://stardog-union.github.io/http-docs/#tag/Permissions/operation/addUserPermission).
+
+
+### Add some test data
+
+In order to test that the setup has worked correctly,
+we need to add some data to the database.
+
+Here are some example data files: ...
+
+And here is the command to upload them:
+
+```console
+curl -u "admin:admin" -i -X POST http://localhost:5820/test_data \
+-H "Content-Type: text/turtle" \
+--data-binary @example.ttl
 ```
