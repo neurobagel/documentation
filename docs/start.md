@@ -52,3 +52,15 @@ You can request a Stardog license here:
 ![This is what requesting the license would look like](imgs/stardog_request.png)
 
 The Stardog license is typically automatically granted via email in 24 hours. 
+
+The license you receive will be a downloadable file. 
+It is valid for one year and for a major version of Stardog.
+You will need to download the license in a place that is accessible
+to your new Stardog instance when it is launched (see below).
+
+
+### Launch the API and Graph stack
+
+Please [follow the instructions here](https://github.com/neurobagel/api/blob/main/README.md#docker) 
+to pull the API and Stardog Docker images
+and then launch both via `docker compose` (Option 1).
