@@ -193,3 +193,15 @@ curl -u "admin:newPassword" -i -X POST http://localhost:5820/test_data \
 -H "Content-Type: text/turtle" \
 --data-binary @example_1.ttl
 ```
+
+### Test the new deployment
+
+You can run a test query against the API:
+
+```console
+curl -X 'GET' \
+  'http://localhost:8000/query/' \
+  -H 'accept: application/json'
+```
+
+or directly use the interactive documentation of the API.
