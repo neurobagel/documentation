@@ -163,7 +163,7 @@ curl -X PUT -i -u "admin:NewPassword" http://localhost:5820/admin/permissions/us
 }'
 ```
 
-??? note "Finer permission control is also"
+??? note "Finer permission control is also possible"
 
     For simplicity's sake, here we give `"ALL"` permission to the user.
     The Stardog API provide more fine grained permission control.
@@ -175,12 +175,21 @@ curl -X PUT -i -u "admin:NewPassword" http://localhost:5820/admin/permissions/us
 In order to test that the setup has worked correctly,
 we need to add some data to the database.
 
-Here are some example data files: ...
+You can take two example files from the [Neurobagel
+example](https://github.com/neurobagel/examples) repository to get started:
 
-And here is the command to upload them:
+- [example 1](https://github.com/neurobagel/examples/blob/4ccfffba5330242175e22b0bfa1813625186f9c1/example_1.ttl)
+- [example 2](https://github.com/neurobagel/examples/blob/4ccfffba5330242175e22b0bfa1813625186f9c1/example_2.ttl)
+
+Normally you would create these files by first annotating
+the phenotypic information of a BIDS dataset with the 
+Neurobagel annotator, and then parsing the annotated BIDS
+dataset with the Neurobagel CLI.
+
+Upload the example files to the graph using this command:
 
 ```console
-curl -u "admin:admin" -i -X POST http://localhost:5820/test_data \
+curl -u "admin:newPassword" -i -X POST http://localhost:5820/test_data \
 -H "Content-Type: text/turtle" \
---data-binary @example.ttl
+--data-binary @example_1.ttl
 ```
