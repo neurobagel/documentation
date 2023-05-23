@@ -64,6 +64,24 @@ and then launch both via `docker compose` (Option 1).
 
 Your license file has to be in the `STARDOG_HOME` directory.
 
+??? warning "Ensure that shell variables do not clash with `.env` file"
+
+    When you follow the setup docs for the API,
+    make sure to explicitly set the following variables:
+
+    - `USERNAME`
+    - `PASSWORD`
+    - `GRAPH_DB`
+    - `STARDOG_ROOT`
+
+    If the shell you run `docker compose` from already has any
+    shell variable of the same name set, 
+    the shell variable will take precedence over the configuration
+    of `.env`! 
+    Either unset the local variable or export the `.env` file first.
+
+    See also [the docs](https://github.com/neurobagel/api/blob/main/README.md#troubleshooting).
+
 ## Setup for the first run
 
 When you launch the Stardog graph for the first time,
