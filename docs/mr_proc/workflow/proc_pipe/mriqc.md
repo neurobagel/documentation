@@ -13,7 +13,8 @@ MRIQC processes the participants and produces image quality metrics from T1w, T2
 
 python run_mriqc.py --global_config CONFIG.JSON --subject_id 001 --output_dir OUTPUT_DIR_PATH
 	- Mandatory: Pass in the absolute path to the configuration containing the MRIQC container and data directory to `global_config`
-	- Mandatory: Pass in the subject id to `subject_id`
+	- Mandatory: Pass in the subject id to `participant_id`
+	- Mandatory: Pass in the subject id to `session_id`
 	- Mandatory: Pass in the absolute path to the output directory to `output_dir`
 	
 !!! note
@@ -23,8 +24,9 @@ python run_mriqc.py --global_config CONFIG.JSON --subject_id 001 --output_dir OU
 ```bash
 python run_mriqc.py \
  	--global_config GLOBAL_CONFIG \
- 	--subject_id SUBJECT_ID \
- 	--output_dir OUTPUT_DIR
+ 	--participant_id SUBJECT_ID \
+ 	--output_dir OUTPUT_DIR \
+ 	--session_id SESSION_ID
 ```
 
 !!! note
@@ -39,12 +41,11 @@ python run_mriqc.py \
 	Multiple sessions can be evaluated, but each session will require a new job running this script
 
 > Sample cmd:
-```python
- from mriqc_tracker import tracker_configs 
- 
- results = {}
- for name, func in tracer_configs.items():
- 	if type(func) == dict:
- 		results[name] = {"MRIQC_BOLD': func['MRIQC_BOLD'](subject_dir)}
- 	else: results[name] = func(subject_dir)
+```pycon
+>>> results = {"pipeline_complete': mriqc_tracker.eval_mriqc(subject_dir, session_id)}
+>>> results
+ SUCCESS
+>>> results = {"MRIQC_BOLD': mriqc_tracker.check_bold(subject_dir, session_id)}
+>>> results
+ FAIL
 ```
