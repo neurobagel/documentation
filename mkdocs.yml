@@ -26,6 +26,7 @@ nav:
       - "BIDS conversion": "mr_proc/workflow/bids_conv.md"
       - Pipeline specific instructions:
         - fmriprep: "mr_proc/workflow/proc_pipe/fmriprep.md"
+        - mriqc: "mr_proc/workflow/proc_pipe/mriqc.md"
 
 markdown_extensions:
   - tables
