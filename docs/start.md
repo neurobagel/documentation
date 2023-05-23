@@ -58,7 +58,7 @@ to your new Stardog instance when it is launched (see below).
 
 ## Launch the API and Graph stack
 
-Please [follow the instructions here](https://github.com/neurobagel/api/blob/main/README.md#docker) 
+Please [follow the instructions here](https://github.com/neurobagel/api/blob/main/README.md#local-installation) 
 to pull the API and Stardog Docker images
 and then launch both via `docker compose` (Option 1).
 
@@ -162,7 +162,7 @@ By default the API will query a graph database
 with a name of `test_data`.
 
 ```console
-curl -X POST -i -u "admin:admin" http://localhost:5820/admin/databases \
+curl -X POST -i -u "admin:NewPassword" http://localhost:5820/admin/databases \
 --form 'root="{\"dbname\":\"test_data\"}"'
 ```
 
@@ -207,7 +207,7 @@ dataset with the Neurobagel CLI.
 Upload the example files to the graph using this command:
 
 ```console
-curl -u "admin:newPassword" -i -X POST http://localhost:5820/test_data \
+curl -u "admin:NewPassword" -i -X POST http://localhost:5820/test_data \
 -H "Content-Type: text/turtle" \
 --data-binary @example_1.ttl
 ```
