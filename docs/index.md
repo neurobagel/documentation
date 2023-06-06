@@ -31,7 +31,7 @@ then you should combine all information into a single tabular file.
 
     A participants.tsv file with multiple sessions is not BIDS compliant.
     If you want to store a multi-session file in a BIDS dataset,
-    you could do so in the `/pheno` subdirector.
+    you could do so in the `/pheno` subdirectory.
 
 
 For example:

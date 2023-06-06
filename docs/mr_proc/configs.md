@@ -65,7 +65,7 @@ mr_proc consists of two global files for specifying local data and container pat
 ### Participant manifest: `mr_proc_manifest.csv`
    - This list serves as the **ground-truth** for subject and visit (i.e. session) availability
    - Create the `mr_proc_manifest.csv` in `<DATASET_ROOT>/tabular/` comprising following columns
-      - `participant_id`: ID assigned during recruitment (at times used interchangably with subject_id)
+      - `participant_id`: ID assigned during recruitment (at times used interchangeably with subject_id)
       - `participant_dicom_dir`: participant-level dicom directory name on the disk
       - `visit`: label to denote participant visit for data acquisition (e.g. "baseline", "m12", "m24" or "V01", "V02" etc.)
       - `session`: alternative naming for visit - typically used for imaging data to comply with [BIDS standard](https://bids-specification.readthedocs.io/en/stable/02-common-principles.html)
