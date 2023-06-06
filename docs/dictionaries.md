@@ -116,7 +116,15 @@ The `IsAbout` relation uses a term from the Neurobagel namespace because
 
 ## Sex
 
-Terms are from the SNOMED-CT ontology, which has controlled terms aligning with BIDS `participants.tsv` descriptions for sex.
+Terms are from the SNOMED-CT ontology, which has controlled terms aligning with BIDS `participants.tsv` descriptions for sex.  Below are the SNOMED terms for the sex values allowed by BIDS: 
+
+| Sex    | Controlled term                                                 |
+| ------ | --------------------------------------------------------------- |
+| Male   | http://purl.bioontology.org/ontology/SNOMEDCT/248153007         |
+| Female | http://purl.bioontology.org/ontology/SNOMEDCT/248152002         |
+| Other  | http://purl.bioontology.org/ontology/SNOMEDCT/32570681000036106 |
+
+Here is what a sex annotation looks like in practice:
 
 ```json
 {
