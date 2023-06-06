@@ -4,7 +4,7 @@ The Neurobagel annotator creates a BIDS compatible data dictionary
 and augments the information that BIDS recommends with 
 unambiguous semantic tags.
 
-Below we'll outline several special cases using the following example `participants.tsv` file:
+Below we'll outline several example annotations using the following example `participants.tsv` file:
 
 | participant_id | session_id | group | age | sex | updrs_1 | updrs_2 |
 |----------------|------------|-------|-----|-----|---------|---------|
@@ -26,6 +26,9 @@ syntax for [json-ld](https://w3c.github.io/json-ld-syntax/#the-context):
   }
 }
 ```
+
+!!! tip
+    A comprehensive example data dictionary containing all currently supported phenotypic attributes and annotations can be found [here](https://github.com/neurobagel/bagel-cli/blob/main/bagel/tests/data/example_synthetic.json) (corresponding [phenotypic .tsv](https://github.com/neurobagel/bagel-cli/blob/main/bagel/tests/data/example_synthetic.tsv)).
 
 ## Participant identifier
 
