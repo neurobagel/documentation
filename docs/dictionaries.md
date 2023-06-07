@@ -160,7 +160,16 @@ this is a Neurobagel common data element.
 ## Age
 Neurobagel has a common data element for `"Age"` which describes a continuous column. To ensure age values are represented as floats in Neurobagel graphs, Neurobagel encodes the relevant "heuristic" describing the value format of a given age column. This heuristic, stored in the `Transformation` annotation, corresponds internally to a specific transformation that is used to convert the values to float ages.
 
-Possible heuristics are: `float`, `int`, `euro`, `bounded`, `range`, `iso8601`
+Possible heuristics: 
+
+|   TermURL    |  Label  |
+|   -------    | ------- |
+|   nb:float   | float value  |
+|   nb:int     | integer value |
+|   nb:euro    | european decimal value |
+|   nb:bounded | bounded value |
+|   nb:iso8061 | period of time defined according to the ISO8601 standard |
+
 
 ```json hl_lines="9-12"
 {
