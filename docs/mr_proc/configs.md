@@ -12,6 +12,7 @@ mr_proc consists of two global files for specifying local data and container pat
    - Copy, rename, and populate [sample_global_configs.json](https://github.com/neurodatascience/mr_proc/blob/main/sample_global_configs.json) 
    - This file contains:
       - Path to mr_proc_dataset
+      - List of session IDs
       - List of pipelines + versions
       - Path to local `container_store` comprising containers used by several workflow scripts
 
@@ -28,6 +29,8 @@ mr_proc consists of two global files for specifying local data and container pat
     "CONTAINER_STORE": "/path/to/container_store",
     "SINGULARITY_PATH": "singularity",
     "TEMPLATEFLOW_DIR": "/path/to/templateflow",
+
+    "SESSIONS": ["1","5","7","9","11"],
 
     "BIDS": {
         "heudiconv": {
@@ -66,7 +69,6 @@ mr_proc consists of two global files for specifying local data and container pat
    - This list serves as the **ground-truth** for subject and visit (i.e. session) availability
    - Create the `mr_proc_manifest.csv` in `<DATASET_ROOT>/tabular/` comprising following columns
       - `participant_id`: ID assigned during recruitment (at times used interchangeably with subject_id)
-      - `participant_dicom_dir`: participant-level dicom directory name on the disk
       - `visit`: label to denote participant visit for data acquisition (e.g. "baseline", "m12", "m24" or "V01", "V02" etc.)
       - `session`: alternative naming for visit - typically used for imaging data to comply with [BIDS standard](https://bids-specification.readthedocs.io/en/stable/02-common-principles.html)
       - `datatype`: a list of acquired imaging datatype as defined by [BIDS standard](https://bids-specification.readthedocs.io/en/stable/02-common-principles.html)
@@ -77,9 +79,9 @@ mr_proc consists of two global files for specifying local data and container pat
 
 #### Sample `mr_proc_manifest.csv`
 
-| participant_id | participant_dicom_dir | visit | session | datatype                     | bids_id |
-|----------------|-----------------------|-------|---------|------------------------------|---------|
-| 001            | MyStudy_001_2021      | V01   | ses-01  | ["anat","dwi","fmap","func"] | sub-001 |
-| 001            | MyStudy_001_2022      | V02   | ses-02  | ["anat"]                     | sub-001 |
-| 002            | MyStudy_002_2021      | V01   | ses-01  | ["anat","dwi"]               | sub-002 |
-| 002            | MyStudy_002_2024      | V03   | ses-03  | ["anat","dwi"]               | sub-002 |
+| participant_id | visit | session | datatype                     | bids_id |
+|----------------|-------|---------|------------------------------|---------|
+| 001            | V01   | ses-01  | ["anat","dwi","fmap","func"] | sub-001 |
+| 001            | V02   | ses-02  | ["anat"]                     | sub-001 |
+| 002            | V01   | ses-01  | ["anat","dwi"]               | sub-002 |
+| 002            | V03   | ses-03  | ["anat","dwi"]               | sub-002 |
