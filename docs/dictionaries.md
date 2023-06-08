@@ -4,7 +4,7 @@ The Neurobagel annotator creates a BIDS compatible data dictionary
 and augments the information that BIDS recommends with 
 unambiguous semantic tags.
 
-Below we'll outline several special cases using the following example `participants.tsv` file:
+Below we'll outline several example annotations using the following example `participants.tsv` file:
 
 | participant_id | session_id | group | age | sex | updrs_1 | updrs_2 |
 |----------------|------------|-------|-----|-----|---------|---------|
@@ -26,6 +26,9 @@ syntax for [json-ld](https://w3c.github.io/json-ld-syntax/#the-context):
   }
 }
 ```
+
+!!! tip
+    A comprehensive example data dictionary containing all currently supported phenotypic attributes and annotations can be found [here](https://github.com/neurobagel/bagel-cli/blob/main/bagel/tests/data/example_synthetic.json) (corresponding [phenotypic .tsv](https://github.com/neurobagel/bagel-cli/blob/main/bagel/tests/data/example_synthetic.tsv)).
 
 ## Participant identifier
 
@@ -113,7 +116,15 @@ The `IsAbout` relation uses a term from the Neurobagel namespace because
 
 ## Sex
 
-Terms are from the SNOMED-CT ontology, which has controlled terms aligning with BIDS `participants.tsv` descriptions for sex.
+Terms are from the SNOMED-CT ontology, which has controlled terms aligning with BIDS `participants.tsv` descriptions for sex.  Below are the SNOMED terms for the sex values allowed by BIDS: 
+
+| Sex    | Controlled term                                                 |
+| ------ | --------------------------------------------------------------- |
+| Male   | http://purl.bioontology.org/ontology/SNOMEDCT/248153007         |
+| Female | http://purl.bioontology.org/ontology/SNOMEDCT/248152002         |
+| Other  | http://purl.bioontology.org/ontology/SNOMEDCT/32570681000036106 |
+
+Here is what a sex annotation looks like in practice:
 
 ```json
 {
@@ -189,7 +200,7 @@ each assessment tool column gets at least two annotations:
 - one to classify it as `IsAbout` the generic category of assessment tools
 - one to classify it as `PartOf` the specific assessment tool
 
-An additional annotation `MissingValues` can be used to specify value(s) in an assessment tool column which represent that the participant is missing a value/response for that subscale, when instances of missing values are present.
+An additional annotation `MissingValues` can be used to specify value(s) in an assessment tool column which represent that the participant is missing a value/response for that subscale, when instances of missing values are present (see also section [Missing values](#missing-values)).
 
 ```json hl_lines="5 9 26"
 {
@@ -242,3 +253,7 @@ Therefore:
 | sub-01        | False           |
 | sub-02        | True            |
 
+## Missing values
+Missing values are allowed for any phenotypic variable (column) that does not describe a participant or session identifier (e.g., columns like `participant_id` or `session_id`). 
+In a Neurobagel data dictionary, missing values for a given column are listed under the `"MissingValues"` annotation for the column (see the [Assessment tool](#assessment-tool) section
+or the [comprehensive example data dictionary](https://github.com/neurobagel/bagel-cli/blob/main/bagel/tests/data/example_synthetic.json) for examples).
