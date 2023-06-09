@@ -41,7 +41,7 @@ python run_bids_conv.py \
 - Run `stage_2` to convert the dicoms into BIDS format based on the mapping from `heuristic.py`. 
 
 > Sample cmd:
-```python
+```bash
 python run_bids_conv.py \
    --global_config <global_config_file> \
    --session_id <session_id> \

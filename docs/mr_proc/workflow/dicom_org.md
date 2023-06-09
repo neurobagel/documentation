@@ -33,7 +33,7 @@ This is a dataset specific process and needs to be customized based on local sca
     -  Copy or Symlink (**Recommended**): Creates symlinks from `raw_dicoms/` to the `<DATASET_ROOT>/dicom`, where all participant specific dicoms are in a flat list.
 
 > Sample cmd:
-```python
+```bash
 python run_dicom_org.py \
     --global_config <global_config_file> \
     --session_id <session_id> \

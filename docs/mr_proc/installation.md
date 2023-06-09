@@ -18,7 +18,7 @@ mr_proc workflow comprises mr_proc codebase that operates on mr_proc dataset wit
    - Run `python tree.py` to create mr_proc dataset directory tree
    
 > Sample cmd:
-```python
+```bash
 python tree.py --mr_proc_root <DATASET_ROOT>
 ```
 
