@@ -40,7 +40,7 @@ This is a dataset specific process and needs to be customized based on local sca
     - Search: Find all the DICOMs inside the participant directory. 
     - Validate: Excludes certain individual dicom files that are invalid or contain scanner-derived data not compatible with BIDS conversion.
     - Symlink (default) or copy: Creates symlinks from `raw_dicoms/` to the `<DATASET_ROOT>/dicom`, where all participant specific dicoms are in a flat list. The symlinks are relative so that they are preserved in containers.
-    - Update status: set the `organized` column to `True` in `doughnut.csv`.
+    - Update status: if successful, set the `organized` column to `True` in `doughnut.csv`.
 
 > Sample cmd:
 ```bash
