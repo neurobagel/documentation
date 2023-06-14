@@ -22,6 +22,15 @@ This is a dataset specific process and needs to be customized based on local sca
 
     The `doughnut.csv` file is used to track the multi-step conversion of raw DICOMs to BIDS: whether raw DICOMs have been downloaded to disk, re-organized into a directory structure accepted by [HeuDiConv](https://github.com/nipy/heudiconv), and converted to BIDS. This file is updated automatically by scripts in `workflow/dicom_org` and `workflow/bids_conv`. Backups are created in case it is needed to revert to a previous version: they can be found in `<DATASET_ROOT>/scratch/raw_dicoms/.doughnuts`.
 
+    Here is a sample `doughnut.csv` file:
+    participant_id,session,participant_dicom_dir,dicom_id,bids_id,downloaded,organized,converted
+    | participant_id | session | participant_dicom_dir | dicom_id | bids_id | downloaded | organized | converted |
+    |----------------|---------|-----------------------|----------|---------|------------|-----------|-----------|
+    | 001            | ses-01  | MyStudy_001_2021      | sub-001  | sub-001 | True       | True      | True      |
+    | 001            | ses-02  | MyStudy_001_2022      | sub-001  | sub-001 | True       | False     | False     |
+    | 002            | ses-01  | MyStudy_002_2021      | sub-002  | sub-002 | True       | True      | False     |
+    | 002            | ses-03  | MyStudy_002_2024      | sub-002  | sub-002 | False      | False     | False     |
+
 2. Download DICOM dumps (e.g. ZIPs / tarballs) in the `<DATASET_ROOT>/downloads` directory. Different visits (i.e. sessions) must be downloaded in separate sub-directories and ideally named as listed in the `global_config.json`. The DICOM download and extraction process is highly dataset-dependent, and we recommend using custom scripts to automate it as much as possible.
 3. Extract (and rename if needed) all participants into `<DATASET_ROOT>/scratch/raw_dicoms` separately for each visit (i.e. session). 
     - At this point, the `doughnut.csv` should have been updated to reflect the new downloads (`downloaded` column set to `True` where appropriate). We recommend doing this in the download script (i.e. in Step 2), but `workflow/dicom_org/check_dicom_status.py` can also be run with the `--regenerate` flag to search for the expected files (this can be very slow!).
