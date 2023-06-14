@@ -16,14 +16,14 @@ This is a dataset specific process and needs to be customized based on local sca
 ### Procedure
 
 1. Run [`workflow/dicom_org/check_dicom_status.py`](https://github.com/neurodatascience/mr_proc/blob/main/workflow/dicom_org/check_dicom_status.py) to update `doughnut.csv` based on the manifest. It will add new rows for any subject-session pair not already in the file.
-    - To create the `doughnut.csv` for the first time, use the arguments `--regenerate` and `--empty`.
+    - To create the `doughnut.csv` for the first time, use the `--empty` argument. If processing has been done without updating `doughnut.csv`, use `--regenerate` to update it based on new files in the dataset.
 
 !!! note
 
     The `doughnut.csv` file is used to track the multi-step conversion of raw DICOMs to BIDS: whether raw DICOMs have been downloaded to disk, re-organized into a directory structure accepted by [HeuDiConv](https://github.com/nipy/heudiconv), and converted to BIDS. This file is updated automatically by scripts in `workflow/dicom_org` and `workflow/bids_conv`. Backups are created in case it is needed to revert to a previous version: they can be found in `<DATASET_ROOT>/scratch/raw_dicoms/.doughnuts`.
 
     Here is a sample `doughnut.csv` file:
-    participant_id,session,participant_dicom_dir,dicom_id,bids_id,downloaded,organized,converted
+
     | participant_id | session | participant_dicom_dir | dicom_id | bids_id | downloaded | organized | converted |
     |----------------|---------|-----------------------|----------|---------|------------|-----------|-----------|
     | 001            | ses-01  | MyStudy_001_2021      | sub-001  | sub-001 | True       | True      | True      |
