@@ -1,3 +1,4 @@
+# Here's a comment
 [build]
   command = "mkdocs build"
   publish = "site"
