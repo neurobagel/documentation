@@ -3,7 +3,7 @@
 ## Data Dictionaries
 
 When you annotate a demographic `.csv` file with the Neurobagel Annotation tool,
-your annotations are stored in a data dictionary.
+your annotations are stored in a data dictionary!
 Neurobagel uses a structure for these data dictionaries that is compatible 
 with and expands on the 
 [BIDS `participant.json` data dictionaries](https://bids-specification.readthedocs.io/en/stable/03-modality-agnostic-files.html#participants-file). 
