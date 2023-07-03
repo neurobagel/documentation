@@ -20,4 +20,4 @@ Directories:
 - `backups`: data backup space (tars)
 - `releases`: data releases (symlinks)
 
-![data_org](../imgs/data_org.jpg)
+![data_org](../imgs/data_org.png)

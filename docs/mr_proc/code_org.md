@@ -25,4 +25,4 @@ mr_proc codebase is divided into data processing `workflows` and data availabili
 - Yellow: NeuroBagel interface
 
 
-![code_org](../imgs/code_org.jpg)
+![code_org](../imgs/code_org.png)
