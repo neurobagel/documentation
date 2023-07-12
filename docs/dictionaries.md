@@ -34,7 +34,7 @@ syntax for [json-ld](https://w3c.github.io/json-ld-syntax/#the-context):
 
 Term from the Neurobagel vocabulary.
 
-```json hl_lines="6-7"
+```json hl_lines="6-7 9"
 {
   "participant_id": {
     "Description": "A participant ID",
@@ -42,7 +42,8 @@ Term from the Neurobagel vocabulary.
       "IsAbout": {
         "TermURL": "nb:ParticipantID",
         "Label": "Subject Unique Identifier"
-      }
+      },
+      "Identifies": "participant"
     }
   }
 }
@@ -55,11 +56,20 @@ Term from the Neurobagel vocabulary.
     multiple subject ID columns for situations where a study is using more than
     one ID scheme.
 
+!!! note
+    The `Identifies` annotation key is currently required to validate annotations for columns about unique 
+    observation identifiers  (e.g., participant or session IDs). The `"Identifies"` key should only be used for these
+    columns and its value should be an informative string value describing the type/level of observation 
+    identified. This required key is currently only used for validation and its value will not be processed by
+    Neurobagel.
+    (e.g., participant or session IDs), and should have an informative string value 
+    describing the type/level of observation identified.
+
 ## Session identifier
 
 Term from the Neurobagel vocabulary.
 
-```json hl_lines="6-7"
+```json hl_lines="6-7 9"
 {
   "session_id": {
     "Description": "A session ID",
@@ -67,7 +77,8 @@ Term from the Neurobagel vocabulary.
       "IsAbout": {
         "TermURL": "nb:SessionID",
         "Label": "Run Identifier"
-      }
+      },
+      "Identifies": "session"
     }
   }
 }
@@ -83,7 +94,7 @@ Term from the Neurobagel vocabulary.
 Terms from the [SNOMED-CT ontology](https://browser.ihtsdotools.org/) for clinical diagnosis.
 Terms from the National Cancer Institute Thesaurus for healthy control status.
 
-```json hl_lines="10-11 15-16 19-20"
+```json hl_lines="10-11 13 15-16 19-20"
 {
   "group": {
     "Description": "Group variable",
@@ -113,6 +124,11 @@ Terms from the National Cancer Institute Thesaurus for healthy control status.
 
 The `IsAbout` relation uses a term from the Neurobagel namespace because
 `"Diagnosis"` is a standardized term.
+
+!!! note
+    Columns with categorical values (e.g., study groups, diagnoses, sex)
+    require a `Levels` key in their Neurobagel annotation. 
+    The Neurobagel "Levels" key is modeled after the BIDS "Levels" key for human readable descriptions.
 
 ## Sex
 
@@ -158,7 +174,11 @@ The `IsAbout` relation uses a Neurobagel scoped term for `"Sex"` because
 this is a Neurobagel common data element.
 
 ## Age
-Neurobagel has a common data element for `"Age"` which describes a continuous column. To ensure age values are represented as floats in Neurobagel graphs, Neurobagel encodes the relevant "heuristic" describing the value format of a given age column. This heuristic, stored in the `Transformation` annotation, corresponds internally to a specific transformation that is used to convert the values to float ages.
+Neurobagel has a common data element for `"Age"` describing a continuous column. 
+To ensure age values are represented as floats in Neurobagel graphs, 
+Neurobagel encodes the relevant "heuristic" describing the value format for a given age column. 
+This heuristic, stored in the `Transformation` annotation (required for continuous columns describing age), 
+maps internally to a specific transformation that is used to convert the values to floats.
 
 Possible heuristics: 
 
@@ -195,12 +215,14 @@ For assessment tools like cognitive tests or rating scales,
 Neurobagel encodes whether the tool was successfully completed.
 Because assessment tools often have several subscales or items 
 that can be stored as separate columns in the tabular `participant.tsv` file,
-each assessment tool column gets at least two annotations:
+each assessment tool column gets **a minimum** of two annotations:
 
-- one to classify it as `IsAbout` the generic category of assessment tools
-- one to classify it as `PartOf` the specific assessment tool
+- one to classify that the column `IsAbout` the generic category of assessment tools
+- one to classify that the column `IsPartOf` the specific assessment tool
 
-An additional annotation `MissingValues` can be used to specify value(s) in an assessment tool column which represent that the participant is missing a value/response for that subscale, when instances of missing values are present (see also section [Missing values](#missing-values)).
+An optional additional annotation `MissingValues` can be used to specify value(s) 
+in an assessment tool column which represent that the participant is missing a value/response for that subscale,
+when instances of missing values are present (see also section [Missing values](#missing-values)).
 
 ```json hl_lines="5 9 26"
 {
