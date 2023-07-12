@@ -57,7 +57,11 @@ Term from the Neurobagel vocabulary.
     one ID scheme.
 
 !!! note
-    The `Identifies` annotation key is required for columns containing unique observation identifiers 
+    The `Identifies` annotation key is currently required to validate annotations for columns about unique 
+    observation identifiers  (e.g., participant or session IDs). The `"Identifies"` key should only be used for these
+    columns and its value should be an informative string value describing the type/level of observation 
+    identified. This required key is currently only used for validation and its value will not be processed by
+    Neurobagel.
     (e.g., participant or session IDs), and should have an informative string value 
     describing the type/level of observation identified.
 
@@ -124,7 +128,7 @@ The `IsAbout` relation uses a term from the Neurobagel namespace because
 !!! note
     Columns with categorical values (e.g., study groups, diagnoses, sex)
     require a `Levels` key in their Neurobagel annotation. 
-    This constraint is in line with recommendations of the BIDS specification.
+    The Neurobagel "Levels" key is modeled after the BIDS "Levels" key for human readable descriptions.
 
 ## Sex
 
@@ -173,7 +177,7 @@ this is a Neurobagel common data element.
 Neurobagel has a common data element for `"Age"` describing a continuous column. 
 To ensure age values are represented as floats in Neurobagel graphs, 
 Neurobagel encodes the relevant "heuristic" describing the value format for a given age column. 
-This heuristic, stored in the `Transformation` annotation (required for columns describing age), 
+This heuristic, stored in the `Transformation` annotation (required for continuous columns describing age), 
 maps internally to a specific transformation that is used to convert the values to floats.
 
 Possible heuristics: 
