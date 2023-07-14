@@ -76,7 +76,7 @@ The mr_proc workflow steps and linked identifiers (i.e. `participant_id`, `dicom
 1. Can `mr_proc` process my entire dataset out-of-the-box?
     * No: every dataset is different, and it is virtually impossible to have a workflow flexible enough to work with any dataset format or structure. However, once the imaging data is converted to a standard BIDS structure, running the image processing pipelines should be very straightforward.
 2. Do I need to follow all the steps listed in the [example workflow](#example-workflow)?
-    * No: the purpose of the example worflow is to illustrate what can be done with `mr_proc`, but you can choose to only use it for specific features (e.g., tracking).
+    * No: the purpose of the example workflow is to illustrate what can be done with `mr_proc`, but you can choose to only use it for specific features (e.g., tracking).
 3. Can I run `mr_proc` scripts in Windows/macOS?
     * `mr_proc` is designed to run on the Linux operating system, and will likely not work on other operating systems. This is mainly because it relies on Singularity, which [cannot run natively on Windows or macOS](https://apptainer.org/docs/admin/main/installation.html#installation-on-windows-or-mac). It is probably possible to use `mr_proc` with Windows/macOS (e.g., using virtual machines), but we do not recommend it.
 4. Do I need to know how to use [Singularity](https://apptainer.org/)?
