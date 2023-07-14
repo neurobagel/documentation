@@ -12,11 +12,16 @@ repo_url: https://github.com/neurobagel/documentation
 # Page Navigation
 nav:
   - Welcome: "index.md"
-  - Getting Started: "start.md"
+  - Getting started: "start.md"
+  - User guide:
+    - Annotating a dataset: "annotation_tool.md"
+    - Generating harmonized subject-level metadata: "cli.md"
+    - Setting up a graph: "infrastructure.md"
+    - Running cohort queries: "query_tool.md"
   - Data models: "datamodels.md"
   - Data dictionaries: "dictionaries.md"
   - Naming conventions for terms: "term_naming_standards.md"
-  - MR Proc user guide: 
+  - Preparing data using mr_proc: 
     - Overview: "mr_proc/overview.md"
     - Installation: "mr_proc/installation.md"
     - Configs: "mr_proc/configs.md"
