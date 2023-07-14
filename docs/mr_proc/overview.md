@@ -12,6 +12,7 @@
 ### Example workflow
 
 Given a dataset to process, a typical workflow with `mr_proc` can look like this:
+
 1. Clone the [`mr_proc` template code repository](https://github.com/neurodatascience/mr_proc)
     * This repository contains scripts to run processing pipelines (and track their results) on BIDS data
 2. Standardize raw imaging data: convert raw DICOM files into the NIfTI format and organize the dataset according to the [BIDS standard](https://bids-specification.readthedocs.io/en/stable/)
@@ -28,6 +29,7 @@ Given a dataset to process, a typical workflow with `mr_proc` can look like this
 Anyone who wants to process datasets with imaging data and/or use datasets processed with `mr_proc`.
 
 **Data managers**
+
 * People who process datasets, either for specific analyses or to share with others
 * Example use cases:
     * Data curation
@@ -43,6 +45,7 @@ Anyone who wants to process datasets with imaging data and/or use datasets proce
         * Generate bagel files for Neurobagel
 
 **Data users**
+
 * People who use tabular, derivative or other files produced by `mr_proc` (e.g., from a shared `mr_proc`-compliant dataset)
 * Example use cases:
     * Data tracking

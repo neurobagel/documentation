@@ -7,6 +7,7 @@ The `mr_proc` codebase is divided into data processing `workflows` and data avai
 ---
 
 **`workflow`**
+
 - MRI data
     - Custom script to organize raw DICOMs (i.e. scanner output) into a flat participant-level directory. 
     - Convert DICOMs into BIDS using [Heudiconv](https://heudiconv.readthedocs.io/en/latest/)
@@ -16,6 +17,7 @@ The `mr_proc` codebase is divided into data processing `workflows` and data avai
     - Custom scripts to normalize and standardize data and metadata for downstream harmonization (see [NeuroBagel](../index.md))
 
 **`trackers`**
+
 - Track available raw, standardized, and processed data
 - Generate `bagels` for Neurobagel graph and dashboard. 
 
