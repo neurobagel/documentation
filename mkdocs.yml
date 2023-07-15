@@ -2,11 +2,11 @@ site_name: Neurobagel Documentation
 theme:
   name: material
   palette:
-    primary: pink
-    accent: light blue
+    primary: deep purple
+    accent: amber
   font:
-    text: IBM Plex Sans
-    code: IBM Plex Mono
+    text: Roboto
+    code: Roboto Mono
 repo_url: https://github.com/neurobagel/documentation
 
 # Page Navigation
@@ -14,6 +14,7 @@ nav:
   - Welcome: "index.md"
   - Getting started: "start.md"
   - User guide:
+    - Preparing data: "data_prep.md"
     - Annotating a dataset: "annotation_tool.md"
     - Generating harmonized subject-level metadata: "cli.md"
     - Setting up a graph: "infrastructure.md"
@@ -33,9 +34,15 @@ nav:
       - Pipeline specific instructions:
         - fmriprep: "mr_proc/workflow/proc_pipe/fmriprep.md"
         - mriqc: "mr_proc/workflow/proc_pipe/mriqc.md"
+  - About us: "about.md"
+  - How to cite: "how_to_cite.md"
 
 markdown_extensions:
   - tables
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
