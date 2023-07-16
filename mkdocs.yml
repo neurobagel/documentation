@@ -1,6 +1,12 @@
 site_name: Neurobagel Documentation
 theme:
   name: material
+  custom_dir: docs/overrides
+  features:
+  - navigation.tabs
+  - navigation.tabs.sticky
+  - navigation.indexes
+  - navigation.expand
   palette:
     primary: deep purple
     accent: amber
