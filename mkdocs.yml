@@ -1,4 +1,4 @@
-site_name: Neurobagel Documentation
+site_name: Neurobagel
 theme:
   name: material
   custom_dir: docs/overrides
