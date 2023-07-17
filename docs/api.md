@@ -27,13 +27,12 @@ curl -X 'GET' \
 ```
 
 ## Using the interactive API docs
-(EDIT)
 Interactive documentation for the API (provided by [Swagger UI](https://github.com/swagger-api/swagger-ui)) is available at [https://api.neurobagel.org/docs]([https://api.neurobagel.org/docs]) and can also be used to run queries against the graph.
 
 !!! note
     For convenience, navigating to [https://api.neurobagel.org/]([https://api.neurobagel.org/]) in the browser will automatically redirect you to the docs.
 
-To test the API from the docs interface, expand the `query` endpoint tab with the :fontawesome-solid-chevron-down: icon to view the parameters that can be set, 
+To send a request to the API from the docs interface, expand the `query` endpoint tab with the :fontawesome-solid-chevron-down: icon to view the parameters that can be set, 
 and click "Try it out" and then "Execute" to execute a query.
 
 !!! note
