@@ -24,6 +24,9 @@ The URL for such a query would be `https://api.neurobagel.org/query/?sex=snomed:
 curl -X 'GET' \
   'http://localhost:8000/query/?sex=snomed:248152002' \
   -H 'accept: application/json'
+
+# or
+curl -L http://localhost:8000/query/?sex=snomed:248152002
 ```
 
 ## Using the interactive API docs
