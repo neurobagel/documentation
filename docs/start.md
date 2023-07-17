@@ -1,225 +1,31 @@
-# SysAdmin
+# Ecosystem
 
-These instructions are for a sysadmin looking to deploy Neurobagel locally in an institute or lab.
+The Neurobagel ecosystem comprises four primary tools:
 
-## Ecosystem
-
-The Neurobagel ecosystem consists of four tools:
-
-- the **annotation tool** 
-    - to create harmonized annotations of phenotypic data
+- The **annotation tool** [:simple-github:](https://github.com/neurobagel/annotation_tool) ([annotate.neurobagel.org](https://annotate.neurobagel.org))
+    - to create harmonized annotations of phenotypic variables
     - intended for use by researchers and domain experts
-    - static site, deployed on Github Pages
-    - [annotate.neurobagel.org](https://annotate.neurobagel.org)
-- the **CommandLineInterface** 
-    - to extract metadata from annotated phenotypic and BIDS data
-    - intended for data managers to create graph ready data
-    - [neurobagel/bagel-cli](https://github.com/neurobagel/bagel-cli)
-- the **graph and API**
-    - to store and query extracted metadata
-    - intended for platform owners and for isolated deployments
-    - [api.neurobagel.org](https://api.neurobagel.org)
-- The **query tool**
-    - to create cohort queries and display results
-    - intended for use by researchers and data consumers
-    - static site, deployed on Github Pages
-    - [query.neurobagel.org](https://query.neurobagel.org)
+    - static site, deployed on GitHub Pages
+- The **command-line interface** [:simple-github:](https://github.com/neurobagel/bagel-cli)
+    - to extract subject-specific metadata from annotated phenotypic and BIDS data
+    - intended for data managers to create graph-ready harmonized data
+- The **knowledge graph store** and **API** [:simple-github:](https://github.com/neurobagel/api) ([api.neurobagel.org](https://api.neurobagel.org))
+    - to store and query extracted metadata using [RDF](https://www.w3.org/RDF/) and the [SPARQL query language](https://www.w3.org/TR/rdf-sparql-query/)
+    - intended for research/data platform owners and for isolated deployments
+- The **query tool** [:simple-github:](https://github.com/neurobagel/query-tool) ([query.neurobagel.org](https://query.neurobagel.org))
+    - to search across datasets and obtain metadata for subjects based on harmonized subject-level attributes
+    - intended to help researchers and scientific data users find cohorts
+    - static site, deployed on GitHub Pages
 
 
 ??? Todo
 
     Add Neurobagel figure for overview.
 
-## Get a license for Stardog
+## Getting started
 
-We use Stardog as our Graph store application. 
-Stardog has a free, annually renewable license for academic use.
-In order to make a separate deployment of Neurobagel, 
-you should therefore first request your own Stardog license.
-You can request a Stardog license here:
+Want to annotate an exiting dataset using Neurobagel? See [Annotating a dataset](annotation_tool.md).
 
-[https://www.stardog.com/license-request/](https://www.stardog.com/license-request/)
+Want to deploy the Neurobagel software stack at your local research institute? See [Setting up a graph](infrastructure.md).
 
-!!! danger "Don't pick the wrong license"
-
-    Stardog is a company that offers their graph store solutions both as a self-hosted,
-    downloadable tool (what we want) and as a cloud hosted subscription model (what we do not want). Both tiers offer free access and the website has a tendency to steer
-    you towards the cloud offering. Make sure you request a **license key** for Stardog.
-
-![This is what requesting the license would look like](imgs/stardog_request.png)
-
-The Stardog license is typically automatically granted via email in 24 hours. 
-
-The license you receive will be a downloadable file. 
-It is valid for one year and for a major version of Stardog.
-You will need to download the license in a place that is accessible
-to your new Stardog instance when it is launched (see below).
-
-
-## Launch the API and Graph stack
-
-Please [follow the instructions here](https://github.com/neurobagel/api/blob/main/README.md#local-installation) 
-to pull the API and Stardog Docker images
-and then launch both via `docker compose` (Option 1).
-
-Your license file has to be in the `STARDOG_HOME` directory.
-
-??? warning "Ensure that shell variables do not clash with `.env` file"
-
-    When you follow the setup docs for the API,
-    make sure to explicitly set the following variables:
-
-    - `USERNAME`
-    - `PASSWORD`
-    - `GRAPH_DB`
-    - `STARDOG_ROOT`
-
-    If the shell you run `docker compose` from already has any
-    shell variable of the same name set, 
-    the shell variable will take precedence over the configuration
-    of `.env`! 
-    Either unset the local variable or export the `.env` file first.
-
-    See also [the docs](https://github.com/neurobagel/api/blob/main/README.md#troubleshooting).
-
-## Setup for the first run
-
-When you launch the Stardog graph for the first time,
-there are a couple of setup steps that need to be done. 
-These will not have to be repeated for subsequent starts.
-
-To intereact with the Stardog graph, 
-you have two general options:
-
-1. Send HTTP request against the HTTP API of the Stardog graph instance (e.g. with `curl`). See [https://stardog-union.github.io/http-docs/](https://stardog-union.github.io/http-docs/) for a full reference of API endpoints
-2. Use the free Stardog-Studio web app. See the [Stardog documentation](https://docs.stardog.com/stardog-applications/dockerized_access#stardog-studio) for instruction to deploy Stardog-Studio as a Docker container.
-
-
-!!! info 
-    Stardog-Studio is the most accessible way 
-    of manually interacting with a Stardog instance. 
-    Here we will focus instead on using the HTTP API for configuration,
-    as this allows programmatic access.
-    All of these steps can also be achieved via Stardog-Studio manually.
-    Please refer to the 
-    [official docs](https://docs.stardog.com/stardog-applications/studio/) to learn how.
-
-
-### Change the superuser password
-
-When you first launch Stardog, 
-a default `admin` user with superuser privilege
-will automatically be created for you.
-You should first change the password of this user:
-
-
-```console
-curl -X PUT -i -u "admin:admin" http://localhost:5820/admin/users/admin/pwd \
---data '{"password": "NewPassword"}'
-```
-
-### Create a new user
-
-The `.env` file created as part of the `docker compose` setup instructions
-declares the `USERNAME` and `PASSWORD` for the API user.
-The API will send requests to the graph using these credentials.
-When you launch Stardog for the first time, 
-we have to create this user:
-
-```console
-curl -X POST -i -u "admin:NewPassword" http://localhost:5820/admin/users \
--H 'Content-Type: application/json' \
---data '{
-    "username": "NewUser",
-    "password": [
-        "NewUserPassword"
-    ]
-}'
-```
-
-Confirm that the new user exists:
-
-```console
-curl -u "admin:NewPassword" http://localhost:5820/admin/users
-```
-
-!!! note
-    Make sure to use the exact `USERNAME` and `PASSWORD` you
-    defined in the `.env` file when creating the new user.
-    Otherwise the API will not have the correct permission
-    to query the graph.
-
-### Create new database
-
-When you first launch Stardog,
-there are no graph databases.
-You have to create a new one to store
-your metadata.
-
-If you have defined a custom `GRAPH_DB` name in the `.env` file,
-make sure to create a database with a matching name.
-By default the API will query a graph database
-with a name of `test_data`.
-
-```console
-curl -X POST -i -u "admin:NewPassword" http://localhost:5820/admin/databases \
---form 'root="{\"dbname\":\"test_data\"}"'
-```
-
-Now we need to give our new user read and write permission for 
-this database:
-
-```console
-curl -X PUT -i -u "admin:NewPassword" http://localhost:5820/admin/permissions/user/NewUser \
--H 'Content-Type: application/json' \
---data '{
-    "action": "ALL",
-    "resource_type": "DB",
-    "resource": [
-        "test_data"
-    ]
-}'
-```
-
-??? note "Finer permission control is also possible"
-
-    For simplicity's sake, here we give `"ALL"` permission to the user.
-    The Stardog API provide more fine grained permission control.
-    See [the official API documentation](https://stardog-union.github.io/http-docs/#tag/Permissions/operation/addUserPermission).
-
-
-### Add some test data
-
-In order to test that the setup has worked correctly,
-we need to add some data to the database.
-
-You can take two example files from the [Neurobagel
-example](https://github.com/neurobagel/examples) repository to get started:
-
-- [example 1](https://github.com/neurobagel/examples/blob/4ccfffba5330242175e22b0bfa1813625186f9c1/example_1.ttl)
-- [example 2](https://github.com/neurobagel/examples/blob/4ccfffba5330242175e22b0bfa1813625186f9c1/example_2.ttl)
-
-Normally you would create these files by first annotating
-the phenotypic information of a BIDS dataset with the 
-Neurobagel annotator, and then parsing the annotated BIDS
-dataset with the Neurobagel CLI.
-
-Upload the example files to the graph using this command:
-
-```console
-curl -u "admin:NewPassword" -i -X POST http://localhost:5820/test_data \
--H "Content-Type: text/turtle" \
---data-binary @example_1.ttl
-```
-
-### Test the new deployment
-
-You can run a test query against the API:
-
-```console
-curl -X 'GET' \
-  'http://localhost:8000/query/' \
-  -H 'accept: application/json'
-```
-
-or directly use the interactive documentation of the API.
+Want to search for participants in the Neurobagel graph? See [Running cohort queries](query_tool.md).
