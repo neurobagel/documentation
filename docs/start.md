@@ -24,3 +24,8 @@ The Neurobagel ecosystem comprises four primary tools:
 
 ## Getting started
 
+If you have a dataset you wish to annotate using Neurobagel, see [Annotating a dataset](annotation_tool.md).
+
+If you are a sysadmin or researcher seeking to deploy the Neurobagel software stack locally, see [Setting up a graph](infrastructure.md).
+
+If you want to search for participants in the Neurobagel graph, see [Running cohort queries](query_tool.md).
