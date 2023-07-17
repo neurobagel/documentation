@@ -14,13 +14,15 @@ nav:
   - Welcome: "index.md"
   - Getting started: "start.md"
   - User guide:
-    - Preparing data: "data_prep.md"
+    - Preparing data for annotation: "data_prep.md"
     - Annotating a dataset: "annotation_tool.md"
     - Generating harmonized subject-level metadata: "cli.md"
     - Setting up a graph: "infrastructure.md"
+    - Using the API: "api.md"
     - Running cohort queries: "query_tool.md"
-  - Data models: "datamodels.md"
-  - Data dictionaries: "dictionaries.md"
+  - Data models: 
+    - Augmented BIDS data dictionaries: "dictionaries.md"
+    - Data files for Neurobagel graphs: "datamodels.md"
   - Naming conventions for terms: "term_naming_standards.md"
   - Preparing data using mr_proc: 
     - Overview: "mr_proc/overview.md"
@@ -35,7 +37,7 @@ nav:
         - fmriprep: "mr_proc/workflow/proc_pipe/fmriprep.md"
         - mriqc: "mr_proc/workflow/proc_pipe/mriqc.md"
   - About us: "about.md"
-  - How to cite: "how_to_cite.md"
+  - Citing Neurobagel: "cite.md"
 
 markdown_extensions:
   - tables
