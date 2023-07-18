@@ -22,8 +22,8 @@ nav:
     - Running cohort queries: "query_tool.md"
   - Data models: 
     - Augmented BIDS data dictionaries: "dictionaries.md"
-    - Data files for Neurobagel graphs: "datamodels.md"
-  - Naming conventions for terms: "term_naming_standards.md"
+    - Data files for Neurobagel graphs: "graph_data.md"
+    - Naming conventions for terms: "term_naming_standards.md"
   - Preparing data using mr_proc: 
     - Overview: "mr_proc/overview.md"
     - Installation: "mr_proc/installation.md"

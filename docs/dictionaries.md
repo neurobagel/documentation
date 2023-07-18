@@ -1,8 +1,103 @@
-# Neurobagel Data Dictionaries
+# Neurobagel data dictionaries
 
-The Neurobagel annotator creates a BIDS compatible data dictionary
-and augments the information that BIDS recommends with 
-unambiguous semantic tags.
+## Overview
+When you annotate a phenotypic TSV using the Neurobagel annotation tool 
+(see also the [section on the annotation tool](annotation_tool.md)),
+your annotations are automatically stored in a JSON data dictionary.
+A Neurobagel data dictionary essentially describes the meaning and properties of columns and column values
+using standardized vocabularies.
+
+Importantly, Neurobagel uses a structure for these data dictionaries that is compatible 
+with and expands on 
+[BIDS `participant.json` data dictionaries](https://bids-specification.readthedocs.io/en/stable/03-modality-agnostic-files.html#participants-file). 
+
+!!! info
+    The specification for how a Neurobagel data dictionary is structured
+    is also called a schema. 
+    Because Neurobagel data dictionaries are stored as `.json` files,
+    we use the [`jsonschema` schema language](https://json-schema.org/) 
+    to write the specification.
+
+Neurobagel data dictionaries uniquely include an `Annotations` attribute 
+for each column entry to store user-provided semantic annotations.
+
+Here is an example BIDS data dictionary (`participants.json`):
+
+```json
+{
+  "age": {
+    "Description": "age of the participant",
+    "Units": "years"
+  },
+  "sex": {
+    "Description": "sex of the participant as reported by the participant",
+    "Levels": {
+      "M": "male",
+      "F": "female"
+    }
+  }
+}
+```
+
+And here is the same data dictionary augmented with Neurobagel annotations:
+
+```json hl_lines="5-14 22-41"
+{
+  "age": {
+    "Description": "age of the participant",
+    "Units": "years",
+    "Annotations": {
+      "IsAbout": {
+        "TermURL": "http://neurobagel.org/vocab/Age",
+        "Label": "Age"
+      },
+      "Transformation": {
+        "TermURL": "http://neurobagel.org/vocab/int",
+        "Label": "Integer"
+      }
+    }
+  },
+  "sex": {
+    "Description": "sex of the participant as reported by the participant",
+    "Levels": {
+      "M": "male",
+      "F": "female"
+    },
+    "Annotations": {
+      "IsAbout": {
+        "TermURL": "http://neurobagel.org/vocab/Sex",
+        "Label": "Sex"
+      },
+      "Levels": {
+        "M": {
+          "TermURL": "http://purl.bioontology.org/ontology/SNOMEDCT/248153007",
+          "Label": "Male"
+        },
+        "F": {
+          "TermURL": "http://purl.bioontology.org/ontology/SNOMEDCT/248152002",
+          "Label": "Female"
+        }
+      },
+      "MissingValues": [
+        "",
+        " "
+      ]
+    }
+  }
+}
+```
+
+A custom Neurobagel namespace (URI: `http://neurobagel.org/vocab/`) is currently used for controlled terms that represent attribute classes modelled by Neurobagel, such as `"Age"` and `"Sex"`, even though these terms may have equivalents in other vocabularies used for annotation. For example, the following terms from the Neurobagel annotations above are conceptually equivalent to terms from the SNOMED CT namespace:
+
+| Neurobagel namespace term       | Equivalent external controlled vocabulary term                     |
+|---------------------------------|---------------------------------------------------------|
+| http://neurobagel.org/vocab/Age | http://purl.bioontology.org/ontology/SNOMEDCT/397669002 |
+| http://neurobagel.org/vocab/Sex | http://purl.bioontology.org/ontology/SNOMEDCT/184100006 |
+
+## Phenotypic attributes
+
+The Neurobagel annotation tool generates a data dictionary entry for a given column 
+by augmenting the information recommended by BIDS with unambiguous semantic tags.
 
 Below we'll outline several example annotations using the following example `participants.tsv` file:
 
@@ -30,7 +125,7 @@ syntax for [json-ld](https://w3c.github.io/json-ld-syntax/#the-context):
 !!! tip
     A comprehensive example data dictionary containing all currently supported phenotypic attributes and annotations can be found [here](https://github.com/neurobagel/bagel-cli/blob/main/bagel/tests/data/example_synthetic.json) (corresponding [phenotypic .tsv](https://github.com/neurobagel/bagel-cli/blob/main/bagel/tests/data/example_synthetic.tsv)).
 
-## Participant identifier
+### Participant identifier
 
 Term from the Neurobagel vocabulary.
 
@@ -65,7 +160,7 @@ Term from the Neurobagel vocabulary.
     (e.g., participant or session IDs), and should have an informative string value 
     describing the type/level of observation identified.
 
-## Session identifier
+### Session identifier
 
 Term from the Neurobagel vocabulary.
 
@@ -89,7 +184,7 @@ Term from the Neurobagel vocabulary.
     Unlike the BIDS specification, Neurobagel supports a `participants.tsv`
     file with a `session_id` field.
 
-## Diagnosis
+### Diagnosis
 
 Terms from the [SNOMED-CT ontology](https://browser.ihtsdotools.org/) for clinical diagnosis.
 Terms from the National Cancer Institute Thesaurus for healthy control status.
@@ -130,7 +225,7 @@ The `IsAbout` relation uses a term from the Neurobagel namespace because
     require a `Levels` key in their Neurobagel annotation. 
     The Neurobagel "Levels" key is modeled after the BIDS "Levels" key for human readable descriptions.
 
-## Sex
+### Sex
 
 Terms are from the SNOMED-CT ontology, which has controlled terms aligning with BIDS `participants.tsv` descriptions for sex.  Below are the SNOMED terms for the sex values allowed by BIDS: 
 
@@ -173,7 +268,7 @@ Here is what a sex annotation looks like in practice:
 The `IsAbout` relation uses a Neurobagel scoped term for `"Sex"` because 
 this is a Neurobagel common data element.
 
-## Age
+### Age
 Neurobagel has a common data element for `"Age"` describing a continuous column. 
 To ensure age values are represented as floats in Neurobagel graphs, 
 Neurobagel encodes the relevant "heuristic" describing the value format for a given age column. 
@@ -209,7 +304,7 @@ Possible heuristics:
 }
 ```
 
-## Assessment tool
+### Assessment tool
 
 For assessment tools like cognitive tests or rating scales, 
 Neurobagel encodes whether the tool was successfully completed.
