@@ -17,6 +17,7 @@ repo_url: https://github.com/neurobagel/documentation
 
 # Page Navigation
 nav:
+  - Welcome: "index.md"
   - User guide:
     - Overview: "overview.md"
     - Preparing data for annotation: "data_prep.md"
