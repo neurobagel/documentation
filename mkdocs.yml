@@ -42,7 +42,6 @@ nav:
       - Pipeline specific instructions:
         - fmriprep: "mr_proc/workflow/proc_pipe/fmriprep.md"
         - mriqc: "mr_proc/workflow/proc_pipe/mriqc.md"
-  - Our team: "team.md"
   - Getting help: "getting_help.md"
   - Citing Neurobagel: "cite.md"
 
