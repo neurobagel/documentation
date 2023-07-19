@@ -1,0 +1,556 @@
+<!-- Custom HTML site displayed as the Home chapter -->
+{% extends "main.html" %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://cdn.tailwindcss.com"></script>
+{% endblock %}
+
+{% block announce %}
+Help us find a logo for Neurobagel: <a href="https://form.jotform.com/231974699426069">Send us your idea!</a>
+{% endblock %}
+
+{% block tabs %}
+{{ super() }}
+
+<!-- Header -->
+<!-- via-[#2CCCD3] -->
+<section class="bg-gradient-to-b from-[#7e56c2] to-transparent min-h-[calc(100vh-4.5rem)] xl:min-h-[calc(100vh-7rem)]">
+    <div class="relative items-center w-full px-5 py-24 mx-auto md:px-12 lg:px-16 max-w-5xl">
+        <div class="relative flex-col items-start m-auto align-middle">
+            <div class="px-55 grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-24">
+                <div class="relative items-center gap-12 m-auto lg:inline-flex md:order-first">
+                    <div class="max-w-xl text-center lg:text-left">
+                        <div>
+                            <p class="text-3xl font-bold tracking-tight text-slate-200 sm:text-3xl">
+                                An ecosystem for distributed dataset harmonization and search.<br>
+                            </p>
+                            <p class="max-w-xl mt-4 text-base tracking-tight text-slate-200">
+                                Neurobagel allows you to connect a local neuroimaging dataset with others in a decentralized framework
+                                using linked data principles.
+                            </p>
+                        </div>
+                        <div class="flex flex-col items-center justify-center gap-3 mt-10 lg:flex-row lg:justify-start">
+                            <a href="/overview"
+                                class="items-center justify-center w-full px-6 py-2.5 text-center text-white duration-200 bg-black border-2 border-black rounded-full nline-flex hover:bg-transparent hover:border-black hover:text-black focus:outline-none lg:w-auto focus-visible:outline-black text-sm focus-visible:ring-black">
+                                Get started
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative px-20 items-center gap-12 m-auto lg:inline-flex md:order-first">
+                    <a href="https://form.jotform.com/231974699426069" target="_blank">
+                        <img src="assets/img/logo_transp.png" alt="Help us find a logo"
+                                class="mx-auto w-[24rem] my-2 rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[40rem]"
+                                width="400" height="400">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Second Hero -->
+<div class="bg-whit py-5 sm:py-12">
+    <div class="mx-auto my-16 max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl lg:text-center">
+            <p class="mt-2 text-3xl font-bold tracking-tight text-slate-1000 sm:text-3xl">
+                Federated data integration, local control
+            </p>
+            <p class="mt-6 text-lg leading-8 text-slate-800">
+                Our aim is to allow researchers and data owners to harmonize and integrate their datasets <i>without uploading them to a central database</i>. 
+                Neurobagel provides reusable data schemas and intuitive tools for local data annotation, 
+                enabling <i>participant-level cohort search across harmonized datasets</i>.
+        </div>
+        <div class="mx-auto mt-8 max-w-2xl lg:text-center">
+            <img src="assets/img/Neurobagel_Landscape.svg" alt="Product screenshot"
+                class="mx-auto w-[48rem] my-2 rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem]"
+                width="1000" height="1000">
+        </div>
+
+
+        <div class="mx-auto mt-4 max-w-2xl sm:mt-8 lg:mt-16 lg:max-w-4xl">
+            <dl class="grid  max-w-xl grid-cols-1 gap-x-8 gap-y-4 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
+                <div class="relative pl-16">
+                    <dt class="text-base font-semibold leading-7 text-slate-1000">
+                        <div
+                            class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-white w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                              </svg>
+                        </div>
+                        Your data, your rules
+                    </dt>
+                    <dd class="mt-2 text-base leading-7 text-slate-800">
+                        Dataset files and access control always remain locally with data owners. This avoids
+                        the usual vendor lock-in of centralized databases.
+                    </dd>
+                </div>
+                <div class="relative pl-16">
+                    <dt class="text-base font-semibold leading-7 text-slate-1000">
+                        <div
+                            class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
+                              </svg>
+                              
+                        </div>
+                        Open standards for data description
+                    </dt>
+                    <dd class="mt-2 text-base leading-7 text-slate-800">
+                        Subject data are annotated using widely adopted 
+                        controlled vocabularies and are represented using semantic
+                        web standards. This allows data to be easily integrated
+                        with other resources.
+                    </dd>
+                </div>
+                <div class="relative pl-16">
+                    <dt class="text-base font-semibold leading-7 text-slate-1000">
+                        <div
+                            class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+                              </svg>
+                              
+                        </div>
+                        Ease of use
+                    </dt>
+                    <dd class="mt-2 text-base leading-7 text-slate-800">Web interfaces as well as a modular, containerized software stack allow datasets to be annotated
+                        and queried with as little as no coding experience while remaining highly configurable.
+                        </dd>
+                </div>
+                <!--  bg-slate-100/30 rounded-lg ring-white ring-2 -->
+                <div class="relative pl-16">
+                    <dt class="text-base font-semibold leading-7 text-slate-1000">
+                        <div
+                            class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                              </svg>
+                              
+                        </div>
+                        Participant-level search
+                    </dt>
+                    <dd class="mt-2 text-base leading-7 text-slate-800">Annotated data supports queries of 
+                        phenotypic and imaging properties at the individual subject rather than the dataset level.</dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<!-- Features! -->
+
+<!-- 1: Annotator Feature image right -->
+<div class="bg-white">
+    <div class="mx-auto max-w-7xl py-8 sm:px-6 sm:py-12 lg:px-8">
+        <div
+            class="relative isolate overflow-hidden bg-gray-900 px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
+            <svg viewBox="0 0 1024 1024"
+                class="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:left-full sm:-ml-80 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 lg:translate-y-0"
+                aria-hidden="true">
+                <circle cx="512" cy="512" r="512" fill="url(#759c1415-0410-454c-8f7c-9a820de03641)"
+                    fill-opacity="0.7" />
+                <defs>
+                    <radialGradient id="759c1415-0410-454c-8f7c-9a820de03641">
+                        <stop stop-color="#7775D6" />
+                        <stop offset="1" stop-color="#E935C1" />
+                    </radialGradient>
+                </defs>
+            </svg>
+
+            <div class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
+                <h2 class="text-3xl font-bold tracking-tight text-white sm:text-3xl">Annotate your tabular data</h2>
+                <p class="mt-6 text-lg leading-8 text-gray-300">
+                    Describe phenotypic data using a harmonized data model completely in the browser.
+                </p>
+                <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
+                    <a href="https://annotate.neurobagel.org"
+                        class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Try it out
+                        </a>
+                    <a href="/annotation_tool" class="text-sm font-semibold leading-6 text-white">Learn more <span
+                            aria-hidden="true">→</span></a>
+                </div>
+            </div>
+
+            <div class="relative mt-16 h-80 lg:mt-8">
+                <img class="absolute left-0 top-0 w-[57rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10"
+                    src="assets/img/feature_annotate.png" alt="App screenshot" width="1824" height="1080">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- 2: Standards Feature image left-->
+<div class="bg-white">
+    <div class="mx-auto max-w-7xl py-8 sm:px-6 sm:py-12 lg:px-8">
+        <div
+            class="relative isolate overflow-hidden bg-slate-900 px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:flex-row-reverse lg:gap-x-20 lg:px-24 lg:pt-0">
+            <svg viewBox="0 0 1024 1024"
+                class="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:left-full sm:-ml-80 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 lg:translate-y-0"
+                aria-hidden="true">
+                <circle cx="512" cy="512" r="512" fill="url(#759c1415-0410-454c-8f7c-9a820de03641)"
+                    fill-opacity="0.7" />
+                <defs>
+                    <radialGradient id="759c1415-0410-454c-8f7c-9a820de03641">
+                        <stop stop-color="#7775D6" />
+                        <stop offset="1" stop-color="#E935C1" />
+                    </radialGradient>
+                </defs>
+            </svg>
+
+            <div class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
+                <h2 class="text-3xl font-bold tracking-tight text-white sm:text-3xl">
+                    Work with standardized terminologies
+                </h2>
+                <p class="mt-6 text-lg leading-8 text-gray-300">Reap the benefits of curated vocabularies (e.g., BIDS, SNOMED CT, and the Cognitive Atlas) and linked data, without the implementation expertise.</p>
+                <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
+                    <a href="/dictionaries" class="text-sm font-semibold leading-6 text-white">Learn more <span
+                            aria-hidden="true">→</span></a>
+                </div>
+            </div>
+
+            <div class="relative mt-16 h-80 lg:mt-8">
+                <div class="absolute right-0 top-0 w-[57rem] max-w-none">
+                    <img class="w-full h-full object-cover rounded-md bg-white/5 ring-1 ring-white/10"
+                        src="assets/img/standards_figure.png" alt="App screenshot" width="1824" height="1080">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 3: CLI Feature image right -->
+<div class="bg-white">
+    <div class="mx-auto max-w-7xl py-8 sm:px-6 sm:py-12 lg:px-8">
+        <div
+            class="relative isolate overflow-hidden bg-gray-900 px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
+            <svg viewBox="0 0 1024 1024"
+                class="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:left-full sm:-ml-80 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 lg:translate-y-0"
+                aria-hidden="true">
+                <circle cx="512" cy="512" r="512" fill="url(#759c1415-0410-454c-8f7c-9a820de03641)"
+                    fill-opacity="0.7" />
+                <defs>
+                    <radialGradient id="759c1415-0410-454c-8f7c-9a820de03641">
+                        <stop stop-color="#7775D6" />
+                        <stop offset="1" stop-color="#E935C1" />
+                    </radialGradient>
+                </defs>
+            </svg>
+
+            <div class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
+                <h2 class="text-3xl font-bold tracking-tight text-white sm:text-3xl">Create reproducible, shareable data representations</h2>
+                <p class="mt-6 text-lg leading-8 text-gray-300">
+                    Once a dataset is annotated, harmonized subject data can be updated and regenerated at any time.
+                    These subject-level annotations are added to knowledge graphs, 
+                    while your local data files remain the only source of truth about the dataset.
+                </p>
+                <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
+                    <a href="/cli" class="text-sm font-semibold leading-6 text-white">Learn more <span
+                            aria-hidden="true">→</span></a>
+                </div>
+            </div>
+
+            <div class="relative mt-16 h-80 lg:mt-8">
+                <img class="absolute left-0 top-0 w-[57rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10"
+                    src="assets/img/cli_temp.jpg" alt="App screenshot" width="1824" height="1080">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- 4: Graph Feature image left-->
+<div class="bg-white">
+    <div class="mx-auto max-w-7xl py-8 sm:px-6 sm:py-12 lg:px-8">
+        <div
+            class="relative isolate overflow-hidden bg-slate-900 px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:flex-row-reverse lg:gap-x-20 lg:px-24 lg:pt-0">
+            <svg viewBox="0 0 1024 1024"
+                class="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:left-full sm:-ml-80 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 lg:translate-y-0"
+                aria-hidden="true">
+                <circle cx="512" cy="512" r="512" fill="url(#759c1415-0410-454c-8f7c-9a820de03641)"
+                    fill-opacity="0.7" />
+                <defs>
+                    <radialGradient id="759c1415-0410-454c-8f7c-9a820de03641">
+                        <stop stop-color="#7775D6" />
+                        <stop offset="1" stop-color="#E935C1" />
+                    </radialGradient>
+                </defs>
+            </svg>
+
+            <div class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
+                <h2 class="text-3xl font-bold tracking-tight text-white sm:text-3xl">
+                    Easy local deployments
+                </h2>
+                <p class="mt-6 text-lg leading-8 text-gray-300">
+                    Want to host a local knowledge graph store at your institute? docker compose up, and you're in business.
+                </p>
+                <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
+                    <a href="/infrastructure" class="text-sm font-semibold leading-6 text-white">Learn more <span
+                            aria-hidden="true">→</span></a>
+                </div>
+            </div>
+
+            <div class="relative mt-16 h-80 lg:mt-8">
+                <div class="absolute right-0 top-0 w-[57rem] max-w-none">
+                    <img class="w-full h-full object-cover rounded-md bg-white/5 ring-1 ring-white/10"
+                        src="assets/img/deploy_temp.png" alt="App screenshot" width="1824" height="1080">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 5: Query Feature image right -->
+<div class="bg-white">
+    <div class="mx-auto max-w-7xl py-8 sm:px-6 sm:py-12 lg:px-8">
+        <div
+            class="relative isolate overflow-hidden bg-gray-900 px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
+            <svg viewBox="0 0 1024 1024"
+                class="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:left-full sm:-ml-80 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 lg:translate-y-0"
+                aria-hidden="true">
+                <circle cx="512" cy="512" r="512" fill="url(#759c1415-0410-454c-8f7c-9a820de03641)"
+                    fill-opacity="0.7" />
+                <defs>
+                    <radialGradient id="759c1415-0410-454c-8f7c-9a820de03641">
+                        <stop stop-color="#7775D6" />
+                        <stop offset="1" stop-color="#E935C1" />
+                    </radialGradient>
+                </defs>
+            </svg>
+
+            <div class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
+                <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Search for subjects across datasets</h2>
+                <p class="mt-6 text-lg leading-8 text-gray-300">Easily define your own cross-dataset cohorts based on
+                    clinical-demographic and imaging parameters.
+                </p>
+                <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
+                    <a href="https://query.neurobagel.org"
+                        class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Try it out</a>
+                    <a href="/query_tool" class="text-sm font-semibold leading-6 text-white">Learn more <span
+                            aria-hidden="true">→</span></a>
+                </div>
+            </div>
+
+            <div class="relative mt-16 h-80 lg:mt-8">
+                <img class="absolute left-0 top-0 w-[57rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10"
+                    src="assets/img/query_tool.jpg" alt="App screenshot" width="1824" height="1080">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Team -->
+<div class="bg-white py-24 sm:py-32">
+    <div class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3">
+        <div class="max-w-2xl">
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our team</h2>
+            <p class="mt-6 text-lg leading-8 text-gray-600">
+                Neurobagel is a collaborative effort based in the ORIGAMI Lab at the Montreal Neurological Institute.</p>
+        </div>
+        <ul role="list" class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2">
+
+            <li>
+                <div class="flex items-center gap-x-6">
+                    <a href="https://github.com/jarmoza" target="_blank">
+                        <img class="h-16 w-16 rounded-full"
+                        src="assets/img/jonathan_armoza.jpg"
+                        alt="">
+                    </a>
+                    <div>
+                        <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">
+                            Jonathan Armoza
+                        </h3>
+                        <p class="text-sm font-semibold leading-6 text-indigo-600">
+                            Research Software Developer
+                        </p>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="flex items-center gap-x-6">
+                    <a href="https://github.com/nikhil153" target="_blank">
+                        <img class="h-16 w-16 rounded-full"
+                        src="assets/img/nikhil_bhagwat.jpg"
+                        alt="">
+                    </a>
+                    <div>
+                        <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">
+                            Nikhil Bhagwat
+                        </h3>
+                        <p class="text-sm font-semibold leading-6 text-indigo-600">
+                            Academic Associate
+                        </p>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="flex items-center gap-x-6">
+                    <a href="https://github.com/alyssadai" target="_blank">
+                        <img class="h-16 w-16 rounded-full"
+                        src="assets/img/alyssa_dai.png"
+                        alt="">
+                    </a>
+                    <div>
+                        <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">Alyssa Dai</h3>
+                        <p class="text-sm font-semibold leading-6 text-indigo-600">
+                            Research Software Developer
+                        </p>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="flex items-center gap-x-6">
+                    <a href="https://github.com/Remi-Gau" target="_blank">
+                        <img class="h-16 w-16 rounded-full"
+                        src="assets/img/remi_gau.jpeg"
+                        alt="">
+                    </a>
+                    <div>
+                        <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">Remi Gau</h3>
+                        <p class="text-sm font-semibold leading-6 text-indigo-600">
+                            Research Associate
+                        </p>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="flex items-center gap-x-6">
+                    <a href="https://github.com/rmanaem" target="_blank">
+                        <img class="h-16 w-16 rounded-full"
+                        src="assets/img/arman_jahanpour.jpg"
+                        alt="">
+                    </a>
+                    <div>
+                        <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">
+                            Arman Jahanpour
+                        </h3>
+                        <p class="text-sm font-semibold leading-6 text-indigo-600">
+                            Research Software Developer
+                        </p>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="flex items-center gap-x-6">
+                    <a href="https://github.com/bcmcpher" target="_blank">
+                        <img class="h-16 w-16 rounded-full"
+                        src="assets/img/brent_mcpherson.png"
+                        alt="">
+                    </a>
+                    <div>
+                        <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">
+                            Brent McPherson
+                        </h3>
+                        <p class="text-sm font-semibold leading-6 text-indigo-600">
+                            Postdoctoral Researcher
+                        </p>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="flex items-center gap-x-6">
+                    <a href="https://www.mcgill.ca/neuro/jean-baptiste-poline-phd" target="_blank">
+                        <img class="h-16 w-16 rounded-full"
+                        src="assets/img/jb.jpg"
+                        alt="">
+                    </a>
+                    <div>
+                        <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">
+                            Jean-Baptiste Poline
+                        </h3>
+                        <p class="text-sm font-semibold leading-6 text-indigo-600">Principal Investigator</p>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="flex items-center gap-x-6">
+                    <a href="https://github.com/surchs" target="_blank">
+                        <img class="h-16 w-16 rounded-full"
+                        src="assets/img/sebastian_urchs.jpg"
+                        alt="">
+                    </a>
+                    <div>
+                        <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">
+                            Sebastian Urchs
+                        </h3>
+                        <p class="text-sm font-semibold leading-6 text-indigo-600">Research Software Developer</p>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="flex items-center gap-x-6">
+                    <a href="https://github.com/michellewang" target="_blank">
+                        <img class="h-16 w-16 rounded-full"
+                        src="assets/img/michelle_wang.png"
+                        alt="">
+                    </a>
+                    
+                    <div>
+                        <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">
+                            Michelle Wang
+                        </h3>
+                        <p class="text-sm font-semibold leading-6 text-indigo-600">PhD Student</p>
+                    </div>
+                </div>
+            </li>
+
+            <!-- More people... -->
+        </ul>
+    </div>
+</div>
+
+
+<!-- Icons: https://heroicons.com/ -->
+
+<!-- Funders -->
+<!-- TODO: add links to their sites -->
+<div class="bg-white py-8 sm:py-12">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <h2 class="text-center text-lg font-semibold leading-8 text-gray-900">The development of Neurobagel is supported
+            by</h2>
+        <div
+            class="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
+            <img draggable="false" col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="assets/img/conp.png"
+                alt="Transistor" width="158" height="48">
+            <img draggable="false" col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+                src="assets/img/hbhl_logo_en_pantone.png" alt="Reform" width="158" height="48">
+            <img draggable="false" col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+                src="assets/img/Logo-Quebec-Parkinson-Network-scaled-e1628013005302.jpg" alt="Tuple" width="158"
+                height="48">
+            <img draggable="false" col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
+                src="assets/img/logo_douglas_2945_G.png" alt="SavvyCal" width="158" height="48">
+            <img draggable="false" col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+                src="assets/img/logobraincanadabil.png" alt="Statamic" width="158" height="48">
+            <img draggable="false" col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+                src="assets/img/McGill sig_red_rgb.png" alt="Statamic" width="158" height="48">
+            <img draggable="false" col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+                src="assets/img/neuro_logo_horiz_rgb_eng.png" alt="Statamic" width="158" height="48">
+            <img draggable="false" col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+                src="assets/img/neurohub.png" alt="Statamic" width="158" height="48">
+            <img draggable="false" col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+                src="assets/img/repronim-logo-web.png" alt="Statamic" width="158" height="48">
+            <img draggable="false" col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+                src="assets/img/The_Michael_J._Fox_Foundation_logo.svg.png" alt="Statamic" width="158" height="48">
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
