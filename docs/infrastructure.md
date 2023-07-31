@@ -206,24 +206,24 @@ curl -X PUT -i -u "admin:NewPassword" http://localhost:5820/admin/permissions/us
 In order to test that the setup has worked correctly,
 we need to add some data to the database.
 
-You can take two example files from the [Neurobagel
-example](https://github.com/neurobagel/examples) repository to get started:
+You can use the two example `.ttl` files from the [`neurobagel_examples`](https://github.com/neurobagel/examples) repository to get started:
 
-- [example 1](https://github.com/neurobagel/examples/blob/4ccfffba5330242175e22b0bfa1813625186f9c1/example_1.ttl)
-- [example 2](https://github.com/neurobagel/examples/blob/4ccfffba5330242175e22b0bfa1813625186f9c1/example_2.ttl)
+```bash
+git clone https://github.com/neurobagel/neurobagel_examples.git
 
-Normally you would create these files by first annotating
-the phenotypic information of a BIDS dataset with the 
-Neurobagel annotator, and then parsing the annotated BIDS
-dataset with the Neurobagel CLI.
-
-Upload the example files to the graph using this command:
-
-```console
-curl -u "admin:NewPassword" -i -X POST http://localhost:5820/test_data \
--H "Content-Type: text/turtle" \
---data-binary @example_1.ttl
+# Upload the two example files to the graph
+for example in neurobagel_examples/*.ttl; do
+    curl -u "admin:NewPassword" -i -X POST http://localhost:5820/test_data \
+    -H "Content-Type: text/turtle" \
+    --data-binary @{example}
+done
 ```
+
+!!! info
+    Normally you would create the graph-ready files by first annotating
+    the phenotypic information of a BIDS dataset with the 
+    Neurobagel annotator, and then parsing the annotated BIDS
+    dataset with the Neurobagel CLI.
 
 ### Test the new deployment
 
