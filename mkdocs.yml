@@ -30,18 +30,18 @@ nav:
     - Augmented BIDS data dictionaries: "dictionaries.md"
     - Data files for Neurobagel graphs: "graph_data.md"
     - Naming conventions for terms: "term_naming_standards.md"
-  - Preparing data using mr_proc: 
-    - Overview: "mr_proc/overview.md"
-    - Installation: "mr_proc/installation.md"
-    - Configs: "mr_proc/configs.md"
-    - "Code organization": "mr_proc/code_org.md"
-    - "Data organization": "mr_proc/data_org.md"
+  - Preparing data using Nipoppy: 
+    - Overview: "nipoppy/overview.md"
+    - Installation: "nipoppy/installation.md"
+    - Configs: "nipoppy/configs.md"
+    - "Code organization": "nipoppy/code_org.md"
+    - "Data organization": "nipoppy/data_org.md"
     - Workflow:
-      - "DICOM organization": "mr_proc/workflow/dicom_org.md"
-      - "BIDS conversion": "mr_proc/workflow/bids_conv.md"
+      - "DICOM organization": "nipoppy/workflow/dicom_org.md"
+      - "BIDS conversion": "nipoppy/workflow/bids_conv.md"
       - Pipeline specific instructions:
-        - fmriprep: "mr_proc/workflow/proc_pipe/fmriprep.md"
-        - mriqc: "mr_proc/workflow/proc_pipe/mriqc.md"
+        - fmriprep: "nipoppy/workflow/proc_pipe/fmriprep.md"
+        - mriqc: "nipoppy/workflow/proc_pipe/mriqc.md"
   - Getting help: "getting_help.md"
   - Citing Neurobagel: "cite.md"
 
