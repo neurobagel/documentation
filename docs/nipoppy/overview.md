@@ -1,9 +1,9 @@
-## What is mr_proc? 
+## What is Nipoppy (formerly mr_proc)? 
 *Process long and prosper*
 
 ---
 
-mr_proc is a workflow manager for:
+Nipoppy is a workflow manager for:
 
 1. MRI and tabular data curation
 2. Standardized processing 
@@ -34,6 +34,6 @@ Organization of `Code`, `Data`, and `Container` modules
 
 
 ## Steps
-The mr_proc workflow steps and linked identifiers (i.e. participant_id, dicom_id, bids_id) are show below:
+The Nipoppy workflow steps and linked identifiers (i.e. participant_id, dicom_id, bids_id) are show below:
 
 ![mr_proc_steps](../imgs/steps.jpg)
