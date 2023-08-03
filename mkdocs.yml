@@ -1,36 +1,58 @@
-site_name: Neurobagel Documentation
+site_name: Neurobagel
 theme:
   name: material
+  custom_dir: docs/overrides
+  features:
+  - navigation.tabs
+  - navigation.tabs.sticky
+  - navigation.indexes
+  - navigation.expand
   palette:
-    primary: pink
-    accent: light blue
+    primary: deep purple
+    accent: amber
   font:
-    text: IBM Plex Sans
-    code: IBM Plex Mono
+    text: Roboto
+    code: Roboto Mono
 repo_url: https://github.com/neurobagel/documentation
 
 # Page Navigation
 nav:
   - Welcome: "index.md"
-  - Getting Started: "start.md"
-  - Data models: "datamodels.md"
-  - Data dictionaries: "dictionaries.md"
-  - Naming conventions for terms: "term_naming_standards.md"
-  - MR Proc user guide: 
-    - Overview: "mr_proc/overview.md"
-    - Installation: "mr_proc/installation.md"
-    - Configs: "mr_proc/configs.md"
-    - "Code organization": "mr_proc/code_org.md"
-    - "Data organization": "mr_proc/data_org.md"
+  - User guide:
+    - Overview: "overview.md"
+    - Preparing data for annotation: "data_prep.md"
+    - Annotating a dataset: "annotation_tool.md"
+    - Generating harmonized subject-level metadata: "cli.md"
+    - Setting up a graph: "infrastructure.md"
+    - Using the API: "api.md"
+    - Running cohort queries: "query_tool.md"
+  - Data models: 
+    - Augmented BIDS data dictionaries: "dictionaries.md"
+    - Data files for Neurobagel graphs: "graph_data.md"
+    - Naming conventions for terms: "term_naming_standards.md"
+  - Preparing data using Nipoppy: 
+    - Overview: "nipoppy/overview.md"
+    - Installation: "nipoppy/installation.md"
+    - Configs: "nipoppy/configs.md"
+    - "Code organization": "nipoppy/code_org.md"
+    - "Data organization": "nipoppy/data_org.md"
     - Workflow:
-      - "DICOM organization": "mr_proc/workflow/dicom_org.md"
-      - "BIDS conversion": "mr_proc/workflow/bids_conv.md"
+      - "DICOM organization": "nipoppy/workflow/dicom_org.md"
+      - "BIDS conversion": "nipoppy/workflow/bids_conv.md"
       - Pipeline specific instructions:
-        - fmriprep: "mr_proc/workflow/proc_pipe/fmriprep.md"
-        - mriqc: "mr_proc/workflow/proc_pipe/mriqc.md"
+        - fmriprep: "nipoppy/workflow/proc_pipe/fmriprep.md"
+        - mriqc: "nipoppy/workflow/proc_pipe/mriqc.md"
+  - Getting help: "getting_help.md"
+  - Citing Neurobagel: "cite.md"
 
 markdown_extensions:
   - tables
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true 
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
