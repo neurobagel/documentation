@@ -2,16 +2,16 @@
 
 ---
 
-`mr_proc` requires two global files for specifying local data/container paths and recruitment manifest.
+Nipoppy requires two global files for specifying local data/container paths and recruitment manifest.
 
 ---
 
 ### Global configs: `global_configs.json`
    - This is a dataset-specific file and needs to be modified based on local configs and paths
    - This file is used as an input to all workflow runscripts to read, process and track available data
-   - Copy, rename, and populate [sample_global_configs.json](https://github.com/neurodatascience/mr_proc/blob/main/sample_global_configs.json) 
+   - Copy, rename, and populate [sample_global_configs.json](https://github.com/neurodatascience/nipoppy/blob/main/sample_global_configs.json) 
    - This file contains:
-      - Path to the `mr_proc` dataset
+      - Path to the Nipoppy dataset
       - List of session IDs
       - List of pipelines + versions
       - Path to a local `container_store` comprising containers used by several workflow scripts

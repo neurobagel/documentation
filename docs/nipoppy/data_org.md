@@ -2,7 +2,7 @@
 
 ---
 
-An `mr_proc` dataset consists of a specific directory structure to organize MRI and tabular data.
+An Nipoppy dataset consists of a specific directory structure to organize MRI and tabular data.
 
 ---
 

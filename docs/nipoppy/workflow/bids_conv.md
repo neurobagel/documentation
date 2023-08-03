@@ -17,7 +17,7 @@ Convert DICOMs to BIDS using [Heudiconv](https://heudiconv.readthedocs.io/en/lat
 ### Procedure
 
 1. Ensure you have the appropriate HeuDiConv container listed in your `global_configs.json`
-2. Use [run_bids_conv.py](https://github.com/neurodatascience/mr_proc/blob/main/workflow/bids_conv/run_bids_conv.py) to run HeuDiConv `stage_1` and `stage_2`.  
+2. Use [run_bids_conv.py](https://github.com/neurodatascience/nipoppy/blob/main/workflow/bids_conv/run_bids_conv.py) to run HeuDiConv `stage_1` and `stage_2`.  
    - Run `stage_1` to generate a list of available protocols from the DICOM header. These protocols are listed in `<DATASET_ROOT>/bids/.heudiconv/<participant_id>/info/dicominfo_ses-<session_id>.tsv`
    
 > Sample cmd:
@@ -32,7 +32,7 @@ python run_bids_conv.py \
 
     If participants have multiple sessions (or visits), these need to be converted separately and combined post-hoc to avoid Heudiconv errors. 
 
-3. Copy+Rename [sample_heuristic.py](https://github.com/neurodatascience/mr_proc/blob/main/workflow/bids_conv/sample_heuristic.py) to `heuristic.py` in the code repo itself. Then edit `./heuristic.py` to create a name-mapping (i.e. dictionary) for BIDS organization based on the list of available protocols. 
+3. Copy+Rename [sample_heuristic.py](https://github.com/neurodatascience/nipoppy/blob/main/workflow/bids_conv/sample_heuristic.py) to `heuristic.py` in the code repo itself. Then edit `./heuristic.py` to create a name-mapping (i.e. dictionary) for BIDS organization based on the list of available protocols. 
 
 !!! note
 

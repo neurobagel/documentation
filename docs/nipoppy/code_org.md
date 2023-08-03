@@ -2,7 +2,7 @@
 
 ---
 
-The `mr_proc` codebase is divided into data processing `workflows` and data availability `trackers`.
+The Nipoppy codebase is divided into data processing `workflows` and data availability `trackers`.
 
 ---
 
