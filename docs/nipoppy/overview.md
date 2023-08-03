@@ -2,7 +2,7 @@
 
 [*Process long and prosper*](https://en.wikipedia.org/wiki/Vulcan_salute)
 
-Nipoppy is a lightweight framework for analyzing (neuro)imaging and clinical data. It is designed to help users do the following:
+[Nipoppy](https://github.com/neurodatascience/nipoppy) is a lightweight framework for analyzing (neuro)imaging and clinical data. It is designed to help users do the following:
 
 1. Curate and organize data into a standard directory structure
 2. Run data processing pipelines in a semi-automated and reproducible way
