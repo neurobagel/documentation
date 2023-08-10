@@ -20,3 +20,14 @@ Instead, for documentation content changes, the following prefixes can be used t
 - `[ENH]`: Updating or adding new documentation
 - `[REF]`: Simplifying or restructuring documentation (i.e., pages, sections, paragraphs)
 - `[FIX]`: Fixing errors in the documentation
+
+## Pull request reviews
+A developer will review each PR and may provide comments or suggestions for the PR author to address.
+
+Neurobagel PR reviews may use the following emoji signifiers:
+
+:cook:: Ready to merge or approved without suggestions
+
+:cherries:: Some optional/suggested changes that could be nice to have but are not required to merge
+
+If (required) changes are requested, the PR author should re-request a review from the reviewer once the comments have been addressed.
