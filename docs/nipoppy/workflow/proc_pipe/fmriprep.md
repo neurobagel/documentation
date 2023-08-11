@@ -44,7 +44,7 @@ python run_fmriprep.py \
 
 !!! note
 
-    Unlike DICOM and BIDS run scripts, `run_fmriprep.py` can only process 1 participant at a time due to heavy compute requirements of fMRIPrep. For parallel processing on a cluster, sample HPC job scripts (slurm and sge) are provided in [hpc](https://github.com/neurodatascience/nipoppy/tree/main/workflow/proc_pipe/fmriprep/scripts/hpc) subdir. 
+    Unlike DICOM and BIDS run scripts, `run_fmriprep.py` can only process 1 participant at a time due to heavy compute requirements of fMRIPrep. For parallel processing on a cluster, sample HPC job scripts (slurm and sge) are provided in [hpc](https://github.com/neurodatascience/nipoppy/tree/main/workflow/proc_pipe/fmriprep/scripts) subdir. 
 
 
 !!! note
