@@ -7,7 +7,7 @@ This is a dataset specific process and needs to be customized based on local sca
 ---
 ### Key directories and files
 
-- `<DATASET_ROOT>/tabular/demographics/mr_proc_manifest.csv`
+- `<DATASET_ROOT>/tabular/manifest.csv`
 - `<DATASET_ROOT>/downloads`
 - `<DATASET_ROOT>/scratch/raw_dicoms`
 - `<DATASET_ROOT>/scratch/raw_dicoms/doughnut.csv`
@@ -38,7 +38,7 @@ This is a dataset specific process and needs to be customized based on local sca
 
 !!! note
 
-    **IMPORTANT**: the participant-level directory names should match `participant_id`s in the `mr_proc_manifest.csv`. It is recommended to use `participant_id` naming format to exclude any non-alphanumeric chacaters (e.g. "-" or "_"). If your participant_id does contain these characters, it is still recommended to remove them from the participant-level DICOM directory names (e.g., QPN_001 --> QPN001).
+    **IMPORTANT**: the participant-level directory names should match `participant_id`s in the `manifest.csv`. It is recommended to use `participant_id` naming format to exclude any non-alphanumeric chacaters (e.g. "-" or "_"). If your participant_id does contain these characters, it is still recommended to remove them from the participant-level DICOM directory names (e.g., QPN_001 --> QPN001).
 
 !!! note
 

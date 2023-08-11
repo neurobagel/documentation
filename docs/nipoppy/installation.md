@@ -20,7 +20,7 @@ The Nipoppy workflow comprises a Nipoppy codebase that operates on a Nipoppy dat
 
 Run `tree.py` to create the Nipoppy dataset directory tree:
 ```bash
-python tree.py --mr_proc_root <DATASET_ROOT>
+python tree.py --nipoppy_root <DATASET_ROOT>
 ```
 Where
 - `DATASET_ROOT`: root (starting point) of the Nipoppy structured dataset

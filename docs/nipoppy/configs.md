@@ -82,7 +82,7 @@ Nipoppy requires two global files for specifying local data/container paths and 
    - New participant are appended upon recruitment as new rows
    - Participants with multiple visits (i.e. sessions) should be added as separate rows
 
-#### Sample `mr_proc_manifest.csv`
+#### Sample `manifest.csv`
 
 | participant_id | visit | session | datatype                     | bids_id |
 |----------------|-------|---------|------------------------------|---------|
