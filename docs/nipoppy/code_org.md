@@ -8,11 +8,12 @@ The Nipoppy codebase is divided into data processing `workflows` and data availa
 
 **`workflow`**
 
-- MRI data
+- MRI data organization (`dicom_org` and `bids_conv`)
     - Custom script to organize raw DICOMs (i.e. scanner output) into a flat participant-level directory. 
     - Convert DICOMs into BIDS using [Heudiconv](https://heudiconv.readthedocs.io/en/latest/)
+- MRI data processing (`proc_pipe`)
     - Runs a set of containerized MRI image processing pipelines 
-- Tabular data
+- Tabular data (`tabular`)
     - Custom scripts to organize raw tabular data (e.g. clinial assessments)
     - Custom scripts to normalize and standardize data and metadata for downstream harmonization (see [NeuroBagel](../index.md))
 

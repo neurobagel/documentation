@@ -13,7 +13,7 @@
 
 Given a dataset to process, a typical workflow with Nipoppy can look like this:
 
-1. Clone the [Nipoppy template code repository](https://github.com/neurodatascience/nipoppy)
+1. Fork the [Nipoppy template code repository](https://github.com/neurodatascience/nipoppy), then clone it
     * This repository contains scripts to run processing pipelines (and track their results) on BIDS data
 2. Standardize raw imaging data: convert raw DICOM files into the NIfTI format and organize the dataset according to the [BIDS standard](https://bids-specification.readthedocs.io/en/stable/)
     * This requires some custom scripts, including the [`heuristic.py` file for HeuDiConv](https://heudiconv.readthedocs.io/en/latest/heuristics.html)
@@ -48,7 +48,7 @@ Anyone who wants to process datasets with imaging data and/or use datasets proce
 
 * People who use tabular, derivative or other files produced by Nipoppy (e.g., from a shared Nipoppy-compliant dataset)
 * Example use cases:
-    * Data tracking
+    * Data querying
         * Check availability of raw and/or derived data
         * Check which pipelines and version have been run
     * Data analysis
@@ -76,15 +76,21 @@ The Nipoppy workflow steps and linked identifiers (i.e. `participant_id`, `dicom
 
 ## FAQ
 
+1. Do I need to install anything to use Nipoppy?
+    * Nipoppy requires Python 3 and [Apptainer/Singularity](https://apptainer.org/) to work.
 1. Can Nipoppy process my entire dataset out-of-the-box?
     * No: every dataset is different, and it is virtually impossible to have a workflow flexible enough to work with any dataset format or structure. However, once the imaging data is converted to a standard BIDS structure, running the image processing pipelines should be very straightforward.
 2. Do I need to follow all the steps listed in the [example workflow](#example-workflow)?
     * No: the purpose of the example workflow is to illustrate what can be done with Nipoppy, but you can choose to only use it for specific features (e.g., tracking).
 3. Can I run Nipoppy scripts in Windows/macOS?
     * Nipoppy is designed to run on the Linux operating system, and will likely not work on other operating systems. This is mainly because it relies on Singularity, which [cannot run natively on Windows or macOS](https://apptainer.org/docs/admin/main/installation.html#installation-on-windows-or-mac). It is probably possible to use Nipoppy with Windows/macOS (e.g., using virtual machines), but we do not recommend it.
-4. Do I need to know how to use [Singularity](https://apptainer.org/)?
+5. Can I use Nipoppy on a cluster?
+    * Yes, as long as the cluster has [Apptainer/Singularity](https://apptainer.org/) installed
+4. Do I need to know how to use [Apptainer/Singularity](https://apptainer.org/)?
     * The Nipoppy code repo contains scripts that call Singularity to run image processing pipelines. Users are not required to use Singularity directly, though we encourage users to learn about containers and/or Singularity if they are not familiar with these terms.
 5. I want to use Nipoppy with my own pipeline. Does it need to be containerized?
     * Although we recommend the use of containers to facilitate reproducibility, it is not a strict requirement. You can run your own pipelines any way you want (on the BIDS data or even raw data), though the outputs should be organized in the same way as the other pipelines (fMRIPrep, TractoFlow, etc.) if you want to use the tracking features.
 6. What is [Neurobagel](https://www.neurobagel.org/) and do I need to use it?
     * Neurobagel is a data harmonization project that includes tools to perform cross-datasets searches for imaging data availability. You do not need Neurobagel for Nipoppy, though some Nipoppy outputs (specifically the `bagel` tracking files) can be used as input to some Neurobagel tools.
+7. How do I use the dashboard?
+    * Simply visit https://dash.neurobagel.org/ (no installation required). More information about the dashboard can be found [here](https://github.com/neurobagel/proc_dash).

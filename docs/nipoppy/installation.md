@@ -23,7 +23,6 @@ Run `tree.py` to create the Nipoppy dataset directory tree:
 python tree.py --mr_proc_root <DATASET_ROOT>
 ```
 Where
-- `data_disk`: data storage location on a local disk
 - `DATASET_ROOT`: root (starting point) of the Nipoppy structured dataset
 
 !!! Suggestion

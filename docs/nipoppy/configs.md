@@ -11,10 +11,16 @@ Nipoppy requires two global files for specifying local data/container paths and 
    - This file is used as an input to all workflow runscripts to read, process and track available data
    - Copy, rename, and populate [sample_global_configs.json](https://github.com/neurodatascience/nipoppy/blob/main/sample_global_configs.json) 
    - This file contains:
-      - Path to the Nipoppy dataset
-      - List of session IDs
-      - List of pipelines + versions
-      - Path to a local `container_store` comprising containers used by several workflow scripts
+      - Name of the Nipoppy dataset (`DATASET_NAME`, e.g., `PPMI`)
+      - Path to the Nipoppy dataset (`DATASET_ROOT`)
+      - Path to a local `CONTAINER_STORE` comprising containers used by several workflow scripts
+      - Path to a Singularity executable (`SINGULARITY_PATH`)
+      - Path to a TemplateFlow directory, if using fMRIPrep (`TEMPLATEFLOW_DIR`)
+      - List of session IDs (`SESSION`, for MRI data) and visit IDs (`VISITS`, for tabular data)
+      - Containers + versions for BIDS conversion: HeuDiConv, BIDS validator (`BIDS`)
+      - List of processing pipelines + versions (`PROC_PIPELINES`)
+      - Information about tabular data (`TABULAR`)
+        - Version and path to the data dictionary (`data_dictionary`)
 
 !!! Suggestion
 
@@ -65,9 +71,9 @@ Nipoppy requires two global files for specifying local data/container paths and 
 }
 ```
 
-### Participant manifest: `mr_proc_manifest.csv`
+### Participant manifest: `manifest.csv`
    - This list serves as the **ground truth** for subject and visit (i.e. session) availability
-   - Create the `mr_proc_manifest.csv` in `<DATASET_ROOT>/tabular/` comprising following columns
+   - Create the `manifest.csv` in `<DATASET_ROOT>/tabular/` comprising following columns
       - `participant_id`: ID assigned during recruitment (at times used interchangeably with `subject_id`)
       - `visit`: label to denote participant visit for data acquisition (e.g. `"baseline"`, `"m12"`, `"m24"` or `"V01"`, `"V02"` etc.)
       - `session`: alternative naming for visit - typically used for imaging data to comply with [BIDS standard](https://bids-specification.readthedocs.io/en/stable/02-common-principles.html)
