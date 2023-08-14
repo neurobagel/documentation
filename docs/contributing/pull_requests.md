@@ -11,7 +11,7 @@ When submitting a pull request, titles should begin with a descriptive prefix (e
 - `[FIX]`: Bug fixes
 - `[MODEL]`: Updates or changes related to the Neurobagel data model
 - `[DOC]`: Documentation-only changes to a code repo (READMEs, within-code documentation, etc.) 
-_Note: do not use for changes to the [`neurobagel/documentation`](https://github.com/neurobagel/documentation) repo_
+_Note: do not use for changes to the [`neurobagel/documentation`](https://github.com/neurobagel/documentation) repo_. See below for PR prefixes for the documentation repo.
 
 ## Changes to documentation pages
 In PRs for the [Neurobagel documentation](https://github.com/neurobagel/documentation), using the `[DOC]` title prefix is discouraged as it is too broad. 
