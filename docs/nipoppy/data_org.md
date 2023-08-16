@@ -2,14 +2,15 @@
 
 ---
 
-mr_proc dataset consists of a specific directory structure to organize MRI and tabular data
+An Nipoppy dataset consists of a specific directory structure to organize MRI and tabular data.
 
 ---
 
 Directories: 
 
 - `tabular`
-    - `demographics`: contains `mr_proc_manifest.csv`
+    - contains `manifest.csv`
+    - `demographics`: contains demographic data (e.g. age, sex)
     - `assessments`: contains clinical assessments (e.g. MoCA) 
 - `downloads`: data dumps from remote data-stores (e.g. LONI)
 - `scratch`: space for un-organized data and wrangling

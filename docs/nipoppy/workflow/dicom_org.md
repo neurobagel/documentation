@@ -7,7 +7,7 @@ This is a dataset specific process and needs to be customized based on local sca
 ---
 ### Key directories and files
 
-- `<DATASET_ROOT>/tabular/demographics/mr_proc_manifest.csv`
+- `<DATASET_ROOT>/tabular/manifest.csv`
 - `<DATASET_ROOT>/downloads`
 - `<DATASET_ROOT>/scratch/raw_dicoms`
 - `<DATASET_ROOT>/scratch/raw_dicoms/doughnut.csv`
@@ -15,7 +15,7 @@ This is a dataset specific process and needs to be customized based on local sca
 
 ### Procedure
 
-1. Run [`workflow/dicom_org/check_dicom_status.py`](https://github.com/neurodatascience/mr_proc/blob/main/workflow/dicom_org/check_dicom_status.py) to update `doughnut.csv` based on the manifest. It will add new rows for any subject-session pair not already in the file.
+1. Run [`workflow/dicom_org/check_dicom_status.py`](https://github.com/neurodatascience/nipoppy/blob/main/workflow/dicom_org/check_dicom_status.py) to update `doughnut.csv` based on the manifest. It will add new rows for any subject-session pair not already in the file.
     - To create the `doughnut.csv` for the first time, use the `--empty` argument. If processing has been done without updating `doughnut.csv`, use `--regenerate` to update it based on new files in the dataset.
 
 !!! note
@@ -38,14 +38,14 @@ This is a dataset specific process and needs to be customized based on local sca
 
 !!! note
 
-    **IMPORTANT**: the participant-level directory names should match `participant_id`s in the `mr_proc_manifest.csv`. It is recommended to use `participant_id` naming format to exclude any non-alphanumeric chacaters (e.g. "-" or "_"). If your participant_id does contain these characters, it is still recommended to remove them from the participant-level DICOM directory names (e.g., QPN_001 --> QPN001).
+    **IMPORTANT**: the participant-level directory names should match `participant_id`s in the `manifest.csv`. It is recommended to use `participant_id` naming format to exclude any non-alphanumeric chacaters (e.g. "-" or "_"). If your participant_id does contain these characters, it is still recommended to remove them from the participant-level DICOM directory names (e.g., QPN_001 --> QPN001).
 
 !!! note
 
     It is **okay** for the participant directory to have messy internal subdir tree with DICOMs from multiple modalities. (See [data org schematic](data_org.md) for details). The run script will search and validate all available DICOM files automatically. 
 
 
-4. Run [`run_dicom_org.py`](https://github.com/neurodatascience/mr_proc/blob/main/workflow/dicom_org/run_dicom_org.py) to:
+4. Run [`run_dicom_org.py`](https://github.com/neurodatascience/nipoppy/blob/main/workflow/dicom_org/run_dicom_org.py) to:
     - Search: Find all the DICOMs inside the participant directory. 
     - Validate: Excludes certain individual dicom files that are invalid or contain scanner-derived data not compatible with BIDS conversion.
     - Symlink (default) or copy: Creates symlinks from `raw_dicoms/` to the `<DATASET_ROOT>/dicom`, where all participant specific dicoms are in a flat list. The symlinks are relative so that they are preserved in containers.
