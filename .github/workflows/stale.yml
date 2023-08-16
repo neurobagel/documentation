@@ -1,0 +1,17 @@
+name: 'Close stale issues and PRs'
+on:
+  schedule:
+    - cron: '30 1 * * *'
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v8
+        with:
+          stale-issue-message: |
+            We want to keep our issues up to date and active. This issue hasn't seen any activity in the last 30 days.
+            We have applied the stale-issue label to indicate that this issue should be reviewed again and then either prioritized or closed.
+          days-before-stale: 30
+          days-before-close: -1
+          stale-issue-label: '@ flag:stale'
