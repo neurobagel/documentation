@@ -44,6 +44,7 @@ nav:
         - mriqc: "nipoppy/workflow/proc_pipe/mriqc.md"
   - Contributing:
     - Pull requests: "contributing/pull_requests.md"
+    - Our team: "contributing/team.md"
   - Getting help: "getting_help.md"
   - Citing Neurobagel: "cite.md"
 
