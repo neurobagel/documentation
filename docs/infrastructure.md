@@ -31,7 +31,8 @@ to your new Stardog instance when it is launched (see below).
 
 ## Launch the API and graph stack
 
-To launch the API and your Stardog instance using `docker compose`, follow the below steps distilled from [the these instructions](https://github.com/neurobagel/api/blob/main/README.md#local-installation).
+We recommend launching the API and your Stardog instance using `docker compose`.
+The below steps are distilled from [these instructions](https://github.com/neurobagel/api/blob/main/README.md#local-installation).
 
 ### Clone the API repo
 ```bash
@@ -41,34 +42,40 @@ git clone https://github.com/neurobagel/api.git
 ### Set the environment variables
 Create a `.env` file in the root of the repository to house the environment variables used by the API-graph network.
 
+!!! tip 
+    The `neurobagel/api` repo contains a [`.template-env`](https://github.com/neurobagel/api/blob/main/.template-env) file that you can copy and edit directly.
+
 Below are all the possible Neurobagel environment variables that can be set in `.env`.
 
-| Environment variable | Required? | Description                                                                                                                              | Default value            |
-| -------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
-| `NB_GRAPH_USERNAME`  | Yes               | Username to access Stardog graph database that API will communicate with                                                                 | -                        |
-| `NB_GRAPH_PASSWORD`  | Yes               | Password to access Stardog graph database that API will communicate with                                                                 | -                        |
-| `NB_GRAPH_ADDRESS`   | No                | IP address for the graph database (or container name, if graph is hosted locally)                                                        | `206.12.99.17` (`graph`) |
-| `NB_GRAPH_DB`        | No                | Name of graph database to query                                                                                                          | `test_data`              |
-| `NB_RETURN_AGG`      | No                | Whether to return only dataset-level query results (including data locations) and exclude subject-level attributes. One of [true, false] | `true`                   |
-| `NB_API_TAG`         | No                | Tag for API Docker image                                                                                                                 | `latest`                 |
-| `STARDOG_TAG`        | No                | Tag for Stardog Docker image                                                                                                             | `8.2.2-java11-preview`   |
-| `STARDOG_ROOT`       | No                | Path to directory on host machine containing a Stardog license file                                                                      | `~/stardog-home`         |
+| Environment variable | Required in .env? | Description                                                                                                                              | Default value if not set               |
+| -------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| `NB_GRAPH_USERNAME`  | Yes               | Username to access Stardog graph database that API will communicate with                                                                 | -                                      |
+| `NB_GRAPH_PASSWORD`  | Yes               | Password to access Stardog graph database that API will communicate with                                                                 | -                                      |
+| `NB_GRAPH_ADDRESS`   | No                | IP address for the graph database (or container name, if graph is hosted locally)                                                        | `206.12.99.17` (`graph`) **            |
+| `NB_GRAPH_DB`        | No                | Name of graph database endpoint to query (e.g., for a Stardog database, this will take the format of `{database_name}/query`)            | `test_data/query`                      |
+| `NB_RETURN_AGG`      | No                | Whether to return only dataset-level query results (including data locations) and exclude subject-level attributes. One of [true, false] | `true`                                 |
+| `NB_API_TAG`         | No                | Tag for API Docker image                                                                                                                 | `latest`                               |
+| `NB_API_PORT_HOST`   | No                | Port number on the _host machine_ to map the API container port to                                                                       | `8000`                                 |
+| `NB_API_PORT`        | No                | Port number on which to run the API                                                                                                      | `8000`                                 |
+| `NB_GRAPH_IMG`       | No                | Graph server Docker image                                                                                                                | `stardog/stardog:8.2.2-java11-preview` |
+| `NB_GRAPH_ROOT_HOST` | No                | Path to directory containing a Stardog license file on the _host machine_                                                                | `~/stardog-home`                       |
+| `NB_GRAPH_ROOT_CONT` | No                | Path to directory for graph databases in the _graph server container_                                                                    | `/var/opt/stardog` *                   |
+| `NB_GRAPH_PORT_HOST` | No                | Port number on the _host machine_ to map the graph server container port to                                                              | `5820`                                 | Docker
+| `NB_GRAPH_PORT`      | No                | Port number used by the _graph server container_                                                                                         | `5820` *
 
-For a local deployment, we recommend to **explicitly set** the following variables in `.env`:
+_* These defaults are configured for a Stardog backend - you should not have to change them if you are running a Stardog backend._
+
+_** `NB_API_ADDRESS` should not be changed from its default value (`graph`) when using docker compose as this corresponds to the preset container name of the graph database server within the docker compose network._
+
+For a local deployment, we recommend to **explicitly set** at least the following variables in `.env`
+(note that the graph username and password must always be set):
 
 - `NB_GRAPH_USERNAME`
 - `NB_GRAPH_PASSWORD`
 - `NB_GRAPH_DB`
-- `STARDOG_ROOT`
+- `NB_GRAPH_IMG`
 
-```bash title="example .env file"
-NB_GRAPH_USERNAME=someuser
-NB_GRAPH_PASSWORD=somepassword
-NB_GRAPH_DB=test_data       # default
-STARDOG_ROOT=~/stardog-home # default
-```
-
-Your Stardog license file must be in the `STARDOG_ROOT` directory.
+Note that your Stardog license file must be in the directory specified by `NB_GRAPH_ROOT_HOST` (default `~/stardog-home`).
 
 ??? warning "Ensure that shell variables do not clash with `.env` file"
     
@@ -91,9 +98,14 @@ To spin up the Stardog and API containers using Docker Compose,
 ensure that both [docker](https://docs.docker.com/get-docker/) and [docker compose](https://docs.docker.com/compose/install/) are installed.
 
 Run the following in the repository root (where the `docker-compose.yml` file is) to launch the containers:
+
+!!! tip
+    Double check that any environment variables you have customized in `.env` are resolved with your expected values using the command `docker compose config`.
+
 ```bash
 docker compose up -d
 ```
+
 
 ## Setup for the first run
 
@@ -134,7 +146,7 @@ curl -X PUT -i -u "admin:admin" http://localhost:5820/admin/users/admin/pwd \
 ### Create a new user
 
 The `.env` file created as part of the `docker compose` setup instructions
-declares the `USERNAME` and `PASSWORD` for the API user.
+declares the `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` for the API user.
 The API will send requests to the graph using these credentials.
 When you launch Stardog for the first time, 
 we have to create this user:
@@ -157,7 +169,7 @@ curl -u "admin:NewPassword" http://localhost:5820/admin/users
 ```
 
 !!! note
-    Make sure to use the exact `USERNAME` and `PASSWORD` you
+    Make sure to use the exact `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` you
     defined in the `.env` file when creating the new user.
     Otherwise the API will not have the correct permission
     to query the graph.
@@ -169,7 +181,7 @@ there are no graph databases.
 You have to create a new one to store
 your metadata.
 
-If you have defined a custom `GRAPH_DB` name in the `.env` file,
+If you have defined a custom `NB_GRAPH_DB` name in the `.env` file,
 make sure to create a database with a matching name.
 By default the API will query a graph database
 with a name of `test_data`.
@@ -220,10 +232,10 @@ done
 ```
 
 !!! info
-    Normally you would create the graph-ready files by first annotating
-    the phenotypic information of a BIDS dataset with the 
-    Neurobagel annotator, and then parsing the annotated BIDS
-    dataset with the Neurobagel CLI.
+    Normally you would create the graph-ready files by first [annotating
+    the phenotypic information of a BIDS dataset](../annotation_tool) with the 
+    Neurobagel annotator, and then [parsing the annotated BIDS
+    dataset](../cli) with the Neurobagel CLI.
 
 ### Test the new deployment
 
