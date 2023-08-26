@@ -42,8 +42,7 @@ git clone https://github.com/neurobagel/api.git
 ### Set the environment variables
 Create a `.env` file in the root of the repository to house the environment variables used by the API-graph network.
 
-!!! tip 
-    The `neurobagel/api` repo contains a [`.template-env`](https://github.com/neurobagel/api/blob/main/.template-env) to get you started. Copy and rename this file to `.env` and then edit it as needed.
+The `neurobagel/api` repo contains a [`.template-env`](https://github.com/neurobagel/api/blob/main/.template-env) to get you started. Copy and rename this file to `.env` and then edit it as needed.
 
 Below are all the possible Neurobagel environment variables that can be set in `.env`.
 
