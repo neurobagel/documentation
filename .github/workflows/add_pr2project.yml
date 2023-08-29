@@ -1,0 +1,155 @@
+# This workflow adds a PR in this repository to the main Neurobagel project (#1)
+# when and if it is labeled with a label of interest.
+# Currently our labels of interest are
+# - _bot
+# - _community
+# 
+# Once added to the project, we also set the custom field "Status" to "Community"
+# for the PR. This in effect adds the PR to our main board in the "Community" column.
+
+name: PR automation
+on:
+  pull_request:
+    types: [ labeled ]
+
+jobs:
+  add2project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if label of interest is applied
+        id: preview_label_check
+        uses: docker://agilepathway/pull-request-label-checker:latest
+        with:
+          any_of: _bot,_community
+          repo_token: ${{ secrets.NB_PROJECT_PAT }}
+          allow_failure: true
+      
+      - name: Detect if PR is in project
+        if: steps.preview_label_check.outputs.label_check == 'success'
+        id: in_project
+        env:
+          GH_TOKEN: ${{ secrets.NB_PROJECT_PAT }}
+        run: | 
+          gh pr view ${{ github.event.pull_request.html_url }} --json projectItems | jq -r '.projectItems[].title' | grep Neurobagel
+        continue-on-error: true
+
+      - name: Add PR to Project
+        if: steps.in_project.outcome == 'failure' && steps.preview_label_check.outputs.label_check == 'success' 
+        uses: actions/add-to-project@main
+        with:
+          project-url: https://github.com/orgs/neurobagel/projects/1
+          github-token: ${{ secrets.NB_PROJECT_PAT }}
+
+        # Note that in contrast to the graphical github UI,
+        # once a PR (or other item) is added to a github project, 
+        # project related changes are no longer applied directly to the PR
+        # but instead to the project card that contains the PR.
+        # Once the PR is added to the project (and thus has a project card)
+        # we therefore have to search for the node id of the containing project card
+        # and then set the Status and Community option on the project card.
+        #
+        # This step expects to find the id of the (parent) project card
+        # and will fail (crashing the entire workflow) otherwise
+      - name: Find project card container
+        if: steps.preview_label_check.outputs.label_check == 'success'
+        id: find_container
+        env:
+          GH_TOKEN: ${{ secrets.NB_PROJECT_PAT }}
+        run: |
+          out=$(newCursor=""
+          while true; do
+        
+            response=$(gh api graphql -f query='{
+              organization(login: "neurobagel") {
+                  projectV2(number: 1) {
+                  items(first: 100, orderBy: {field: POSITION, direction: DESC}, after: "'"${newCursor}"'") {
+                      edges {
+                      cursor
+                      node {
+                          content {
+                          ... on PullRequest {
+                              childID: id
+                          }
+                          }
+                          parentID: id
+                      }
+                      }
+                  }
+                  }
+              }
+              }')
+          
+              # Because we may not be able to find the parent ID in the first 100 items
+              # we have to keep advancing the cursor to move through the list
+              # Note: we use 100 items to balance speed and API limits, might have to be changed
+              while read -r pID cID cursor; do
+          
+              if [ "$cID" == "${{ github.event.pull_request.node_id }}" ];
+                  then
+                      echo $pID;
+                      exit 0;
+                  fi
+                  newCursor="$cursor"
+              # Note: we need to use the here string
+              # to avoid running the while loop in a subshell that would not let us access newCursor
+              # after the while loop has finished
+              # see: https://tldp.org/LDP/abs/html/subshells.html
+              done <<< $(echo "$response" | jq -r '.data.organization.projectV2.items.edges[] | "\(.node.parentID) \(.node.content.childID) \(.cursor)"')
+              
+              if [ ! -n "$newCursor" ]; then
+                  # We have passed through the entire list of items 
+                  # and didn't find the project card for our PR.
+                  # Something is wrong and we will now crash the workflow.
+                  exit 1;
+              fi
+          done
+          )
+          echo "parent_id=${out}" >> $GITHUB_OUTPUT
+
+        # This step expects a custom field called "Status"
+        # with an option called "Community" to exist in the project.
+        # We need their IDs as input for our later call to the API
+        # to move our PR project card to the "Community" column.
+        # 
+        # We make them available to other steps in this job
+        # by writing them to the GITHUB_OUTPUT environment variable.
+        # see: https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs
+      - name: Get IDs for Status field and Community option
+        if: steps.preview_label_check.outputs.label_check == 'success'
+        id: get_id
+        env:
+          GH_TOKEN: ${{ secrets.NB_PROJECT_PAT }}
+          FIELD: "Status"
+          OPTION: "Community"
+        run: |
+          response=$(gh api graphql -f query='{
+            organization(login: "neurobagel") {
+              projectV2(number: 1) {
+                field(name: "'"${FIELD}"'") {
+                  ... on ProjectV2SingleSelectField {
+                    fieldID: id
+                    options(names: "'"${OPTION}"'") {
+                      optionID: id
+                    }
+                  }
+                }
+              }
+            }
+          }' | jq '.data.organization.projectV2.field | "\(.fieldID) \(.options[0].optionID)"')
+          read fieldID optionID <<< "${response//\"}"
+          
+          echo "fieldID=${fieldID}" >> $GITHUB_OUTPUT
+          echo "optionID=${optionID}" >> $GITHUB_OUTPUT
+
+      - name: Set "Status" of PR to "Community"
+        if: steps.preview_label_check.outputs.label_check == 'success'
+        env:
+          GH_TOKEN: ${{ secrets.NB_PROJECT_PAT }}
+        run: |
+          gh api graphql -f query='mutation {
+            updateProjectV2ItemFieldValue(     
+              input: {projectId: "PVT_kwDOBaeejM4AAQiP", itemId: "${{ steps.find_container.outputs.parent_id }}", fieldId: "${{ steps.get_id.outputs.fieldID }}", value: {singleSelectOptionId: "${{ steps.get_id.outputs.optionID }}"}}
+            ) {                                                                
+              clientMutationId
+            }             
+          }'
