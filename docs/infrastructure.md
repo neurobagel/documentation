@@ -46,25 +46,13 @@ The `neurobagel/api` repo contains a [`.template-env`](https://github.com/neurob
 
 Below are all the possible Neurobagel environment variables that can be set in `.env`.
 
-| Environment variable | Required in .env? | Description                                                                                                                              | Default value if not set               |
-| -------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
-| `NB_GRAPH_USERNAME`  | Yes               | Username to access Stardog graph database that API will communicate with                                                                 | -                                      |
-| `NB_GRAPH_PASSWORD`  | Yes               | Password to access Stardog graph database that API will communicate with                                                                 | -                                      |
-| `NB_GRAPH_ADDRESS`   | No                | IP address for the graph database (or container name, if graph is hosted locally)                                                        | `206.12.99.17` (`graph`) **            |
-| `NB_GRAPH_DB`        | No                | Name of graph database endpoint to query (e.g., for a Stardog database, this will take the format of `{database_name}/query`)            | `test_data/query`                      |
-| `NB_RETURN_AGG`      | No                | Whether to return only dataset-level query results (including data locations) and exclude subject-level attributes. One of [true, false] | `true`                                 |
-| `NB_API_TAG`         | No                | Tag for API Docker image                                                                                                                 | `latest`                               |
-| `NB_API_PORT_HOST`   | No                | Port number on the _host machine_ to map the API container port to                                                                       | `8000`                                 |
-| `NB_API_PORT`        | No                | Port number on which to run the API                                                                                                      | `8000`                                 |
-| `NB_GRAPH_IMG`       | No                | Graph server Docker image                                                                                                                | `stardog/stardog:8.2.2-java11-preview` |
-| `NB_GRAPH_ROOT_HOST` | No                | Path to directory containing a Stardog license file on the _host machine_                                                                | `~/stardog-home`                       |
-| `NB_GRAPH_ROOT_CONT` | No                | Path to directory for graph databases in the _graph server container_                                                                    | `/var/opt/stardog` *                   |
-| `NB_GRAPH_PORT_HOST` | No                | Port number on the _host machine_ to map the graph server container port to                                                              | `5820`                                 | Docker
-| `NB_GRAPH_PORT`      | No                | Port number used by the _graph server container_                                                                                         | `5820` *
+{{ read_table('./api_environment_variables.tsv') }}
 
 _* These defaults are configured for a Stardog backend - you should not have to change them if you are running a Stardog backend._
 
 _** `NB_API_ADDRESS` should not be changed from its default value (`graph`) when using docker compose as this corresponds to the preset container name of the graph database server within the docker compose network._
+
+_&dagger; See section [Using a graphical query tool to send API requests](#a-note-on-using-a-graphical-query-tool-to-send-api-requests)_
 
 For a local deployment, we recommend to **explicitly set** at least the following variables in `.env`
 (note that the graph username and password must always be set):
@@ -90,6 +78,34 @@ To export all the variables defined in your `.env` file in one step, run the fol
 ```bash
 export $(cat .env | xargs)
 ```
+
+### A note on using a graphical query tool to send API requests
+The `NB_API_ALLOWED_ORIGINS` variable defaults to an empty string (`""`) when unset, meaning that your deployed API will only accessible via direct `curl` requests to the URL where the API is hosted (see [this section](#test-the-new-deployment) for an example `curl` request).
+
+However, in many cases you may want to make the API accessible by a frontend tool such as our [browser query tool](https://github.com/neurobagel/query-tool).
+To do so, you must explicitly specify the origin(s) for the frontend using `NB_API_ALLOWED_ORIGINS` in `.env`. 
+
+For example, the [`.template-env`](https://github.com/neurobagel/api/blob/main/.template-env) file in the Neurobagel API repo assumes you want to allow API requests from a query tool hosted at a specific port on `localhost`.
+
+Other examples:
+```bash
+# ---- .env file ----
+
+# do not allow requests from any frontend origins
+NB_API_ALLOWED_ORIGINS=""  # this is the default value that will also be set if the variable is excluded from the .env file
+
+# allow requests from only one origin
+NB_API_ALLOWED_ORIGINS="https://query.neurobagel.org"
+
+# allow requests from 3 different origins
+NB_API_ALLOWED_ORIGINS="https://query.neurobagel.org https://localhost:3000 http://localhost:3000"
+
+# allow requests from any origin - use with caution
+NB_API_ALLOWED_ORIGINS="*"
+```
+
+**A note for more technical users:** If you have configured an NGINX reverse proxy (or proxy requests to the remote origin) to serve both the API and the query tool from the same origin, you can skip the step of enabling CORS for the API. 
+For an example, see https://stackoverflow.com/a/28599481.
 
 ### Docker Compose
 
