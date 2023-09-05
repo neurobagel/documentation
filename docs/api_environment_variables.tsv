@@ -1,0 +1,15 @@
+Environment variable	Required in .env?	Description	Default value if not set	Relevant installation mode(s)
+`NB_GRAPH_USERNAME`	Yes	Username to access Stardog graph database that API will communicate with	-	Docker, Python
+`NB_GRAPH_PASSWORD`	Yes	Password to access Stardog graph database that API will communicate with	-	Docker, Python
+`NB_GRAPH_ADDRESS`	No	IP address for the graph database (or container name, if graph is hosted locally)	`206.12.99.17 (graph)` **	Docker, Python
+`NB_GRAPH_DB`	No	Name of graph database endpoint to query (e.g., for a Stardog database, this will take the format of `{database_name}/query`)	`test_data/query`	Docker, Python
+`NB_RETURN_AGG`	No	Whether to return only dataset-level query results (including data locations) and exclude subject-level attributes. One of [true, false]	`true`	Docker, Python
+`NB_API_TAG`	No	Tag for API Docker image	`latest`	Docker
+`NB_API_PORT_HOST`	No	Port number on the _host machine_ to map the API container port to	`8000`	Docker
+`NB_API_PORT`	No	Port number on which to run the API	`8000`	Docker, Python
+`NB_API_ALLOWED_ORIGINS`	No †	Origins allowed to make cross-origin resource sharing requests. Multiple origins must be separated with spaces in a single string enclosed in quotes. _NOTE: To make the API accessible from a frontend query tool, the origin must be explicitly set. See_ † _for more info_	"`""""`"	Docker, Python
+`NB_GRAPH_IMG`	No	Graph server Docker image	`stardog/stardog:8.2.2-java11-preview`	Docker
+`NB_GRAPH_ROOT_HOST`	No	Path to directory containing a Stardog license file on the _host machine_	`~/stardog-home`	Docker
+`NB_GRAPH_ROOT_CONT`	No	Path to directory for graph databases in the _graph server container_	`/var/opt/stardog` *	Docker
+`NB_GRAPH_PORT_HOST`	No	Port number on the _host machine_ to map the graph server container port to	`5820`	Docker
+`NB_GRAPH_PORT`	No	Port number used by the _graph server container_	`5820` *	Docker, Python
