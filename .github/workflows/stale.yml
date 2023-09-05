@@ -11,8 +11,14 @@ jobs:
         with:
           stale-issue-message: |
             We want to keep our issues up to date and active. This issue hasn't seen any activity in the last 30 days.
-            We have applied the stale-issue label to indicate that this issue should be reviewed again and then either prioritized or closed.
+            We have applied the `_flag:stale` label to indicate that this issue should be reviewed again.
+            When you review, please reread the spec and then apply one of these three options:
+            - prioritize: apply the `flag:schedule` label to suggest moving this issue into the backlog now
+            - close: if the issue is no longer relevant, explain why (give others a chance to reply) and then close.
+            - archive: sometimes an issue has important information or ideas but we won't work on it soon. In this case
+            apply the `someday` label to show that this won't be prioritized. The stalebot will ignore issues with this
+            label in the future. Use sparingly!
           days-before-stale: 30
           days-before-close: -1
-          stale-issue-label: '@ flag:stale'
+          stale-issue-label: '_flag:stale'
           exempt-issue-labels: ['Roadmap', 'Milestone', 'Epic', 'someday']
