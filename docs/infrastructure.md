@@ -52,7 +52,7 @@ _* These defaults are configured for a Stardog backend - you should not have to 
 
 _** `NB_API_ADDRESS` should not be changed from its default value (`graph`) when using docker compose as this corresponds to the preset container name of the graph database server within the docker compose network._
 
-_&dagger; See section [Using a graphical query tool to send API requests](#a-note-on-using-a-graphical-query-tool-to-send-api-requests)_
+_&Dagger; See section [Using a graphical query tool to send API requests](#a-note-on-using-a-graphical-query-tool-to-send-api-requests)_
 
 For a local deployment, we recommend to **explicitly set** at least the following variables in `.env`
 (note that the graph username and password must always be set):
@@ -105,7 +105,7 @@ NB_API_ALLOWED_ORIGINS="*"
 ```
 
 **A note for more technical users:** If you have configured an NGINX reverse proxy (or proxy requests to the remote origin) to serve both the API and the query tool from the same origin, you can skip the step of enabling CORS for the API. 
-For an example, see https://stackoverflow.com/a/28599481.
+For an example, see https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/.
 
 ### Docker Compose
 
