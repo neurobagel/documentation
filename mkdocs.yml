@@ -82,4 +82,4 @@ plugins:
         # default: [ ]
         include: [ "docs/api_environment_variables.tsv"]
         # the branch of the repository to clone
-        branch: "ref-153/remove-env-var-table"
+        branch: "main"
