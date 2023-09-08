@@ -46,7 +46,7 @@ The `neurobagel/api` repo contains a [`.template-env`](https://github.com/neurob
 
 Below are all the possible Neurobagel environment variables that can be set in `.env`.
 
-{{ read_table('./api_environment_variables.tsv') }}
+{{ read_table('./repos/api/docs/api_environment_variables.tsv') }}
 
 _* These defaults are configured for a Stardog backend - you should not have to change them if you are running a Stardog backend._
 
