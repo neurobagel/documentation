@@ -55,7 +55,7 @@ _** `NB_API_ADDRESS` should not be changed from its default value (`graph`) when
 _&Dagger; See section [Using a graphical query tool to send API requests](#a-note-on-using-a-graphical-query-tool-to-send-api-requests)_
 
 For a local deployment, we recommend to **explicitly set** at least the following variables in `.env`
-(note that the graph username and password must always be set):
+(note that `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` must always be set):
 
 - `NB_GRAPH_USERNAME`
 - `NB_GRAPH_PASSWORD`
@@ -145,12 +145,12 @@ you have two general options:
     [official docs](https://docs.stardog.com/stardog-applications/studio/) to learn how.
 
 
-### Change the superuser password
+### Change the database admin password
 
 When you first launch Stardog, 
 a default `admin` user with superuser privilege
 will automatically be created for you.
-You should first change the password of this user:
+You should first change the password of the database `admin`:
 
 
 ```console
@@ -158,13 +158,13 @@ curl -X PUT -i -u "admin:admin" http://localhost:5820/admin/users/admin/pwd \
 --data '{"password": "NewPassword"}'
 ```
 
-### Create a new user
+### Create a new database user
 
 The `.env` file created as part of the `docker compose` setup instructions
-declares the `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` for the API user.
+declares the `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` for the database user.
 The API will send requests to the graph using these credentials.
 When you launch Stardog for the first time, 
-we have to create this user:
+we have to create a new database user:
 
 ```console
 curl -X POST -i -u "admin:NewPassword" http://localhost:5820/admin/users \
@@ -185,7 +185,7 @@ curl -u "admin:NewPassword" http://localhost:5820/admin/users
 
 !!! note
     Make sure to use the exact `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` you
-    defined in the `.env` file when creating the new user.
+    defined in the `.env` file when creating the new database user.
     Otherwise the API will not have the correct permission
     to query the graph.
 
@@ -206,7 +206,7 @@ curl -X POST -i -u "admin:NewPassword" http://localhost:5820/admin/databases \
 --form 'root="{\"dbname\":\"test_data\"}"'
 ```
 
-Now we need to give our new user read and write permission for 
+Now we need to give our new database user read and write permission for 
 this database:
 
 ```console
@@ -223,7 +223,7 @@ curl -X PUT -i -u "admin:NewPassword" http://localhost:5820/admin/permissions/us
 
 ??? note "Finer permission control is also possible"
 
-    For simplicity's sake, here we give `"ALL"` permission to the user.
+    For simplicity's sake, here we give `"ALL"` permission to the new database user.
     The Stardog API provide more fine grained permission control.
     See [the official API documentation](https://stardog-union.github.io/http-docs/#tag/Permissions/operation/addUserPermission).
 
