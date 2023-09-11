@@ -228,23 +228,27 @@ curl -X PUT -i -u "admin:NewPassword" http://localhost:5820/admin/permissions/us
     See [the official API documentation](https://stardog-union.github.io/http-docs/#tag/Permissions/operation/addUserPermission).
 
 
-### Add some test data
+## Uploading data to the graph
 
-In order to test that the setup has worked correctly,
-we need to add some data to the database.
+The `neurobagel/api` repo contains a helper script [`add_data_to_graph.sh`](https://github.com/neurobagel/api/blob/main/add_data_to_graph.sh) for automatically uploading all JSONLD files (i.e., graph-ready data) in a directory to a specific graph database, with the option to clear the existing data in the database first.
+Each `.jsonld` file is expected to correspond to a single **dataset**.
 
-You can use the two example `.ttl` files from the [`neurobagel_examples`](https://github.com/neurobagel/examples) repository to get started:
+To view all the command line arguments for add_data_to_graph.sh:
+```bash
+./add_data_to_graph.sh --help
+```
+
+### Uploading example Neurobagel data
+In order to test that the [graph setup steps](#setup-for-the-first-run) worked correctly,
+we can add some example graph-ready data to the new graph database.
+
+First, clone the [`neurobagel_examples`](https://github.com/neurobagel/examples) repository:
 
 ```bash
 git clone https://github.com/neurobagel/neurobagel_examples.git
-
-# Upload the two example files to the graph
-for example in neurobagel_examples/*.ttl; do
-    curl -u "admin:NewPassword" -i -X POST http://localhost:5820/test_data \
-    -H "Content-Type: text/turtle" \
-    --data-binary @{example}
-done
 ```
+
+Next, upload the `.jsonld` file in the directory `neurobagel_examples/data-upload/pheno-bids-output` to the database we created above, using `add_data_to_graph.sh`:
 
 !!! info
     Normally you would create the graph-ready files by first [annotating
@@ -252,7 +256,38 @@ done
     Neurobagel annotator, and then [parsing the annotated BIDS
     dataset](../cli) with the Neurobagel CLI.
 
-### Test the new deployment
+```bash
+./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \ 
+  localhost:7200 repositories/my_db/statements NewUser NewUserPassword \
+  --clear-data
+```
+**Note:** Here we added the `--clear-data` flag to remove any existing data in the database (if the database is empty, the flag has no effect).
+You can choose to omit the flag or explicitly specify `--no-clear-data` (default behaviour) to skip this step.
+
+### Updating a dataset in the graph database
+If the raw data for a previously harmonized dataset (i.e., already has a corresponding JSONLD _which is in the graph_) has been updated, [a new JSONLD file must first be generated for that dataset](updating_dataset.md).
+To push the update to the corresponding graph database, our current recommended approach is to simply clear the database and re-upload all existing datasets, including the **new** JSONLD file for the updated dataset.
+
+To do this, rerun `add_data_to_graph.sh` on the directory containing the JSONLD files currently in the graph database, including the replaced JSONLD file for the dataset that has been updated.
+**Make sure to include the `--clear-data` flag when running the script so that the database is cleared first.**
+
+## Where to store Neurobagel graph-ready data
+To allow easy (re-)uploading of datasets when needed, we recommend having a shared directory in your data filesystem/server for storing Neurobagel graph-ready JSONLD files created for datasets at your institute or lab. 
+This directory can be called anything you like, but we recommend an explicit name such as `neurobagel_jsonld_datasets` to distinguish it from the actual raw data files or Neurobagel data dictionaries.
+Each `.jsonld` in the directory should include the name of the dataset in the filename.
+
+If you anticipate having to add _new_ datasets to a created graph database in the future, we recommend having a separate directory for JSONLD files of datasets that are already in the graph vs. to be added to the graph, e.g.:
+
+```bash
+neurobagel_jsonld_datasets/
+├── in_graph_database/
+└── not_in_graph/
+```
+
+In this example, JSONLD files for datasets that are not already in the graph should start off in `not_in_graph/`, and then moved to `in_graph_database/` once they have been successfully uploaded. 
+Updates to datasets already in the graph should be pushed from the `in_graph_database/` directory.
+
+## Test the new deployment
 
 You can run a test query against the API via a `curl` request in your terminal:
 
