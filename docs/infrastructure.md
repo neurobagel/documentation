@@ -46,7 +46,7 @@ The `neurobagel/api` repo contains a [`.template-env`](https://github.com/neurob
 
 Below are all the possible Neurobagel environment variables that can be set in `.env`.
 
-{{ read_table('./api_environment_variables.tsv') }}
+{{ read_table('./repos/api/docs/api_environment_variables.tsv') }}
 
 _* These defaults are configured for a Stardog backend - you should not have to change them if you are running a Stardog backend._
 
@@ -70,22 +70,17 @@ Note that your Stardog license file must be in the directory specified by `NB_GR
     shell variable of the same name set, 
     the shell variable will take precedence over the configuration
     of `.env`!
-    Either unset the local variable or always export the `.env` file first.
+    In this case, make sure to `unset` the local variable first.
 
     For more information, see [Docker's environment variable precedence](https://docs.docker.com/compose/environment-variables/envvars-precedence/).
 
-To export all the variables defined in your `.env` file in one step, run the following:
-```bash
-export $(cat .env | xargs)
-```
-
 ### A note on using a graphical query tool to send API requests
-The `NB_API_ALLOWED_ORIGINS` variable defaults to an empty string (`""`) when unset, meaning that your deployed API will only accessible via direct `curl` requests to the URL where the API is hosted (see [this section](#test-the-new-deployment) for an example `curl` request).
+The `NB_API_ALLOWED_ORIGINS` variable defaults to an empty string (`""`) when unset, meaning that your deployed API will only be accessible via direct `curl` requests to the URL where the API is hosted (see [this section](#test-the-new-deployment) for an example `curl` request).
 
 However, in many cases you may want to make the API accessible by a frontend tool such as our [browser query tool](https://github.com/neurobagel/query-tool).
 To do so, you must explicitly specify the origin(s) for the frontend using `NB_API_ALLOWED_ORIGINS` in `.env`. 
 
-For example, the [`.template-env`](https://github.com/neurobagel/api/blob/main/.template-env) file in the Neurobagel API repo assumes you want to allow API requests from a query tool hosted at a specific port on `localhost`.
+For example, the [`.template-env`](https://github.com/neurobagel/api/blob/main/.template-env) file in the Neurobagel API repo assumes you want to allow API requests from a query tool hosted at a specific port on `localhost` (see the [Docker Compose section](#docker-compose)).
 
 Other examples:
 ```bash
@@ -120,7 +115,13 @@ Run the following in the repository root (where the `docker-compose.yml` file is
 ```bash
 docker compose up -d
 ```
+Or, if you want to ensure you always pull the latest Docker images first:
+```bash
+docker compose pull && docker compose up -d
+```
 
+By default, this will also deploy a local version of the [Neurobagel graphical query tool](https://github.com/neurobagel/query-tool).
+If using the default port mappings, you can reach your local query tool at [http://localhost:3000](http://localhost:3000) once it is running.
 
 ## Setup for the first run
 

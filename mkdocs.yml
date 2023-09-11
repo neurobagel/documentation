@@ -62,3 +62,24 @@ markdown_extensions:
 
 plugins:
   - table-reader
+  - yamp:
+    # directory within docs dir to add content
+      temp_dir: "repos"
+      # delete docs/{temp_dir} after build||serve?
+      #  default: true
+      cleanup: true
+      # delete docs/{temp_dir} at the beginning of the
+      # mkdocs invocation.
+      start_fresh: true
+      # declare a list of repositories or directories to add
+      # to docs/{temp_dir}
+      #   default: []
+      repos:
+        # the git repository URL to clone
+      - url: "https://github.com/neurobagel/api"
+        # a list of globs to checkout
+        # if empty or not provided, the entire repository is cloned
+        # default: [ ]
+        include: [ "docs/api_environment_variables.tsv"]
+        # the branch of the repository to clone
+        branch: "main"
