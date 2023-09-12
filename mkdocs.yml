@@ -85,4 +85,4 @@ plugins:
         branch: "main"
       - url: "https://github.com/neurobagel/neurobagel_examples"
         include: [ "query-tool-results" ]
-        branch: "add-query-tsv-examples"
+        branch: "main"
