@@ -66,6 +66,7 @@ You can verify the tool is running once you receive info messages from Nuxt rega
 
 ## Usage
 
+### Running a query
 To define a cohort, set your inclusion criteria using the following:
 
 - Age: Minimum and/or maximum age (in years) of participant that should be included in the results.
@@ -78,9 +79,50 @@ To define a cohort, set your inclusion criteria using the following:
 
 
 Once you've defined your criteria, submit them as a query and the query tool will display the results.
-The query tool offers two different TSV files for results:
 
-- Dataset-level results TSV contains: dataset id, dataset name, dataset portal uri, number of matching subjects, and available imaging modalities
-- Participant-level results TSV contains: dataset id, subject id, age, sex, diagnosis, assessment, session id, session file path, number of sessions, and imaging modality
+### Downloading query results
 
-The output files can be joined using `DatasetID` as key.
+For a given query, the query tool offers two kinds of TSV files for results that users can download. 
+At least one dataset matching the query must be selected in the interface in order to download the query results.
+
+#### Dataset-level results
+
+The dataset-level results TSV describes the datasets that contain subjects matching the user's query.
+This TSV contains the following columns:
+
+- `DatasetID`: unique identifier (UUID) for dataset in the graph. 
+Note that this ID is not guaranteed to be persistent across versions of a graph/across graphs, but will always be identical across a pair of query tool result files. 
+_This column can be used as the key to join the dataset-level and participant-level results TSVs for a given query result, if needed._
+- `DatasetName`: human readable name of the dataset
+- `PortalURI`: URL to a website or page about the dataset, if available
+- `NumMatchingSubjects`: (aggregate variable) number of subjects matching the query within the dataset
+- `AvailableImageModalites`: (aggregate variable) list of unique imaging modalities available for the dataset
+
+Example:
+
+{{ read_table('./repos/neurobagel_examples/query-tool-results/dataset-level-results.tsv') }}
+
+#### Participant-level results
+
+The participant-level results TSV contains the available harmonized participant attributes for subject sessions matching the query in each (selected) matching dataset.
+Each row in the TSV corresponds to a single matching subject _session_.
+
+This TSV contains the following columns:
+
+- `DatasetID`: unique identifier (UUID) for dataset in the graph. 
+Note that this ID is not guaranteed to be persistent across versions of a graph/across graphs, but will always be identical across a pair of query tool result files. 
+_This column can be used as the key to join the dataset-level and participant-level results TSVs for a given query result, if needed._
+- `SubjectID`: subject label
+- `Age`: subject age, if available
+- `Sex`: subject sex, if available
+- `Diagnosis`: list of diagnoses of subject, if available
+- `Assessment` : list of assessments completed by subject, if available
+- `SessionID`: session label
+- `SessionPath`: the path of the session directory relative to the dataset root (for datasets available through DataLad) or root of the filesystem where the dataset is stored
+- `NumSessions`: (aggregate variable) total number of available sessions for subject. 
+This number will be the same across rows corresponding to the same subject.
+- `Modality`: imaging modalities acquired in the session, if available
+
+Example:
+
+{{ read_table('./repos/neurobagel_examples/query-tool-results/participant-level-results.tsv') }}
