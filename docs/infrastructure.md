@@ -295,17 +295,6 @@ To allow easy (re-)uploading of datasets when needed, we recommend having a shar
 This directory can be called anything you like, but we recommend an explicit name such as `neurobagel_jsonld_datasets` to distinguish it from the actual raw data files or Neurobagel data dictionaries.
 Each `.jsonld` in the directory should include the name of the dataset in the filename.
 
-If you anticipate having to add _new_ datasets to a created graph database in the future, we recommend having a separate directory for JSONLD files of datasets that are already in the graph vs. to be added to the graph, e.g.:
-
-```bash
-neurobagel_jsonld_datasets/
-├── in_graph_database/
-└── not_in_graph/
-```
-
-In this example, JSONLD files for datasets that are not already in the graph should start off in `not_in_graph/`, and then moved to `in_graph_database/` once they have been successfully uploaded. 
-Updates to datasets already in the graph should be pushed from the `in_graph_database/` directory.
-
 ## Test the new deployment
 
 You can run a test query against the API via a `curl` request in your terminal:
