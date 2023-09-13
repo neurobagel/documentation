@@ -14,17 +14,19 @@ If new variables have been added to the dataset such that there are new columns 
 ## If only the imaging data have changed
 If the BIDS data for a dataset have changed without changes in the corresponding phenotypic TSV (e.g., if new modalities or scans have been acquired for a subject), you have two options:
 
-a. If you still have access to the dataset's phenotypic JSONLD generated from the `pheno` command of the `bagel-cli` (step 1), you may choose to [rerun only the `bids` CLI command](cli.md) on the updated BIDS directory. 
+- If you still have access to the dataset's phenotypic JSONLD generated from the `pheno` command of the `bagel-cli` (step 1), you may choose to [rerun only the `bids` CLI command](cli.md) on the updated BIDS directory. 
 This will generate a new graph-ready data file with updated imaging metadata of subjects.
 
-b. [Rerun the CLI entirely (`pheno` and `bids` steps)](cli.md) to generate a new graph-ready data file for the dataset.
+OR
 
-_When in doubt, go with option b._
+- [Rerun the CLI entirely (`pheno` and `bids` steps)](cli.md) to generate a new graph-ready data file for the dataset.
+
+_When in doubt, rerun both CLI commands._
 
 ## If only the subjects have changed
-If subjects have been added to or removed from the dataset, but the phenotypic TSV otherwise has been unchanged (e.g., only new or removed rows), you will need to:
+If subjects have been added to or removed from the dataset but the phenotypic TSV is otherwise unchanged (i.e., only new or removed rows, without changes to the available variables), you will need to:
 
-1. **Generate a new graph-ready data file** for the dataset by [re-running the CLI](cli.md) (`pheno` and `bids` steps) on your updated TSV and existing data dictionary
+- **Generate a new graph-ready data file** for the dataset by [re-running the CLI](cli.md) (`pheno` and `bids` steps) on your updated TSV and existing data dictionary
 
 ## Updating the graph database
 To allow easy (re-)uploading of the updated `.jsonld` for your dataset to a graph database, make a copy of it in a [central directory on your research data fileserver for storing local Neurobagel `jsonld` datasets](infrastructure.md#where-to-store-neurobagel-graph-ready-data). 

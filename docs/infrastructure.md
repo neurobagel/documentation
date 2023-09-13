@@ -150,6 +150,9 @@ you have two general options:
 When you first launch Stardog, 
 a default `admin` user with superuser privilege
 will automatically be created for you.
+This `admin` user is meant to create other database users and modify their permissions.
+Do not use `admin` for read and write operations, instead use a [regular database user](#create-a-new-database-user).
+
 You should first change the password of the database `admin`:
 
 
