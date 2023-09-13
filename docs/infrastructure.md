@@ -55,7 +55,7 @@ _** `NB_API_ADDRESS` should not be changed from its default value (`graph`) when
 _&Dagger; See section [Using a graphical query tool to send API requests](#a-note-on-using-a-graphical-query-tool-to-send-api-requests)_
 
 For a local deployment, we recommend to **explicitly set** at least the following variables in `.env`
-(note that the graph username and password must always be set):
+(note that `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` must always be set):
 
 - `NB_GRAPH_USERNAME`
 - `NB_GRAPH_PASSWORD`
@@ -146,12 +146,15 @@ you have two general options:
     [official docs](https://docs.stardog.com/stardog-applications/studio/) to learn how.
 
 
-### Change the superuser password
+### Change the database admin password
 
 When you first launch Stardog, 
 a default `admin` user with superuser privilege
 will automatically be created for you.
-You should first change the password of this user:
+This `admin` user is meant to create other database users and modify their permissions.
+Do not use `admin` for read and write operations, instead use a [regular database user](#create-a-new-database-user).
+
+You should first change the password of the database `admin`:
 
 
 ```console
@@ -159,13 +162,13 @@ curl -X PUT -i -u "admin:admin" http://localhost:5820/admin/users/admin/pwd \
 --data '{"password": "NewPassword"}'
 ```
 
-### Create a new user
+### Create a new database user
 
 The `.env` file created as part of the `docker compose` setup instructions
-declares the `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` for the API user.
+declares the `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` for the database user.
 The API will send requests to the graph using these credentials.
 When you launch Stardog for the first time, 
-we have to create this user:
+we have to create a new database user:
 
 ```console
 curl -X POST -i -u "admin:NewPassword" http://localhost:5820/admin/users \
@@ -186,7 +189,7 @@ curl -u "admin:NewPassword" http://localhost:5820/admin/users
 
 !!! note
     Make sure to use the exact `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` you
-    defined in the `.env` file when creating the new user.
+    defined in the `.env` file when creating the new database user.
     Otherwise the API will not have the correct permission
     to query the graph.
 
@@ -207,7 +210,7 @@ curl -X POST -i -u "admin:NewPassword" http://localhost:5820/admin/databases \
 --form 'root="{\"dbname\":\"test_data\"}"'
 ```
 
-Now we need to give our new user read and write permission for 
+Now we need to give our new database user read and write permission for 
 this database:
 
 ```console
@@ -224,28 +227,48 @@ curl -X PUT -i -u "admin:NewPassword" http://localhost:5820/admin/permissions/us
 
 ??? note "Finer permission control is also possible"
 
-    For simplicity's sake, here we give `"ALL"` permission to the user.
+    For simplicity's sake, here we give `"ALL"` permission to the new database user.
     The Stardog API provide more fine grained permission control.
     See [the official API documentation](https://stardog-union.github.io/http-docs/#tag/Permissions/operation/addUserPermission).
 
 
-### Add some test data
+## Uploading data to the graph
 
-In order to test that the setup has worked correctly,
-we need to add some data to the database.
+The `neurobagel/api` repo contains a helper script [`add_data_to_graph.sh`](https://github.com/neurobagel/api/blob/main/add_data_to_graph.sh) for automatically uploading all JSONLD files (i.e., graph-ready data) in a directory to a specific graph database, with the option to clear the existing data in the database first.
+Each `.jsonld` file is expected to correspond to a single **dataset**.
 
-You can use the two example `.ttl` files from the [`neurobagel_examples`](https://github.com/neurobagel/examples) repository to get started:
+To view all the command line arguments for add_data_to_graph.sh:
+```bash
+./add_data_to_graph.sh --help
+```
+
+??? info "If you prefer to directly use `curl` requests to modify the graph database instead of the helper script"
+
+    Add a single dataset to the graph database (example)
+    ```bash
+    curl -u "<USERNAME>: <PASSWORD>" -i -X POST http://localhost:5820/<DATABASE_NAME> \
+        -H "Content-Type: application/ld+json" \
+        --data-binary @<DATASET_NAME>.jsonld
+    ```
+    
+    Clear all data in the graph database (example)
+    ```bash
+    curl -u "<USERNAME>: <PASSWORD>" -X POST http://localhost:5820/<DATABASE_NAME>/update \
+        -H "Content-Type: application/sparql-update" \
+        --data-binary "DELETE { ?s ?p ?o } WHERE { ?s ?p ?o }"
+    ```
+
+### Uploading example Neurobagel data
+In order to test that the [graph setup steps](#setup-for-the-first-run) worked correctly,
+we can add some example graph-ready data to the new graph database.
+
+First, clone the [`neurobagel_examples`](https://github.com/neurobagel/examples) repository:
 
 ```bash
 git clone https://github.com/neurobagel/neurobagel_examples.git
-
-# Upload the two example files to the graph
-for example in neurobagel_examples/*.ttl; do
-    curl -u "admin:NewPassword" -i -X POST http://localhost:5820/test_data \
-    -H "Content-Type: text/turtle" \
-    --data-binary @{example}
-done
 ```
+
+Next, upload the `.jsonld` file in the directory `neurobagel_examples/data-upload/pheno-bids-output` to the database we created above, using `add_data_to_graph.sh`:
 
 !!! info
     Normally you would create the graph-ready files by first [annotating
@@ -253,7 +276,27 @@ done
     Neurobagel annotator, and then [parsing the annotated BIDS
     dataset](../cli) with the Neurobagel CLI.
 
-### Test the new deployment
+```bash
+./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \ 
+  localhost:7200 repositories/my_db/statements NewUser NewUserPassword \
+  --clear-data
+```
+**Note:** Here we added the `--clear-data` flag to remove any existing data in the database (if the database is empty, the flag has no effect).
+You can choose to omit the flag or explicitly specify `--no-clear-data` (default behaviour) to skip this step.
+
+### Updating a dataset in the graph database
+If the raw data for a previously harmonized dataset (i.e., already has a corresponding JSONLD _which is in the graph_) has been updated, [a new JSONLD file must first be generated for that dataset](updating_dataset.md).
+To push the update to the corresponding graph database, our current recommended approach is to simply clear the database and re-upload all existing datasets, including the **new** JSONLD file for the updated dataset.
+
+To do this, rerun `add_data_to_graph.sh` on the directory containing the JSONLD files currently in the graph database, including the replaced JSONLD file for the dataset that has been updated.
+**Make sure to include the `--clear-data` flag when running the script so that the database is cleared first.**
+
+## Where to store Neurobagel graph-ready data
+To allow easy (re-)uploading of datasets when needed, we recommend having a shared directory in your data filesystem/server for storing Neurobagel graph-ready JSONLD files created for datasets at your institute or lab. 
+This directory can be called anything you like, but we recommend an explicit name such as `neurobagel_jsonld_datasets` to distinguish it from the actual raw data files or Neurobagel data dictionaries.
+Each `.jsonld` in the directory should include the name of the dataset in the filename.
+
+## Test the new deployment
 
 You can run a test query against the API via a `curl` request in your terminal:
 
