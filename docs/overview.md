@@ -17,6 +17,7 @@ The Neurobagel ecosystem comprises four primary tools:
     - intended to help researchers and scientific data users find cohorts
     - static site, deployed on GitHub Pages
 
+You can also find official Docker images for our containerized tools on the [Neurobagel Docker Hub profile](https://hub.docker.com/u/neurobagel).
 
 ??? Todo
 
