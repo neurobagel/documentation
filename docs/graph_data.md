@@ -15,14 +15,14 @@ but _the `.jsonld` file for each dataset is unique_ as long as the actual data o
 Depending on whether a dataset annotated using Neurobagel includes BIDS imaging data, 
 the `.jsonld` data for the dataset may or may not include imaging metadata of subjects (extracted automatically with the CLI).
 
-- [Example valid `.jsonld` containing only phenotypic data](https://github.com/neurobagel/bagel-cli/blob/main/bagel/tests/data/example_synthetic.jsonld)
-- [Example valid `.jsonld` containing both phenotypic and BIDS data](https://github.com/neurobagel/bagel-cli/blob/main/bagel/tests/data/example_synthetic.jsonld)
+- [Example valid `.jsonld` containing only phenotypic data](https://github.com/neurobagel/neurobagel_examples/blob/main/data-upload/example_synthetic.jsonld)
+- [Example valid `.jsonld` containing both phenotypic and BIDS data](https://github.com/neurobagel/neurobagel_examples/blob/main/data-upload/pheno-bids-output/example_synthetic_pheno-bids.jsonld)
 
 ??? info "More info on example dataset"
     The above `.jsonld` files represent an example dataset used for testing which includes the following:
 
     | Data                       | Link                                                                                                                     |
     | -------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-    | Phenotypic TSV             | [:octicons-link-external-16:](https://github.com/neurobagel/bagel-cli/blob/main/bagel/tests/data/example_synthetic.tsv)  |
-    | Neurobagel data dictionary | [:octicons-link-external-16:](https://github.com/neurobagel/bagel-cli/blob/main/bagel/tests/data/example_synthetic.json) |
+    | Phenotypic TSV             | [:octicons-link-external-16:](https://github.com/neurobagel/neurobagel_examples/blob/main/data-upload/example_synthetic.tsv)  |
+    | Neurobagel data dictionary | [:octicons-link-external-16:](https://github.com/neurobagel/neurobagel_examples/blob/main/data-upload/example_synthetic.json) |
     | BIDS dataset               | [:octicons-link-external-16:](https://github.com/bids-standard/bids-examples/tree/master/synthetic)                      |
