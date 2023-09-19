@@ -7,5 +7,5 @@
         {"pattern": "localhost*"},
         {"pattern": "https://api.neurobagel.org/*"}
     ],
-    "timeout": "20s"
+    "timeout": "60s"
 }
