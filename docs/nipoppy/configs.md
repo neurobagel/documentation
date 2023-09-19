@@ -9,7 +9,7 @@ Nipoppy requires two global files for specifying local data/container paths and 
 ### Global configs: `global_configs.json`
    - This is a dataset-specific file and needs to be modified based on local configs and paths
    - This file is used as an input to all workflow runscripts to read, process and track available data
-   - Copy, rename, and populate [sample_global_configs.json](https://github.com/neurodatascience/nipoppy/blob/main/sample_global_configs.json) 
+   - Copy, rename, and populate [sample_global_configs.json](https://github.com/neurodatascience/nipoppy/blob/main/nipoppy/sample_global_configs.json) 
    - This file contains:
       - Name of the Nipoppy dataset (`DATASET_NAME`, e.g., `PPMI`)
       - Path to the Nipoppy dataset (`DATASET_ROOT`)
