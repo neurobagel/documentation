@@ -7,6 +7,9 @@ your annotations are automatically stored in a JSON data dictionary.
 A Neurobagel data dictionary essentially describes the meaning and properties of columns and column values
 using standardized vocabularies.
 
+!!! example
+    A comprehensive example data dictionary containing all currently supported phenotypic attributes and annotations can be found [here](https://github.com/neurobagel/neurobagel_examples/blob/main/data-upload/example_synthetic.json) (corresponding [phenotypic .tsv](https://github.com/neurobagel/neurobagel_examples/blob/main/data-upload/example_synthetic.tsv)).
+
 Importantly, Neurobagel uses a structure for these data dictionaries that is compatible 
 with and expands on 
 [BIDS `participant.json` data dictionaries](https://bids-specification.readthedocs.io/en/stable/03-modality-agnostic-files.html#participants-file). 
@@ -121,9 +124,6 @@ syntax for [json-ld](https://w3c.github.io/json-ld-syntax/#the-context):
   }
 }
 ```
-
-!!! tip
-    A comprehensive example data dictionary containing all currently supported phenotypic attributes and annotations can be found [here](https://github.com/neurobagel/bagel-cli/blob/main/bagel/tests/data/example_synthetic.json) (corresponding [phenotypic .tsv](https://github.com/neurobagel/bagel-cli/blob/main/bagel/tests/data/example_synthetic.tsv)).
 
 ### Participant identifier
 
@@ -373,4 +373,4 @@ Therefore:
 ## Missing values
 Missing values are allowed for any phenotypic variable (column) that does not describe a participant or session identifier (e.g., columns like `participant_id` or `session_id`). 
 In a Neurobagel data dictionary, missing values for a given column are listed under the `"MissingValues"` annotation for the column (see the [Assessment tool](#assessment-tool) section
-or the [comprehensive example data dictionary](https://github.com/neurobagel/bagel-cli/blob/main/bagel/tests/data/example_synthetic.json) for examples).
+or the [comprehensive example data dictionary](https://github.com/neurobagel/neurobagel_examples/blob/main/data-upload/example_synthetic.json) for examples).
