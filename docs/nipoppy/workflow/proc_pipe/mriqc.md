@@ -33,7 +33,7 @@ python run_mriqc.py \
 	A run for a participant is considered successful when the participant's log file reads `Participant level finished successfully`
 
 ### Evaluate MRIQC Results
-- Use [mriqc_tracker.py](https://github.com/neurodatascience/nipoppy/blob/main/trackers/mriqc_tracker.py) to determine how many subjects successfully passed through the MRIQC pipeline
+- Use [mriqc_tracker.py](https://github.com/neurodatascience/nipoppy/blob/main/nipoppy/trackers/mriqc_tracker.py) to determine how many subjects successfully passed through the MRIQC pipeline
 	- Mandatory: Pass in the subject directory as an argument
 - After a successful run of the script, a dictionary called tracker_configs is returned contained whether the subject passed through the pipeline successfully
 
