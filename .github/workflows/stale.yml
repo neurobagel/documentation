@@ -21,4 +21,4 @@ jobs:
           days-before-stale: 30
           days-before-close: -1
           stale-issue-label: '_flag:stale'
-          exempt-issue-labels: ['Roadmap', 'Milestone', 'Epic', 'someday']
+          exempt-issue-labels: 'Roadmap,Milestone,Epic,someday'
