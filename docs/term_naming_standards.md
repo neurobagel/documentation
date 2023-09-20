@@ -27,13 +27,14 @@ What this might look like in semantic triples:
     In cases where we reuse a term for a class that comes from an existing controlled vocabulary, and that vocabulary follows a different naming convention (e.g., all lowercase), we should follow the existing naming convention.
 
 ## Currently used namespaces
-| Prefix     | IRI                                            | Types of terms                            |
-| ---------- | ---------------------------------------------- | ----------------------------------------- |
-| `nb`       | http://neurobagel.org/vocab/                   | Neurobagel-"owned" properties and classes |
-| `nbg`      | http://neurobagel.org/graph/                   | Neurobagel graph databases                |
-| `snomed`   | http://purl.bioontology.org/ontology/SNOMEDCT/ | diagnosis and sex values                  |
-| `nidm`     | http://purl.org/nidash/nidm#                   | imaging modalities                        |
-| `cogatlas` | https://www.cognitiveatlas.org/task/id/        | cognitive assessments and tasks           |
+| Prefix     | IRI                                                 | Types of terms                            |
+| ---------- | --------------------------------------------------- | ----------------------------------------- |
+| `nb`       | http://neurobagel.org/vocab/                        | Neurobagel-"owned" properties and classes |
+| `nbg`      | http://neurobagel.org/graph/                        | Neurobagel graph databases                |
+| `snomed`   | http://purl.bioontology.org/ontology/SNOMEDCT/      | diagnosis and sex values                  |
+| `ncit`     | http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl# | group designation (e.g., healthy control) |
+| `nidm`     | http://purl.org/nidash/nidm#                        | imaging modalities                        |
+| `cogatlas` | https://www.cognitiveatlas.org/task/id/             | cognitive assessments and tasks           |
 
 
 ## What if an `nb` term already exists in another controlled vocabulary?
