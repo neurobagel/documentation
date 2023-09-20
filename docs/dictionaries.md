@@ -118,7 +118,8 @@ syntax for [json-ld](https://w3c.github.io/json-ld-syntax/#the-context):
 {
   "@context": {
     "nb": "http://neurobagel.org/vocab/",
-    "purl": "http://purl.obolibrary.org/obo/",
+    "ncit": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#",
+    "nidm": "http://purl.org/nidash/nidm#",
     "snomed": "http://purl.bioontology.org/ontology/SNOMEDCT/",
     "cogatlas": "https://www.cognitiveatlas.org/task/id/"
   }
@@ -208,7 +209,7 @@ Terms from the National Cancer Institute Thesaurus for healthy control status.
           "Label": "Parkinson's disease"
         },
         "CTRL": {
-          "TermURL": "purl:NCIT_C94342",
+          "TermURL": "ncit:C94342",
           "Label": "Healthy Control"
         }
       }
