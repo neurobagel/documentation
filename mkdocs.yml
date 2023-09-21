@@ -7,6 +7,8 @@ theme:
   - navigation.tabs.sticky
   - navigation.indexes
   - navigation.expand
+  - content.tabs.link
+  - content.code.copy  # allow user to copy a code block's contents to the clipboard
   palette:
     primary: deep purple
     accent: amber
