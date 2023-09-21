@@ -15,6 +15,8 @@ theme:
   font:
     text: Roboto
     code: Roboto Mono
+  icon:
+    annotation: material/plus-circle
 repo_url: https://github.com/neurobagel/documentation
 
 # Page Navigation
@@ -62,6 +64,7 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
+  - md_in_html  # for annotations
 
 plugins:
   - search

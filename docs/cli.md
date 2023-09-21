@@ -24,6 +24,17 @@ CLI commands can be accessed using the Docker/Singularity image.
     The Docker examples below assume that you are using the official Neurobagel Docker Hub image for the CLI. 
     If you have instead locally built an image, replace `neurobagel/bagelcli` in commands with your built image tag.
 
+### Input files
+To run the CLI on a dataset you have annotated, you will need:
+
+<div class="annotate" markdown>
+- [A phenotypic TSV](./data_prep.md)
+- [A corresponding phenotypic JSON data dictionary](./dictionaries.md)
+- (Optional) The imaging dataset in [BIDS](https://bids-specification.readthedocs.io/en/stable/) format, if subjects have imaging data available (1)
+</div>
+
+1. A valid BIDS dataset is needed for the CLI to automatically generate harmonized subject-level imaging metadata alongside harmonized phenotypic attributes.
+
 ### To view the available CLI commands
 
 === "Docker"
