@@ -169,7 +169,7 @@ For an example, see https://docs.nginx.com/nginx/admin-guide/web-server/reverse-
 
 ### Docker Compose
 
-To spin up the Stardog and API containers using Docker Compose, 
+To spin up the API and graph backend containers using Docker Compose, 
 ensure that both [docker](https://docs.docker.com/get-docker/) and [docker compose](https://docs.docker.com/compose/install/) are installed.
 
 Run the following in the repository root (where the `docker-compose.yml` file is) to launch the containers:
@@ -190,42 +190,92 @@ If using the default port mappings, you can reach your local query tool at [http
 
 ## Setup for the first run
 
-When you launch the Stardog graph for the first time,
+When you launch the graph backend for the first time,
 there are a couple of setup steps that need to be done. 
 These will not have to be repeated for subsequent starts.
 
-To interact with the Stardog graph, 
+To interact with your graph backend, 
 you have two general options:
 
-1. Send HTTP request against the HTTP API of the Stardog graph instance (e.g. with `curl`). See [https://stardog-union.github.io/http-docs/](https://stardog-union.github.io/http-docs/) for a full reference of API endpoints
-2. Use the free Stardog-Studio web app. See the [Stardog documentation](https://docs.stardog.com/stardog-applications/dockerized_access#stardog-studio) for instruction to deploy Stardog-Studio as a Docker container.
+=== "Stardog"
+
+    
+
+    1. Send HTTP request against the HTTP API of the Stardog graph instance (e.g. with `curl`). See [https://stardog-union.github.io/http-docs/](https://stardog-union.github.io/http-docs/) for a full reference of API endpoints
+    2. Use the free Stardog-Studio web app. See the [Stardog documentation](https://docs.stardog.com/stardog-applications/dockerized_access#stardog-studio) for instruction to deploy Stardog-Studio as a Docker container.
 
 
-!!! info 
-    Stardog-Studio is the most accessible way 
-    of manually interacting with a Stardog instance. 
-    Here we will focus instead on using the HTTP API for configuration,
-    as this allows programmatic access.
-    All of these steps can also be achieved via Stardog-Studio manually.
-    Please refer to the 
-    [official docs](https://docs.stardog.com/stardog-applications/studio/) to learn how.
+    !!! info 
+        Stardog-Studio is the most accessible way 
+        of manually interacting with a Stardog instance. 
+        Here we will focus instead on using the HTTP API for configuration,
+        as this allows programmatic access.
+        All of these steps can also be achieved via Stardog-Studio manually.
+        Please refer to the 
+        [official docs](https://docs.stardog.com/stardog-applications/studio/) to learn how.
+
+=== "graphDB"
+
+    1. Send HTTP requests agains the HTTP API of the graphDB backend 
+    e.g. using `curl`. graphDB uses the [RDF4J API](https://rdf4j.org/documentation/reference/rest-api/) specification.
+    2. Use the graphDB web interface (called [the workbench](https://graphdb.ontotext.com/documentation/10.0/architecture-components.html)). 
+    Once your local graphDB backend is running
+    you can connect to it at [http://localhost:8000](http://localhost:8000)
+
+
+    !!! info 
+    
+        Using the graphDB workbench is a more accessible way to manage the graphDB endpoint.
+        The workbench is well documented on the graphDB website.
+        Here we will focus instead on setting up graphDB with API calls, 
+        that can be automated.
 
 
 ### Change the database admin password
 
-When you first launch Stardog, 
-a default `admin` user with superuser privilege
-will automatically be created for you.
-This `admin` user is meant to create other database users and modify their permissions.
-Do not use `admin` for read and write operations, instead use a [regular database user](#create-a-new-database-user).
+=== "Stardog"
 
-You should first change the password of the database `admin`:
+    When you first launch Stardog, 
+    a default `admin` user with superuser privilege
+    will automatically be created for you.
+    This `admin` user is meant to create other database users and modify their permissions.
+    Do not use `admin` for read and write operations, instead use a [regular database user](#create-a-new-database-user).
+
+    You should first change the password of the database `admin`:
 
 
-```console
-curl -X PUT -i -u "admin:admin" http://localhost:5820/admin/users/admin/pwd \
---data '{"password": "NewPassword"}'
-```
+    ```console
+    curl -X PUT -i -u "admin:admin" http://localhost:5820/admin/users/admin/pwd \
+    --data '{"password": "NewPassword"}'
+    ```
+
+=== "graphDB"
+
+    When the API, graph, and query tool have been started and are running for the first time, you will have to do some first-run configuration.
+
+    **Setup security and users**
+
+    Also refer to the [official graphDB documentation](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/curl-commands.html#security-management).
+
+    First, change the password for the admin user that has been automatically
+    created by graphDB:
+
+    ```
+    curl -X PATCH --header 'Content-Type: application/json' http://localhost:7200/rest/security/users/admin -d '
+    {"password": "NewAdminPassword"}'
+    ```
+    make sure to replace `"NewAdminPassword"` with your own, secure password.
+
+    Next, enable graphDB security to only allow authenticated users access:
+    ```
+    curl -X POST --header 'Content-Type: application/json' -d true http://localhost:7200/rest/security
+    ```
+
+    and confirm that this was successful:
+    ```
+    ➜ curl -X POST http://localhost:7200/rest/security                                                  
+    Unauthorized (HTTP status 401)
+    ```
 
 ### Create a new database user
 
