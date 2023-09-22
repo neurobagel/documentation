@@ -216,7 +216,7 @@ you have two general options:
 
 === "graphDB"
 
-    1. Send HTTP requests agains the HTTP API of the graphDB backend 
+    1. Send HTTP requests against the HTTP API of the graphDB backend 
     e.g. using `curl`. graphDB uses the [RDF4J API](https://rdf4j.org/documentation/reference/rest-api/) specification.
     2. Use the graphDB web interface (called [the workbench](https://graphdb.ontotext.com/documentation/10.0/architecture-components.html)). 
     Once your local graphDB backend is running
