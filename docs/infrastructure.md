@@ -1,7 +1,29 @@
 # SysAdmin
 
-These instructions are for a sysadmin looking to deploy Neurobagel locally in an institute or lab.
+These instructions are for a sysadmin looking to deploy Neurobagel locally in an institute or lab. 
+A local neurobagel deployment includes the neurobagel API, 
+and a graph backend to store the harmonized metadata.
 
+![The neurobagel API and graph backend](imgs/neurobagel_API_figure.png)
+
+Neurobagel uses RDF-triple stores as graph backends.
+Because RDF is an W3C open standard, 
+any RDF store can be theoretically used as a backend.
+We have tested the following options:
+
+- [Stardog](https://www.stardog.com/). 
+  Stardog is a very performant RDF store
+  with a large number of extensions. However, it has
+  a very restrictive license. We therefore do not recommend
+  Stardog for most deployments or testing.
+- [graphDB](https://graphdb.ontotext.com/).
+  graphDB offers a perpetual free license that should be sufficient
+  for many smaller deployments or testing deployments. 
+
+!!! note 
+
+    RDF stores are relatively niche applications for very large data applications,
+    so most implementations are commercial.
 
 ## Get a license for Stardog
 
