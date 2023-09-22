@@ -15,8 +15,6 @@ theme:
   font:
     text: Roboto
     code: Roboto Mono
-  icon:
-    annotation: material/plus-circle
 repo_url: https://github.com/neurobagel/documentation
 
 # Page Navigation
