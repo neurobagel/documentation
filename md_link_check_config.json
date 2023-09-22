@@ -1,0 +1,11 @@
+{
+    "ignorePatterns": [
+        {"pattern": "http://neurobagel.org/vocab/*"},
+        {"pattern": "http://neurobagel.org/graph/"},
+        {"pattern": "https://www.cognitiveatlas.org/task/id/"},
+        {"pattern": "^../"},
+        {"pattern": "localhost*"},
+        {"pattern": "https://api.neurobagel.org/*"}
+    ],
+    "timeout": "60s"
+}

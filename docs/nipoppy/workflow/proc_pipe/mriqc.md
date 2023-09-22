@@ -8,7 +8,7 @@ MRIQC processes the participants and produces image quality metrics from T1w, T2
 
 
 ### [MRIQC](https://mriqc.readthedocs.io/en/latest/)
-- Use [run_mriqc.py](https://github.com/neurodatascience/nipoppy/tree/main/workflow/proc_pipe/mriqc) to run MRIQC pipeline directly or wrap the script in an SGE/Slurm script to run on cluster
+- Use [run_mriqc.py](https://github.com/neurodatascience/nipoppy/blob/main/nipoppy/workflow/proc_pipe/mriqc/run_mriqc.py) to run MRIQC pipeline directly or wrap the script in an SGE/Slurm script to run on cluster
 
 ```bash
 python run_mriqc.py --global_config CONFIG.JSON --subject_id 001 --output_dir OUTPUT_DIR_PATH
@@ -20,7 +20,7 @@ python run_mriqc.py --global_config CONFIG.JSON --subject_id 001 --output_dir OU
 - Mandatory: Pass in the absolute path to the output directory to `output_dir`
 
 !!! note
-	An example config is located [here](https://github.com/neurodatascience/nipoppy/blob/main/sample_global_configs.json)
+	An example config is located [here](https://github.com/neurodatascience/nipoppy/blob/main/nipoppy/sample_global_configs.json)
 
 > Sample cmd:
 ```bash
@@ -35,7 +35,7 @@ python run_mriqc.py \
 	A run for a participant is considered successful when the participant's log file reads `Participant level finished successfully`
 
 ### Evaluate MRIQC Results
-- Use [mriqc_tracker.py](https://github.com/neurodatascience/nipoppy/blob/main/trackers/mriqc_tracker.py) to determine how many subjects successfully passed through the MRIQC pipeline
+- Use [mriqc_tracker.py](https://github.com/neurodatascience/nipoppy/blob/main/nipoppy/trackers/mriqc_tracker.py) to determine how many subjects successfully passed through the MRIQC pipeline
 	- Mandatory: Pass in the subject directory as an argument
 - After a successful run of the script, a dictionary called tracker_configs is returned contained whether the subject passed through the pipeline successfully
 

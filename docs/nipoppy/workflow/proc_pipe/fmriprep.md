@@ -16,9 +16,9 @@ Run [fMRIPrep](https://fmriprep.org/en/stable/) pipeline on BIDS formatted datas
 ### Procedure
 
 - Ensure you have the appropriate fMRIPrep container listed in your `global_configs.json` 
-- Use [run_fmriprep.py](https://github.com/neurodatascience/nipoppy/blob/main/workflow/proc_pipe/fmriprep/run_fmriprep.py) script to run fmriprep pipeline. 
+- Use [run_fmriprep.py](https://github.com/neurodatascience/nipoppy/blob/main/nipoppy/workflow/proc_pipe/fmriprep/run_fmriprep.py) script to run fmriprep pipeline. 
 - You can run "anatomical only" workflow by adding `--anat_only` flag
-- (Optional) Copy+Rename [sample_bids_filter.json](https://github.com/neurodatascience/nipoppy/blob/main/workflow/proc_pipe/fmriprep/sample_bids_filter.json) to `bids_filter.json` in the code repo itself. Then edit `bids_filter.json` to filter certain modalities / acquisitions. This is common when you have multiple T1w acquisitions (e.g. Neuromelanin, SPIR etc.) for a given modality. 
+- (Optional) Copy+Rename [sample_bids_filter.json](https://github.com/neurodatascience/nipoppy/blob/main/nipoppy/workflow/proc_pipe/fmriprep/sample_bids_filter.json) to `bids_filter.json` in the code repo itself. Then edit `bids_filter.json` to filter certain modalities / acquisitions. This is common when you have multiple T1w acquisitions (e.g. Neuromelanin, SPIR etc.) for a given modality. 
 
 !!! note
 
