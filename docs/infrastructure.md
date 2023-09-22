@@ -73,7 +73,7 @@ We have tested the following options:
 
 ## Launch the API and graph stack
 
-We recommend launching the API and your Stardog instance using `docker compose`.
+We recommend launching the API and your graph backend instance using `docker compose`.
 The below steps are distilled from [these instructions](https://github.com/neurobagel/api/blob/main/README.md#local-installation).
 
 ### Clone the API repo
@@ -90,11 +90,34 @@ Below are all the possible Neurobagel environment variables that can be set in `
 
 {{ read_table('./repos/api/docs/api_environment_variables.tsv') }}
 
-_* These defaults are configured for a Stardog backend - you should not have to change them if you are running a Stardog backend._
+
+=== "Stardog"
+
+    _* These defaults are configured for a Stardog backend - you should not have to change them if you are running a Stardog backend._
+
+    !!! Note "Your Stardog license file must be in the right directory"
+
+        Note that your Stardog license file must be in the directory specified by `NB_GRAPH_ROOT_HOST` (default `~/stardog-home`).
+
+
+=== "graphDB"
+
+    _* These values will have to be changed for your deployment from their default value:_
+
+    !!! warning "Change the following default values in your .env file for a graphDB deployment!"
+
+        ```bash
+        NB_GRAPH_IMG=ontotext/graphdb:10.3.1
+        NB_GRAPH_ROOT_CONT=/opt/graphdb/home
+        NB_GRAPH_PORT=7200
+        NB_GRAPH_PORT_HOST=7200
+        NB_GRAPH_DB=repositories/my_db  # NOTE: for graphDB, this value should always take the the format of: repositories/<your_database_name>
+        ```
 
 _** `NB_API_ADDRESS` should not be changed from its default value (`graph`) when using docker compose as this corresponds to the preset container name of the graph database server within the docker compose network._
 
 _&Dagger; See section [Using a graphical query tool to send API requests](#a-note-on-using-a-graphical-query-tool-to-send-api-requests)_
+
 
 For a local deployment, we recommend to **explicitly set** at least the following variables in `.env`
 (note that `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` must always be set):
@@ -104,7 +127,7 @@ For a local deployment, we recommend to **explicitly set** at least the followin
 - `NB_GRAPH_DB`
 - `NB_GRAPH_IMG`
 
-Note that your Stardog license file must be in the directory specified by `NB_GRAPH_ROOT_HOST` (default `~/stardog-home`).
+
 
 ??? warning "Ensure that shell variables do not clash with `.env` file"
     
