@@ -11,44 +11,64 @@ Because RDF is an W3C open standard,
 any RDF store can be theoretically used as a backend.
 We have tested the following options:
 
-- [Stardog](https://www.stardog.com/). 
-  Stardog is a very performant RDF store
-  with a large number of extensions. However, it has
-  a very restrictive license. We therefore do not recommend
-  Stardog for most deployments or testing.
-- [graphDB](https://graphdb.ontotext.com/).
-  graphDB offers a perpetual free license that should be sufficient
-  for many smaller deployments or testing deployments. 
+=== "Stardog"
+
+    [Stardog](https://www.stardog.com/) 
+    is a very performant RDF store
+    with a large number of extensions. However, it has
+    a very restrictive license. We therefore do not recommend
+    Stardog for most deployments or testing.
+
+=== "graphDB"
+
+    [graphDB](https://graphdb.ontotext.com/) 
+    offers a perpetual free license that should be sufficient
+    for many smaller deployments or testing deployments. 
 
 !!! note 
 
     RDF stores are relatively niche applications for very large data applications,
     so most implementations are commercial.
 
-## Get a license for Stardog
 
-We use Stardog as our graph store application. 
-Stardog has a free, annually renewable license for academic use.
-In order to make a separate deployment of Neurobagel, 
-you should therefore first request your own Stardog license.
-You can request a Stardog license here:
+## Get a license for the graph backend
 
-[https://www.stardog.com/license-request/](https://www.stardog.com/license-request/)
+=== "Stardog"
 
-!!! danger "Don't pick the wrong license"
+    Stardog has a free, annually renewable license for academic use.
+    In order to make a separate deployment of Neurobagel, 
+    you should therefore first request your own Stardog license.
+    You can request a Stardog license here:
 
-    Stardog is a company that offers their graph store solutions both as a self-hosted,
-    downloadable tool (what we want) and as a cloud hosted subscription model (what we do not want). Both tiers offer free access and the website has a tendency to steer
-    you towards the cloud offering. Make sure you request a **license key** for Stardog.
+    [https://www.stardog.com/license-request/](https://www.stardog.com/license-request/)
 
-![This is what requesting the license would look like](imgs/stardog_request.png)
+    !!! danger "Don't pick the wrong license"
 
-The Stardog license is typically automatically granted via email in 24 hours. 
+        Stardog is a company that offers their graph store solutions both as a self-hosted,
+        downloadable tool (what we want) and as a cloud hosted subscription model (what we do not want). Both tiers offer free access and the website has a tendency to steer
+        you towards the cloud offering. Make sure you request a **license key** for Stardog.
 
-The license you receive will be a downloadable file. 
-It is valid for one year and for a major version of Stardog.
-You will need to download the license in a place that is accessible
-to your new Stardog instance when it is launched (see below).
+    ![This is what requesting the license would look like](imgs/stardog_request.png)
+
+    The Stardog license is typically automatically granted via email in 24 hours. 
+
+    The license you receive will be a downloadable file. 
+    It is valid for one year and for a major version of Stardog.
+    You will need to download the license in a place that is accessible
+    to your new Stardog instance when it is launched (see below).
+
+
+=== "graphDB"
+
+    [graphDB](https://graphdb.ontotext.com/) creates a free
+    perpetual license automatically when you don't explicitly
+    provide a license.
+    The free edition mostly offers the same features 
+    [as the paid versions](https://www.ontotext.com/products/graphdb/#comparison-table), 
+    but restricts the number of concurrent operations
+    on the graph to 2. 
+
+    We recommend using graphDB if these restrictions are not a blocker.
 
 
 ## Launch the API and graph stack
