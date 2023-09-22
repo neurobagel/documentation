@@ -138,7 +138,7 @@ You could run the CLI as follows:
         --output "neurobagel"
     ```
 
-!!! info
+!!! note
     The `bids` command of the `bagel-cli` (step 2) currently can take upwards of several minutes for datasets greater than a few hundred subjects, due to the time needed for pyBIDS to read the dataset structure.
     Once the slow initial dataset reading step is complete, you should see the message:
     ```bash
