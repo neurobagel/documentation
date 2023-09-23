@@ -285,22 +285,34 @@ The API will send requests to the graph using these credentials.
 When you launch Stardog for the first time, 
 we have to create a new database user:
 
-```console
-curl -X POST -i -u "admin:NewPassword" http://localhost:5820/admin/users \
--H 'Content-Type: application/json' \
---data '{
-    "username": "NewUser",
-    "password": [
-        "NewUserPassword"
-    ]
-}'
-```
+=== "Stardog"
 
-Confirm that the new user exists:
+    ```console
+    curl -X POST -i -u "admin:NewPassword" http://localhost:5820/admin/users \
+    -H 'Content-Type: application/json' \
+    --data '{
+        "username": "NewUser",
+        "password": [
+            "NewUserPassword"
+        ]
+    }'
+    ```
 
-```console
-curl -u "admin:NewPassword" http://localhost:5820/admin/users
-```
+    Confirm that the new user exists:
+
+    ```console
+    curl -u "admin:NewPassword" http://localhost:5820/admin/users
+    ```
+
+=== "graphDB"
+
+    ``` console
+    curl -X POST --header 'Content-Type: application/json' -u "admin:newpassword" -d '
+    {
+    "username": "DBUSER",
+    "password": "DBPASSWORD"
+    }' http://localhost:7200/rest/security/users/DBUSER
+    ```
 
 !!! note
     Make sure to use the exact `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` you
@@ -310,7 +322,7 @@ curl -u "admin:NewPassword" http://localhost:5820/admin/users
 
 ### Create new database
 
-When you first launch Stardog,
+When you first launch graph store,
 there are no graph databases.
 You have to create a new one to store
 your metadata.
@@ -320,32 +332,122 @@ make sure to create a database with a matching name.
 By default the API will query a graph database
 with a name of `test_data`.
 
-```console
-curl -X POST -i -u "admin:NewPassword" http://localhost:5820/admin/databases \
---form 'root="{\"dbname\":\"test_data\"}"'
-```
+=== "Stardog"
 
-Now we need to give our new database user read and write permission for 
-this database:
+    ```console
+    curl -X POST -i -u "admin:NewPassword" http://localhost:5820/admin/databases \
+    --form 'root="{\"dbname\":\"test_data\"}"'
+    ```
 
-```console
-curl -X PUT -i -u "admin:NewPassword" http://localhost:5820/admin/permissions/user/NewUser \
--H 'Content-Type: application/json' \
---data '{
-    "action": "ALL",
-    "resource_type": "DB",
-    "resource": [
-        "test_data"
-    ]
-}'
-```
+    Now we need to give our new database user read and write permission for 
+    this database:
 
-??? note "Finer permission control is also possible"
+    ```console
+    curl -X PUT -i -u "admin:NewPassword" http://localhost:5820/admin/permissions/user/NewUser \
+    -H 'Content-Type: application/json' \
+    --data '{
+        "action": "ALL",
+        "resource_type": "DB",
+        "resource": [
+            "test_data"
+        ]
+    }'
+    ```
 
-    For simplicity's sake, here we give `"ALL"` permission to the new database user.
-    The Stardog API provide more fine grained permission control.
-    See [the official API documentation](https://stardog-union.github.io/http-docs/#tag/Permissions/operation/addUserPermission).
+    ??? note "Finer permission control is also possible"
 
+        For simplicity's sake, here we give `"ALL"` permission to the new database user.
+        The Stardog API provide more fine grained permission control.
+        See [the official API documentation](https://stardog-union.github.io/http-docs/#tag/Permissions/operation/addUserPermission).
+
+
+=== "graphDB"
+
+    In graphDB, graph databases are called resources.
+    To create a new one, you will also have to prepare a `data-config.ttl` file
+    that contains the settings for the resource you will create ([see the graphDB docs](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/location-and-repository-tutorial.html#create-a-repository)).
+
+    **make sure to that the value for `rep:repositoryID`
+    in the `data-configl.ttl` file matches the value of
+    `NB_GRAPH_DB` in your `.env` file**. 
+    For example, if `NB_GRAPH_DB=my_db`, then
+    `rep:repositoryID "my_db" ;`.
+
+    You can use this example file and save
+    it as `data-config.ttl` locally:
+
+    ```
+    #
+    # RDF4J configuration template for a GraphDB repository
+    #
+    @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+    @prefix rep: <http://www.openrdf.org/config/repository#>.
+    @prefix sr: <http://www.openrdf.org/config/repository/sail#>.
+    @prefix sail: <http://www.openrdf.org/config/sail#>.
+    @prefix graphdb: <http://www.ontotext.com/config/graphdb#>.
+
+    [] a rep:Repository ;
+        rep:repositoryID "my_db" ;
+        rdfs:label "" ;
+        rep:repositoryImpl [
+            rep:repositoryType "graphdb:SailRepository" ;
+            sr:sailImpl [
+                sail:sailType "graphdb:Sail" ;
+
+                graphdb:read-only "false" ;
+
+                # Inference and Validation
+                graphdb:ruleset "rdfsplus-optimized" ;
+                graphdb:disable-sameAs "true" ;
+                graphdb:check-for-inconsistencies "false" ;
+
+                # Indexing
+                graphdb:entity-id-size "32" ;
+                graphdb:enable-context-index "false" ;
+                graphdb:enablePredicateList "true" ;
+                graphdb:enable-fts-index "false" ;
+                graphdb:fts-indexes ("default" "iri") ;
+                graphdb:fts-string-literals-index "default" ;
+                graphdb:fts-iris-index "none" ;
+
+                # Queries and Updates
+                graphdb:query-timeout "0" ;
+                graphdb:throw-QueryEvaluationException-on-timeout "false" ;
+                graphdb:query-limit-results "0" ;
+
+                # Settable in the file but otherwise hidden in the UI and in the RDF4J console
+                graphdb:base-URL "http://example.org/owlim#" ;
+                graphdb:defaultNS "" ;
+                graphdb:imports "" ;
+                graphdb:repository-type "file-repository" ;
+                graphdb:storage-folder "storage" ;
+                graphdb:entity-index-size "10000000" ;
+                graphdb:in-memory-literal-properties "true" ;
+                graphdb:enable-literal-index "true" ;
+            ]
+        ].
+    ```
+
+    Then you can create a new graph db with the following command (replace "my_db" as needed):
+
+    ```bash
+    curl -X PUT -u "admin:newpassword" http://localhost:7200/repositories/my_db --data-binary "@data-config.ttl" -H "Content-Type: application/x-turtle"
+    ```
+
+    and add give our user access permission to the new resource:
+
+    ```
+    curl -X PUT --header 'Content-Type: application/json' -d '
+    {"grantedAuthorities": ["WRITE_REPO_my_db","READ_REPO_my_db"]}'  http://localhost:7200/rest/security/users/DBUSER -u "admin:newpassword"
+    ```
+
+    - `"WRITE_REPO_my_db"`: Grants write permission.
+    - `"READ_REPO_my_db"`: Grants read permission.
+
+    !!! Note
+    
+        make sure you replace `my_db` with the name of the graph db you 
+        have just created. 
 
 ## Uploading data to the graph
 
