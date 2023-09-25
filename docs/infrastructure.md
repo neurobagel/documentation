@@ -246,7 +246,7 @@ you have two general options:
 
     ```console
     curl -X PUT -i -u "admin:admin" http://localhost:5820/admin/users/admin/pwd \
-    --data '{"password": "NewPassword"}'
+    --data '{"password": "NewAdminPassword"}'
     ```
 
 === "graphDB"
@@ -288,12 +288,12 @@ we have to create a new database user:
 === "Stardog"
 
     ```console
-    curl -X POST -i -u "admin:NewPassword" http://localhost:5820/admin/users \
+    curl -X POST -i -u "admin:NewAdminPassword" http://localhost:5820/admin/users \
     -H 'Content-Type: application/json' \
     --data '{
-        "username": "NewUser",
+        "username": "DBUSER",
         "password": [
-            "NewUserPassword"
+            "DBPASSWORD"
         ]
     }'
     ```
@@ -301,13 +301,13 @@ we have to create a new database user:
     Confirm that the new user exists:
 
     ```console
-    curl -u "admin:NewPassword" http://localhost:5820/admin/users
+    curl -u "admin:NewAdminPassword" http://localhost:5820/admin/users
     ```
 
 === "graphDB"
 
     ``` console
-    curl -X POST --header 'Content-Type: application/json' -u "admin:newpassword" -d '
+    curl -X POST --header 'Content-Type: application/json' -u "admin:NewAdminPassword" -d '
     {
     "username": "DBUSER",
     "password": "DBPASSWORD"
@@ -335,7 +335,7 @@ with a name of `test_data`.
 === "Stardog"
 
     ```console
-    curl -X POST -i -u "admin:NewPassword" http://localhost:5820/admin/databases \
+    curl -X POST -i -u "admin:NewAdminPassword" http://localhost:5820/admin/databases \
     --form 'root="{\"dbname\":\"test_data\"}"'
     ```
 
@@ -343,7 +343,7 @@ with a name of `test_data`.
     this database:
 
     ```console
-    curl -X PUT -i -u "admin:NewPassword" http://localhost:5820/admin/permissions/user/NewUser \
+    curl -X PUT -i -u "admin:NewAdminPassword" http://localhost:5820/admin/permissions/user/DBUSER \
     -H 'Content-Type: application/json' \
     --data '{
         "action": "ALL",
@@ -431,14 +431,14 @@ with a name of `test_data`.
     Then you can create a new graph db with the following command (replace "my_db" as needed):
 
     ```bash
-    curl -X PUT -u "admin:newpassword" http://localhost:7200/repositories/my_db --data-binary "@data-config.ttl" -H "Content-Type: application/x-turtle"
+    curl -X PUT -u "admin:NewAdminPassword" http://localhost:7200/repositories/my_db --data-binary "@data-config.ttl" -H "Content-Type: application/x-turtle"
     ```
 
     and add give our user access permission to the new resource:
 
     ```
     curl -X PUT --header 'Content-Type: application/json' -d '
-    {"grantedAuthorities": ["WRITE_REPO_my_db","READ_REPO_my_db"]}'  http://localhost:7200/rest/security/users/DBUSER -u "admin:newpassword"
+    {"grantedAuthorities": ["WRITE_REPO_my_db","READ_REPO_my_db"]}'  http://localhost:7200/rest/security/users/DBUSER -u "admin:NewAdminPassword"
     ```
 
     - `"WRITE_REPO_my_db"`: Grants write permission.
@@ -496,14 +496,14 @@ Next, upload the `.jsonld` file in the directory `neurobagel_examples/data-uploa
 === "Stardog"
     ``` bash
     ./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \ 
-      localhost:5820 my_db NewUser NewUserPassword \
+      localhost:5820 my_db DBUSER DBPASSWORD \
       --clear-data
     ```
 
 === "graphDB"
     ``` bash
     ./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \ 
-      localhost:7200 repositories/my_db/statements NewUser NewUserPassword \
+      localhost:7200 repositories/my_db/statements DBUSER DBPASSWORD \
       --clear-data
     ```
 **Note:** Here we added the `--clear-data` flag to remove any existing data in the database (if the database is empty, the flag has no effect).
