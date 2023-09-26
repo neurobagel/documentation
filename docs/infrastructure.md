@@ -1,37 +1,80 @@
 # SysAdmin
 
-These instructions are for a sysadmin looking to deploy Neurobagel locally in an institute or lab.
+These instructions are for a sysadmin looking to deploy Neurobagel locally in an institute or lab. 
+A local neurobagel deployment includes the neurobagel API, 
+a graph backend to store the harmonized metadata, 
+and optionally a locally hosted graphical query interface.
+
+![The neurobagel API and graph backend](imgs/nb_architecture.jpg)
+
+Neurobagel uses RDF-triple stores as graph backends.
+Because RDF is an W3C open standard, 
+any RDF store can be theoretically used as a backend.
+We have tested the following options:
+
+=== "Stardog"
+
+    [Stardog](https://www.stardog.com/) 
+    is a very performant RDF store
+    with a large number of extensions. However, it has
+    a very restrictive license. We therefore do not recommend
+    Stardog for most deployments or testing.
+
+=== "graphDB"
+
+    [graphDB](https://graphdb.ontotext.com/) 
+    offers a perpetual free license that should be sufficient
+    for many smaller deployments or testing deployments. 
+
+!!! note 
+
+    RDF stores are relatively niche applications for very large data applications,
+    so most implementations are commercial.
 
 
-## Get a license for Stardog
+## Get a license for the graph backend
 
-We use Stardog as our graph store application. 
-Stardog has a free, annually renewable license for academic use.
-In order to make a separate deployment of Neurobagel, 
-you should therefore first request your own Stardog license.
-You can request a Stardog license here:
+=== "Stardog"
 
-[https://www.stardog.com/license-request/](https://www.stardog.com/license-request/)
+    Stardog has a free, annually renewable license for academic use.
+    In order to make a separate deployment of Neurobagel, 
+    you should therefore first request your own Stardog license.
+    You can request a Stardog license here:
 
-!!! danger "Don't pick the wrong license"
+    [https://www.stardog.com/license-request/](https://www.stardog.com/license-request/)
 
-    Stardog is a company that offers their graph store solutions both as a self-hosted,
-    downloadable tool (what we want) and as a cloud hosted subscription model (what we do not want). Both tiers offer free access and the website has a tendency to steer
-    you towards the cloud offering. Make sure you request a **license key** for Stardog.
+    !!! danger "Don't pick the wrong license"
 
-![This is what requesting the license would look like](imgs/stardog_request.png)
+        Stardog is a company that offers their graph store solutions both as a self-hosted,
+        downloadable tool (what we want) and as a cloud hosted subscription model (what we do not want). Both tiers offer free access and the website has a tendency to steer
+        you towards the cloud offering. Make sure you request a **license key** for Stardog.
 
-The Stardog license is typically automatically granted via email in 24 hours. 
+    ![This is what requesting the license would look like](imgs/stardog_request.png)
 
-The license you receive will be a downloadable file. 
-It is valid for one year and for a major version of Stardog.
-You will need to download the license in a place that is accessible
-to your new Stardog instance when it is launched (see below).
+    The Stardog license is typically automatically granted via email in 24 hours. 
+
+    The license you receive will be a downloadable file. 
+    It is valid for one year and for a major version of Stardog.
+    You will need to download the license in a place that is accessible
+    to your new Stardog instance when it is launched (see below).
+
+
+=== "graphDB"
+
+    [graphDB](https://graphdb.ontotext.com/) creates a free
+    perpetual license automatically when you don't explicitly
+    provide a license.
+    The free edition mostly offers the same features 
+    [as the paid versions](https://www.ontotext.com/products/graphdb/#comparison-table), 
+    but restricts the number of concurrent operations
+    on the graph to 2. 
+
+    We recommend using graphDB if these restrictions are not a blocker.
 
 
 ## Launch the API and graph stack
 
-We recommend launching the API and your Stardog instance using `docker compose`.
+We recommend launching the API and your graph backend instance using `docker compose`.
 The below steps are distilled from [these instructions](https://github.com/neurobagel/api/blob/main/README.md#local-installation).
 
 ### Clone the API repo
@@ -48,11 +91,34 @@ Below are all the possible Neurobagel environment variables that can be set in `
 
 {{ read_table('./repos/api/docs/api_environment_variables.tsv') }}
 
-_* These defaults are configured for a Stardog backend - you should not have to change them if you are running a Stardog backend._
+
+=== "Stardog"
+
+    _* These defaults are configured for a Stardog backend - you should not have to change them if you are running a Stardog backend._
+
+    !!! Note "Your Stardog license file must be in the right directory"
+
+        Note that your Stardog license file must be in the directory specified by `NB_GRAPH_ROOT_HOST` (default `~/stardog-home`).
+
+
+=== "graphDB"
+
+    _* These values will have to be changed for your deployment from their default value:_
+
+    !!! warning "Change the following default values in your .env file for a graphDB deployment!"
+
+        ```bash
+        NB_GRAPH_IMG=ontotext/graphdb:10.3.1
+        NB_GRAPH_ROOT_CONT=/opt/graphdb/home
+        NB_GRAPH_PORT=7200
+        NB_GRAPH_PORT_HOST=7200
+        NB_GRAPH_DB=repositories/my_db  # NOTE: for graphDB, this value should always take the the format of: repositories/<your_database_name>
+        ```
 
 _** `NB_API_ADDRESS` should not be changed from its default value (`graph`) when using docker compose as this corresponds to the preset container name of the graph database server within the docker compose network._
 
 _&Dagger; See section [Using a graphical query tool to send API requests](#a-note-on-using-a-graphical-query-tool-to-send-api-requests)_
+
 
 For a local deployment, we recommend to **explicitly set** at least the following variables in `.env`
 (note that `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` must always be set):
@@ -62,7 +128,7 @@ For a local deployment, we recommend to **explicitly set** at least the followin
 - `NB_GRAPH_DB`
 - `NB_GRAPH_IMG`
 
-Note that your Stardog license file must be in the directory specified by `NB_GRAPH_ROOT_HOST` (default `~/stardog-home`).
+
 
 ??? warning "Ensure that shell variables do not clash with `.env` file"
     
@@ -104,7 +170,7 @@ For an example, see https://docs.nginx.com/nginx/admin-guide/web-server/reverse-
 
 ### Docker Compose
 
-To spin up the Stardog and API containers using Docker Compose, 
+To spin up the API and graph backend containers using Docker Compose, 
 ensure that both [docker](https://docs.docker.com/get-docker/) and [docker compose](https://docs.docker.com/compose/install/) are installed.
 
 Run the following in the repository root (where the `docker-compose.yml` file is) to launch the containers:
@@ -125,42 +191,92 @@ If using the default port mappings, you can reach your local query tool at [http
 
 ## Setup for the first run
 
-When you launch the Stardog graph for the first time,
+When you launch the graph backend for the first time,
 there are a couple of setup steps that need to be done. 
 These will not have to be repeated for subsequent starts.
 
-To interact with the Stardog graph, 
+To interact with your graph backend, 
 you have two general options:
 
-1. Send HTTP request against the HTTP API of the Stardog graph instance (e.g. with `curl`). See [https://stardog-union.github.io/http-docs/](https://stardog-union.github.io/http-docs/) for a full reference of API endpoints
-2. Use the free Stardog-Studio web app. See the [Stardog documentation](https://docs.stardog.com/stardog-applications/dockerized_access#stardog-studio) for instruction to deploy Stardog-Studio as a Docker container.
+=== "Stardog"
+
+    
+
+    1. Send HTTP request against the HTTP API of the Stardog graph instance (e.g. with `curl`). See [https://stardog-union.github.io/http-docs/](https://stardog-union.github.io/http-docs/) for a full reference of API endpoints
+    2. Use the free Stardog-Studio web app. See the [Stardog documentation](https://docs.stardog.com/stardog-applications/dockerized_access#stardog-studio) for instruction to deploy Stardog-Studio as a Docker container.
 
 
-!!! info 
-    Stardog-Studio is the most accessible way 
-    of manually interacting with a Stardog instance. 
-    Here we will focus instead on using the HTTP API for configuration,
-    as this allows programmatic access.
-    All of these steps can also be achieved via Stardog-Studio manually.
-    Please refer to the 
-    [official docs](https://docs.stardog.com/stardog-applications/studio/) to learn how.
+    !!! info 
+        Stardog-Studio is the most accessible way 
+        of manually interacting with a Stardog instance. 
+        Here we will focus instead on using the HTTP API for configuration,
+        as this allows programmatic access.
+        All of these steps can also be achieved via Stardog-Studio manually.
+        Please refer to the 
+        [official docs](https://docs.stardog.com/stardog-applications/studio/) to learn how.
+
+=== "graphDB"
+
+    1. Send HTTP requests against the HTTP API of the graphDB backend 
+    e.g. using `curl`. graphDB uses the [RDF4J API](https://rdf4j.org/documentation/reference/rest-api/) specification.
+    2. Use the graphDB web interface (called [the workbench](https://graphdb.ontotext.com/documentation/10.0/architecture-components.html)). 
+    Once your local graphDB backend is running
+    you can connect to it at [http://localhost:8000](http://localhost:8000)
+
+
+    !!! info 
+    
+        Using the graphDB workbench is a more accessible way to manage the graphDB endpoint.
+        The workbench is well documented on the graphDB website.
+        Here we will focus instead on setting up graphDB with API calls, 
+        that can be automated.
 
 
 ### Change the database admin password
 
-When you first launch Stardog, 
-a default `admin` user with superuser privilege
-will automatically be created for you.
-This `admin` user is meant to create other database users and modify their permissions.
-Do not use `admin` for read and write operations, instead use a [regular database user](#create-a-new-database-user).
+=== "Stardog"
 
-You should first change the password of the database `admin`:
+    When you first launch Stardog, 
+    a default `admin` user with superuser privilege
+    will automatically be created for you.
+    This `admin` user is meant to create other database users and modify their permissions.
+    Do not use `admin` for read and write operations, instead use a [regular database user](#create-a-new-database-user).
+
+    You should first change the password of the database `admin`:
 
 
-```console
-curl -X PUT -i -u "admin:admin" http://localhost:5820/admin/users/admin/pwd \
---data '{"password": "NewPassword"}'
-```
+    ```console
+    curl -X PUT -i -u "admin:admin" http://localhost:5820/admin/users/admin/pwd \
+    --data '{"password": "NewAdminPassword"}'
+    ```
+
+=== "graphDB"
+
+    When the API, graph, and query tool have been started and are running for the first time, you will have to do some first-run configuration.
+
+    **Setup security and users**
+
+    Also refer to the [official graphDB documentation](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/curl-commands.html#security-management).
+
+    First, change the password for the admin user that has been automatically
+    created by graphDB:
+
+    ```
+    curl -X PATCH --header 'Content-Type: application/json' http://localhost:7200/rest/security/users/admin -d '
+    {"password": "NewAdminPassword"}'
+    ```
+    make sure to replace `"NewAdminPassword"` with your own, secure password.
+
+    Next, enable graphDB security to only allow authenticated users access:
+    ```
+    curl -X POST --header 'Content-Type: application/json' -d true http://localhost:7200/rest/security
+    ```
+
+    and confirm that this was successful:
+    ```
+    ➜ curl -X POST http://localhost:7200/rest/security                                                  
+    Unauthorized (HTTP status 401)
+    ```
 
 ### Create a new database user
 
@@ -170,22 +286,34 @@ The API will send requests to the graph using these credentials.
 When you launch Stardog for the first time, 
 we have to create a new database user:
 
-```console
-curl -X POST -i -u "admin:NewPassword" http://localhost:5820/admin/users \
--H 'Content-Type: application/json' \
---data '{
-    "username": "NewUser",
-    "password": [
-        "NewUserPassword"
-    ]
-}'
-```
+=== "Stardog"
 
-Confirm that the new user exists:
+    ```console
+    curl -X POST -i -u "admin:NewAdminPassword" http://localhost:5820/admin/users \
+    -H 'Content-Type: application/json' \
+    --data '{
+        "username": "DBUSER",
+        "password": [
+            "DBPASSWORD"
+        ]
+    }'
+    ```
 
-```console
-curl -u "admin:NewPassword" http://localhost:5820/admin/users
-```
+    Confirm that the new user exists:
+
+    ```console
+    curl -u "admin:NewAdminPassword" http://localhost:5820/admin/users
+    ```
+
+=== "graphDB"
+
+    ``` console
+    curl -X POST --header 'Content-Type: application/json' -u "admin:NewAdminPassword" -d '
+    {
+    "username": "DBUSER",
+    "password": "DBPASSWORD"
+    }' http://localhost:7200/rest/security/users/DBUSER
+    ```
 
 !!! note
     Make sure to use the exact `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` you
@@ -195,7 +323,7 @@ curl -u "admin:NewPassword" http://localhost:5820/admin/users
 
 ### Create new database
 
-When you first launch Stardog,
+When you first launch graph store,
 there are no graph databases.
 You have to create a new one to store
 your metadata.
@@ -205,32 +333,122 @@ make sure to create a database with a matching name.
 By default the API will query a graph database
 with a name of `test_data`.
 
-```console
-curl -X POST -i -u "admin:NewPassword" http://localhost:5820/admin/databases \
---form 'root="{\"dbname\":\"test_data\"}"'
-```
+=== "Stardog"
 
-Now we need to give our new database user read and write permission for 
-this database:
+    ```console
+    curl -X POST -i -u "admin:NewAdminPassword" http://localhost:5820/admin/databases \
+    --form 'root="{\"dbname\":\"test_data\"}"'
+    ```
 
-```console
-curl -X PUT -i -u "admin:NewPassword" http://localhost:5820/admin/permissions/user/NewUser \
--H 'Content-Type: application/json' \
---data '{
-    "action": "ALL",
-    "resource_type": "DB",
-    "resource": [
-        "test_data"
-    ]
-}'
-```
+    Now we need to give our new database user read and write permission for 
+    this database:
 
-??? note "Finer permission control is also possible"
+    ```console
+    curl -X PUT -i -u "admin:NewAdminPassword" http://localhost:5820/admin/permissions/user/DBUSER \
+    -H 'Content-Type: application/json' \
+    --data '{
+        "action": "ALL",
+        "resource_type": "DB",
+        "resource": [
+            "test_data"
+        ]
+    }'
+    ```
 
-    For simplicity's sake, here we give `"ALL"` permission to the new database user.
-    The Stardog API provide more fine grained permission control.
-    See [the official API documentation](https://stardog-union.github.io/http-docs/#tag/Permissions/operation/addUserPermission).
+    ??? note "Finer permission control is also possible"
 
+        For simplicity's sake, here we give `"ALL"` permission to the new database user.
+        The Stardog API provide more fine grained permission control.
+        See [the official API documentation](https://stardog-union.github.io/http-docs/#tag/Permissions/operation/addUserPermission).
+
+
+=== "graphDB"
+
+    In graphDB, graph databases are called resources.
+    To create a new one, you will also have to prepare a `data-config.ttl` file
+    that contains the settings for the resource you will create ([see the graphDB docs](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/location-and-repository-tutorial.html#create-a-repository)).
+
+    **make sure to that the value for `rep:repositoryID`
+    in the `data-configl.ttl` file matches the value of
+    `NB_GRAPH_DB` in your `.env` file**. 
+    For example, if `NB_GRAPH_DB=my_db`, then
+    `rep:repositoryID "my_db" ;`.
+
+    You can use this example file and save
+    it as `data-config.ttl` locally:
+
+    ```
+    #
+    # RDF4J configuration template for a GraphDB repository
+    #
+    @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+    @prefix rep: <http://www.openrdf.org/config/repository#>.
+    @prefix sr: <http://www.openrdf.org/config/repository/sail#>.
+    @prefix sail: <http://www.openrdf.org/config/sail#>.
+    @prefix graphdb: <http://www.ontotext.com/config/graphdb#>.
+
+    [] a rep:Repository ;
+        rep:repositoryID "my_db" ;
+        rdfs:label "" ;
+        rep:repositoryImpl [
+            rep:repositoryType "graphdb:SailRepository" ;
+            sr:sailImpl [
+                sail:sailType "graphdb:Sail" ;
+
+                graphdb:read-only "false" ;
+
+                # Inference and Validation
+                graphdb:ruleset "rdfsplus-optimized" ;
+                graphdb:disable-sameAs "true" ;
+                graphdb:check-for-inconsistencies "false" ;
+
+                # Indexing
+                graphdb:entity-id-size "32" ;
+                graphdb:enable-context-index "false" ;
+                graphdb:enablePredicateList "true" ;
+                graphdb:enable-fts-index "false" ;
+                graphdb:fts-indexes ("default" "iri") ;
+                graphdb:fts-string-literals-index "default" ;
+                graphdb:fts-iris-index "none" ;
+
+                # Queries and Updates
+                graphdb:query-timeout "0" ;
+                graphdb:throw-QueryEvaluationException-on-timeout "false" ;
+                graphdb:query-limit-results "0" ;
+
+                # Settable in the file but otherwise hidden in the UI and in the RDF4J console
+                graphdb:base-URL "http://example.org/owlim#" ;
+                graphdb:defaultNS "" ;
+                graphdb:imports "" ;
+                graphdb:repository-type "file-repository" ;
+                graphdb:storage-folder "storage" ;
+                graphdb:entity-index-size "10000000" ;
+                graphdb:in-memory-literal-properties "true" ;
+                graphdb:enable-literal-index "true" ;
+            ]
+        ].
+    ```
+
+    Then you can create a new graph db with the following command (replace "my_db" as needed):
+
+    ```bash
+    curl -X PUT -u "admin:NewAdminPassword" http://localhost:7200/repositories/my_db --data-binary "@data-config.ttl" -H "Content-Type: application/x-turtle"
+    ```
+
+    and add give our user access permission to the new resource:
+
+    ```
+    curl -X PUT --header 'Content-Type: application/json' -d '
+    {"grantedAuthorities": ["WRITE_REPO_my_db","READ_REPO_my_db"]}'  http://localhost:7200/rest/security/users/DBUSER -u "admin:NewAdminPassword"
+    ```
+
+    - `"WRITE_REPO_my_db"`: Grants write permission.
+    - `"READ_REPO_my_db"`: Grants read permission.
+
+    !!! Note
+    
+        make sure you replace `my_db` with the name of the graph db you 
+        have just created. 
 
 ## Uploading data to the graph
 
@@ -276,11 +494,19 @@ Next, upload the `.jsonld` file in the directory `neurobagel_examples/data-uploa
     Neurobagel annotator, and then [parsing the annotated BIDS
     dataset](../cli) with the Neurobagel CLI.
 
-```bash
-./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \ 
-  localhost:7200 repositories/my_db/statements NewUser NewUserPassword \
-  --clear-data
-```
+=== "Stardog"
+    ``` bash
+    ./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \ 
+      localhost:5820 my_db DBUSER DBPASSWORD \
+      --clear-data
+    ```
+
+=== "graphDB"
+    ``` bash
+    ./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \ 
+      localhost:7200 repositories/my_db/statements DBUSER DBPASSWORD \
+      --clear-data
+    ```
 **Note:** Here we added the `--clear-data` flag to remove any existing data in the database (if the database is empty, the flag has no effect).
 You can choose to omit the flag or explicitly specify `--no-clear-data` (default behaviour) to skip this step.
 
