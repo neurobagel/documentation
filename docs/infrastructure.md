@@ -2,9 +2,10 @@
 
 These instructions are for a sysadmin looking to deploy Neurobagel locally in an institute or lab. 
 A local neurobagel deployment includes the neurobagel API, 
-and a graph backend to store the harmonized metadata.
+a graph backend to store the harmonized metadata, 
+and optionally a locally hosted graphical query interface.
 
-![The neurobagel API and graph backend](imgs/neurobagel_API_figure.png)
+![The neurobagel API and graph backend](imgs/nb_architecture.jpg)
 
 Neurobagel uses RDF-triple stores as graph backends.
 Because RDF is an W3C open standard, 
