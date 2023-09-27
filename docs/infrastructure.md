@@ -123,12 +123,12 @@ _&Dagger; See section [Using a graphical query tool to send API requests](#a-not
 For a local deployment, we recommend to **explicitly set** at least the following variables in `.env`
 (note that `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` must always be set):
 
-- `NB_GRAPH_USERNAME`
-- `NB_GRAPH_PASSWORD`
-- `NB_GRAPH_DB`
-- `NB_GRAPH_IMG`
-
-
+> `NB_GRAPH_USERNAME`  
+> `NB_GRAPH_PASSWORD`  
+> `NB_GRAPH_DB`  
+> `NB_GRAPH_IMG`  
+> `NB_RETURN_AGG`  
+> `NB_API_ALLOWED_ORIGINS`
 
 ??? warning "Ensure that shell variables do not clash with `.env` file"
     
@@ -245,7 +245,7 @@ you have two general options:
     You should first change the password of the database `admin`:
 
 
-    ```console
+    ```bash
     curl -X PUT -i -u "admin:admin" http://localhost:5820/admin/users/admin/pwd \
     --data '{"password": "NewAdminPassword"}'
     ```
@@ -261,19 +261,19 @@ you have two general options:
     First, change the password for the admin user that has been automatically
     created by graphDB:
 
-    ```
+    ```bash
     curl -X PATCH --header 'Content-Type: application/json' http://localhost:7200/rest/security/users/admin -d '
     {"password": "NewAdminPassword"}'
     ```
     make sure to replace `"NewAdminPassword"` with your own, secure password.
 
     Next, enable graphDB security to only allow authenticated users access:
-    ```
+    ```bash
     curl -X POST --header 'Content-Type: application/json' -d true http://localhost:7200/rest/security
     ```
 
     and confirm that this was successful:
-    ```
+    ```bash
     ➜ curl -X POST http://localhost:7200/rest/security                                                  
     Unauthorized (HTTP status 401)
     ```
@@ -288,7 +288,7 @@ we have to create a new database user:
 
 === "Stardog"
 
-    ```console
+    ```bash
     curl -X POST -i -u "admin:NewAdminPassword" http://localhost:5820/admin/users \
     -H 'Content-Type: application/json' \
     --data '{
@@ -301,13 +301,13 @@ we have to create a new database user:
 
     Confirm that the new user exists:
 
-    ```console
+    ```bash
     curl -u "admin:NewAdminPassword" http://localhost:5820/admin/users
     ```
 
 === "graphDB"
 
-    ``` console
+    ```bash
     curl -X POST --header 'Content-Type: application/json' -u "admin:NewAdminPassword" -d '
     {
     "username": "DBUSER",
@@ -335,7 +335,7 @@ with a name of `test_data`.
 
 === "Stardog"
 
-    ```console
+    ```bash
     curl -X POST -i -u "admin:NewAdminPassword" http://localhost:5820/admin/databases \
     --form 'root="{\"dbname\":\"test_data\"}"'
     ```
@@ -343,7 +343,7 @@ with a name of `test_data`.
     Now we need to give our new database user read and write permission for 
     this database:
 
-    ```console
+    ```bash
     curl -X PUT -i -u "admin:NewAdminPassword" http://localhost:5820/admin/permissions/user/DBUSER \
     -H 'Content-Type: application/json' \
     --data '{
@@ -377,7 +377,7 @@ with a name of `test_data`.
     You can use this example file and save
     it as `data-config.ttl` locally:
 
-    ```
+    ```turtle
     #
     # RDF4J configuration template for a GraphDB repository
     #
@@ -437,7 +437,7 @@ with a name of `test_data`.
 
     and add give our user access permission to the new resource:
 
-    ```
+    ```bash
     curl -X PUT --header 'Content-Type: application/json' -d '
     {"grantedAuthorities": ["WRITE_REPO_my_db","READ_REPO_my_db"]}'  http://localhost:7200/rest/security/users/DBUSER -u "admin:NewAdminPassword"
     ```
@@ -526,7 +526,7 @@ Each `.jsonld` in the directory should include the name of the dataset in the fi
 
 You can run a test query against the API via a `curl` request in your terminal:
 
-```console
+```bash
 curl -X 'GET' \
   'http://localhost:8000/query/' \
   -H 'accept: application/json'
