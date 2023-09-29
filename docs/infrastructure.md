@@ -464,14 +464,14 @@ To view all the command line arguments for add_data_to_graph.sh:
 
     Add a single dataset to the graph database (example)
     ```bash
-    curl -u "<USERNAME>: <PASSWORD>" -i -X POST http://localhost:5820/<DATABASE_NAME> \
+    curl -u "<USERNAME>:<PASSWORD>" -i -X POST http://localhost:5820/<DATABASE_NAME> \
         -H "Content-Type: application/ld+json" \
         --data-binary @<DATASET_NAME>.jsonld
     ```
     
     Clear all data in the graph database (example)
     ```bash
-    curl -u "<USERNAME>: <PASSWORD>" -X POST http://localhost:5820/<DATABASE_NAME>/update \
+    curl -u "<USERNAME>:<PASSWORD>" -X POST http://localhost:5820/<DATABASE_NAME>/update \
         -H "Content-Type: application/sparql-update" \
         --data-binary "DELETE { ?s ?p ?o } WHERE { ?s ?p ?o }"
     ```
