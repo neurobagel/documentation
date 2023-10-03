@@ -68,7 +68,7 @@ There are two means of moving forward to the next step in the annotation tool's 
 
 <img width="300" src="../imgs/annotate/readme_nextpage_instructions.png" alt="Annotation tool next page button screenshot">
 
-However, special critieria for each page need to be be met in order to move forward. Instructions are offered above the <span style="color:green;">next page button</span> while those conditions are still as of yet unmet. (These are denoted below under _Next page criteria_.) After having done so, the next page's name in the <span style="color:green;">navbar</span> will turn from gray to green, and the <span style="color:green;">next page button</span> will turn from gray to green as well.
+However, special criteria for each page need to be be met in order to move forward. Instructions are offered above the <span style="color:green;">next page button</span> while those conditions are still as of yet unmet. (These are denoted below under _Next page criteria_.) After having done so, the next page's name in the <span style="color:green;">navbar</span> will turn from gray to green, and the <span style="color:green;">next page button</span> will turn from gray to green as well.
 
 ## Page Instructions
 
