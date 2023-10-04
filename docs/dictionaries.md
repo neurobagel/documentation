@@ -280,11 +280,11 @@ Possible heuristics:
 
 |   TermURL    |  Label  |
 |   -------    | ------- |
-|   nb:float   | float value  |
-|   nb:int     | integer value |
-|   nb:euro    | european decimal value |
-|   nb:bounded | bounded value |
-|   nb:iso8061 | period of time defined according to the ISO8601 standard |
+|   nb:FromFloat   | float value  |
+|   nb:FromInt     | integer value |
+|   nb:FromEuro    | european decimal value |
+|   nb:FromBounded | bounded value |
+|   nb:FromISO8061 | period of time defined according to the ISO8601 standard |
 
 
 ```json hl_lines="9-12"
@@ -297,7 +297,7 @@ Possible heuristics:
         "Label": "Chronological age"
       },
       "Transformation": {
-        "TermURL": "nb:euro",
+        "TermURL": "nb:FromEuro",
         "Label": "European value decimals"
       }
     }
