@@ -462,19 +462,35 @@ To view all the command line arguments for add_data_to_graph.sh:
 
 ??? info "If you prefer to directly use `curl` requests to modify the graph database instead of the helper script"
 
-    Add a single dataset to the graph database (example)
-    ```bash
-    curl -u "DBUSER:DBPASSWORD" -i -X POST http://localhost:5820/<DATABASE_NAME> \
-        -H "Content-Type: application/ld+json" \
-        --data-binary @<DATASET_NAME>.jsonld
-    ```
-    
-    Clear all data in the graph database (example)
-    ```bash
-    curl -u "DBUSER:DBPASSWORD" -X POST http://localhost:5820/<DATABASE_NAME>/update \
-        -H "Content-Type: application/sparql-update" \
-        --data-binary "DELETE { ?s ?p ?o } WHERE { ?s ?p ?o }"
-    ```
+    === "Stardog"
+        Add a single dataset to the graph database (example)
+        ```bash
+        curl -u "DBUSER:DBPASSWORD" -i -X POST http://localhost:5820/test_data \
+            -H "Content-Type: application/ld+json" \
+            --data-binary @<DATASET_NAME>.jsonld
+        ```
+        
+        Clear all data in the graph database (example)
+        ```bash
+        curl -u "DBUSER:DBPASSWORD" -X POST http://localhost:5820/test_data/update \
+            -H "Content-Type: application/sparql-update" \
+            --data-binary "DELETE { ?s ?p ?o } WHERE { ?s ?p ?o }"
+        ```
+
+    === "graphDB"
+        Add a single dataset to the graph database (example)
+        ```bash
+        curl -u "DBUSER:DBPASSWORD" -i -X POST http://localhost:7200/repositories/my_db/statements \
+            -H "Content-Type: application/ld+json" \
+            --data-binary @<DATASET_NAME>.jsonld
+        ```
+        
+        Clear all data in the graph database (example)
+        ```bash
+        curl -u "DBUSER:DBPASSWORD" -X POST http://localhost:7200/repositories/my_db/statements \
+            -H "Content-Type: application/sparql-update" \
+            --data-binary "DELETE { ?s ?p ?o } WHERE { ?s ?p ?o }"
+        ```
 
 ### Uploading example Neurobagel data
 In order to test that the [graph setup steps](#setup-for-the-first-run) worked correctly,
