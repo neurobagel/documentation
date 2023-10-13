@@ -283,7 +283,7 @@ you have two general options:
 The `.env` file created as part of the `docker compose` setup instructions
 declares the `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` for the database user.
 The API will send requests to the graph using these credentials.
-When you launch Stardog for the first time, 
+When you launch the RDF store for the first time, 
 we have to create a new database user:
 
 === "Stardog"
