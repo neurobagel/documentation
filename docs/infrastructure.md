@@ -496,14 +496,14 @@ Next, upload the `.jsonld` file in the directory `neurobagel_examples/data-uploa
 
 === "Stardog"
     ``` bash
-    ./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \ 
+    ./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \
       localhost:5820 test_data DBUSER DBPASSWORD \
       --clear-data
     ```
 
 === "graphDB"
     ``` bash
-    ./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \ 
+    ./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \
       localhost:7200 repositories/my_db/statements DBUSER DBPASSWORD \
       --clear-data
     ```
