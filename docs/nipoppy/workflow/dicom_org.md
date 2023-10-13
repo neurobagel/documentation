@@ -15,7 +15,7 @@ This is a dataset specific process and needs to be customized based on local sca
 
 ### Procedure
 
-1. Run [`workflow/dicom_org/check_dicom_status.py`](https://github.com/neurodatascience/nipoppy/blob/main/nipoppy/workflow/dicom_org/check_dicom_status.py) to update `doughnut.csv` based on the manifest. It will add new rows for any subject-session pair not already in the file.
+1. Run [`workflow/make_doughnut.py`](https://github.com/neurodatascience/nipoppy/blob/main/nipoppy/workflow/make_doughnut.py) to update `doughnut.csv` based on the manifest. It will add new rows for any subject-session pair not already in the file.
     - To create the `doughnut.csv` for the first time, use the `--empty` argument. If processing has been done without updating `doughnut.csv`, use `--regenerate` to update it based on new files in the dataset.
 
 !!! note
@@ -33,7 +33,7 @@ This is a dataset specific process and needs to be customized based on local sca
 
 2. Download DICOM dumps (e.g. ZIPs / tarballs) in the `<DATASET_ROOT>/downloads` directory. Different visits (i.e. sessions) must be downloaded in separate sub-directories and ideally named as listed in the `global_config.json`. The DICOM download and extraction process is highly dataset-dependent, and we recommend using custom scripts to automate it as much as possible.
 3. Extract (and rename if needed) all participants into `<DATASET_ROOT>/scratch/raw_dicoms` separately for each visit (i.e. session). 
-    - At this point, the `doughnut.csv` should have been updated to reflect the new downloads (`downloaded` column set to `True` where appropriate). We recommend doing this in the download script (i.e. in Step 2), but `workflow/dicom_org/check_dicom_status.py` can also be run with the `--regenerate` flag to search for the expected files (this can be very slow!).
+    - At this point, the `doughnut.csv` should have been updated to reflect the new downloads (`downloaded` column set to `True` where appropriate). We recommend doing this in the download script (i.e. in Step 2), but `workflow/make_doughnut.py` can also be run with the `--regenerate` flag to search for the expected files (this can be very slow!).
 
 
 !!! note
