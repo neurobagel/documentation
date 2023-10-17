@@ -283,7 +283,7 @@ you have two general options:
 The `.env` file created as part of the `docker compose` setup instructions
 declares the `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` for the database user.
 The API will send requests to the graph using these credentials.
-When you launch Stardog for the first time, 
+When you launch the RDF store for the first time, 
 we have to create a new database user:
 
 === "Stardog"
@@ -462,19 +462,35 @@ To view all the command line arguments for add_data_to_graph.sh:
 
 ??? info "If you prefer to directly use `curl` requests to modify the graph database instead of the helper script"
 
-    Add a single dataset to the graph database (example)
-    ```bash
-    curl -u "<USERNAME>:<PASSWORD>" -i -X POST http://localhost:5820/<DATABASE_NAME> \
-        -H "Content-Type: application/ld+json" \
-        --data-binary @<DATASET_NAME>.jsonld
-    ```
-    
-    Clear all data in the graph database (example)
-    ```bash
-    curl -u "<USERNAME>:<PASSWORD>" -X POST http://localhost:5820/<DATABASE_NAME>/update \
-        -H "Content-Type: application/sparql-update" \
-        --data-binary "DELETE { ?s ?p ?o } WHERE { ?s ?p ?o }"
-    ```
+    === "Stardog"
+        Add a single dataset to the graph database (example)
+        ```bash
+        curl -u "DBUSER:DBPASSWORD" -i -X POST http://localhost:5820/test_data \
+            -H "Content-Type: application/ld+json" \
+            --data-binary @<DATASET_NAME>.jsonld
+        ```
+        
+        Clear all data in the graph database (example)
+        ```bash
+        curl -u "DBUSER:DBPASSWORD" -X POST http://localhost:5820/test_data/update \
+            -H "Content-Type: application/sparql-update" \
+            --data-binary "DELETE { ?s ?p ?o } WHERE { ?s ?p ?o }"
+        ```
+
+    === "graphDB"
+        Add a single dataset to the graph database (example)
+        ```bash
+        curl -u "DBUSER:DBPASSWORD" -i -X POST http://localhost:7200/repositories/my_db/statements \
+            -H "Content-Type: application/ld+json" \
+            --data-binary @<DATASET_NAME>.jsonld
+        ```
+        
+        Clear all data in the graph database (example)
+        ```bash
+        curl -u "DBUSER:DBPASSWORD" -X POST http://localhost:7200/repositories/my_db/statements \
+            -H "Content-Type: application/sparql-update" \
+            --data-binary "DELETE { ?s ?p ?o } WHERE { ?s ?p ?o }"
+        ```
 
 ### Uploading example Neurobagel data
 In order to test that the [graph setup steps](#setup-for-the-first-run) worked correctly,
@@ -496,14 +512,14 @@ Next, upload the `.jsonld` file in the directory `neurobagel_examples/data-uploa
 
 === "Stardog"
     ``` bash
-    ./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \ 
+    ./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \
       localhost:5820 test_data DBUSER DBPASSWORD \
       --clear-data
     ```
 
 === "graphDB"
     ``` bash
-    ./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \ 
+    ./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \
       localhost:7200 repositories/my_db/statements DBUSER DBPASSWORD \
       --clear-data
     ```
