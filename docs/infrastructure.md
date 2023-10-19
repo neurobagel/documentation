@@ -461,6 +461,11 @@ To view all the command line arguments for add_data_to_graph.sh:
 ./add_data_to_graph.sh --help
 ```
 
+!!! tip "If you get a `Permission denied` error, add execute permissions to script first"
+    ```bash
+    chmod +x add_data_to_graph.sh
+    ```
+
 ??? info "To directly use `curl` requests to modify the graph database instead of the helper script"
 
     === "Stardog"
@@ -526,6 +531,18 @@ Next, upload the `.jsonld` file in the directory `neurobagel_examples/data-uploa
     ```
 **Note:** Here we added the `--clear-data` flag to remove any existing data in the database (if the database is empty, the flag has no effect).
 You can choose to omit the flag or explicitly specify `--no-clear-data` (default behaviour) to skip this step.
+
+!!! tip "Tip: Double check the data upload by checking the database size"
+    === "Stardog"
+        ``` bash
+        curl -u "DBUSER:DBPASSWORD" http://localhost:5820/test_data/size?exact=true
+        ```
+
+    === "graphDB"
+        ``` bash
+        curl -u "DBUSER:DBPASSWORD" http://localhost:7200/repositories/my_db/size
+        ```
+    The number of triples (size) of your database should be > 0.
 
 ### Updating a dataset in the graph database
 If the raw data for a previously harmonized dataset (i.e., already has a corresponding JSONLD _which is in the graph_) has been updated, [a new JSONLD file must first be generated for that dataset](updating_dataset.md).
