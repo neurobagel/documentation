@@ -1,5 +1,6 @@
 # SysAdmin
 
+## Introduction
 These instructions are for a sysadmin looking to deploy Neurobagel locally in an institute or lab. 
 A local neurobagel deployment includes the neurobagel API, 
 a graph backend to store the harmonized metadata, 
@@ -26,7 +27,7 @@ We have tested the following options:
     offers a perpetual free license that should be sufficient
     for many smaller deployments or testing deployments. 
 
-!!! note 
+!!! info 
 
     RDF stores are relatively niche applications for very large data applications,
     so most implementations are commercial.
@@ -75,7 +76,7 @@ We have tested the following options:
 ## Launch the API and graph stack
 
 We recommend launching the API and your graph backend instance using `docker compose`.
-The below steps are distilled from [these instructions](https://github.com/neurobagel/api/blob/main/README.md#local-installation).
+(To install the API from source, see [these instructions](https://github.com/neurobagel/api/blob/main/README.md#local-installation).)
 
 ### Clone the API repo
 ```bash
@@ -148,25 +149,25 @@ To do so, you must explicitly specify the origin(s) for the frontend using `NB_A
 
 For example, the [`.template-env`](https://github.com/neurobagel/api/blob/main/.template-env) file in the Neurobagel API repo assumes you want to allow API requests from a query tool hosted at a specific port on `localhost` (see the [Docker Compose section](#docker-compose)).
 
-Other examples:
-```bash
-# ---- .env file ----
+??? example "Example values for `NB_API_ALLOWED_ORIGINS`"
+    ``` bash title=".env"
+    # do not allow requests from any frontend origins
+    NB_API_ALLOWED_ORIGINS=""  # this is the default value that will also be set if the variable is excluded from the .env file
 
-# do not allow requests from any frontend origins
-NB_API_ALLOWED_ORIGINS=""  # this is the default value that will also be set if the variable is excluded from the .env file
+    # allow requests from only one origin
+    NB_API_ALLOWED_ORIGINS="https://query.neurobagel.org"
 
-# allow requests from only one origin
-NB_API_ALLOWED_ORIGINS="https://query.neurobagel.org"
+    # allow requests from 3 different origins
+    NB_API_ALLOWED_ORIGINS="https://query.neurobagel.org https://localhost:3000 http://localhost:3000"
 
-# allow requests from 3 different origins
-NB_API_ALLOWED_ORIGINS="https://query.neurobagel.org https://localhost:3000 http://localhost:3000"
+    # allow requests from any origin - use with caution
+    NB_API_ALLOWED_ORIGINS="*"
+    ```
 
-# allow requests from any origin - use with caution
-NB_API_ALLOWED_ORIGINS="*"
-```
+??? note "For more technical deployments using NGINX"
 
-**A note for more technical users:** If you have configured an NGINX reverse proxy (or proxy requests to the remote origin) to serve both the API and the query tool from the same origin, you can skip the step of enabling CORS for the API. 
-For an example, see https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/.
+    If you have configured an NGINX reverse proxy (or proxy requests to the remote origin) to serve both the API and the query tool from the same origin, you can skip the step of enabling CORS for the API. 
+    For an example, see https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/.
 
 ### Docker Compose
 
@@ -460,7 +461,7 @@ To view all the command line arguments for add_data_to_graph.sh:
 ./add_data_to_graph.sh --help
 ```
 
-??? info "If you prefer to directly use `curl` requests to modify the graph database instead of the helper script"
+??? info "To directly use `curl` requests to modify the graph database instead of the helper script"
 
     === "Stardog"
         Add a single dataset to the graph database (example)
