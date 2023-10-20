@@ -127,7 +127,7 @@ Example:
 
 {{ read_table('./repos/neurobagel_examples/query-tool-results/participant-level-results.tsv') }}
 
-#### Participant-level results in aggregate mode
+#### `protected` participant-level results in aggregate mode
 When `NB_RETURN_AGG` environment variable for the neurobagel API is set to `true` (see related section of the documentation [here](https://neurobagel.org/infrastructure/#set-the-environment-variables)), the value for all columns except for `DatasetID` and `SessionPath` in the Participant-level results is set to `protected`.
 
 Example:
