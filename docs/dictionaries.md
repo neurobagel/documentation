@@ -278,13 +278,13 @@ maps internally to a specific transformation that is used to convert the values 
 
 Possible heuristics: 
 
-|   TermURL    |  Label  |
-|   -------    | ------- |
-|   nb:FromFloat   | float value  |
-|   nb:FromInt     | integer value |
-|   nb:FromEuro    | european decimal value |
-|   nb:FromBounded | bounded value |
-|   nb:FromISO8061 | period of time defined according to the ISO8601 standard |
+| TermURL | Label | Example |
+| ----- | ----- | ----- |
+| `nb:FromFloat` | float value | `31.5`
+| `nb:FromInt` | integer value | `31`
+| `nb:FromEuro` | european decimal value | `31,5`
+| `nb:FromBounded` | bounded value | `30+`
+| `nb:FromISO8061` | period of time defined according to the ISO8601 standard | `31Y6M`
 
 
 ```json hl_lines="9-12"
