@@ -128,7 +128,8 @@ Example:
 {{ read_table('./repos/neurobagel_examples/query-tool-results/participant-level-results.tsv') }}
 
 #### `protected` participant-level results in aggregate mode
-When `NB_RETURN_AGG` environment variable for the neurobagel API is set to `true` (see related section of the documentation [here](https://neurobagel.org/infrastructure/#set-the-environment-variables)), the value for all columns except for `DatasetID` and `SessionPath` in the Participant-level results is set to `protected`.
+
+If the values for all columns except for `DatasetID` and `SessionPath` in the participant-level results tsv are set to `protected`, this indicates the graph being queried has been configured (via its corresponding API) to return only aggregate information about matches (due to data privacy reasons). This configuration can be modified by setting the `NB_RETURN_AGG` environment variable to `false` (the value is by default `true`). see related section of the documentation [here](https://neurobagel.org/infrastructure/#set-the-environment-variables).
 
 Example:
 
