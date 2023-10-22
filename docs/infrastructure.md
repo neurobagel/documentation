@@ -526,8 +526,8 @@ Next, upload the `.jsonld` file in the directory `neurobagel_examples/data-uploa
 === "graphDB"
     ``` bash
     ./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \
-      localhost:7200 repositories/my_db/statements DBUSER DBPASSWORD \
-      --clear-data
+      localhost:7200 repositories/my_db DBUSER DBPASSWORD \
+      --clear-data --use-graphdb-syntax
     ```
 **Note:** Here we added the `--clear-data` flag to remove any existing data in the database (if the database is empty, the flag has no effect).
 You can choose to omit the flag or explicitly specify `--no-clear-data` (default behaviour) to skip this step.
