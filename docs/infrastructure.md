@@ -365,9 +365,10 @@ with a name of `test_data`.
 
     In graphDB, graph databases are called resources.
     To create a new one, you will also have to prepare a `data-config.ttl` file
-    that contains the settings for the resource you will create ([see the graphDB docs](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/location-and-repository-tutorial.html#create-a-repository)).
+    that contains the settings for the resource you will create 
+    (for more information, see the [graphDB docs](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/location-and-repository-tutorial.html#create-a-repository)).
 
-    **make sure to that the value for `rep:repositoryID`
+    **Make sure that the value for `rep:repositoryID`
     in the `data-configl.ttl` file matches the value of
     `NB_GRAPH_DB` in your `.env` file**. 
     For example, if `NB_GRAPH_DB=my_db`, then
@@ -451,8 +452,8 @@ with a name of `test_data`.
 
 ## Uploading data to the graph
 
-The `neurobagel/api` repo contains a helper script [`add_data_to_graph.sh`](https://github.com/neurobagel/api/blob/main/add_data_to_graph.sh) for automatically uploading all JSONLD files (i.e., graph-ready data) in a directory to a specific graph database, with the option to clear the existing data in the database first.
-Each `.jsonld` file is expected to correspond to a single **dataset**.
+The `neurobagel/api` repo contains a helper script [`add_data_to_graph.sh`](https://github.com/neurobagel/api/blob/main/add_data_to_graph.sh) for automatically uploading all JSONLD and/or TTL files (i.e., graph-ready data) in a directory to a specific graph database, with the option to clear the existing data in the database first.
+In the context of Neurobagel, each `.jsonld` file is expected to correspond to a single **dataset**.
 
 To view all the command line arguments for add_data_to_graph.sh:
 ```bash
