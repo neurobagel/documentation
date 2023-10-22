@@ -113,7 +113,7 @@ Below are all the possible Neurobagel environment variables that can be set in `
         NB_GRAPH_ROOT_CONT=/opt/graphdb/home
         NB_GRAPH_PORT=7200
         NB_GRAPH_PORT_HOST=7200
-        NB_GRAPH_DB=repositories/my_db  # NOTE: for graphDB, this value should always take the the format of: repositories/<your_database_name>
+        NB_GRAPH_DB=repositories/my_db  # For graphDB, this value should always take the format of: repositories/<your_database_name>
         ```
 
 _** `NB_GRAPH_ADDRESS` should not be changed from its default value (`graph`) when using docker compose as this corresponds to the preset container name of the graph database server within the docker compose network._
@@ -149,7 +149,7 @@ To do so, you must explicitly specify the origin(s) for the frontend using `NB_A
 
 For example, the [`.template-env`](https://github.com/neurobagel/api/blob/main/.template-env) file in the Neurobagel API repo assumes you want to allow API requests from a query tool hosted at a specific port on `localhost` (see the [Docker Compose section](#docker-compose)).
 
-??? example "Example values for `NB_API_ALLOWED_ORIGINS`"
+??? example "More examples of `NB_API_ALLOWED_ORIGINS`"
     ``` bash title=".env"
     # do not allow requests from any frontend origins
     NB_API_ALLOWED_ORIGINS=""  # this is the default value that will also be set if the variable is excluded from the .env file
@@ -200,8 +200,6 @@ To interact with your graph backend,
 you have two general options:
 
 === "Stardog"
-
-    
 
     1. Send HTTP request against the HTTP API of the Stardog graph instance (e.g. with `curl`). See [https://stardog-union.github.io/http-docs/](https://stardog-union.github.io/http-docs/) for a full reference of API endpoints
     2. Use the free Stardog-Studio web app. See the [Stardog documentation](https://docs.stardog.com/stardog-applications/dockerized_access#stardog-studio) for instruction to deploy Stardog-Studio as a Docker container.
@@ -461,7 +459,7 @@ To view all the command line arguments for add_data_to_graph.sh:
 ./add_data_to_graph.sh --help
 ```
 
-!!! tip "If you get a `Permission denied` error, add execute permissions to script first"
+??? tip "If you get a `Permission denied` error, add execute permissions to script first"
     ```bash
     chmod +x add_data_to_graph.sh
     ```
@@ -532,7 +530,7 @@ Next, upload the `.jsonld` file in the directory `neurobagel_examples/data-uploa
 **Note:** Here we added the `--clear-data` flag to remove any existing data in the database (if the database is empty, the flag has no effect).
 You can choose to omit the flag or explicitly specify `--no-clear-data` (default behaviour) to skip this step.
 
-!!! tip "Tip: Double check the data upload by checking the database size"
+??? tip "Tip: Double check the data upload worked by checking the database size"
     === "Stardog"
         ``` bash
         curl -u "DBUSER:DBPASSWORD" http://localhost:5820/test_data/size?exact=true
