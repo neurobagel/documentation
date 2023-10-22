@@ -126,3 +126,11 @@ This number will be the same across rows corresponding to the same subject.
 Example:
 
 {{ read_table('./repos/neurobagel_examples/query-tool-results/participant-level-results.tsv') }}
+
+#### `protected` participant-level results in aggregate mode
+
+If the values for all columns except for `DatasetID` and `SessionPath` in the participant-level results tsv are set to `protected`, this indicates the graph being queried has been configured (via its corresponding API) to return only aggregate information about matches (due to data privacy reasons). This configuration can be modified by setting the `NB_RETURN_AGG` environment variable to `false` (the value is by default `true`). see related section of the documentation [here](https://neurobagel.org/infrastructure/#set-the-environment-variables).
+
+Example:
+
+{{ read_table('./repos/neurobagel_examples/query-tool-results/participant-level-results-agg.tsv') }}
