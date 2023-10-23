@@ -1,5 +1,6 @@
 # SysAdmin
 
+## Introduction
 These instructions are for a sysadmin looking to deploy Neurobagel locally in an institute or lab. 
 A local neurobagel deployment includes the neurobagel API, 
 a graph backend to store the harmonized metadata, 
@@ -26,7 +27,7 @@ We have tested the following options:
     offers a perpetual free license that should be sufficient
     for many smaller deployments or testing deployments. 
 
-!!! note 
+!!! info 
 
     RDF stores are relatively niche applications for very large data applications,
     so most implementations are commercial.
@@ -75,7 +76,7 @@ We have tested the following options:
 ## Launch the API and graph stack
 
 We recommend launching the API and your graph backend instance using `docker compose`.
-The below steps are distilled from [these instructions](https://github.com/neurobagel/api/blob/main/README.md#local-installation).
+(To install the API from source, see [these instructions](https://github.com/neurobagel/api/blob/main/README.md#local-installation).)
 
 ### Clone the API repo
 ```bash
@@ -112,7 +113,7 @@ Below are all the possible Neurobagel environment variables that can be set in `
         NB_GRAPH_ROOT_CONT=/opt/graphdb/home
         NB_GRAPH_PORT=7200
         NB_GRAPH_PORT_HOST=7200
-        NB_GRAPH_DB=repositories/my_db  # NOTE: for graphDB, this value should always take the the format of: repositories/<your_database_name>
+        NB_GRAPH_DB=repositories/my_db  # For graphDB, this value should always take the format of: repositories/<your_database_name>
         ```
 
 _** `NB_GRAPH_ADDRESS` should not be changed from its default value (`graph`) when using docker compose as this corresponds to the preset container name of the graph database server within the docker compose network._
@@ -149,25 +150,25 @@ For detailed instructions regarding the query tool see [Running cohort queries](
 
 For example, the [`.template-env`](https://github.com/neurobagel/api/blob/main/.template-env) file in the Neurobagel API repo assumes you want to allow API requests from a query tool hosted at a specific port on `localhost` (see the [Docker Compose section](#docker-compose)).
 
-Other examples:
-```bash
-# ---- .env file ----
+??? example "More examples of `NB_API_ALLOWED_ORIGINS`"
+    ``` bash title=".env"
+    # do not allow requests from any frontend origins
+    NB_API_ALLOWED_ORIGINS=""  # this is the default value that will also be set if the variable is excluded from the .env file
 
-# do not allow requests from any frontend origins
-NB_API_ALLOWED_ORIGINS=""  # this is the default value that will also be set if the variable is excluded from the .env file
+    # allow requests from only one origin
+    NB_API_ALLOWED_ORIGINS="https://query.neurobagel.org"
 
-# allow requests from only one origin
-NB_API_ALLOWED_ORIGINS="https://query.neurobagel.org"
+    # allow requests from 3 different origins
+    NB_API_ALLOWED_ORIGINS="https://query.neurobagel.org https://localhost:3000 http://localhost:3000"
 
-# allow requests from 3 different origins
-NB_API_ALLOWED_ORIGINS="https://query.neurobagel.org https://localhost:3000 http://localhost:3000"
+    # allow requests from any origin - use with caution
+    NB_API_ALLOWED_ORIGINS="*"
+    ```
 
-# allow requests from any origin - use with caution
-NB_API_ALLOWED_ORIGINS="*"
-```
+??? note "For more technical deployments using NGINX"
 
-**A note for more technical users:** If you have configured an NGINX reverse proxy (or proxy requests to the remote origin) to serve both the API and the query tool from the same origin, you can skip the step of enabling CORS for the API. 
-For an example, see https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/.
+    If you have configured an NGINX reverse proxy (or proxy requests to the remote origin) to serve both the API and the query tool from the same origin, you can skip the step of enabling CORS for the API. 
+    For an example, see https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/.
 
 ### Docker Compose
 
@@ -200,8 +201,6 @@ To interact with your graph backend,
 you have two general options:
 
 === "Stardog"
-
-    
 
     1. Send HTTP request against the HTTP API of the Stardog graph instance (e.g. with `curl`). See [https://stardog-union.github.io/http-docs/](https://stardog-union.github.io/http-docs/) for a full reference of API endpoints
     2. Use the free Stardog-Studio web app. See the [Stardog documentation](https://docs.stardog.com/stardog-applications/dockerized_access#stardog-studio) for instruction to deploy Stardog-Studio as a Docker container.
@@ -367,9 +366,10 @@ with a name of `test_data`.
 
     In graphDB, graph databases are called resources.
     To create a new one, you will also have to prepare a `data-config.ttl` file
-    that contains the settings for the resource you will create ([see the graphDB docs](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/location-and-repository-tutorial.html#create-a-repository)).
+    that contains the settings for the resource you will create 
+    (for more information, see the [graphDB docs](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/location-and-repository-tutorial.html#create-a-repository)).
 
-    **make sure to that the value for `rep:repositoryID`
+    **Make sure that the value for `rep:repositoryID`
     in the `data-configl.ttl` file matches the value of
     `NB_GRAPH_DB` in your `.env` file**. 
     For example, if `NB_GRAPH_DB=my_db`, then
@@ -453,15 +453,20 @@ with a name of `test_data`.
 
 ## Uploading data to the graph
 
-The `neurobagel/api` repo contains a helper script [`add_data_to_graph.sh`](https://github.com/neurobagel/api/blob/main/add_data_to_graph.sh) for automatically uploading all JSONLD files (i.e., graph-ready data) in a directory to a specific graph database, with the option to clear the existing data in the database first.
-Each `.jsonld` file is expected to correspond to a single **dataset**.
+The `neurobagel/api` repo contains a helper script [`add_data_to_graph.sh`](https://github.com/neurobagel/api/blob/main/add_data_to_graph.sh) for automatically uploading all JSONLD and/or TTL files (i.e., graph-ready data) in a directory to a specific graph database, with the option to clear the existing data in the database first.
+In the context of Neurobagel, each `.jsonld` file is expected to correspond to a single **dataset**.
 
 To view all the command line arguments for add_data_to_graph.sh:
 ```bash
 ./add_data_to_graph.sh --help
 ```
 
-??? info "If you prefer to directly use `curl` requests to modify the graph database instead of the helper script"
+??? tip "If you get a `Permission denied` error, add execute permissions to script first"
+    ```bash
+    chmod +x add_data_to_graph.sh
+    ```
+
+??? info "To directly use `curl` requests to modify the graph database instead of the helper script"
 
     === "Stardog"
         Add a single dataset to the graph database (example)
@@ -521,11 +526,23 @@ Next, upload the `.jsonld` file in the directory `neurobagel_examples/data-uploa
 === "graphDB"
     ``` bash
     ./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \
-      localhost:7200 repositories/my_db/statements DBUSER DBPASSWORD \
-      --clear-data
+      localhost:7200 repositories/my_db DBUSER DBPASSWORD \
+      --clear-data --use-graphdb-syntax
     ```
 **Note:** Here we added the `--clear-data` flag to remove any existing data in the database (if the database is empty, the flag has no effect).
 You can choose to omit the flag or explicitly specify `--no-clear-data` (default behaviour) to skip this step.
+
+??? tip "Tip: Double check the data upload worked by checking the database size"
+    === "Stardog"
+        ``` bash
+        curl -u "DBUSER:DBPASSWORD" http://localhost:5820/test_data/size?exact=true
+        ```
+
+    === "graphDB"
+        ``` bash
+        curl -u "DBUSER:DBPASSWORD" http://localhost:7200/repositories/my_db/size
+        ```
+    The number of triples (size) of your database should be > 0.
 
 ### Updating a dataset in the graph database
 If the raw data for a previously harmonized dataset (i.e., already has a corresponding JSONLD _which is in the graph_) has been updated, [a new JSONLD file must first be generated for that dataset](updating_dataset.md).
