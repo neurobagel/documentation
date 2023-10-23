@@ -111,6 +111,7 @@ Below are all the possible Neurobagel environment variables that can be set in `
         ```bash
         NB_GRAPH_IMG=ontotext/graphdb:10.3.1
         NB_GRAPH_ROOT_CONT=/opt/graphdb/home
+        NB_GRAPH_ROOT_HOST=~/graphdb-home  # Or, replace with another directory on your own (host) system where you want to store the database files
         NB_GRAPH_PORT=7200
         NB_GRAPH_PORT_HOST=7200
         NB_GRAPH_DB=repositories/my_db  # For graphDB, this value should always take the format of: repositories/<your_database_name>
