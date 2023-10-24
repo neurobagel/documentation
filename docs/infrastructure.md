@@ -371,7 +371,7 @@ with a name of `test_data`.
     (for more information, see the [graphDB docs](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/location-and-repository-tutorial.html#create-a-repository)).
 
     **Make sure that the value for `rep:repositoryID`
-    in the `data-configl.ttl` file matches the value of
+    in the `data-config.ttl` file matches the value of
     `NB_GRAPH_DB` in your `.env` file**. 
     For example, if `NB_GRAPH_DB=my_db`, then
     `rep:repositoryID "my_db" ;`.
@@ -379,7 +379,7 @@ with a name of `test_data`.
     You can use this example file and save
     it as `data-config.ttl` locally:
 
-    ```turtle
+    ```turtle hl_lines="11"
     #
     # RDF4J configuration template for a GraphDB repository
     #
