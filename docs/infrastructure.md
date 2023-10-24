@@ -257,7 +257,7 @@ you have two general options:
 
     **Setup security and users**
 
-    Also refer to the [official graphDB documentation](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/curl-commands.html#security-management).
+    Also refer to the [official graphDB documentation](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/curl-commands.html#security-management) for more info.
 
     First, change the password for the admin user that has been automatically
     created by graphDB:
