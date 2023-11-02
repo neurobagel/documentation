@@ -18,7 +18,7 @@ jobs:
             - archive: sometimes an issue has important information or ideas but we won't work on it soon. In this case
             apply the `someday` label to show that this won't be prioritized. The stalebot will ignore issues with this
             label in the future. Use sparingly!
-          days-before-stale: 30
+          days-before-stale: 75
           days-before-close: -1
           stale-issue-label: '_flag:stale'
           exempt-issue-labels: 'Roadmap,Milestone,Epic,someday'
