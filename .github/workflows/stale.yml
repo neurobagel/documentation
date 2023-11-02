@@ -10,7 +10,7 @@ jobs:
       - uses: actions/stale@v8
         with:
           stale-issue-message: |
-            We want to keep our issues up to date and active. This issue hasn't seen any activity in the last 30 days.
+            We want to keep our issues up to date and active. This issue hasn't seen any activity in the last 75 days.
             We have applied the `_flag:stale` label to indicate that this issue should be reviewed again.
             When you review, please reread the spec and then apply one of these three options:
             - prioritize: apply the `flag:schedule` label to suggest moving this issue into the backlog now
