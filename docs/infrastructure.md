@@ -566,15 +566,14 @@ Run the following code (assumes you are in the `api` directory):
 === "Stardog"
     ``` bash
     ./add_data_to_graph.sh vocab \
-      localhost:5820 test_data DBUSER DBPASSWORD \
-      --clear-data
+      localhost:5820 test_data DBUSER DBPASSWORD
     ```
 
 === "graphDB"
     ``` bash
     ./add_data_to_graph.sh vocab \
       localhost:7200 repositories/my_db DBUSER DBPASSWORD \
-      --clear-data --use-graphdb-syntax
+      --use-graphdb-syntax
     ```
 
 ### Updating a dataset in the graph database
