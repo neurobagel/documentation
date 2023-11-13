@@ -146,6 +146,12 @@ You could run the CLI as follows:
     ...
     ```
 
+## Upgrading to a newer version of the CLI
+New releases of the Neurobagel CLI will occasionally introduce breaking changes to the data model for subject-level information in a `.jsonld` graph file.
+
+_If you have already created `.jsonld` files for your Neurobagel graph database using the CLI_, 
+follow the instructions [here](updating_dataset.md#following-a-change-in-the-neurobagel-data-model) to regenerate your existing graph data so that they will not conflict with dataset `.jsonld` files generated using the latest CLI version.
+
 ## Development environment
 
 To set up a development environment, please run
