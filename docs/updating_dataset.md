@@ -32,9 +32,9 @@ If subjects have been added to or removed from the dataset but the phenotypic TS
 
 ## Following a change in the _Neurobagel data model_
 
-As Neurobagel refines the way that specific subject properties are modeled as graph data, new tool releases will occasionally introduce breaking changes to the data model for subject-level information in a `.jsonld` graph data file.
+As Neurobagel continues developing the data model, new tool releases may introduce breaking changes to the data model for subject-level information in a `.jsonld` graph data file. This will be highlighted in the release notes.
 
-_If you have already created `.jsonld` files for a Neurobagel graph database_ but want to update your graph data to the latest Neurobagel data model following such a change, the easiest way would be to [rerun the CLI](cli.md) on the existing data dictionaries and phenotypic TSVs for the dataset(s) in the graph.
+_If you have already created `.jsonld` files for a Neurobagel graph database_ but want to update your graph data to the latest Neurobagel data model following such a change, you can easily do so by [rerunning the CLI](cli.md) on the existing data dictionaries and phenotypic TSVs for the dataset(s) in the graph.
 This will ensure that if you use the latest version of the Neurobagel CLI to process new datasets (i.e., generate new `.jsonld` files) for your database, the resulting data will not have conflicts with existing data in the graph.
 
 Note that if upgrading to a newer version of the data model, **you should regenerate the `.jsonld` files for _all_ datasets in your existing graph**.
