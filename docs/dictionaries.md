@@ -308,10 +308,10 @@ Possible heuristics:
 ### Assessment tool
 
 For assessment tools like cognitive tests or rating scales, 
-Neurobagel encodes whether the tool was successfully completed.
+Neurobagel encodes whether a subject has a value/score for _at least one_ item or subscale of the assessment.
 Because assessment tools often have several subscales or items 
 that can be stored as separate columns in the tabular `participant.tsv` file,
-each assessment tool column gets **a minimum** of two annotations:
+each assessment tool column receives **a minimum** of two annotations:
 
 - one to classify that the column `IsAbout` the generic category of assessment tools
 - one to classify that the column `IsPartOf` the specific assessment tool
@@ -353,8 +353,8 @@ when instances of missing values are present (see also section [Missing values](
 ```
 
 To determine whether a specific assessment tool is available for a given participant,
-we then combine all of the columns that were classified as `PartOf` that specific tool
-and then apply a simple `all()` heuristic to check that none of the columns
+we then consider all of the columns that were classified as `IsPartOf` that specific tool
+and then apply a simple `any()` heuristic to check that at least one column does not
 contain any `MissingValues`.
 
 For the above example, this would be:
@@ -363,13 +363,15 @@ For the above example, this would be:
 |---------------|---------|---------|
 | sub-01        | 2       |         |
 | sub-02        | 1       | 1       |
+| sub-03        |         |         |
 
 Therefore: 
 
 | particpant_id | updrs_available |
 |---------------|-----------------|
-| sub-01        | False           |
+| sub-01        | True           |
 | sub-02        | True            |
+| sub-03        | False           |
 
 ## Missing values
 Missing values are allowed for any phenotypic variable (column) that does not describe a participant or session identifier (e.g., columns like `participant_id` or `session_id`). 
