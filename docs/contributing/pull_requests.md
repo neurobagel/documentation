@@ -22,7 +22,7 @@ Instead, for documentation content changes, the following prefixes can be used t
 - `[FIX]`: Fixing errors in the documentation
 
 ## Pull request reviews
-A developer will review each PR and may provide comments or suggestions for the PR author to address.
+A core maintainer will review each PR and may provide comments or suggestions for the PR author to address.
 
 Neurobagel PR reviews may use the following emoji signifiers:
 
@@ -31,3 +31,8 @@ Neurobagel PR reviews may use the following emoji signifiers:
 :cherries:: Some optional/suggested changes that could be nice to have but are not required to merge
 
 If (required) changes are requested, the PR author should re-request a review from the reviewer once the comments have been addressed.
+
+### When your pull request is approved
+For PRs opened by community contributors, the reviewing Neurobagel maintainer is responsible for merging the PR.
+
+For PRs opened by Neurobagel developers, the PR author is responsible for merging the PR.
