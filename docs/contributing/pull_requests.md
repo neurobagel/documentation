@@ -33,6 +33,6 @@ Neurobagel PR reviews may use the following emoji signifiers:
 If (required) changes are requested, the PR author should re-request a review from the reviewer once the comments have been addressed.
 
 ### When your pull request is approved
-For PRs opened by community contributors, the reviewing Neurobagel maintainer is responsible for merging the PR.
+If you **are not a member of the Neurobagel developer team**: the reviewing Neurobagel maintainer is responsible for merging the PR.
 
-For PRs opened by Neurobagel developers, the PR author is responsible for merging the PR.
+If you **are a member of the Neurobagel developer team** (i.e., you have write access to the repository): the PR author is responsible for merging the PR.
