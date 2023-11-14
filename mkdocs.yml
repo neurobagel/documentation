@@ -9,6 +9,8 @@ theme:
   - navigation.expand
   - content.tabs.link
   - content.code.copy  # allow user to copy a code block's contents to the clipboard
+  logo: "imgs/logo/neurobagel_logo.png"
+  favicon: "imgs/logo/neurobagel_favicon.png"
   palette:
     primary: deep purple
     accent: amber
