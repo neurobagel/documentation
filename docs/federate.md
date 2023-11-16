@@ -31,3 +31,24 @@ API_TYPE=federate
 ```
 
 This is so we now know what API is running
+
+
+```
+docker pull neurobagel/federation_api
+
+# Make sure to run the next command in the same directory where your .env file is
+docker run -d --name=federation -p 8080:8000 --env-file=.env neurobagel/federation_api
+```
+
+Now your f-API is running, we need to tell your query tool about it:
+
+1. Shut down your query tool that is already deployed: `docker stop query-tool`
+2. Change the following value in the `.env` file of the query tool: `API_TYPE=federate`
+3. Relaunch the query tool `docker start query_tool`
+
+Now your query tool should be running against the f-API. 
+You can confirm that by doing XYZ
+
+!!! TODO
+
+    what's the best way to confirm we're running against a f-API here?
