@@ -203,7 +203,7 @@ you have two general options:
 
 === "Stardog"
 
-    1. Send HTTP request against the HTTP API of the Stardog graph instance (e.g. with `curl`). See [https://stardog-union.github.io/http-docs/](https://stardog-union.github.io/http-docs/) for a full reference of API endpoints
+    1. Send HTTP request from the neurobagel API to the HTTP REST endpoints of the Stardog graph backend (e.g. with `curl`). See [https://stardog-union.github.io/http-docs/](https://stardog-union.github.io/http-docs/) for a full reference of API endpoints
     2. Use the free Stardog-Studio web app. See the [Stardog documentation](https://docs.stardog.com/stardog-applications/dockerized_access#stardog-studio) for instruction to deploy Stardog-Studio as a Docker container.
 
 
@@ -218,7 +218,7 @@ you have two general options:
 
 === "graphDB"
 
-    1. Send HTTP requests against the HTTP API of the graphDB backend 
+    1. Send HTTP requests fromt the neurobagel API to the HTTP REST endpoints of thethe graphDB backend 
     e.g. using `curl`. graphDB uses the [RDF4J API](https://rdf4j.org/documentation/reference/rest-api/) specification.
     2. Use the graphDB web interface (called [the workbench](https://graphdb.ontotext.com/documentation/10.0/architecture-components.html)). 
     Once your local graphDB backend is running
