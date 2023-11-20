@@ -1,0 +1,26 @@
+name: Documentation request
+
+description: Suggest a new documentation topic or improvement to existing documentation.
+
+body:
+  - type: textarea
+    attributes:
+      label: Description
+      description: What was unclear or what you would like to see documented?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Relevant documentation pages
+      description: Please link any existing documentation pages relevant to your request.
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Additional details
+      description: |
+        Any other details you think would be helpful?
+        
+        Specific use cases, examples, etc.
+    validations:
+      required: false
