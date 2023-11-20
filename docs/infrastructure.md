@@ -607,11 +607,26 @@ Use this option if you
 - want your users to only search data
 in the new node you deployed
 
-In this case, 
+In this case, you need to deploy the query tool
+as a standalone docker container.
 
+```bash
+docker run -d -p 3000:3000 --env API_QUERY_URL=http://localhost:8000/ --name query_tool neurobagel/query_tool:latest
+```
 
-By default, this will also deploy a local version of the [Neurobagel graphical query tool](https://github.com/neurobagel/query-tool).
-If using the default port mappings, you can reach your local query tool at [http://localhost:3000](http://localhost:3000) once it is running.
+Make sure to replace the value of `API_QUERY_URL` with the `IP:PORT` or domain name of the
+new neurobagel node-API you just deployed!
+
+If using the default port mappings, 
+you can reach your local query tool at [http://localhost:3000](http://localhost:3000) once it is running.
+
+To see the exact configuration that your new docker
+container is running with (e.g. for debugging),
+you can run
+
+```bash
+docker inspect query_tool
+```
 
 ??? note "Note on using a graphical query tool to send API requests"
     The `NB_API_ALLOWED_ORIGINS` variable defaults to an empty string (`""`) when unset, meaning that your deployed API will only be accessible via direct `curl` requests to the URL where the API is hosted (see [this section](#test-the-new-deployment) for an example `curl` request).
