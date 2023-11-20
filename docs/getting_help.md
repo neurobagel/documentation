@@ -6,7 +6,7 @@ For a bug or feature request, feel free to open an issue in the repository for t
 If you are using one of our web tools ([https://annotate.neurobagel.org](https://annotate.neurobagel.org) or [https://query.neurobagel.org](https://query.neurobagel.org), you can also submit suggestions and bugs using the feedback widget directly on the site.
 
 ## Documentation feedback
-Neurobagel is always looking to improve their user documentation.
+We are always looking to improve our user documentation.
 To request a change or addition to existing documentation, please [open an issue in the `neurobagel/documentation` repo](https://github.com/neurobagel/documentation/issues).
 
 ## General questions
