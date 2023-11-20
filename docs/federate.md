@@ -43,7 +43,7 @@ Let's assume you are running two local nodes:
 - a node named `"node_recruitment"` running on a different computer with the local IP `192.168.0.1`, listening on the default http port `80`. 
 In your `fed.env` file you would configure this as follows:
 
-```bash
+``` {.bash .annotate}
 # Configuration for f-API
 # List of known local node APIs: (node_URL, node_NAME)
 LOCAL_NB_NODES=(http://localhost:8000, node_archive) (http://192.168.0.1, node_recruitment)
@@ -53,12 +53,19 @@ NB_API_PORT=8080
 NB_API_TAG=latest
 
 # Configuration for query tool
-
 # Define the URL of the f-API as it will appear to a user
-API_QUERY_URL=http:localhost:8080
+API_QUERY_URL=http:localhost:8080 # (1)!
 # Chose the docker image tag of the query tool (default latest)
 NB_QUERY_TAG=latest
 ```
+
+1.  When a user users the graphical query tool to query your
+    f-API, these requests will be sent from the users machine,
+    not from the machine hosting the query tool.
+
+    Make sure you set the `API_QUERY_URL` in your `fed.env`
+    as it will appear to a user on their own machine 
+    - otherwise the request will fail..
 
 Each node is described in `LOCAL_NB_NODES` by a comma-delimited tuple of the form `(node_URL, node_NAME)`.
 
@@ -82,7 +89,7 @@ Copy the following snippet into your `docker-compose.yml` file.
 You should not have to change anything about this file.
 All local configuration changes are done in the `fed.env` file.
 
-```yaml
+``` {.yaml .annotate}
 version: "3.8"
 
 services:
@@ -93,7 +100,7 @@ services:
     env_file:
       - federate.env
     environment:
-      - LOCAL_NB_NODES=${LOCAL_NB_NODES}
+      - LOCAL_NB_NODES=${LOCAL_NB_NODES} # (1)!
       - NB_API_PORT=${NB_API_PORT:-8000}
   query:
     image: "neurobagel/query_tool:${NB_QUERY_TAG:-latest}"
@@ -105,19 +112,7 @@ services:
       - API_QUERY_URL=${API_QUERY_URL:-http://localhost:8000/}
 ```
 
-!!! note "Users send queries from their own machine"
-
-    When a user users the graphical query tool to query your
-    f-API, these requests will be sent from the users machine,
-    not from the machine hosting the query tool.
-
-    Make sure you set the `API_QUERY_URL` in your `fed.env`
-    as it will appear to a user on their own machine 
-    - otherwise the request will fail.
-
-!!! note "Public neurobagel nodes are included by default"
-
-    We maintain a list of public neurobagel nodes 
+1.  We maintain a list of public neurobagel nodes 
     [here](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json).
     By default every new `f-API` will lookup this list
     on startup and include it in the list of nodes to
