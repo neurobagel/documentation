@@ -93,4 +93,4 @@ The Nipoppy workflow steps and linked identifiers (i.e. `participant_id`, `dicom
 8. What is [Neurobagel](https://www.neurobagel.org/) and do I need to use it?
     * Neurobagel is a data harmonization project that includes tools to perform cross-datasets searches for imaging data availability. You do not need Neurobagel for Nipoppy, though some Nipoppy outputs (specifically the `bagel` tracking files) can be used as input to some Neurobagel tools.
 9. How do I use the dashboard?
-    * Simply visit https://digest.neurobagel.org (no installation required). More information about the dashboard can be found [here](https://github.com/neurobagel/digest).
+    * Simply visit [https://digest.neurobagel.org](https://digest.neurobagel.org) (no installation required). More information about the dashboard can be found [here](https://github.com/neurobagel/digest).
