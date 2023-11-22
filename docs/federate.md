@@ -6,7 +6,7 @@ the data in the local node alongside all the publicly
 visible data in the neurobagel network.
 - **Case 2**: internal federation. You have two or more local neurobagel
 nodes (e.g. for data from different groups in your institute)
-and you want your local users to search across both of them.
+and you want your local users to search across all of them.
 
 ![Local federation scenarios](imgs/local_federation_architecture.jpg)
 
@@ -14,12 +14,12 @@ Note that these cases are not mutually exclusive.
 Any local neurobagel nodes you deploy will only be visible to users
 inside of your local network (internal federation).
 Existing public nodes in the neurobagel network are accessible
-to everyone (e.g. on [query.neurobagel.org](https://query.neurobagel.org/))
-and you can choose to also add them to your local deployment
+to everyone via our public query tool (e.g. on [query.neurobagel.org](https://query.neurobagel.org/))
+and you can choose to also make them available to your local deployment
 through read-only federation.
 
 ## Setting up for local federation
-Local federation in neurobagel is provided by the federation API (`f-API`) service.
+Federated graph queries in neurobagel are provided by the federation API (`f-API`) service.
 The neurobagel `f-API` takes a single user query and then sends it to every
 neurobagel node API (`n-API`) it is aware of, collects and combinesthe responses,
 and sends them back to the user as a single answer.
@@ -28,16 +28,15 @@ and sends them back to the user as a single answer.
 
     Make sure you have at least one [local `n-API` configured and running](infrastructure.md)
     before you set up local federation. If you do not have any local
-    `n-APIs` to federate over, you can just use the public [query.neurobagel.org](https://query.neurobagel.org/)
-    query tool directly
+    `n-APIs` to federate over, you can just use our public query tool directly at [query.neurobagel.org](https://query.neurobagel.org/).
 
-In your command line, navigate to a new directory where you will keep the configuration
+In your command line, create and navigate to a new directory where you will keep the configuration
 files for your new `f-API`. In this directory, create two files:
 
 **`fed.env` environment file**. 
 
-Create a new textfile to hold environment variables needed for the `f-API` deployment. 
-Let's assume you are running two local nodes:
+Create a text file called `fed.env` to hold environment variables needed for the `f-API` deployment. 
+Let's assume there are two local nodes already running on different servers of your institutional network, and you want to set up federation across both nodes:
 
 - a node named `"node_archive"` running on your local computer on port `8000` and 
 - a node named `"node_recruitment"` running on a different computer with the local IP `192.168.0.1`, listening on the default http port `80`. 
@@ -47,8 +46,10 @@ In your `fed.env` file you would configure this as follows:
 # Configuration for f-API
 # List of known local node APIs: (node_URL, node_NAME)
 LOCAL_NB_NODES=(http://localhost:8000, node_archive) (http://192.168.0.1, node_recruitment)
-# Chose the port that the f-API will listen on (default 8000)
-NB_API_PORT=8080
+# Define the port that the f-API will run on INSIDE the docker container (default 8000)
+NB_API_PORT=8000
+# Define the port that the f-API will be exposed on to the host computer (and likely the outside network)
+NB_API_PORT_HOST=8080
 # Chose the docker image tag of the f-API (default latest)
 NB_API_TAG=latest
 
@@ -57,6 +58,8 @@ NB_API_TAG=latest
 API_QUERY_URL=http:localhost:8080 # (1)!
 # Chose the docker image tag of the query tool (default latest)
 NB_QUERY_TAG=latest
+# Chose the port that the query tool will be exposed on the host and likely the network (default 3000)
+NB_QUERY_PORT_HOST=3000
 ```
 
 1.  When a user users the graphical query tool to query your
@@ -67,15 +70,15 @@ NB_QUERY_TAG=latest
     as it will appear to a user on their own machine 
     - otherwise the request will fail..
 
-Each node is described in `LOCAL_NB_NODES` by a comma-delimited tuple of the form `(node_URL, node_NAME)`.
+Each node to be federated over is described in the variable `LOCAL_NB_NODES` by a comma-delimited tuple of the form `(node_URL, node_NAME)`.
 
 You can add one or more local nodes to the list of nodes known to your `f-API` in this way.
-Just adjust the above snippets to your own deployment, and store it in a file called `fed.env`.
+Just adjust the above code snippet according to your own deployment, and store it in a file called `fed.env`.
 
 
 **`docker-compose.yml` docker config file**.
 
-Create a second textfile called `docker-compose.yml`. 
+Create a second file called `docker-compose.yml`. 
 This file describes the required services, ports and paths
 to launch the `f-API` together with a connected query tool.
 
