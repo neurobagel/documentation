@@ -1,7 +1,7 @@
 These instructions are for a sysadmin looking to 
 deploy a new Neurobagel node locally in an institute or lab. 
-A local neurobagel node includes the neurobagel API and
-a graph backend to store the harmonized metadata.
+A local **neurobagel node** includes the **neurobagel API** and
+a **graph backend** to store the harmonized metadata.
 
 To make searching the neurobagel node easier, 
 you can optionally also set up 
@@ -120,7 +120,7 @@ Below are all the possible Neurobagel environment variables that can be set in `
 
 _** `NB_GRAPH_ADDRESS` should not be changed from its default value (`graph`) when using docker compose as this corresponds to the preset container name of the graph database server within the docker compose network._
 
-_&Dagger; See section [Using a graphical query tool to send API requests](#a-note-on-using-a-graphical-query-tool-to-send-api-requests)_
+_&Dagger; See section [Deploy a graphical query tool](#deploy-a-graphical-query-tool)_
 
 
 For a local deployment, we recommend to **explicitly set** at least the following variables in `.env`

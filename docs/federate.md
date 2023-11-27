@@ -53,7 +53,7 @@ Let's assume there are two local nodes already running on different servers of y
 - a node named `"node_recruitment"` running on a different computer with the local IP `192.168.0.1`, listening on the default http port `80`. 
 In your `fed.env` file you would configure this as follows:
 
-``` {.bash .annotate}
+``` {.bash .annotate title="docker-compose.yml"}
 # Configuration for f-API
 # List of known local node APIs: (node_URL, node_NAME)
 LOCAL_NB_NODES=(http://localhost:8000, node_archive) (http://192.168.0.1, node_recruitment)
@@ -103,7 +103,7 @@ Copy the following snippet into your `docker-compose.yml` file.
 You should not have to change anything about this file.
 All local configuration changes are done in the `fed.env` file.
 
-``` {.yaml .annotate}
+``` {.yaml .annotate title="docker-compose.yml"}
 version: "3.8"
 
 services:
@@ -111,6 +111,7 @@ services:
     image: "neurobagel/federation_api:${NB_API_TAG:-latest}"
     ports:
       - "${NB_API_PORT_HOST:-8000}:${NB_API_PORT:-8000}"
+
     environment:
       - LOCAL_NB_NODES=${LOCAL_NB_NODES} # (1)!
       - NB_API_PORT=${NB_API_PORT:-8000}
