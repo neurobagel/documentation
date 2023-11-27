@@ -588,7 +588,7 @@ query your new local neurobagel node,
 you have two options:
 
 ### As part of local federation
-Use this option if you:
+Use this option if any of the following apply! You:
 
 - already have deployed other local neurobagel nodes 
 that you want your users to query alongside the new node
@@ -610,9 +610,16 @@ in the new node you deployed
 In this case, you need to deploy the query tool
 as a standalone docker container.
 
+
 ```bash
 docker run -d -p 3000:3000 --env API_QUERY_URL=http://localhost:8000/ --name query_tool neurobagel/query_tool:latest
 ```
+
+??? todo
+
+    Update docker example to use a specific version
+    once https://github.com/neurobagel/planning/issues/64 
+    is closed.
 
 Make sure to replace the value of `API_QUERY_URL` with the `IP:PORT` or domain name of the
 new neurobagel node-API you just deployed!
@@ -628,17 +635,18 @@ you can run
 docker inspect query_tool
 ```
 
-??? note "Note on using a graphical query tool to send API requests"
-    If deploying the query tool as a standalone service for the local node you have just created, you must ensure the `NB_API_ALLOWED_ORIGINS` variable is correctly set in the [`.env` file configuration for your node API](#set-the-environment-variables). 
-    The `NB_API_ALLOWED_ORIGINS` variable defaults to an empty string (`""`) when unset, meaning that your deployed API will only be accessible via direct `curl` requests to the URL where the API is hosted (see [this section](#test-the-new-deployment) for an example `curl` request).
+### Updating your API configuration
+If deploying the query tool as a standalone service for the local node you have just created, you must ensure the `NB_API_ALLOWED_ORIGINS` variable is correctly set in the [`.env` file configuration for your node API](#set-the-environment-variables). 
+The `NB_API_ALLOWED_ORIGINS` variable defaults to an empty string (`""`) when unset, meaning that your deployed API will only be accessible via direct `curl` requests to the URL where the API is hosted (see [this section](#test-the-new-deployment) for an example `curl` request).
 
-    To make the API accessible by a frontend tool such as our [browser query tool](https://github.com/neurobagel/query-tool),
-    you must explicitly specify the origin(s) for the frontend using `NB_API_ALLOWED_ORIGINS` in `.env`.
-    For detailed instructions regarding the query tool see [Running cohort queries](query_tool.md).
+To make the API accessible by a frontend tool such as our [browser query tool](https://github.com/neurobagel/query-tool),
+you must explicitly specify the origin(s) for the frontend using `NB_API_ALLOWED_ORIGINS` in `.env`.
+For detailed instructions regarding the query tool see [Running cohort queries](query_tool.md).
 
-    For example, the [`.template-env`](https://github.com/neurobagel/api/blob/main/.template-env) file in the Neurobagel API repo assumes you want to allow API requests from a query tool hosted at a specific port on `localhost` (see the [Docker Compose section](#docker-compose)).
+For example, the [`.template-env`](https://github.com/neurobagel/api/blob/main/.template-env) file in the Neurobagel API repo assumes you want to allow API requests from a query tool hosted at a specific port on `localhost` (see the [Docker Compose section](#docker-compose)).
 
-??? example "More examples of `NB_API_ALLOWED_ORIGINS`"
+!!! example "More examples of `NB_API_ALLOWED_ORIGINS`"
+
     ``` bash title=".env"
     # do not allow requests from any frontend origins
     NB_API_ALLOWED_ORIGINS=""  # this is the default value that will also be set if the variable is excluded from the .env file
