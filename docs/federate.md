@@ -1,6 +1,7 @@
+## When to use local query federation
 There are two main reasons to deploy local query federation:
 
-- **Case 1**: read-only federation. You have (at least) one [local neurobagel
+- **Case 1**: one-way federation. You have (at least) one [local neurobagel
 node](infrastructure.md) and you want your users to be able to search
 the data in the local node alongside all the publicly
 visible data in the neurobagel network.
@@ -13,10 +14,20 @@ and you want your local users to search across all of them.
 Note that these cases are not mutually exclusive. 
 Any local neurobagel nodes you deploy will only be visible to users
 inside of your local network (internal federation).
-Existing public nodes in the neurobagel network are accessible
-to everyone via our public query tool (e.g. on [query.neurobagel.org](https://query.neurobagel.org/))
-and you can choose to also make them available to your local deployment
-through read-only federation.
+
+## When not to use local query federation
+Query federation is not necessary, if you:
+
+- **only want to query public neurobagel nodes**:
+  Existing public nodes in the neurobagel network are accessible
+  to everyone via our public query tool (e.g. on [query.neurobagel.org](https://query.neurobagel.org/))
+  and you can choose to also make them available to your local deployment
+  through one-way federation.
+- **you only want to search a single neurobagel node**:
+  If you only have one local node that you want to query,
+  it is easier to directly query the node-API of this node.
+  In that case, all you have to do is follow the [deployment instructions
+  for a neurobagel node](infrastructure.md) and you are good to go.
 
 ## Setting up for local federation
 Federated graph queries in neurobagel are provided by the federation API (`f-API`) service.
