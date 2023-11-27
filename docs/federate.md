@@ -132,7 +132,7 @@ services:
     on startup and include it in the list of nodes to
     federate over.
     This also means that you do not have to manually
-    configure public nodes.
+    configure public nodes, i.e. you **do not have to explicitly add them** to the `LOCAL_NB_NODES` variable) in your `fed.env` file.
 
 
 ## Launch f-API and query tool
