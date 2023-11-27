@@ -44,7 +44,7 @@ and sends them back to the user as a single answer.
 In your command line, create and navigate to a new directory where you will keep the configuration
 files for your new `f-API`. In this directory, create two files:
 
-**`fed.env` environment file**. 
+### `fed.env` environment file 
 
 Create a text file called `fed.env` to hold environment variables needed for the `f-API` deployment. 
 Let's assume there are two local nodes already running on different servers of your institutional network, and you want to set up federation across both nodes:
@@ -66,7 +66,7 @@ NB_API_TAG=latest
 
 # Configuration for query tool
 # Define the URL of the f-API as it will appear to a user
-API_QUERY_URL=http:localhost:8080 # (1)!
+API_QUERY_URL=http://localhost:8080 # (1)!
 # Chose the docker image tag of the query tool (default latest)
 NB_QUERY_TAG=latest
 # Chose the port that the query tool will be exposed on the host and likely the network (default 3000)
@@ -87,7 +87,7 @@ You can add one or more local nodes to the list of nodes known to your `f-API` i
 Just adjust the above code snippet according to your own deployment, and store it in a file called `fed.env`.
 
 
-**`docker-compose.yml` docker config file**.
+### `docker-compose.yml` docker config file
 
 Create a second file called `docker-compose.yml`. 
 This file describes the required services, ports and paths
