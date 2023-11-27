@@ -139,6 +139,6 @@ services:
 Once you have created your `fed.env` and `docker-compose.yml` files
 as described above, you can simply launch the services by running
 
-`docker compose up`
+`docker compose --env-file fed.env up -d`
 
 from the same directory.
