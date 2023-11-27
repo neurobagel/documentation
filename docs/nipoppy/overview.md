@@ -22,7 +22,7 @@ Given a dataset to process, a typical workflow with Nipoppy can look like this:
 4. Organize demographic and clinical assessment data
     * This will most likely involve some custom data wrangling, for example to combine clinical assessment scores into a single file
 5. Run tracker scripts to determine the availability of imaging (raw and/or processed) and/or tabular data
-    * We call these availability/status metadata files "bagels" because they can be ingested by [Neurobagel](https://www.neurobagel.org/) for [dashboarding](https://dash.neurobagel.org/) and [querying](https://query.neurobagel.org/) participants across multiple studies
+    * We call these availability/status metadata files "bagels" because they can be ingested by [Neurobagel](https://www.neurobagel.org/) for [dashboarding](https://digest.neurobagel.org/) and [querying](https://query.neurobagel.org/) participants across multiple studies
 
 ## Who is Nipoppy for?
 
@@ -93,4 +93,4 @@ The Nipoppy workflow steps and linked identifiers (i.e. `participant_id`, `dicom
 8. What is [Neurobagel](https://www.neurobagel.org/) and do I need to use it?
     * Neurobagel is a data harmonization project that includes tools to perform cross-datasets searches for imaging data availability. You do not need Neurobagel for Nipoppy, though some Nipoppy outputs (specifically the `bagel` tracking files) can be used as input to some Neurobagel tools.
 9. How do I use the dashboard?
-    * Simply visit https://dash.neurobagel.org (no installation required). More information about the dashboard can be found [here](https://github.com/neurobagel/proc_dash).
+    * Simply visit [https://digest.neurobagel.org](https://digest.neurobagel.org) (no installation required). More information about the dashboard can be found [here](https://github.com/neurobagel/digest).
