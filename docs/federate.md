@@ -111,8 +111,6 @@ services:
     image: "neurobagel/federation_api:${NB_API_TAG:-latest}"
     ports:
       - "${NB_API_PORT_HOST:-8000}:${NB_API_PORT:-8000}"
-    env_file:
-      - federate.env
     environment:
       - LOCAL_NB_NODES=${LOCAL_NB_NODES} # (1)!
       - NB_API_PORT=${NB_API_PORT:-8000}
@@ -120,8 +118,6 @@ services:
     image: "neurobagel/query_tool:${NB_QUERY_TAG:-latest}"
     ports:
       - "${NB_QUERY_PORT_HOST:-3000}:3000"
-    env_file:
-      - federate.env
     environment:
       - API_QUERY_URL=${API_QUERY_URL:-http://localhost:8000/}
 ```
