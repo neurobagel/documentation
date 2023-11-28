@@ -20,9 +20,8 @@ Query federation is not necessary, if you:
 
 - **only want to query public neurobagel nodes**:
   Existing public nodes in the neurobagel network are accessible
-  to everyone via our public query tool (e.g. on [query.neurobagel.org](https://query.neurobagel.org/))
-  and you can choose to also make them available to your local deployment
-  through one-way federation.
+  to everyone via our public query tool (e.g. on [query.neurobagel.org](https://query.neurobagel.org/)),
+  meaning you can run federated queries over these graph databases without any additional local setup.
 - **you only want to search a single neurobagel node**:
   If you only have one local node that you want to query,
   it is easier to directly query the node-API of this node.
