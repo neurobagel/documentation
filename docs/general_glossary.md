@@ -10,6 +10,46 @@
     ["Parkinson's disease" from the ICD-11 taxonomy](https://icd.who.int/browse11/l-m/en#/http://id.who.int/icd/entity/296066191)
     with the unique code `8A00.0`.
 
+### Controlled vocabulary, taxonomy, ontology
+
+:    A **controlled vocabulary** is a collection of controlled terms that
+     are often all about one specific topic. The main benefit of a 
+     controlled vocabulary is that it provides unambigous terms with
+     clear definitions that people can agree to use to describe their
+     information - removing the need to align variable names and value
+     formats between datasets and enabling interoperability. 
+     
+     For example, most websites use the [schema.org](https://schema.org/)
+     vocabulary to describe things like 
+     [products](https://schema.org/Product) to purchase, 
+     [events](https://schema.org/Event) to book, 
+     [recipes](https://schema.org/Recipe) to cook etc.
+     in a consistent way that can be understood by 
+     the search spiders of big search engines.
+     
+     Creating a controlled vocabulary is a laborious task 
+     that involves deep subject matter expertise, often from many experts, 
+     and need to be maintained to remain relevant.
+     You should therefore almost always **reuse** an existing vocabulary
+     rather than creating your own. 
+     
+     A **taxonomy** is a more specific form of a controlled vocabulary 
+     that organizes terms into hierarchical relationships. For example
+     a [Recipe](https://schema.org/Recipe) in schema.org is a subtype of
+     a HowTo which itself is a subtype of a CreativeWork. This hierarchy 
+     let's you do things like search for "CreativeWork" and also find
+     "Recipe", even if you have never made this link directly.
+     
+     An **ontology** is an even more specific form of a taxonomy 
+     where terms can have very complex relationships with each other
+     that include logical constraints. In an Ontology you could for example
+     express that for someone to be a "sister" to someone else, 
+     both the subject and the object of the relationship have to be "human",
+     only the subject of the relation has to be "female", and both have to 
+     have at least one parent in common. These complex expressions are very
+     labour intensive to create but can provide also very 
+     rich ways of validating and even inferring information.
+
 ### Data model
 
 :   A data model is a structure that has been designed with the 
