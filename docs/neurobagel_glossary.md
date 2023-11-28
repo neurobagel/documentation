@@ -55,7 +55,10 @@
 
 ### Tabular or phenotypic data
 
-:   
-
-
-
+:   In the context of neurobagel, when we talk about tabular data
+    we refer to tabular text files that contain information about
+    participants, such as their demographic information, 
+    cognitive assessments they have completed, 
+    or clinical care they have received. 
+    We also sometimes refer to this information as phenotypic data
+    because they describe observable characteristics of the participant.
