@@ -1,10 +1,11 @@
-# SysAdmin
+These instructions are for a sysadmin looking to 
+deploy a new Neurobagel node locally in an institute or lab. 
+A local **neurobagel node** includes the **neurobagel API** and
+a **graph backend** to store the harmonized metadata.
 
-## Introduction
-These instructions are for a sysadmin looking to deploy Neurobagel locally in an institute or lab. 
-A local neurobagel deployment includes the neurobagel API, 
-a graph backend to store the harmonized metadata, 
-and optionally a locally hosted graphical query interface.
+To make searching the neurobagel node easier, 
+you can optionally also set up 
+a **[locally hosted graphical query interface](#deploy-a-graphical-query-tool).**
 
 ![The neurobagel API and graph backend](imgs/nb_architecture.jpg)
 
@@ -119,7 +120,7 @@ Below are all the possible Neurobagel environment variables that can be set in `
 
 _** `NB_GRAPH_ADDRESS` should not be changed from its default value (`graph`) when using docker compose as this corresponds to the preset container name of the graph database server within the docker compose network._
 
-_&Dagger; See section [Using a graphical query tool to send API requests](#a-note-on-using-a-graphical-query-tool-to-send-api-requests)_
+_&Dagger; See section [Deploy a graphical query tool](#deploy-a-graphical-query-tool)_
 
 
 For a local deployment, we recommend to **explicitly set** at least the following variables in `.env`
@@ -142,35 +143,6 @@ For a local deployment, we recommend to **explicitly set** at least the followin
 
     For more information, see [Docker's environment variable precedence](https://docs.docker.com/compose/environment-variables/envvars-precedence/).
 
-### A note on using a graphical query tool to send API requests
-The `NB_API_ALLOWED_ORIGINS` variable defaults to an empty string (`""`) when unset, meaning that your deployed API will only be accessible via direct `curl` requests to the URL where the API is hosted (see [this section](#test-the-new-deployment) for an example `curl` request).
-
-However, in many cases you may want to make the API accessible by a frontend tool such as our [browser query tool](https://github.com/neurobagel/query-tool).
-To do so, you must explicitly specify the origin(s) for the frontend using `NB_API_ALLOWED_ORIGINS` in `.env`.
-For detailed instructions regarding the query tool see [Running cohort queries](query_tool.md).
-
-For example, the [`.template-env`](https://github.com/neurobagel/api/blob/main/.template-env) file in the Neurobagel API repo assumes you want to allow API requests from a query tool hosted at a specific port on `localhost` (see the [Docker Compose section](#docker-compose)).
-
-??? example "More examples of `NB_API_ALLOWED_ORIGINS`"
-    ``` bash title=".env"
-    # do not allow requests from any frontend origins
-    NB_API_ALLOWED_ORIGINS=""  # this is the default value that will also be set if the variable is excluded from the .env file
-
-    # allow requests from only one origin
-    NB_API_ALLOWED_ORIGINS="https://query.neurobagel.org"
-
-    # allow requests from 3 different origins
-    NB_API_ALLOWED_ORIGINS="https://query.neurobagel.org https://localhost:3000 http://localhost:3000"
-
-    # allow requests from any origin - use with caution
-    NB_API_ALLOWED_ORIGINS="*"
-    ```
-
-??? note "For more technical deployments using NGINX"
-
-    If you have configured an NGINX reverse proxy (or proxy requests to the remote origin) to serve both the API and the query tool from the same origin, you can skip the step of enabling CORS for the API. 
-    For an example, see https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/.
-
 ### Docker Compose
 
 To spin up the API and graph backend containers using Docker Compose, 
@@ -188,9 +160,6 @@ Or, if you want to ensure you always pull the latest Docker images first:
 ```bash
 docker compose pull && docker compose up -d
 ```
-
-By default, this will also deploy a local version of the [Neurobagel graphical query tool](https://github.com/neurobagel/query-tool).
-If using the default port mappings, you can reach your local query tool at [http://localhost:3000](http://localhost:3000) once it is running.
 
 ## Setup for the first run
 
@@ -611,3 +580,88 @@ and click "Try it out" and then "Execute" to execute a query.
 !!! note
     For very large databases, requests to the API using the interactive docs UI may be very slow or time out. 
     If this prevents test queries from succeeding, try setting more parameters to enable an example response from the graph, or use a `curl` request instead.
+
+
+## Deploy a graphical query tool
+To give your users an easy, graphical way to
+query your new local neurobagel node,
+you have two options:
+
+### As part of local federation
+Use this option if any of the following apply! You:
+
+- already have deployed other local neurobagel nodes 
+that you want your users to query alongside the new node
+- want your users to be able to query 
+all public neurobagel nodes together with your new node
+- plan on adding more local neurobagel nodes in the
+near future that you will want to query alongside your newly created node
+
+In this case, skip directly to the page on
+setting up [local query federation](federate.md).
+
+### As a standalone service
+Use this option if you
+
+- plan on only deploying a single node
+- want your users to only search data
+in the new node you deployed
+
+In this case, you need to deploy the query tool
+as a standalone docker container.
+
+
+```bash
+docker run -d -p 3000:3000 --env API_QUERY_URL=http://localhost:8000/ --name query_tool neurobagel/query_tool:latest
+```
+
+??? todo
+
+    Update docker example to use a specific version
+    once https://github.com/neurobagel/planning/issues/64 
+    is closed.
+
+Make sure to replace the value of `API_QUERY_URL` with the `IP:PORT` or domain name of the
+new neurobagel node-API you just deployed!
+
+If using the default port mappings for the query tool (`-p 3000:3000` in above command),
+you can reach your local query tool at [http://localhost:3000](http://localhost:3000) once it is running.
+
+To verify the exact configuration that your new docker
+container is running with (e.g. for debugging),
+you can run
+
+```bash
+docker inspect query_tool
+```
+
+### Updating your API configuration
+If deploying the query tool as a standalone service for the local node you have just created, you must ensure the `NB_API_ALLOWED_ORIGINS` variable is correctly set in the [`.env` file configuration for your node API](#set-the-environment-variables). 
+The `NB_API_ALLOWED_ORIGINS` variable defaults to an empty string (`""`) when unset, meaning that your deployed API will only be accessible via direct `curl` requests to the URL where the API is hosted (see [this section](#test-the-new-deployment) for an example `curl` request).
+
+To make the API accessible by a frontend tool such as our [browser query tool](https://github.com/neurobagel/query-tool),
+you must explicitly specify the origin(s) for the frontend using `NB_API_ALLOWED_ORIGINS` in `.env`.
+For detailed instructions regarding the query tool see [Running cohort queries](query_tool.md).
+
+For example, the [`.template-env`](https://github.com/neurobagel/api/blob/main/.template-env) file in the Neurobagel API repo assumes you want to allow API requests from a query tool hosted at a specific port on `localhost` (see the [Docker Compose section](#docker-compose)).
+
+!!! example "More examples of `NB_API_ALLOWED_ORIGINS`"
+
+    ``` bash title=".env"
+    # do not allow requests from any frontend origins
+    NB_API_ALLOWED_ORIGINS=""  # this is the default value that will also be set if the variable is excluded from the .env file
+
+    # allow requests from only one origin
+    NB_API_ALLOWED_ORIGINS="https://query.neurobagel.org"
+
+    # allow requests from 3 different origins
+    NB_API_ALLOWED_ORIGINS="https://query.neurobagel.org https://localhost:3000 http://localhost:3000"
+
+    # allow requests from any origin - use with caution
+    NB_API_ALLOWED_ORIGINS="*"
+    ```
+
+??? note "For more technical deployments using NGINX"
+
+    If you have configured an NGINX reverse proxy (or proxy requests to the remote origin) to serve both the API and the query tool from the same origin, you can skip the step of enabling CORS for the API. 
+    For an example, see https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/.
