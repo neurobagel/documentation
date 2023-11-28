@@ -14,7 +14,7 @@
 
 :    A **controlled vocabulary** is a collection of controlled terms that
      are often all about one specific topic. The main benefit of a 
-     controlled vocabulary is that it provides unambigous terms with
+     controlled vocabulary is that it provides unambiguous terms with
      clear definitions that people can agree to use to describe their
      information - removing the need to align variable names and value
      formats between datasets and enabling interoperability. 
