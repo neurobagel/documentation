@@ -52,8 +52,8 @@ nav:
     - Our team: "contributing/team.md"
   - Getting help: "getting_help.md"
   - Glossary:
-    - Definitions: "definitions.md"
-    - Neurobagel specific terms: "terminology.md"
+    - General: "general_glossary.md"
+    - Neurobagel specific: "neurobagel_glossary.md"
   - Citing Neurobagel: "cite.md"
 
 markdown_extensions:
