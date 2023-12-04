@@ -46,7 +46,9 @@ In this directory, create three files:
 
 ### `local_nb_nodes.json` configuration file
 Create a JSON file called `local_nb_nodes.json` which will contain the URLs and (arbitrary) names of the local nodes you wish to federate over.
-Each node must be denoted by a dictionary `{}` with two key-value pairs: `"NodeName"` for the name of the node, and `"ApiURL"` for the url of the API exposed for that node. 
+Each node must be denoted by a dictionary `{}` with two key-value pairs:  
+`"NodeName"` for the name of the node,  
+`"ApiURL"` for the URL of the API exposed for that node.  
 Multiple nodes must be wrapped in a list `[]`.
 
 Let's assume there are two local nodes already running on different servers of your institutional network, and you want to set up federation across both nodes:
@@ -126,8 +128,8 @@ to launch the `f-API` together with a connected query tool.
     as described in the [official documentation](https://docs.docker.com/engine/install/).
 
 Copy the following snippet into your `docker-compose.yml` file.
-**You should not have to change anything about this file.
-All local configuration changes should be made in either the `local_nb_nodes.json` or `fed.env` files.**
+You should not have to change anything about this file.
+All local configuration changes should be made in either the `local_nb_nodes.json` or `fed.env` files.
 
 ``` {.yaml .annotate title="docker-compose.yml"}
 version: "3.8"
