@@ -158,7 +158,7 @@ they can be quickly re-generated under the new data model by following the instr
 To ensure that our Docker images are built in a predictable way,
 we use `requirements.txt` as a lock-file.
 That is, `requirements.txt` includes the entire dependency tree of our tool,
-with pinned versions for every dependency (see [also](https://pip.pypa.io/en/latest/topics/repeatable-installs/#repeatability))
+with pinned versions for every dependency (for more information, see [https://pip.pypa.io/en/latest/topics/repeatable-installs/#repeatability](https://pip.pypa.io/en/latest/topics/repeatable-installs/#repeatability)).
 
 ### Setting up a local development environment
 We suggest that you create a development environment 
@@ -182,7 +182,8 @@ git submodule init
 git submodule update
 ```
 Confirm that everything works well by running a test
-`pytest .`
+`pytest .` 
+(no tests should fail).
 
 
 #### Setting up code formatting and linting (recommended)
