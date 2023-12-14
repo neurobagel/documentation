@@ -181,7 +181,7 @@ Finally, to run the test suite we need to install the `bids-examples` and `neuro
 git submodule init
 git submodule update
 ```
-Confirm that everything works well by running a test
+Confirm that everything works well by running a test:
 `pytest .` 
 (no tests should fail).
 
