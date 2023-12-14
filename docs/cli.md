@@ -183,3 +183,13 @@ git submodule update
 ```
 Confirm that everything works well by running a test
 `pytest .`
+
+
+#### Setting up code formatting and linting (recommended)
+
+[pre-commit](https://pre-commit.com/) is configured in the development environment for this repository, and can be set up to automatically run a number of code linters and formatters on any commit you make according to the consistent code style set for this project.
+
+Run the following from the repository root to install the configured pre-commit "hooks" for your local clone of the repo:
+```bash
+pre-commit install
+```
