@@ -52,9 +52,7 @@ nav:
     - Pull requests: "contributing/pull_requests.md"
     - Our team: "contributing/team.md"
   - Getting help: "getting_help.md"
-  - Glossary:
-    - General: "general_glossary.md"
-    - Neurobagel specific: "neurobagel_glossary.md"
+  - Glossary: "glossary.md"
   - Citing Neurobagel: "cite.md"
 
 markdown_extensions:
