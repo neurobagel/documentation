@@ -152,11 +152,45 @@ Neurobagel is under active, early development and future releases of the CLI may
 _If you have already created `.jsonld` files for your Neurobagel graph database using the CLI_, 
 they can be quickly re-generated under the new data model by following the instructions [here](updating_dataset.md#following-a-change-in-the-neurobagel-data-model) so that they will not conflict with dataset `.jsonld` files generated using the latest CLI version.
 
+
 ## Development environment
 
-To set up a development environment, please run
+To ensure that our Docker images are built in a predictable way,
+we use `requirements.txt` as a lock-file.
+That is, `requirements.txt` includes the entire dependency tree of our tool,
+with pinned versions for every dependency (for more information, see [https://pip.pypa.io/en/latest/topics/repeatable-installs/#repeatability](https://pip.pypa.io/en/latest/topics/repeatable-installs/#repeatability)).
+
+### Setting up a local development environment
+We suggest that you create a development environment 
+that is as close as possible to the environment we run in production.
+
+To do so, we first need to install the dependencies from our lockfile (`dev_requirements.txt`):
+
 ```bash
-git clone https://github.com/neurobagel/bagel-cli.git
-cd bagel-cli
-pip install -e '.[all]'
+pip install -r dev_requirements.txt
+```
+
+And then we install the CLI without touching the dependencies
+
+```bash
+pip install --no-deps -e .
+```
+
+Finally, to run the test suite we need to install the `bids-examples` and `neurobagel_examples` submodules:
+```bash
+git submodule init
+git submodule update
+```
+Confirm that everything works well by running a test:
+`pytest .` 
+(no tests should fail).
+
+
+#### Setting up code formatting and linting (recommended)
+
+[pre-commit](https://pre-commit.com/) is configured in the development environment for this repository, and can be set up to automatically run a number of code linters and formatters on any commit you make according to the consistent code style set for this project.
+
+Run the following from the repository root to install the configured pre-commit "hooks" for your local clone of the repo:
+```bash
+pre-commit install
 ```
