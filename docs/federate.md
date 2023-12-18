@@ -53,7 +53,7 @@ Multiple nodes must be wrapped in a list `[]`.
 
 Let's assume there are two local nodes already running on different servers of your institutional network, and you want to set up federation across both nodes:
 
-- a node named `"node_archive"` running on your local computer on port `8000` and 
+- a node named `"node_archive"` running on your local computer (localhost), on port `8000` and 
 - a node named `"node_recruitment"` running on a different computer with the local IP `192.168.0.1`, listening on the default http port `80`. 
 
 In your `local_nb_nodes.json` file you would configure this as follows:
@@ -61,7 +61,7 @@ In your `local_nb_nodes.json` file you would configure this as follows:
 [
   {
     "NodeName": "node_archive",
-    "ApiURL": "http://localhost:8000",
+    "ApiURL": "http://host.docker.internal:8000",
   },
   {
     "NodeName": "node_recruitment",
@@ -69,6 +69,12 @@ In your `local_nb_nodes.json` file you would configure this as follows:
   }
 ]
 ```
+
+!!! warning "Do not use `localhost`/`127.0.0.1` in `local_nb_nodes.json`"
+
+    If the local node API(s) you are federating over is running on the same host machine as your federation API (e.g., the URL to access the node API is http://localhost:XXXX), make sure that you replace `localhost` with `host.docker.internal` in the `"ApiURL"` for the node inside `local_nb_nodes.json`.
+    For an example, see the configuration for the node called `"node_archive"` above.
+
 
 !!! Info "Nodes that do not need to be manually configured"
     We maintain a list of public Neurobagel nodes 
@@ -143,6 +149,8 @@ services:
       - "${PWD}/local_nb_nodes.json:/usr/src/local_nb_nodes.json:ro"
     environment:
       - NB_API_PORT=${NB_API_PORT:-8000}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   query:
     image: "neurobagel/query_tool:${NB_QUERY_TAG:-latest}"
     ports:
