@@ -24,7 +24,7 @@ Query federation is not necessary, if you:
   meaning you can run federated queries over these graph databases without any additional local setup.
 - **you only want to search a single neurobagel node**:
   If you only have one local node that you want to query,
-  it is easier to directly query the node-API of this node.
+  it is easier to directly query the node API of this node.
   In that case, all you have to do is follow the [deployment instructions
   for a neurobagel node](infrastructure.md) and you are good to go.
 
@@ -42,6 +42,22 @@ and sends them back to the user as a single answer.
 
 In your command line, create and navigate to a new directory where you will keep the configuration files for your new `f-API`. 
 In this directory, create three files:
+
+!!! info "Or, clone and use our configuration template repository"
+    The [neurobagel/recipes](https://github.com/neurobagel/recipes) repository contains templates of all files needed for configuring different types of Neurobagel deployments.
+    To get the three files you need to set up local federation (described in detail in the sections below), run the following code:
+
+    ```bash
+    git clone https://github.com/neurobagel/recipes.git
+    cd local_federation  # for local federation, ensure you only edit files inside this subdirectory
+
+    # make a non-template copy of the files you will need to edit
+    cp local_nb_nodes.template.json local_nb_nodes.json
+    cp template.env .env
+    ```
+
+    Then, edit `local_nb_nodes.json` and `.env` in your `local_federation/` directory as needed for your specific deployment, based on the instructions in the below sections.
+    
 
 
 ### `local_nb_nodes.json` configuration file
@@ -118,7 +134,8 @@ NB_QUERY_PORT_HOST=3000
     as it will appear to a user on their own machine 
     - otherwise the request will fail..
 
-Copy and adjust the above code snippet according to your own deployment, and store it in `fed.env`.
+Copy and adjust the above code snippet according to your own deployment, and store it in `fed.env`. 
+**If you have used the default Neurobagel configuration for your local `n-API` up to this point, you most likely do not need to change anything in this file.**
 
 
 ### `docker-compose.yml` docker config file
@@ -134,7 +151,7 @@ to launch the `f-API` together with a connected query tool.
     as described in the [official documentation](https://docs.docker.com/engine/install/).
 
 Copy the following snippet into your `docker-compose.yml` file.
-You should not have to change anything about this file.
+**You should not have to change anything about this file.**
 All local configuration changes should be made in either the `local_nb_nodes.json` or `fed.env` files.
 
 ``` {.yaml .annotate title="docker-compose.yml"}
