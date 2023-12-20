@@ -32,15 +32,17 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
 
     A controlled term has a 
 
-        - a clear definition
-        - a unique and persistent identifier
-        - from a specific curated list of terms like a vocabulary, taxonomy or ontology
+    - a clear definition
+    - a unique and persistent identifier
+    - from a specific curated list of terms like a vocabulary, taxonomy or ontology
 
-        An example is the controlled term for 
-        ["Parkinson's disease" from the ICD-11 taxonomy](https://icd.who.int/browse11/l-m/en#/http://id.who.int/icd/entity/296066191)
-        with the unique code `8A00.0`.
+    An example is the controlled term for 
+    ["Parkinson's disease" from the ICD-11 taxonomy](https://icd.who.int/browse11/l-m/en#/http://id.who.int/icd/entity/296066191)
+    with the unique code `8A00.0`.
 
-### Controlled vocabulary, taxonomy, ontology
+### Controlled vocabulary
+**Used interchangeably with**: taxonomy, and ontology
+
 :   A **controlled vocabulary** is a collection of controlled terms that
     are often all about one specific topic. The main benefit of a 
     controlled vocabulary is that it provides unambiguous terms with
@@ -56,6 +58,7 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
     in a consistent way that can be understood by 
     the search spiders of big search engines.
 
+??? Note "Reusing controlled vocabularies"
     Creating a controlled vocabulary is a laborious task 
     that involves deep subject matter expertise, often from many experts, 
     and needs to be maintained to remain relevant.
@@ -89,9 +92,10 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
     This data model makes it easy to easily add new information
     by drawing a new edge between two nodes.
 
+??? note
     A single Neurobagel graph database can contain harmonised information about multiple datasets and their respective subjects. Each subject is represented by a node, and their harmonised phenotypic and imaging data characteristics are described using controlled terms connected to the subject node via a series of edges that individually encode the type of attribute described by the controlled term.
 
-    Neurobagel uses the RDF graph data model, see also https://en.wikipedia.org/wiki/Graph_database.
+    Neurobagel uses the RDF graph data model, see also [https://en.wikipedia.org/wiki/Graph_database](https://en.wikipedia.org/wiki/Graph_database).
 
 ### Annotation
 :   In the context of Neurobagel, annotation refers to the process
@@ -117,7 +121,7 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
     stored inside the node.
 
 ### Federation API
-_Used interchangeably with_: f-API
+**Used interchangeably with**: f-API
 :   A standalone service that allows query users to send a single
     query and have it automatically sent to many Neurobagel node APIs
     (n-API) without having to know where these node APIs are located.
@@ -130,7 +134,7 @@ _Used interchangeably with_: f-API
     able to work either directly with a single n-API or with an f-API.
 
 ### Node API
-_Used interchangeably with_: n-API
+**Used interchangeably with**: n-API
 :   A Neurobagel "node" is a locally deployed service
     that holds information about data for one data owner who controls
     and manages the node. A node has two core components:
