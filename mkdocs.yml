@@ -52,20 +52,24 @@ nav:
     - Pull requests: "contributing/pull_requests.md"
     - Our team: "contributing/team.md"
   - Getting help: "getting_help.md"
+  - Glossary: "glossary.md"
   - Citing Neurobagel: "cite.md"
 
 markdown_extensions:
-  - tables
+  - abbr
   - admonition
-  - pymdownx.details
-  - pymdownx.superfences
-  - pymdownx.tabbed:
-      alternate_style: true 
   - attr_list
+  - def_list
+  - md_in_html  # for annotations
+  - pymdownx.details
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
-  - md_in_html  # for annotations
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true 
+  - tables
+  
 
 plugins:
   - search
