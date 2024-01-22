@@ -36,7 +36,7 @@ Nipoppy requires two global files for specifying local data/container paths and 
     "SINGULARITY_PATH": "singularity",
     "TEMPLATEFLOW_DIR": "/path/to/templateflow",
 
-    "SESSIONS": ["1","5","7","9","11"],
+    "SESSIONS": ["ses-1","ses-5","ses-7","ses-9","ses-11"],
 
     "BIDS": {
         "heudiconv": {
