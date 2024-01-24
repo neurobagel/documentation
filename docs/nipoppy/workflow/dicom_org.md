@@ -9,8 +9,8 @@ This is a dataset specific process and needs to be customized based on local sca
 
 - `<DATASET_ROOT>/tabular/manifest.csv`
 - `<DATASET_ROOT>/downloads`
-- `<DATASET_ROOT>/scratch/raw_dicoms`
-- `<DATASET_ROOT>/scratch/raw_dicoms/doughnut.csv`
+- `<DATASET_ROOT>/scratch/raw_dicom`
+- `<DATASET_ROOT>/scratch/raw_dicom/doughnut.csv`
 - `<DATASET_ROOT>/dicom`
 
 ### Procedure
@@ -20,7 +20,7 @@ This is a dataset specific process and needs to be customized based on local sca
 
 !!! note
 
-    The `doughnut.csv` file is used to track the multi-step conversion of raw DICOMs to BIDS: whether raw DICOMs have been downloaded to disk, re-organized into a directory structure accepted by [HeuDiConv](https://github.com/nipy/heudiconv), and converted to BIDS. This file is updated automatically by scripts in `workflow/dicom_org` and `workflow/bids_conv`. Backups are created in case it is needed to revert to a previous version: they can be found in `<DATASET_ROOT>/scratch/raw_dicoms/.doughnuts`.
+    The `doughnut.csv` file is used to track the multi-step conversion of raw DICOMs to BIDS: whether raw DICOMs have been downloaded to disk, re-organized into a directory structure accepted by [HeuDiConv](https://github.com/nipy/heudiconv), and converted to BIDS. This file is updated automatically by scripts in `workflow/dicom_org` and `workflow/bids_conv`. Backups are created in case it is needed to revert to a previous version: they can be found in `<DATASET_ROOT>/scratch/raw_dicom/.doughnuts`.
 
     Here is a sample `doughnut.csv` file:
 
@@ -32,7 +32,7 @@ This is a dataset specific process and needs to be customized based on local sca
     | 002            | ses-03  | MyStudy_002_2024      | sub-002  | sub-002 | False      | False     | False     |
 
 2. Download DICOM dumps (e.g. ZIPs / tarballs) in the `<DATASET_ROOT>/downloads` directory. Different visits (i.e. sessions) must be downloaded in separate sub-directories and ideally named as listed in the `global_config.json`. The DICOM download and extraction process is highly dataset-dependent, and we recommend using custom scripts to automate it as much as possible.
-3. Extract (and rename if needed) all participants into `<DATASET_ROOT>/scratch/raw_dicoms` separately for each visit (i.e. session). 
+3. Extract (and rename if needed) all participants into `<DATASET_ROOT>/scratch/raw_dicom` separately for each visit (i.e. session). 
     - At this point, the `doughnut.csv` should have been updated to reflect the new downloads (`downloaded` column set to `True` where appropriate). We recommend doing this in the download script (i.e. in Step 2), but `workflow/make_doughnut.py` can also be run with the `--regenerate` flag to search for the expected files (this can be very slow!).
 
 
@@ -48,7 +48,7 @@ This is a dataset specific process and needs to be customized based on local sca
 4. Run [`run_dicom_org.py`](https://github.com/neurodatascience/nipoppy/blob/main/nipoppy/workflow/dicom_org/run_dicom_org.py) to:
     - Search: Find all the DICOMs inside the participant directory. 
     - Validate: Excludes certain individual dicom files that are invalid or contain scanner-derived data not compatible with BIDS conversion.
-    - Symlink (default) or copy: Creates symlinks from `raw_dicoms/` to the `<DATASET_ROOT>/dicom`, where all participant specific dicoms are in a flat list. The symlinks are relative so that they are preserved in containers.
+    - Symlink (default) or copy: Creates symlinks from `raw_dicom/` to the `<DATASET_ROOT>/dicom`, where all participant specific dicoms are in a flat list. The symlinks are relative so that they are preserved in containers.
     - Update status: if successful, set the `organized` column to `True` in `doughnut.csv`.
 
 > Sample cmd:
