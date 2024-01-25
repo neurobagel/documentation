@@ -1,6 +1,6 @@
 These instructions are for a sysadmin looking to 
 deploy a new Neurobagel node locally in an institute or lab. 
-A local **neurobagel node** includes the **neurobagel API** and
+A local **neurobagel node** includes the **neurobagel node API** and
 a **graph backend** to store the harmonized metadata.
 
 To make searching the neurobagel node easier, 
@@ -79,9 +79,9 @@ We have tested the following options:
     You will need to download the license in a place that is accessible
     to your new Stardog instance when it is launched (see below).
 
-## Launch the API and graph stack
+## Launch the Neurobagel node API and graph stack
 
-We recommend launching the API and your graph backend instance using `docker compose`.
+We recommend launching the Neurobagel API and your graph backend instance using `docker compose`.
 (To install the API from source, see [these instructions](https://github.com/neurobagel/api/blob/main/README.md#local-installation).)
 
 ### Clone the API repo
@@ -90,7 +90,7 @@ git clone https://github.com/neurobagel/api.git
 ```
 
 ### Set the environment variables
-Create a `.env` file in the root of the repository to house the environment variables used by the API-graph network.
+Create a `.env` file in the root of the repository to house the environment variables used by the Neurobagel API-graph network.
 
 The `neurobagel/api` repo contains a [`.template-env`](https://github.com/neurobagel/api/blob/main/.template-env) to get you started. Copy and rename this file to `.env` and then edit it as needed.
 
@@ -148,7 +148,7 @@ For a local deployment, we recommend to **explicitly set** at least the followin
 
 ### Docker Compose
 
-To spin up the API and graph backend containers using Docker Compose, 
+To spin up the Neurobagel API and graph backend containers using Docker Compose, 
 ensure that both [docker](https://docs.docker.com/get-docker/) and [docker compose](https://docs.docker.com/compose/install/) are installed.
 
 Run the following in the repository root (where the `docker-compose.yml` file is) to launch the containers:
@@ -186,12 +186,12 @@ you have two general options:
     
         Using the GraphDB workbench is a more accessible way to manage the GraphDB endpoint.
         The workbench is well documented on the GraphDB website.
-        Here we will focus instead on setting up GraphDB with API calls, 
+        Here we will focus instead on setting up GraphDB with RDF4J API calls, 
         that can be automated.
 
 === "Stardog"
 
-    1. Send HTTP request from the neurobagel API to the HTTP REST endpoints of the Stardog graph backend (e.g. with `curl`). See [https://stardog-union.github.io/http-docs/](https://stardog-union.github.io/http-docs/) for a full reference of API endpoints
+    1. Send HTTP request from the neurobagel API to the HTTP REST endpoints of the Stardog graph backend (e.g. with `curl`). See [https://stardog-union.github.io/http-docs/](https://stardog-union.github.io/http-docs/) for a full reference of Stardog API endpoints
     2. Use the free Stardog-Studio web app. See the [Stardog documentation](https://docs.stardog.com/stardog-applications/dockerized_access#stardog-studio) for instruction to deploy Stardog-Studio as a Docker container.
 
 
@@ -248,7 +248,7 @@ We do not recommend using `admin` for normal read and write operations, instead 
 
 The `.env` file created as part of the `docker compose` setup instructions
 declares the `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` for the database user.
-The API will send requests to the graph using these credentials.
+The Neurobagel API will send requests to the graph using these credentials.
 When you launch the RDF store for the first time, 
 we have to create a new database user:
 
@@ -284,7 +284,7 @@ we have to create a new database user:
 !!! note
     Make sure to use the exact `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` you
     defined in the `.env` file when creating the new database user.
-    Otherwise the API will not have the correct permission
+    Otherwise the Neurobagel API will not have the correct permission
     to query the graph.
 
 ### Create new database
@@ -296,7 +296,7 @@ your metadata.
 
 If you have defined a custom `NB_GRAPH_DB` name in the `.env` file,
 make sure to create a database with a matching name.
-By default the API will query a graph database
+By default the Neurobagel API will query a graph database
 with a name of `test_data`.
 
 === "GraphDB"
@@ -414,7 +414,7 @@ with a name of `test_data`.
 
         For simplicity's sake, here we give `"ALL"` permission to the new database user.
         The Stardog API provide more fine grained permission control.
-        See [the official API documentation](https://stardog-union.github.io/http-docs/#tag/Permissions/operation/addUserPermission).
+        See [the official Stardog API documentation](https://stardog-union.github.io/http-docs/#tag/Permissions/operation/addUserPermission).
 
 ## Uploading data to the graph
 
@@ -559,7 +559,7 @@ Each `.jsonld` in the directory should include the name of the dataset in the fi
 
 ## Test the new deployment
 
-You can run a test query against the API via a `curl` request in your terminal:
+You can run a test query against the Neurobagel API via a `curl` request in your terminal:
 
 ```bash
 curl -X 'GET' \
@@ -570,13 +570,13 @@ curl -X 'GET' \
 curl -L http://localhost:8000/query/
 ```
 
-Or, you can directly use the interactive documentation of the API (provided by [Swagger UI](https://github.com/swagger-api/swagger-ui)) 
+Or, you can directly use the interactive documentation of the Neurobagel API (provided by [Swagger UI](https://github.com/swagger-api/swagger-ui)) 
 by navigating to [http://localhost:8000/docs](http://localhost:8000/docs) in your browser. 
-To test the API from the docs interface, expand the `query` endpoint tab with the :fontawesome-solid-chevron-down: icon to view the parameters that can be set, 
+To test the Neurobagel API from the docs interface, expand the `query` endpoint tab with the :fontawesome-solid-chevron-down: icon to view the parameters that can be set, 
 and click "Try it out" and then "Execute" to execute a query.
 
 !!! note
-    For very large databases, requests to the API using the interactive docs UI may be very slow or time out. 
+    For very large databases, requests to the Neurobagel API using the interactive docs UI may be very slow or time out. 
     If this prevents test queries from succeeding, try setting more parameters to enable an example response from the graph, or use a `curl` request instead.
 
 
@@ -633,11 +633,11 @@ you can run
 docker inspect query_tool
 ```
 
-### Updating your API configuration
+### Updating your Neurobagel API configuration
 If deploying the query tool as a standalone service for the local node you have just created, you must ensure the `NB_API_ALLOWED_ORIGINS` variable is correctly set in the [`.env` file configuration for your node API](#set-the-environment-variables). 
-The `NB_API_ALLOWED_ORIGINS` variable defaults to an empty string (`""`) when unset, meaning that your deployed API will only be accessible via direct `curl` requests to the URL where the API is hosted (see [this section](#test-the-new-deployment) for an example `curl` request).
+The `NB_API_ALLOWED_ORIGINS` variable defaults to an empty string (`""`) when unset, meaning that your deployed Neurobagel API will only be accessible via direct `curl` requests to the URL where the API is hosted (see [this section](#test-the-new-deployment) for an example `curl` request).
 
-To make the API accessible by a frontend tool such as our [browser query tool](https://github.com/neurobagel/query-tool),
+To make the Neurobagel API accessible by a frontend tool such as our [browser query tool](https://github.com/neurobagel/query-tool),
 you must explicitly specify the origin(s) for the frontend using `NB_API_ALLOWED_ORIGINS` in `.env`.
 For detailed instructions regarding the query tool see [Running cohort queries](query_tool.md).
 
@@ -661,5 +661,5 @@ For example, the [`.template-env`](https://github.com/neurobagel/api/blob/main/.
 
 ??? note "For more technical deployments using NGINX"
 
-    If you have configured an NGINX reverse proxy (or proxy requests to the remote origin) to serve both the API and the query tool from the same origin, you can skip the step of enabling CORS for the API. 
+    If you have configured an NGINX reverse proxy (or proxy requests to the remote origin) to serve both the Neurobagel API and the query tool from the same origin, you can skip the step of enabling CORS for the API. 
     For an example, see https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/.
