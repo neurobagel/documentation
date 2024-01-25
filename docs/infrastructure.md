@@ -14,6 +14,10 @@ Because RDF is an W3C open standard,
 any RDF store can be theoretically used as a backend.
 We have tested the following options:
 
+!!! warning "Note: Stardog instructions are deprecated"
+    Due to Stardog no longer offering free academic licenses for self-hosted graph instances (required for Neurobagel),
+    we have deprecated it as a viable graph backend for new Neurobagel nodes. Deployment instructions using Stardog are shown below for legacy reasons, but **please ensure to follow the GraphDB instructions.**
+
 === "GraphDB"
 
     [GraphDB](https://graphdb.ontotext.com/) 
@@ -49,6 +53,9 @@ We have tested the following options:
     We recommend using GraphDB if these restrictions are not a blocker.
 
 === "Stardog"
+
+    **Note: Stardog no longer provides free academic licenses. 
+    The below instructions are deprecated and shown only for legacy reasons.**
 
     Stardog has a free, annually renewable license for academic use.
     In order to make a separate deployment of Neurobagel, 
