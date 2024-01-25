@@ -14,9 +14,9 @@ Because RDF is an W3C open standard,
 any RDF store can be theoretically used as a backend.
 We have tested the following options:
 
-=== "graphDB"
+=== "GraphDB"
 
-    [graphDB](https://graphdb.ontotext.com/) 
+    [GraphDB](https://graphdb.ontotext.com/) 
     offers a perpetual free license that should be sufficient
     for many smaller deployments or testing deployments. 
 
@@ -36,9 +36,9 @@ We have tested the following options:
 
 ## Get a license for the graph backend
 
-=== "graphDB"
+=== "GraphDB"
 
-    [graphDB](https://graphdb.ontotext.com/) creates a free
+    [GraphDB](https://graphdb.ontotext.com/) creates a free
     perpetual license automatically when you don't explicitly
     provide a license.
     The free edition mostly offers the same features 
@@ -46,7 +46,7 @@ We have tested the following options:
     but restricts the number of concurrent operations
     on the graph to 2. 
 
-    We recommend using graphDB if these restrictions are not a blocker.
+    We recommend using GraphDB if these restrictions are not a blocker.
 
 === "Stardog"
 
@@ -91,11 +91,11 @@ Below are all the possible Neurobagel environment variables that can be set in `
 
 {{ read_table('./repos/api/docs/api_environment_variables.tsv') }}
 
-=== "graphDB"
+=== "GraphDB"
 
     _* These values will have to be changed for your deployment from their default value:_
 
-    !!! warning "Change the following default values in your .env file for a graphDB deployment!"
+    !!! warning "Change the following default values in your .env file for a GraphDB deployment!"
 
         ```bash
         NB_GRAPH_IMG=ontotext/graphdb:10.3.1
@@ -103,7 +103,7 @@ Below are all the possible Neurobagel environment variables that can be set in `
         NB_GRAPH_ROOT_HOST=~/graphdb-home  # Or, replace with another directory on your own (host) system where you want to store the database files
         NB_GRAPH_PORT=7200
         NB_GRAPH_PORT_HOST=7200
-        NB_GRAPH_DB=repositories/my_db  # For graphDB, this value should always take the format of: repositories/<your_database_name>
+        NB_GRAPH_DB=repositories/my_db  # For GraphDB, this value should always take the format of: repositories/<your_database_name>
         ```
 
 === "Stardog"
@@ -166,20 +166,20 @@ These will not have to be repeated for subsequent starts.
 To interact with your graph backend, 
 you have two general options:
 
-=== "graphDB"
+=== "GraphDB"
 
-    1. Send HTTP requests from the neurobagel API to the HTTP REST endpoints of the graphDB backend 
-    e.g. using `curl`. graphDB uses the [RDF4J API](https://rdf4j.org/documentation/reference/rest-api/) specification.
-    2. Use the graphDB web interface (called [the workbench](https://graphdb.ontotext.com/documentation/10.0/architecture-components.html)). 
-    Once your local graphDB backend is running
-    you can connect to it at [http://localhost:8000](http://localhost:8000)
+    1. Send HTTP requests from the neurobagel API to the HTTP REST endpoints of the GraphDB backend 
+    e.g. using `curl`. GraphDB uses the [RDF4J API](https://rdf4j.org/documentation/reference/rest-api/) specification.
+    2. Use the GraphDB web interface (called [the workbench](https://graphdb.ontotext.com/documentation/10.0/architecture-components.html)). 
+    Once your local GraphDB backend is running
+    you can connect to it at [http://localhost:7200](http://localhost:7200)
 
 
     !!! info 
     
-        Using the graphDB workbench is a more accessible way to manage the graphDB endpoint.
-        The workbench is well documented on the graphDB website.
-        Here we will focus instead on setting up graphDB with API calls, 
+        Using the GraphDB workbench is a more accessible way to manage the GraphDB endpoint.
+        The workbench is well documented on the GraphDB website.
+        Here we will focus instead on setting up GraphDB with API calls, 
         that can be automated.
 
 === "Stardog"
@@ -199,16 +199,15 @@ you have two general options:
 
 ### Change the database admin password
 
-=== "graphDB"
+When you first launch the graph server, a default `admin` user with superuser privilege will automatically be created for you. 
+This `admin` user is meant to create other database users and modify their permissions.
 
-    When the API, graph, and query tool have been started and are running for the first time, you will have to do some first-run configuration.
+=== "GraphDB"
 
-    **Setup security and users**
-
-    Also refer to the [official graphDB documentation](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/curl-commands.html#security-management) for more info.
+    (For more information, see the [official GraphDB documentation](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/curl-commands.html#security-management).)
 
     First, change the password for the admin user that has been automatically
-    created by graphDB:
+    created by GraphDB:
 
     ```bash
     curl -X PATCH --header 'Content-Type: application/json' http://localhost:7200/rest/security/users/admin -d '
@@ -216,7 +215,7 @@ you have two general options:
     ```
     make sure to replace `"NewAdminPassword"` with your own, secure password.
 
-    Next, enable graphDB security to only allow authenticated users access:
+    Next, enable GraphDB security to only allow authenticated users access:
     ```bash
     curl -X POST --header 'Content-Type: application/json' -d true http://localhost:7200/rest/security
     ```
@@ -229,14 +228,7 @@ you have two general options:
 
 === "Stardog"
 
-    When you first launch Stardog, 
-    a default `admin` user with superuser privilege
-    will automatically be created for you.
-    This `admin` user is meant to create other database users and modify their permissions.
-    Do not use `admin` for read and write operations, instead use a [regular database user](#create-a-new-database-user).
-
     You should first change the password of the database `admin`:
-
 
     ```bash
     curl -X PUT -i -u "admin:admin" http://localhost:5820/admin/users/admin/pwd \
@@ -245,13 +237,15 @@ you have two general options:
 
 ### Create a new database user
 
+We do not recommend using `admin` for normal read and write operations, instead we can create a regular database user.
+
 The `.env` file created as part of the `docker compose` setup instructions
 declares the `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` for the database user.
 The API will send requests to the graph using these credentials.
 When you launch the RDF store for the first time, 
 we have to create a new database user:
 
-=== "graphDB"
+=== "GraphDB"
 
     ```bash
     curl -X POST --header 'Content-Type: application/json' -u "admin:NewAdminPassword" -d '
@@ -298,12 +292,12 @@ make sure to create a database with a matching name.
 By default the API will query a graph database
 with a name of `test_data`.
 
-=== "graphDB"
+=== "GraphDB"
 
-    In graphDB, graph databases are called resources.
+    In GraphDB, graph databases are called resources.
     To create a new one, you will also have to prepare a `data-config.ttl` file
     that contains the settings for the resource you will create 
-    (for more information, see the [graphDB docs](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/location-and-repository-tutorial.html#create-a-repository)).
+    (for more information, see the [GraphDB docs](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/location-and-repository-tutorial.html#create-a-repository)).
 
     **Make sure that the value for `rep:repositoryID`
     in the `data-config.ttl` file matches the value of
@@ -434,7 +428,7 @@ In addition to dataset `.jsonld` files, **this script should also be used to add
 
 ??? info "To directly use `curl` requests to modify the graph database instead of the helper script"
 
-    === "graphDB"
+    === "GraphDB"
         Add a single dataset to the graph database (example)
         ```bash
         curl -u "DBUSER:DBPASSWORD" -i -X POST http://localhost:7200/repositories/my_db/statements \
@@ -482,7 +476,7 @@ Next, upload the `.jsonld` file in the directory `neurobagel_examples/data-uploa
     Neurobagel annotator, and then [parsing the annotated BIDS
     dataset](../cli) with the Neurobagel CLI.
 
-=== "graphDB"
+=== "GraphDB"
     ``` bash
     ./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \
       localhost:7200 repositories/my_db DBUSER DBPASSWORD \
@@ -501,7 +495,7 @@ You can choose to omit the flag or explicitly specify `--no-clear-data` (default
 
 ??? tip "Tip: Double check the data upload worked by checking the database size"
 
-    === "graphDB"
+    === "GraphDB"
         ``` bash
         curl -u "DBUSER:DBPASSWORD" http://localhost:7200/repositories/my_db/size
         ```
@@ -529,7 +523,7 @@ This can be done using the same script we used to upload the dataset JSONLD file
 
 Run the following code (assumes you are in the `api` directory):
 
-=== "graphDB"
+=== "GraphDB"
     ``` bash
     ./add_data_to_graph.sh vocab \
       localhost:7200 repositories/my_db DBUSER DBPASSWORD \
