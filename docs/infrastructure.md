@@ -86,13 +86,16 @@ We recommend launching the Neurobagel API and your graph backend instance using 
 
 ### Clone the API repo
 ```bash
-git clone https://github.com/neurobagel/api.git
+git clone git@github.com:neurobagel/recipes.git
 ```
 
 ### Set the environment variables
 Create a `.env` file in the root of the repository to house the environment variables used by the Neurobagel API-graph network.
 
-The `neurobagel/api` repo contains a [`.template-env`](https://github.com/neurobagel/api/blob/main/.template-env) to get you started. Copy and rename this file to `.env` and then edit it as needed.
+The `neurobagel/recipes` repo contains a 
+[`template-env`](https://github.com/neurobagel/recipes/blob/main/local_node/template.env) 
+in [the `local_node` recipe](https://github.com/neurobagel/recipes/tree/main/local_node) 
+to get you started. Copy and rename this file to `.env` and then edit it as needed.
 
 Below are all the possible Neurobagel environment variables that can be set in `.env`.
 
