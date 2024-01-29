@@ -5,11 +5,11 @@
 Neurobagel has two flavours of APIs that can be deployed: **node API** and **federation API**. 
 
 - A [Neurobagel node API (n-API)](https://github.com/neurobagel/api) formulates SPARQL queries based on a set of user-defined parameters to a single connected graph database, and processes returned query results into a user-friendly format.
-- A [Neurobagel federation API (f-API)](https://github.com/neurobagel/federation-api) sends a query received from the user to _each_ node API it is aware of, and collects and combines the decentralized responses into a single set of query results.
+- A [Neurobagel federation API (f-API)](https://github.com/neurobagel/federation-api) lets the user sends a single query to _each_ node API it is aware of, and collects and combines the decentralized responses into a single set of query results.
 
 More information on how each API flavour is used can be found on the pages [setting up a graph](infrastructure.md) and [setting up local federation](federate.md).
 
-Neurobagel's query tool provides a GUI for querying one or more Neurobagel graphs by sending requests to a Neurobagel API instance. 
+Neurobagel's query tool provides a GUI for querying one or more Neurobagel graphs by sending requests to a Neurobagel API instance (n-API OR f-API). 
 However, HTTP requests can also be sent directly to a Neurobagel API (node or federation).
 
 ## Public Neurobagel APIs
