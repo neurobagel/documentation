@@ -1,19 +1,29 @@
 # The Neurobagel API
 
-The Neurobagel API, hosted at [https://api.neurobagel.org/](https://api.neurobagel.org/), 
-is a REST API that interfaces with Neurobagel's own running knowledge graph instance. 
-The API formulates SPARQL queries to the graph from a set of user-defined parameters and 
-processes returned query results into a user-friendly format.
+## Introduction
 
-Neurobagel's query tool ([https://query.neurobagel.org](https://query.neurobagel.org)) queries the Neurobagel graph by sending requests to the API. 
-However, HTTP requests can also be sent directly to the Neurobagel API. 
-An independent local or institutional deployment of the API is also possible to interface with a local or restricted graph (see section on [setting up a graph](infrastructure.md)).
+Neurobagel has two flavours of APIs that can be deployed: **node API** and **federation API**. 
 
-## Quickstart
-Queries of the knowledge graph can be submitted via direct requests to the API using the `https://api.neurobagel.org/query/` endpoint. 
+- A [Neurobagel node API (n-API)](https://github.com/neurobagel/api) formulates SPARQL queries based on a set of user-defined parameters to a single connected graph database, and processes returned query results into a user-friendly format.
+- A [Neurobagel federation API (f-API)](https://github.com/neurobagel/federation-api) lets the user sends a single query to _each_ node API it is aware of, and collects and combines the decentralized responses into a single set of query results.
+
+More information on how each API flavour is used can be found on the pages [setting up a graph](infrastructure.md) and [setting up local federation](federate.md).
+
+Neurobagel's query tool provides a GUI for querying one or more Neurobagel graphs by sending requests to a Neurobagel API instance (n-API OR f-API). 
+However, HTTP requests can also be sent directly to a Neurobagel API (node or federation).
+
+## Public Neurobagel APIs
+
+In addition to supporting independent local/institutional deployments (i.e., instances) of the Neurobagel API, which can interface with a local or restricted graph,
+Neurobagel also hosts its own public instances of a node API and a federation API.
+
+[https://api.neurobagel.org/](https://api.neurobagel.org/) is a public, Neurobagel-hosted node API that interfaces with Neurobagel's own running graph instance containing harmonized datasets from the [OpenNeuro](https://openneuro.org/) platform.
+
+## Sending a request to a Neurobagel API directly
+Cohort queries of a specific Neurobagel graph database can be submitted via direct requests to the corresponding node API using the `/query` endpoint, e.g. `https://api.neurobagel.org/query/`
 Specific query parameters are defined using key-value pairs in the URL following `/query/`.
 
-**Example: "I want to query for only female participants in the graph."**
+**Example: "I want to query for only female participants in the OpenNeuro graph."**
 
 The URL for such a query would be `https://api.neurobagel.org/query/?sex=snomed:248152002`, where `snomed:248152002` is a controlled term from the SNOMED CT vocabulary corresponding to female sex.
 
@@ -22,15 +32,15 @@ The URL for such a query would be `https://api.neurobagel.org/query/?sex=snomed:
 # To query for female participants in the graph
 
 curl -X 'GET' \
-  'http://localhost:8000/query/?sex=snomed:248152002' \
+  'http://api.neurobagel.org/query/?sex=snomed:248152002' \
   -H 'accept: application/json'
 
 # or
-curl -L http://localhost:8000/query/?sex=snomed:248152002
+curl -L http://api.neurobagel.org/query/?sex=snomed:248152002
 ```
 
-## Using the interactive API docs
-Interactive documentation for the API (provided by [Swagger UI](https://github.com/swagger-api/swagger-ui)) is available at [https://api.neurobagel.org/docs](https://api.neurobagel.org/docs) and can also be used to run queries against the graph.
+## Using the interactive Neurobagel API docs
+Interactive documentation for a Neurobagel API (provided by [Swagger UI](https://github.com/swagger-api/swagger-ui)) is available at the `/docs` endpoint (e.g., [https://api.neurobagel.org/docs](https://api.neurobagel.org/docs)) and can also be used to run queries against the graph.
 
 !!! note
     For convenience, navigating to [https://api.neurobagel.org/](https://api.neurobagel.org/) in the browser will automatically redirect you to the docs.

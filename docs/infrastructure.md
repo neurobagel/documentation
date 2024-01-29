@@ -1,6 +1,6 @@
 These instructions are for a sysadmin looking to 
 deploy a new Neurobagel node locally in an institute or lab. 
-A local **neurobagel node** includes the **neurobagel API** and
+A local **neurobagel node** includes the **neurobagel node API** and
 a **graph backend** to store the harmonized metadata.
 
 To make searching the neurobagel node easier, 
@@ -14,6 +14,16 @@ Because RDF is an W3C open standard,
 any RDF store can be theoretically used as a backend.
 We have tested the following options:
 
+!!! warning "Note: Stardog instructions are deprecated"
+    Due to Stardog no longer offering free academic licenses for self-hosted graph instances (required for Neurobagel),
+    we have deprecated it as a viable graph backend for new Neurobagel nodes. Deployment instructions using Stardog are shown below for legacy reasons, but **please ensure to follow the GraphDB instructions.**
+
+=== "GraphDB"
+
+    [GraphDB](https://graphdb.ontotext.com/) 
+    offers a perpetual free license that should be sufficient
+    for many smaller deployments or testing deployments. 
+
 === "Stardog"
 
     [Stardog](https://www.stardog.com/) 
@@ -21,12 +31,6 @@ We have tested the following options:
     with a large number of extensions. However, it has
     a very restrictive license. We therefore do not recommend
     Stardog for most deployments or testing.
-
-=== "graphDB"
-
-    [graphDB](https://graphdb.ontotext.com/) 
-    offers a perpetual free license that should be sufficient
-    for many smaller deployments or testing deployments. 
 
 !!! info 
 
@@ -36,7 +40,22 @@ We have tested the following options:
 
 ## Get a license for the graph backend
 
+=== "GraphDB"
+
+    [GraphDB](https://graphdb.ontotext.com/) creates a free
+    perpetual license automatically when you don't explicitly
+    provide a license.
+    The free edition mostly offers the same features 
+    [as the paid versions](https://www.ontotext.com/products/graphdb/#comparison-table), 
+    but restricts the number of concurrent operations
+    on the graph to 2. 
+
+    We recommend using GraphDB if these restrictions are not a blocker.
+
 === "Stardog"
+
+    **Note: Stardog no longer provides free academic licenses. 
+    The below instructions are deprecated and shown only for legacy reasons.**
 
     Stardog has a free, annually renewable license for academic use.
     In order to make a separate deployment of Neurobagel, 
@@ -60,23 +79,9 @@ We have tested the following options:
     You will need to download the license in a place that is accessible
     to your new Stardog instance when it is launched (see below).
 
+## Launch the Neurobagel node API and graph stack
 
-=== "graphDB"
-
-    [graphDB](https://graphdb.ontotext.com/) creates a free
-    perpetual license automatically when you don't explicitly
-    provide a license.
-    The free edition mostly offers the same features 
-    [as the paid versions](https://www.ontotext.com/products/graphdb/#comparison-table), 
-    but restricts the number of concurrent operations
-    on the graph to 2. 
-
-    We recommend using graphDB if these restrictions are not a blocker.
-
-
-## Launch the API and graph stack
-
-We recommend launching the API and your graph backend instance using `docker compose`.
+We recommend launching the Neurobagel API and your graph backend instance using `docker compose`.
 (To install the API from source, see [these instructions](https://github.com/neurobagel/api/blob/main/README.md#local-installation).)
 
 ### Clone the API repo
@@ -85,7 +90,7 @@ git clone https://github.com/neurobagel/api.git
 ```
 
 ### Set the environment variables
-Create a `.env` file in the root of the repository to house the environment variables used by the API-graph network.
+Create a `.env` file in the root of the repository to house the environment variables used by the Neurobagel API-graph network.
 
 The `neurobagel/api` repo contains a [`.template-env`](https://github.com/neurobagel/api/blob/main/.template-env) to get you started. Copy and rename this file to `.env` and then edit it as needed.
 
@@ -93,6 +98,20 @@ Below are all the possible Neurobagel environment variables that can be set in `
 
 {{ read_table('./repos/api/docs/api_environment_variables.tsv') }}
 
+=== "GraphDB"
+
+    _* These values will have to be changed for your deployment from their default value:_
+
+    !!! warning "Change the following default values in your .env file for a GraphDB deployment!"
+
+        ```bash
+        NB_GRAPH_IMG=ontotext/graphdb:10.3.1
+        NB_GRAPH_ROOT_CONT=/opt/graphdb/home
+        NB_GRAPH_ROOT_HOST=~/graphdb-home  # Or, replace with another directory on your own (host) system where you want to store the database files
+        NB_GRAPH_PORT=7200
+        NB_GRAPH_PORT_HOST=7200
+        NB_GRAPH_DB=repositories/my_db  # For GraphDB, this value should always take the format of: repositories/<your_database_name>
+        ```
 
 === "Stardog"
 
@@ -101,22 +120,6 @@ Below are all the possible Neurobagel environment variables that can be set in `
     !!! Note "Your Stardog license file must be in the right directory"
 
         Note that your Stardog license file must be in the directory specified by `NB_GRAPH_ROOT_HOST` (default `~/stardog-home`).
-
-
-=== "graphDB"
-
-    _* These values will have to be changed for your deployment from their default value:_
-
-    !!! warning "Change the following default values in your .env file for a graphDB deployment!"
-
-        ```bash
-        NB_GRAPH_IMG=ontotext/graphdb:10.3.1
-        NB_GRAPH_ROOT_CONT=/opt/graphdb/home
-        NB_GRAPH_ROOT_HOST=~/graphdb-home  # Or, replace with another directory on your own (host) system where you want to store the database files
-        NB_GRAPH_PORT=7200
-        NB_GRAPH_PORT_HOST=7200
-        NB_GRAPH_DB=repositories/my_db  # For graphDB, this value should always take the format of: repositories/<your_database_name>
-        ```
 
 _** `NB_GRAPH_ADDRESS` should not be changed from its default value (`graph`) when using docker compose as this corresponds to the preset container name of the graph database server within the docker compose network._
 
@@ -145,7 +148,7 @@ For a local deployment, we recommend to **explicitly set** at least the followin
 
 ### Docker Compose
 
-To spin up the API and graph backend containers using Docker Compose, 
+To spin up the Neurobagel API and graph backend containers using Docker Compose, 
 ensure that both [docker](https://docs.docker.com/get-docker/) and [docker compose](https://docs.docker.com/compose/install/) are installed.
 
 Run the following in the repository root (where the `docker-compose.yml` file is) to launch the containers:
@@ -170,9 +173,25 @@ These will not have to be repeated for subsequent starts.
 To interact with your graph backend, 
 you have two general options:
 
+=== "GraphDB"
+
+    1. Send HTTP requests from the neurobagel API to the HTTP REST endpoints of the GraphDB backend 
+    e.g. using `curl`. GraphDB uses the [RDF4J API](https://rdf4j.org/documentation/reference/rest-api/) specification.
+    2. Use the GraphDB web interface (called [the workbench](https://graphdb.ontotext.com/documentation/10.0/architecture-components.html)). 
+    Once your local GraphDB backend is running
+    you can connect to it at [http://localhost:7200](http://localhost:7200)
+
+
+    !!! info 
+    
+        Using the GraphDB workbench is a more accessible way to manage the GraphDB endpoint.
+        The workbench is well documented on the GraphDB website.
+        Here we will focus instead on setting up GraphDB with RDF4J API calls, 
+        that can be automated.
+
 === "Stardog"
 
-    1. Send HTTP request from the neurobagel API to the HTTP REST endpoints of the Stardog graph backend (e.g. with `curl`). See [https://stardog-union.github.io/http-docs/](https://stardog-union.github.io/http-docs/) for a full reference of API endpoints
+    1. Send HTTP request from the neurobagel API to the HTTP REST endpoints of the Stardog graph backend (e.g. with `curl`). See [https://stardog-union.github.io/http-docs/](https://stardog-union.github.io/http-docs/) for a full reference of Stardog API endpoints
     2. Use the free Stardog-Studio web app. See the [Stardog documentation](https://docs.stardog.com/stardog-applications/dockerized_access#stardog-studio) for instruction to deploy Stardog-Studio as a Docker container.
 
 
@@ -185,51 +204,17 @@ you have two general options:
         Please refer to the 
         [official docs](https://docs.stardog.com/stardog-applications/studio/) to learn how.
 
-=== "graphDB"
-
-    1. Send HTTP requests from the neurobagel API to the HTTP REST endpoints of the graphDB backend 
-    e.g. using `curl`. graphDB uses the [RDF4J API](https://rdf4j.org/documentation/reference/rest-api/) specification.
-    2. Use the graphDB web interface (called [the workbench](https://graphdb.ontotext.com/documentation/10.0/architecture-components.html)). 
-    Once your local graphDB backend is running
-    you can connect to it at [http://localhost:8000](http://localhost:8000)
-
-
-    !!! info 
-    
-        Using the graphDB workbench is a more accessible way to manage the graphDB endpoint.
-        The workbench is well documented on the graphDB website.
-        Here we will focus instead on setting up graphDB with API calls, 
-        that can be automated.
-
-
 ### Change the database admin password
 
-=== "Stardog"
+When you first launch the graph server, a default `admin` user with superuser privilege will automatically be created for you. 
+This `admin` user is meant to create other database users and modify their permissions.
 
-    When you first launch Stardog, 
-    a default `admin` user with superuser privilege
-    will automatically be created for you.
-    This `admin` user is meant to create other database users and modify their permissions.
-    Do not use `admin` for read and write operations, instead use a [regular database user](#create-a-new-database-user).
+=== "GraphDB"
 
-    You should first change the password of the database `admin`:
-
-
-    ```bash
-    curl -X PUT -i -u "admin:admin" http://localhost:5820/admin/users/admin/pwd \
-    --data '{"password": "NewAdminPassword"}'
-    ```
-
-=== "graphDB"
-
-    When the API, graph, and query tool have been started and are running for the first time, you will have to do some first-run configuration.
-
-    **Setup security and users**
-
-    Also refer to the [official graphDB documentation](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/curl-commands.html#security-management) for more info.
+    (For more information, see the [official GraphDB documentation](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/curl-commands.html#security-management).)
 
     First, change the password for the admin user that has been automatically
-    created by graphDB:
+    created by GraphDB:
 
     ```bash
     curl -X PATCH --header 'Content-Type: application/json' http://localhost:7200/rest/security/users/admin -d '
@@ -237,7 +222,7 @@ you have two general options:
     ```
     make sure to replace `"NewAdminPassword"` with your own, secure password.
 
-    Next, enable graphDB security to only allow authenticated users access:
+    Next, enable GraphDB security to only allow authenticated users access:
     ```bash
     curl -X POST --header 'Content-Type: application/json' -d true http://localhost:7200/rest/security
     ```
@@ -248,13 +233,34 @@ you have two general options:
     Unauthorized (HTTP status 401)
     ```
 
+=== "Stardog"
+
+    You should first change the password of the database `admin`:
+
+    ```bash
+    curl -X PUT -i -u "admin:admin" http://localhost:5820/admin/users/admin/pwd \
+    --data '{"password": "NewAdminPassword"}'
+    ```
+
 ### Create a new database user
+
+We do not recommend using `admin` for normal read and write operations, instead we can create a regular database user.
 
 The `.env` file created as part of the `docker compose` setup instructions
 declares the `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` for the database user.
-The API will send requests to the graph using these credentials.
+The Neurobagel API will send requests to the graph using these credentials.
 When you launch the RDF store for the first time, 
 we have to create a new database user:
+
+=== "GraphDB"
+
+    ```bash
+    curl -X POST --header 'Content-Type: application/json' -u "admin:NewAdminPassword" -d '
+    {
+    "username": "DBUSER",
+    "password": "DBPASSWORD"
+    }' http://localhost:7200/rest/security/users/DBUSER
+    ```
 
 === "Stardog"
 
@@ -275,20 +281,10 @@ we have to create a new database user:
     curl -u "admin:NewAdminPassword" http://localhost:5820/admin/users
     ```
 
-=== "graphDB"
-
-    ```bash
-    curl -X POST --header 'Content-Type: application/json' -u "admin:NewAdminPassword" -d '
-    {
-    "username": "DBUSER",
-    "password": "DBPASSWORD"
-    }' http://localhost:7200/rest/security/users/DBUSER
-    ```
-
 !!! note
     Make sure to use the exact `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` you
     defined in the `.env` file when creating the new database user.
-    Otherwise the API will not have the correct permission
+    Otherwise the Neurobagel API will not have the correct permission
     to query the graph.
 
 ### Create new database
@@ -300,44 +296,15 @@ your metadata.
 
 If you have defined a custom `NB_GRAPH_DB` name in the `.env` file,
 make sure to create a database with a matching name.
-By default the API will query a graph database
+By default the Neurobagel API will query a graph database
 with a name of `test_data`.
 
-=== "Stardog"
+=== "GraphDB"
 
-    ```bash
-    curl -X POST -i -u "admin:NewAdminPassword" http://localhost:5820/admin/databases \
-    --form 'root="{\"dbname\":\"test_data\"}"'
-    ```
-
-    Now we need to give our new database user read and write permission for 
-    this database:
-
-    ```bash
-    curl -X PUT -i -u "admin:NewAdminPassword" http://localhost:5820/admin/permissions/user/DBUSER \
-    -H 'Content-Type: application/json' \
-    --data '{
-        "action": "ALL",
-        "resource_type": "DB",
-        "resource": [
-            "test_data"
-        ]
-    }'
-    ```
-
-    ??? note "Finer permission control is also possible"
-
-        For simplicity's sake, here we give `"ALL"` permission to the new database user.
-        The Stardog API provide more fine grained permission control.
-        See [the official API documentation](https://stardog-union.github.io/http-docs/#tag/Permissions/operation/addUserPermission).
-
-
-=== "graphDB"
-
-    In graphDB, graph databases are called resources.
+    In GraphDB, graph databases are called resources.
     To create a new one, you will also have to prepare a `data-config.ttl` file
     that contains the settings for the resource you will create 
-    (for more information, see the [graphDB docs](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/location-and-repository-tutorial.html#create-a-repository)).
+    (for more information, see the [GraphDB docs](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/location-and-repository-tutorial.html#create-a-repository)).
 
     **Make sure that the value for `rep:repositoryID`
     in the `data-config.ttl` file matches the value of
@@ -421,6 +388,34 @@ with a name of `test_data`.
         make sure you replace `my_db` with the name of the graph db you 
         have just created. 
 
+=== "Stardog"
+
+    ```bash
+    curl -X POST -i -u "admin:NewAdminPassword" http://localhost:5820/admin/databases \
+    --form 'root="{\"dbname\":\"test_data\"}"'
+    ```
+
+    Now we need to give our new database user read and write permission for 
+    this database:
+
+    ```bash
+    curl -X PUT -i -u "admin:NewAdminPassword" http://localhost:5820/admin/permissions/user/DBUSER \
+    -H 'Content-Type: application/json' \
+    --data '{
+        "action": "ALL",
+        "resource_type": "DB",
+        "resource": [
+            "test_data"
+        ]
+    }'
+    ```
+
+    ??? note "Finer permission control is also possible"
+
+        For simplicity's sake, here we give `"ALL"` permission to the new database user.
+        The Stardog API provide more fine grained permission control.
+        See [the official Stardog API documentation](https://stardog-union.github.io/http-docs/#tag/Permissions/operation/addUserPermission).
+
 ## Uploading data to the graph
 
 The `neurobagel/api` repo contains a helper script [`add_data_to_graph.sh`](https://github.com/neurobagel/api/blob/main/add_data_to_graph.sh) for automatically uploading all JSONLD and/or TTL files (i.e., graph-ready data) in a directory to a specific graph database, with the option to clear the existing data in the database first.
@@ -440,6 +435,21 @@ In addition to dataset `.jsonld` files, **this script should also be used to add
 
 ??? info "To directly use `curl` requests to modify the graph database instead of the helper script"
 
+    === "GraphDB"
+        Add a single dataset to the graph database (example)
+        ```bash
+        curl -u "DBUSER:DBPASSWORD" -i -X POST http://localhost:7200/repositories/my_db/statements \
+            -H "Content-Type: application/ld+json" \
+            --data-binary @<DATASET_NAME>.jsonld
+        ```
+        
+        Clear all data in the graph database (example)
+        ```bash
+        curl -u "DBUSER:DBPASSWORD" -X POST http://localhost:7200/repositories/my_db/statements \
+            -H "Content-Type: application/sparql-update" \
+            --data-binary "DELETE { ?s ?p ?o } WHERE { ?s ?p ?o }"
+        ```
+
     === "Stardog"
         Add a single dataset to the graph database (example)
         ```bash
@@ -451,21 +461,6 @@ In addition to dataset `.jsonld` files, **this script should also be used to add
         Clear all data in the graph database (example)
         ```bash
         curl -u "DBUSER:DBPASSWORD" -X POST http://localhost:5820/test_data/update \
-            -H "Content-Type: application/sparql-update" \
-            --data-binary "DELETE { ?s ?p ?o } WHERE { ?s ?p ?o }"
-        ```
-
-    === "graphDB"
-        Add a single dataset to the graph database (example)
-        ```bash
-        curl -u "DBUSER:DBPASSWORD" -i -X POST http://localhost:7200/repositories/my_db/statements \
-            -H "Content-Type: application/ld+json" \
-            --data-binary @<DATASET_NAME>.jsonld
-        ```
-        
-        Clear all data in the graph database (example)
-        ```bash
-        curl -u "DBUSER:DBPASSWORD" -X POST http://localhost:7200/repositories/my_db/statements \
             -H "Content-Type: application/sparql-update" \
             --data-binary "DELETE { ?s ?p ?o } WHERE { ?s ?p ?o }"
         ```
@@ -488,6 +483,13 @@ Next, upload the `.jsonld` file in the directory `neurobagel_examples/data-uploa
     Neurobagel annotator, and then [parsing the annotated BIDS
     dataset](../cli) with the Neurobagel CLI.
 
+=== "GraphDB"
+    ``` bash
+    ./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \
+      localhost:7200 repositories/my_db DBUSER DBPASSWORD \
+      --clear-data --use-graphdb-syntax
+    ```
+
 === "Stardog"
     ``` bash
     ./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \
@@ -495,25 +497,21 @@ Next, upload the `.jsonld` file in the directory `neurobagel_examples/data-uploa
       --clear-data
     ```
 
-=== "graphDB"
-    ``` bash
-    ./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \
-      localhost:7200 repositories/my_db DBUSER DBPASSWORD \
-      --clear-data --use-graphdb-syntax
-    ```
 **Note:** Here we added the `--clear-data` flag to remove any existing data in the database (if the database is empty, the flag has no effect).
 You can choose to omit the flag or explicitly specify `--no-clear-data` (default behaviour) to skip this step.
 
 ??? tip "Tip: Double check the data upload worked by checking the database size"
+
+    === "GraphDB"
+        ``` bash
+        curl -u "DBUSER:DBPASSWORD" http://localhost:7200/repositories/my_db/size
+        ```
+
     === "Stardog"
         ``` bash
         curl -u "DBUSER:DBPASSWORD" http://localhost:5820/test_data/size?exact=true
         ```
 
-    === "graphDB"
-        ``` bash
-        curl -u "DBUSER:DBPASSWORD" http://localhost:7200/repositories/my_db/size
-        ```
     The number of triples (size) of your database should be > 0.
 
 ### Adding vocabulary files to the graph database
@@ -532,17 +530,17 @@ This can be done using the same script we used to upload the dataset JSONLD file
 
 Run the following code (assumes you are in the `api` directory):
 
-=== "Stardog"
-    ``` bash
-    ./add_data_to_graph.sh vocab \
-      localhost:5820 test_data DBUSER DBPASSWORD
-    ```
-
-=== "graphDB"
+=== "GraphDB"
     ``` bash
     ./add_data_to_graph.sh vocab \
       localhost:7200 repositories/my_db DBUSER DBPASSWORD \
       --use-graphdb-syntax
+    ```
+
+=== "Stardog"
+    ``` bash
+    ./add_data_to_graph.sh vocab \
+      localhost:5820 test_data DBUSER DBPASSWORD
     ```
 
 ### Updating a dataset in the graph database
@@ -561,7 +559,7 @@ Each `.jsonld` in the directory should include the name of the dataset in the fi
 
 ## Test the new deployment
 
-You can run a test query against the API via a `curl` request in your terminal:
+You can run a test query against the Neurobagel API via a `curl` request in your terminal:
 
 ```bash
 curl -X 'GET' \
@@ -572,13 +570,13 @@ curl -X 'GET' \
 curl -L http://localhost:8000/query/
 ```
 
-Or, you can directly use the interactive documentation of the API (provided by [Swagger UI](https://github.com/swagger-api/swagger-ui)) 
+Or, you can directly use the interactive documentation of the Neurobagel API (provided by [Swagger UI](https://github.com/swagger-api/swagger-ui)) 
 by navigating to [http://localhost:8000/docs](http://localhost:8000/docs) in your browser. 
-To test the API from the docs interface, expand the `query` endpoint tab with the :fontawesome-solid-chevron-down: icon to view the parameters that can be set, 
+To test the Neurobagel API from the docs interface, expand the `query` endpoint tab with the :fontawesome-solid-chevron-down: icon to view the parameters that can be set, 
 and click "Try it out" and then "Execute" to execute a query.
 
 !!! note
-    For very large databases, requests to the API using the interactive docs UI may be very slow or time out. 
+    For very large databases, requests to the Neurobagel API using the interactive docs UI may be very slow or time out. 
     If this prevents test queries from succeeding, try setting more parameters to enable an example response from the graph, or use a `curl` request instead.
 
 
@@ -635,11 +633,11 @@ you can run
 docker inspect query_tool
 ```
 
-### Updating your API configuration
+### Updating your Neurobagel API configuration
 If deploying the query tool as a standalone service for the local node you have just created, you must ensure the `NB_API_ALLOWED_ORIGINS` variable is correctly set in the [`.env` file configuration for your node API](#set-the-environment-variables). 
-The `NB_API_ALLOWED_ORIGINS` variable defaults to an empty string (`""`) when unset, meaning that your deployed API will only be accessible via direct `curl` requests to the URL where the API is hosted (see [this section](#test-the-new-deployment) for an example `curl` request).
+The `NB_API_ALLOWED_ORIGINS` variable defaults to an empty string (`""`) when unset, meaning that your deployed Neurobagel API will only be accessible via direct `curl` requests to the URL where the API is hosted (see [this section](#test-the-new-deployment) for an example `curl` request).
 
-To make the API accessible by a frontend tool such as our [browser query tool](https://github.com/neurobagel/query-tool),
+To make the Neurobagel API accessible by a frontend tool such as our [browser query tool](https://github.com/neurobagel/query-tool),
 you must explicitly specify the origin(s) for the frontend using `NB_API_ALLOWED_ORIGINS` in `.env`.
 For detailed instructions regarding the query tool see [Running cohort queries](query_tool.md).
 
@@ -663,5 +661,5 @@ For example, the [`.template-env`](https://github.com/neurobagel/api/blob/main/.
 
 ??? note "For more technical deployments using NGINX"
 
-    If you have configured an NGINX reverse proxy (or proxy requests to the remote origin) to serve both the API and the query tool from the same origin, you can skip the step of enabling CORS for the API. 
+    If you have configured an NGINX reverse proxy (or proxy requests to the remote origin) to serve both the Neurobagel API and the query tool from the same origin, you can skip the step of enabling CORS for the API. 
     For an example, see https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/.
