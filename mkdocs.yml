@@ -30,7 +30,7 @@ nav:
     - Set up a neurobagel node: "infrastructure.md"
     - Set up local federation: "federate.md"
     - Updating a harmonized dataset: "updating_dataset.md"
-    - Using the API: "api.md"
+    - Using the API directly: "api.md"
     - Running cohort queries: "query_tool.md"
   - Data models: 
     - Augmented BIDS data dictionaries: "dictionaries.md"

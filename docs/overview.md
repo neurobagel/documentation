@@ -9,7 +9,7 @@ The Neurobagel ecosystem comprises four primary tools:
 - The **command-line interface** [:simple-github:](https://github.com/neurobagel/bagel-cli)
     - to extract subject-specific metadata from annotated phenotypic and BIDS data
     - intended for data managers to create graph-ready harmonized data
-- The **knowledge graph store** and **API** [:simple-github:](https://github.com/neurobagel/api) ([api.neurobagel.org](https://api.neurobagel.org))
+- The **knowledge graph store** and **Neurobagel API** [:simple-github:](https://github.com/neurobagel/api) (e.g., [api.neurobagel.org](https://api.neurobagel.org))
     - to store and query extracted metadata using [RDF](https://www.w3.org/RDF/) and the [SPARQL query language](https://www.w3.org/TR/rdf-sparql-query/)
     - intended for research/data platform owners and for isolated deployments
 - The **query tool** [:simple-github:](https://github.com/neurobagel/query-tool) ([query.neurobagel.org](https://query.neurobagel.org))

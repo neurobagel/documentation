@@ -29,7 +29,7 @@ Query federation is not necessary, if you:
   for a neurobagel node](infrastructure.md) and you are good to go.
 
 ## Setting up for local federation
-Federated graph queries in neurobagel are provided by the federation API (`f-API`) service.
+Federated graph queries in neurobagel are provided by the [federation API](https://github.com/neurobagel/federation-api) (`f-API`) service.
 The neurobagel `f-API` takes a single user query and then sends it to every
 neurobagel node API (`n-API`) it is aware of, collects and combines the responses,
 and sends them back to the user as a single answer.
