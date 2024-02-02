@@ -84,9 +84,9 @@ Nipoppy requires two global files for specifying local data/container paths and 
 
 #### Sample `manifest.csv`
 
-| participant_id | visit | session | datatype                     | bids_id |
-|----------------|-------|---------|------------------------------|---------|
-| 001            | V01   | ses-01  | ["anat","dwi","fmap","func"] | sub-001 |
-| 001            | V02   | ses-02  | ["anat"]                     | sub-001 |
-| 002            | V01   | ses-01  | ["anat","dwi"]               | sub-002 |
-| 002            | V03   | ses-03  | ["anat","dwi"]               | sub-002 |
+| participant_id | visit | session | datatype                     |
+|----------------|-------|---------|------------------------------|
+| 001            | V01   | ses-01  | ["anat","dwi","fmap","func"] |
+| 001            | V02   | ses-02  | ["anat"]                     |
+| 002            | V01   | ses-01  | ["anat","dwi"]               |
+| 002            | V03   | ses-03  | ["anat","dwi"]               |
