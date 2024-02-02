@@ -84,16 +84,22 @@ We have tested the following options:
 We recommend launching the Neurobagel API and your graph backend instance using `docker compose`.
 (To install the API from source, see [these instructions](https://github.com/neurobagel/api/blob/main/README.md#local-installation).)
 
-### Clone the API repo
+### Clone the configuration file templates
+
+The [`neurobagel/recipes`](https://github.com/neurobagel/recipes) repository contains templates of all files needed for configuring different types of Neurobagel deployments.
+
+Configuration files for setting up a single Neurobagel node are found in the [`local_node`](https://github.com/neurobagel/recipes/tree/main/local_node) subdirectory.
+**You can follow the below steps directly in this subdirectory, or in a new directory outside of the repository.**
 ```bash
 git clone git@github.com:neurobagel/recipes.git
+cd recipes/local_node
 ```
 
 ### Set the environment variables
-Create a `.env` file in the root of the repository to house the environment variables used by the Neurobagel API-graph network.
+Create a `.env` file to house the environment variables used by the Neurobagel API-graph network.
 
 The `neurobagel/recipes` repo contains a 
-[`template-env`](https://github.com/neurobagel/recipes/blob/main/local_node/template.env) 
+[`template.env`](https://github.com/neurobagel/recipes/blob/main/local_node/template.env)
 in [the `local_node` recipe](https://github.com/neurobagel/recipes/tree/main/local_node) 
 to get you started. Copy and rename this file to `.env` and then edit it as needed.
 
