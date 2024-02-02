@@ -78,7 +78,6 @@ Nipoppy requires two global files for specifying local data/container paths and 
       - `visit`: label to denote participant visit for data acquisition (e.g. `"baseline"`, `"m12"`, `"m24"` or `"V01"`, `"V02"` etc.)
       - `session`: alternative naming for visit - typically used for imaging data to comply with [BIDS standard](https://bids-specification.readthedocs.io/en/stable/02-common-principles.html)
       - `datatype`: a list of acquired imaging datatype as defined by [BIDS standard](https://bids-specification.readthedocs.io/en/stable/02-common-principles.html)
-      - `bids_id`: this is the `participant_id` after removing any non-alphanumeric character (e.g. "-" or "_") and attaching the `sub-` prefix. `participant_id` and `bids_id` in the manifest are used to link tabular and MRI data
    - New participant are appended upon recruitment as new rows
    - Participants with multiple visits (i.e. sessions) should be added as separate rows
 
