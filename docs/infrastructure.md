@@ -91,7 +91,7 @@ The [`neurobagel/recipes`](https://github.com/neurobagel/recipes) repository con
 Configuration files for setting up a single Neurobagel node are found in the [`local_node`](https://github.com/neurobagel/recipes/tree/main/local_node) subdirectory.
 **You can follow the below steps directly in this subdirectory, or in a new directory outside of the repository.**
 ```bash
-git clone git@github.com:neurobagel/recipes.git
+git clone https://github.com/neurobagel/recipes.git
 cd recipes/local_node
 ```
 
@@ -427,7 +427,8 @@ with a name of `test_data`.
 
 ## Uploading data to the graph
 
-The `neurobagel/api` repo contains a helper script [`add_data_to_graph.sh`](https://github.com/neurobagel/recipes/blob/main/scripts/add_data_to_graph.sh) for automatically uploading all JSONLD and/or TTL files (i.e., graph-ready data) in a directory to a specific graph database, with the option to clear the existing data in the database first.
+The `neurobagel/recipes` repo contains a helper script [`add_data_to_graph.sh`](https://github.com/neurobagel/recipes/blob/main/scripts/add_data_to_graph.sh) in the `scripts` subdirectory for automatically uploading all JSONLD and/or TTL files (i.e., graph-ready data) in a directory to a specific graph database, 
+with the option to clear the existing data in the database first.
 In the context of Neurobagel, each `.jsonld` file is expected to correspond to a single **dataset**.
 
 To view all the command line arguments for add_data_to_graph.sh:
@@ -532,12 +533,12 @@ You can choose to omit the flag or explicitly specify `--no-clear-data` (default
 The participant variables modeled by Neurobagel are named using Neurobagel's own vocabulary (for more information, see this page on [controlled terms](./term_naming_standards.md)).
 This vocabulary, which defines internal relationships between vocabulary terms, 
 is serialized in the file [`nb_vocab.ttl`](https://github.com/neurobagel/recipes/blob/main/vocab/nb_vocab.ttl) available from the `neurobagel/recipes` repository.
-If you have cloned the api repository, you will already have downloaded the vocabulary file.
+If you have cloned this repository, you will already have downloaded the vocabulary file.
 
 **The `nb_vocab.ttl` file should be added to every created Neurobagel graph database.**
 This can be done using the same script we used to upload the dataset JSONLD files, [`add_data_to_graph.sh`](https://github.com/neurobagel/recipes/blob/main/scripts/add_data_to_graph.sh), which adds all `.ttl` and/or `.jsonld` files in a given directory to the specified graph.
 
-Run the following code (assumes you are in the `api` directory):
+Run the following code (assumes you are in the `scripts` subdirectory inside the `recipes` repository):
 
 === "GraphDB"
     ``` bash
@@ -648,9 +649,13 @@ The `NB_API_ALLOWED_ORIGINS` variable defaults to an empty string (`""`) when un
 
 To make the Neurobagel API accessible by a frontend tool such as our [browser query tool](https://github.com/neurobagel/query-tool),
 you must explicitly specify the origin(s) for the frontend using `NB_API_ALLOWED_ORIGINS` in `.env`.
-For detailed instructions regarding the query tool see [Running cohort queries](query_tool.md).
+(Detailed instructions for using the query tool can be found in [Running cohort queries](query_tool.md).)
 
-For example, the [`template.env`](https://github.com/neurobagel/recipes/blob/main/local_node/template.env) file in the Neurobagel API repo assumes you want to allow API requests from a query tool hosted at a specific port on `localhost` (see the [Docker Compose section](#docker-compose)).
+For example, add the following line to your `.env` file to allow API requests from a query tool hosted at a specific port on `localhost` (see the [Docker Compose section](#docker-compose)).
+
+```bash
+NB_API_ALLOWED_ORIGINS="http://localhost:3000 http://127.0.0.1:3000"
+```
 
 !!! example "More examples of `NB_API_ALLOWED_ORIGINS`"
 
