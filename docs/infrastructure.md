@@ -96,7 +96,7 @@ The `neurobagel/api` repo contains a [`.template-env`](https://github.com/neurob
 
 Below are all the possible Neurobagel environment variables that can be set in `.env`.
 
-{{ read_table('./repos/api/docs/api_environment_variables.tsv') }}
+{{ read_table('./repos/recipes/docs/neurobagel_environment_variables.tsv') }}
 
 === "GraphDB"
 
