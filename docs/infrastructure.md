@@ -541,14 +541,14 @@ Run the following code (assumes you are in the `api` directory):
 
 === "GraphDB"
     ``` bash
-    ./add_data_to_graph.sh vocab \
+    ./add_data_to_graph.sh ../vocab \
       localhost:7200 repositories/my_db DBUSER DBPASSWORD \
       --use-graphdb-syntax
     ```
 
 === "Stardog"
     ``` bash
-    ./add_data_to_graph.sh vocab \
+    ./add_data_to_graph.sh ../vocab \
       localhost:5820 test_data DBUSER DBPASSWORD
     ```
 
