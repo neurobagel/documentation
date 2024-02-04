@@ -105,7 +105,7 @@ to get you started. Copy and rename this file to `.env` and then edit it as need
 
 Below are all the possible Neurobagel environment variables that can be set in `.env`.
 
-{{ read_table('./repos/api/docs/api_environment_variables.tsv') }}
+{{ read_table('./repos/recipes/docs/neurobagel_environment_variables.tsv') }}
 
 === "GraphDB"
 
