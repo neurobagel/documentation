@@ -22,6 +22,10 @@ Nipoppy requires two global files for specifying local data/container paths and 
       - Information about tabular data (`TABULAR`)
         - Version and path to the data dictionary (`data_dictionary`)
 
+!!! Note
+
+    Nipoppy uses the term "session" to refer to a session ID string with the "ses-" prefix. For example, `ses-01` is a session, and `01` is the session ID associated with this session.
+
 !!! Suggestion
 
     Although not mandatory, for consistency the preferred location would be: `<DATASET_ROOT>/proc/global_configs.json`.
