@@ -8,7 +8,7 @@ The Nipoppy codebase is divided into data processing `workflows` and data availa
 
 **`workflow`**
 
-- MRI data organization (`dicom_org` and `bids_conv`)
+- MRI data organization ([`dicom_org`](./workflow/dicom_org.md) and [`bids_conv`](./workflow/bids_conv.md))
     - Custom script to organize raw DICOMs (i.e. scanner output) into a flat participant-level directory. 
     - Convert DICOMs into BIDS using [Heudiconv](https://heudiconv.readthedocs.io/en/latest/)
 - MRI data processing (`proc_pipe`)

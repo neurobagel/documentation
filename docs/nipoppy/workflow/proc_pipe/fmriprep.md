@@ -1,8 +1,8 @@
-### Objective
+## Objective
 
 ---
 
-Run [fMRIPrep](https://fmriprep.org/en/stable/) pipeline on BIDS formatted dataset. Note that a standard fMRIPrep run also includes FreeSurfer processing.
+Run [fMRIPrep](https://fmriprep.org/en/stable/) pipeline on BIDS-formatted dataset. Note that a standard fMRIPrep run also includes FreeSurfer processing.
    
 ---
 

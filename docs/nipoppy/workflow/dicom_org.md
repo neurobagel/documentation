@@ -2,7 +2,7 @@
 
 ---
 
-This is a dataset specific process and needs to be customized based on local scanner DICOM dumps and file naming. This organization should produce, for a given session, participant specific dicom dirs. Each of these participant-dir contains a flat list of dicoms for the participant for all available imaging modalities and scan protocols. The manifest is used to determine which new subject-session pairs need to be processed, and a `doughnut.csv` file is used to track the status for the DICOM reorganization and BIDS conversion steps.
+This is a dataset-specific process and needs to be customized based on local scanner DICOM dumps and file naming. This organization should produce, for a given session, participant specific dicom dirs. Each of these participant-dir contains a flat list of dicoms for the participant for all available imaging modalities and scan protocols. The manifest is used to determine which new subject-session pairs need to be processed, and a `doughnut.csv` file is used to track the status for the DICOM reorganization and BIDS conversion steps.
 
 ---
 ### Key directories and files

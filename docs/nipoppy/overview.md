@@ -1,4 +1,4 @@
-## What is Nipoppy (formerly mr_proc)? 
+## What is Nipoppy? 
 
 [*Process long and prosper*](https://en.wikipedia.org/wiki/Vulcan_salute)
 
