@@ -61,6 +61,6 @@ The imaging derivatives bagel has one row for each participant-session-pipeline 
 
 ### Visualizing availability status with the Neurobagel [`digest`](https://digest.neurobagel.org/)
 
-The `bagel.csv` file written by the tracker can be uploaded to https://digest.neurobagel.org/ (as an "imaging CSV file") for interactive visualizations of processing status.
+The `bagel.csv` file written by the tracker can be uploaded to [https://digest.neurobagel.org/](https://digest.neurobagel.org/) (as an "imaging CSV file") for interactive visualizations of processing status.
 
 ![digest](../imgs/digest.png)
