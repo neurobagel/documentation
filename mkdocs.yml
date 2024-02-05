@@ -45,9 +45,10 @@ nav:
     - Workflow:
       - "DICOM organization": "nipoppy/workflow/dicom_org.md"
       - "BIDS conversion": "nipoppy/workflow/bids_conv.md"
-      - Pipeline specific instructions:
+      - Pipeline-specific instructions:
         - fmriprep: "nipoppy/workflow/proc_pipe/fmriprep.md"
         - mriqc: "nipoppy/workflow/proc_pipe/mriqc.md"
+    - Trackers: "nipoppy/trackers.md"
   - Contributing:
     - Pull requests: "contributing/pull_requests.md"
     - Our team: "contributing/team.md"
