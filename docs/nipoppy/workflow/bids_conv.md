@@ -11,7 +11,7 @@ Convert DICOMs to BIDS using [Heudiconv](https://heudiconv.readthedocs.io/en/lat
 
 - `<DATASET_ROOT>/dicom`
 - `<DATASET_ROOT>/bids`
-- `<DATASET_ROOT>/scratch/raw_dicoms/doughnut.csv`
+- `<DATASET_ROOT>/scratch/raw_dicom/doughnut.csv`
 - `heuristic.py`
 
 ### Procedure
