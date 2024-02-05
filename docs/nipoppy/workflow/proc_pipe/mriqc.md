@@ -8,10 +8,10 @@ MRIQC processes the participants and produces image quality metrics from T1w, T2
 
 
 ### [MRIQC](https://mriqc.readthedocs.io/en/latest/)
-- Use [run_mriqc.py](https://github.com/neurodatascience/nipoppy/blob/main/nipoppy/workflow/proc_pipe/mriqc/run_mriqc.py) to run MRIQC pipeline directly or wrap the script in an SGE/Slurm script to run on cluster
+- Use [nipoppy/workflow/proc_pipe/mriqc/run_mriqc.py](https://github.com/neurodatascience/nipoppy/blob/main/nipoppy/workflow/proc_pipe/mriqc/run_mriqc.py) to run MRIQC pipeline directly or wrap the script in an SGE/Slurm script to run on cluster
 
 ```bash
-python run_mriqc.py --global_config CONFIG.JSON --subject_id 001 --output_dir OUTPUT_DIR_PATH
+python nipoppy/workflow/proc_pipe/mriqc/run_mriqc.py --global_config CONFIG.JSON --subject_id 001 --output_dir OUTPUT_DIR_PATH
 ```
 
 - Mandatory: Pass in the absolute path to the configuration containing the MRIQC container and data directory to `global_config`
@@ -24,7 +24,7 @@ python run_mriqc.py --global_config CONFIG.JSON --subject_id 001 --output_dir OU
 
 > Sample cmd:
 ```bash
-python run_mriqc.py \
+python nipoppy/workflow/proc_pipe/mriqc/run_mriqc.py \
  	--global_config GLOBAL_CONFIG \
  	--participant_id SUBJECT_ID \
  	--output_dir OUTPUT_DIR \

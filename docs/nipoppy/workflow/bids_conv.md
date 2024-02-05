@@ -17,17 +17,17 @@ Convert DICOMs to BIDS using [Heudiconv](https://heudiconv.readthedocs.io/en/lat
 ### Procedure
 
 1. Ensure you have the appropriate HeuDiConv container listed in your `global_configs.json`
-2. Use [run_bids_conv.py](https://github.com/neurodatascience/nipoppy/blob/main/nipoppy/workflow/bids_conv/run_bids_conv.py) to run HeuDiConv `stage_1` and `stage_2`.  
+2. Use [nipoppy/workflow/bids_conv/run_bids_conv.py](https://github.com/neurodatascience/nipoppy/blob/main/nipoppy/workflow/bids_conv/run_bids_conv.py) to run HeuDiConv `stage_1` and `stage_2`.  
    - Run `stage_1` to generate a list of available protocols from the DICOM header. These protocols are listed in `<DATASET_ROOT>/bids/.heudiconv/<participant_id>/info/dicominfo_ses-<session_id>.tsv`
    
 > Sample cmd:
 ```bash
-python run_bids_conv.py \
+python nipoppy/workflow/bids_conv/run_bids_conv.py \
    --global_config <global_config_file> \
    --session_id <session_id> \
    --stage 1
 ```
-      
+
 !!! note
 
     If participants have multiple sessions (or visits), these need to be converted separately and combined post-hoc to avoid Heudiconv errors. 
@@ -43,7 +43,7 @@ python run_bids_conv.py \
 
 > Sample cmd:
 ```bash
-python run_bids_conv.py \
+python nipoppy/workflow/bids_conv/run_bids_conv.py \
    --global_config <global_config_file> \
    --session_id <session_id> \
    --stage 2
@@ -52,4 +52,4 @@ python run_bids_conv.py \
 
 !!! note
 
-    Once `heuristic.py` is finalized, only `stage_2` needs to be run peridodically unless new scan protocol is added.
+    Once `heuristic.py` is finalized, only `stage_2` needs to be run periodically unless new scan protocol is added.
