@@ -497,14 +497,14 @@ Next, upload the `.jsonld` file in the directory `neurobagel_examples/data-uploa
     ``` bash
     ./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \
       localhost:7200 repositories/my_db DBUSER DBPASSWORD \
-      --clear-data --use-graphdb-syntax
+      --clear-data
     ```
 
 === "Stardog"
     ``` bash
     ./add_data_to_graph.sh PATH/TO/neurobagel_examples/data-upload/pheno-bids-output \
       localhost:5820 test_data DBUSER DBPASSWORD \
-      --clear-data
+      --clear-data --use-stardog-syntax
     ```
 
 **Note:** Here we added the `--clear-data` flag to remove any existing data in the database (if the database is empty, the flag has no effect).
@@ -543,14 +543,14 @@ Run the following code (assumes you are in the `scripts` subdirectory inside the
 === "GraphDB"
     ``` bash
     ./add_data_to_graph.sh ../vocab \
-      localhost:7200 repositories/my_db DBUSER DBPASSWORD \
-      --use-graphdb-syntax
+      localhost:7200 repositories/my_db DBUSER DBPASSWORD
     ```
 
 === "Stardog"
     ``` bash
     ./add_data_to_graph.sh ../vocab \
-      localhost:5820 test_data DBUSER DBPASSWORD
+      localhost:5820 test_data DBUSER DBPASSWORD \
+      --use-stardog-syntax
     ```
 
 ### Updating a dataset in the graph database
