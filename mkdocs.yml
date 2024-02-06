@@ -88,11 +88,11 @@ plugins:
       #   default: []
       repos:
         # the git repository URL to clone
-      - url: "https://github.com/neurobagel/api"
+      - url: "https://github.com/neurobagel/recipes"
         # a list of globs to checkout
         # if empty or not provided, the entire repository is cloned
         # default: [ ]
-        include: [ "docs/api_environment_variables.tsv"]
+        include: [ "docs/neurobagel_environment_variables.tsv"]
         # the branch of the repository to clone
         branch: "main"
       - url: "https://github.com/neurobagel/neurobagel_examples"
