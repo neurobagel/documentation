@@ -1,8 +1,8 @@
-## Tracker data availability status
+## Track data availability status
 
 ---
 
-Trackers check the availability status of files created during the dataset processing workflow, specific the BIDS raw data and imaging pipeline derivatives.
+Trackers check the availability of files created during the dataset processing workflow (specifically the BIDS raw data and imaging pipeline derivatives) and assign an availability status (`SUCCESS`, `FAIL`, `INCOMPLETE` or `UNAVAILABLE`).
 
 ---
 

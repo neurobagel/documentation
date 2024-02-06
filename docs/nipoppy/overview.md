@@ -1,7 +1,5 @@
 ## What is Nipoppy? 
 
-[*Process long and prosper*](https://en.wikipedia.org/wiki/Vulcan_salute)
-
 [Nipoppy](https://github.com/neurodatascience/nipoppy) is a lightweight framework for analyzing (neuro)imaging and clinical data. It is designed to help users do the following:
 
 1. Curate and organize data into a standard directory structure

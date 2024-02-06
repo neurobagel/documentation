@@ -42,7 +42,7 @@ This is a dataset-specific process and needs to be customized based on local sca
 
 !!! note
 
-    It is **okay** for the participant directory to have messy internal subdir tree with DICOMs from multiple modalities. (See [data org schematic](data_org.md) for details). The run script will search and validate all available DICOM files automatically. 
+    It is **okay** for the participant directory to have messy internal subdir tree with DICOMs from multiple modalities. (See [data org schematic](../../imgs/data_org.jpg) for details). The run script will search and validate all available DICOM files automatically. 
 
 
 4. Run [`nipoppy/workflow/dicom_org/run_dicom_org.py`](https://github.com/neurodatascience/nipoppy/blob/main/nipoppy/workflow/dicom_org/run_dicom_org.py) to:

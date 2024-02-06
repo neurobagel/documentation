@@ -23,7 +23,3 @@ The required arguments are:
 - `--participant_id`: participant/subject ID
 - `--session_id`: session ID
 - `--modality`: modality/modalities to check (valid values: `T1w`, `T2w`, `bold`, `dwi`)
-
-!!! note
-	A run for a participant is considered successful when the participant's log file reads `Participant level finished successfully`
-
