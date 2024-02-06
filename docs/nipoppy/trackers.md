@@ -14,7 +14,7 @@ Trackers check the availability of files created during the dataset processing w
 
 ### Running the tracker script
 
-The tracker uses the `manifest.csv` and `doughnut.csv` files to determine the participant-session pairs to check. Each available tracker has an associated configuration file (typically called `<pipeline>_tracker.py`), where lists of expected paths for files produced by the pipeline are defined.
+The tracker uses the [`manifest.csv`](./configs.md#participant-manifest-manifestcsv) and [`doughnut.csv`](./workflow/dicom_org.md#procedure) files to determine the participant-session pairs to check. Each available tracker has an associated configuration file (typically called `<pipeline>_tracker.py`), where lists of expected paths for files produced by the pipeline are defined.
 
 For each participant-session pair being tracked, the tracker outputs a `"pipeline_complete"` status. Depending on the configuration for that particular pipeline, the tracker might also output phase and/or stage statuses (e.g., `"PHASE__func"`), which typically refer to sub-pipelines within the full pipeline that may or may not have been run during processing, depending on the input data and/or processing parameters.
 
