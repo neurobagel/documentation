@@ -79,8 +79,9 @@ Nipoppy requires two global files for specifying local data/container paths and 
    - This list serves as the **ground truth** for subject and visit (i.e. session) availability
    - Create the `manifest.csv` in `<DATASET_ROOT>/tabular/` comprising following columns:
       - `participant_id`: ID assigned during recruitment (at times used interchangeably with `subject_id`)
-      - `visit`: label to denote participant visit for data acquisition (e.g. `"baseline"`, `"m12"`, `"m24"` or `"V01"`, `"V02"` etc.)
+      - `visit`: label to denote participant visit for data acquisition
         - ***Note***: we recommend that visits describe a timeline if possible, for example `BL`, `M12`, `M24` (for Baseline, Month 12, and Month 24 respectively).
+            - Alternatively, visits should be ordinal and ideally named with the `V` prefix (e.g., `V01`, `V02`)
       - `session`: alternative naming for visit - typically used for imaging data to comply with [BIDS standard](https://bids-specification.readthedocs.io/en/stable/02-common-principles.html)
       - `datatype`: a list of acquired imaging datatype as defined by [BIDS standard](https://bids-specification.readthedocs.io/en/stable/02-common-principles.html)
    - New participant are appended upon recruitment as new rows

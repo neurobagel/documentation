@@ -4,15 +4,9 @@ This page lists some definitions for important/recurring terms used in the Nipop
 
 ### `participant_id`
 
-**Used interchangeably with**: `subject_id`
-
 **Appears in**: `manifest.csv`, `doughnut.csv`
 
 :   Unique identifier for the participant, as provided by the study.
-
-### `subject_id`
-
-See [`participant_id`](#participant_id).
 
 ### `datatype`
 
@@ -22,17 +16,11 @@ See [`participant_id`](#participant_id).
 
 ### `visit`
 
-**Used interchangeably with**: `visit_id`
-
 **Appears in**: `manifest.csv`
 
 :   An identifier for a data collection event, not restricted to imaging data.
 
-See also: [`session_id` vs `visit_id`](#session_id-vs-visit_id)
-
-### `visit_id`
-
-See [`visit`](#visit).
+See also: [`session` vs `visit`](#session-vs-visit)
 
 ### `session`
 
@@ -40,13 +28,9 @@ See [`visit`](#visit).
 
 :   A BIDS-compliant session identifier. Consists of the `"ses-"` prefix followed by the [`session_id`](#session_id).
 
-### `session_id`
+#### [`session`](#session) vs [`visit`](#visit)
 
-:   An identifier for an imaging data collection event.
-
-#### [`session_id`](#session_id) vs [`visit_id`](#visit_id)
-
-Nipoppy uses `session_id` (and, by extension, `session`) for imaging data, following the convention established by BIDS. The term `visit_id` (or `visit`), on the other hand, is used to refer to any data collection event (not necessarily imaging-related). In most cases, `session_id` and `visit_id` will be identical (or `session_id`s will be a subset of `visit_id`s). However, having two descriptors becomes particularly useful when imaging and non-imaging assessments do not use the same naming conventions.
+Nipoppy uses `session` for imaging data, following the convention established by BIDS. The term `visit`, on the other hand, is used to refer to any data collection event (not necessarily imaging-related). In most cases, `session` and `visit` will be identical (or `session`s will be a subset of `visit`s). However, having two descriptors becomes particularly useful when imaging and non-imaging assessments do not use the same naming conventions.
 
 ### `participant_dicom_dir`
 
