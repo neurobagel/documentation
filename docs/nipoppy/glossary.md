@@ -6,7 +6,7 @@ This page lists some definitions for important/recurring terms used in the Nipop
 
 **Appears in**: `manifest.csv`, `doughnut.csv`
 
-:   Unique identifier for the participant, as provided by the study.
+:   Unique identifier for the participant (i.e., subject ID), as provided by the study.
 
 ### `datatype`
 
