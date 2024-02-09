@@ -1,6 +1,4 @@
-## What is Nipoppy (formerly mr_proc)? 
-
-[*Process long and prosper*](https://en.wikipedia.org/wiki/Vulcan_salute)
+## What is Nipoppy? 
 
 [Nipoppy](https://github.com/neurodatascience/nipoppy) is a lightweight framework for analyzing (neuro)imaging and clinical data. It is designed to help users do the following:
 

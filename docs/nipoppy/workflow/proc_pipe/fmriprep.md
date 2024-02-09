@@ -1,8 +1,8 @@
-### Objective
+## Objective
 
 ---
 
-Run [fMRIPrep](https://fmriprep.org/en/stable/) pipeline on BIDS formatted dataset. Note that a standard fMRIPrep run also include FreeSurfer processing.
+Run [fMRIPrep](https://fmriprep.org/en/stable/) pipeline on BIDS-formatted dataset. Note that a standard fMRIPrep run also includes FreeSurfer processing.
    
 ---
 
@@ -16,7 +16,7 @@ Run [fMRIPrep](https://fmriprep.org/en/stable/) pipeline on BIDS formatted datas
 ### Procedure
 
 - Ensure you have the appropriate fMRIPrep container listed in your `global_configs.json` 
-- Use [run_fmriprep.py](https://github.com/neurodatascience/nipoppy/blob/main/nipoppy/workflow/proc_pipe/fmriprep/run_fmriprep.py) script to run fmriprep pipeline. 
+- Use [nipoppy/workflow/proc_pipe/fmriprep/run_fmriprep.py](https://github.com/neurodatascience/nipoppy/blob/main/nipoppy/workflow/proc_pipe/fmriprep/run_fmriprep.py) script to run the fMRIPrep pipeline. 
 - You can run "anatomical only" workflow by adding `--anat_only` flag
 - (Optional) Copy+Rename [sample_bids_filter.json](https://github.com/neurodatascience/nipoppy/blob/main/nipoppy/workflow/proc_pipe/fmriprep/sample_bids_filter.json) to `bids_filter.json` in the code repo itself. Then edit `bids_filter.json` to filter certain modalities / acquisitions. This is common when you have multiple T1w acquisitions (e.g. Neuromelanin, SPIR etc.) for a given modality. 
 
@@ -35,7 +35,7 @@ Run [fMRIPrep](https://fmriprep.org/en/stable/) pipeline on BIDS formatted datas
     
 > Sample cmd:
 ```bash
-python run_fmriprep.py \
+python nipoppy/workflow/proc_pipe/fmriprep/run_fmriprep.py \
    --global_config <global_config_file> \
    --participant_id MNI01 \
    --session_id 01 \
@@ -44,7 +44,7 @@ python run_fmriprep.py \
 
 !!! note
 
-    Unlike DICOM and BIDS run scripts, `run_fmriprep.py` can only process 1 participant at a time due to heavy compute requirements of fMRIPrep. For parallel processing on a cluster, sample HPC job scripts (slurm and sge) are provided in [hpc](https://github.com/neurodatascience/nipoppy/tree/main/workflow/proc_pipe/fmriprep/scripts) subdir. 
+    Unlike DICOM and BIDS run scripts, `run_fmriprep.py` can only process 1 participant at a time due to heavy compute requirements of fMRIPrep. For parallel processing on a cluster, sample HPC job scripts (Slurm and SGE) are provided in the [hpc](https://github.com/neurodatascience/nipoppy/tree/main/workflow/proc_pipe/fmriprep/scripts) subdirectory. 
 
 
 !!! note
@@ -57,7 +57,7 @@ python run_fmriprep.py \
 
 
 ### fMRIPrep tasks
-   - Main MR processing tasks run by fmriprep (see [fMRIPrep](https://fmriprep.org/en/stable/) for details):
+   - Main MR processing tasks run by fMRIPrep (see [fMRIPrep documentation](https://fmriprep.org/en/stable/) for details):
       - Preprocessing
          - Bias correction / Intensity normalization (N4)
          - Brain extraction (ANTs)
