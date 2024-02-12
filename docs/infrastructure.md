@@ -660,6 +660,12 @@ NB_API_ALLOWED_ORIGINS="http://localhost:3000 http://127.0.0.1:3000"
     NB_API_ALLOWED_ORIGINS="*"
     ```
 
+After updating the `.env` file, run the following commands to relaunch your node API with your changes:
+```bash
+docker compose down
+docker compose up -d
+```
+
 ??? note "For more technical deployments using NGINX"
 
     If you have configured an NGINX reverse proxy (or proxy requests to the remote origin) to serve both the Neurobagel API and the query tool from the same origin, you can skip the step of enabling CORS for the API. 
