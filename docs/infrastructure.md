@@ -20,31 +20,11 @@ We have tested the following options:
 
 === "GraphDB"
 
-    [GraphDB](https://graphdb.ontotext.com/) 
-    offers a perpetual free license that should be sufficient
-    for many smaller deployments or testing deployments. 
-
-=== "Stardog"
-
-    [Stardog](https://www.stardog.com/) 
-    is a very performant RDF store
-    with a large number of extensions. However, it has
-    a very restrictive license. We therefore do not recommend
-    Stardog for most deployments or testing.
-
-!!! info 
-
-    RDF stores are relatively niche applications for very large data applications,
-    so most implementations are commercial.
-
-
-## Get a license for the graph backend
-
-=== "GraphDB"
-
-    [GraphDB](https://graphdb.ontotext.com/) creates a free
-    perpetual license automatically when you don't explicitly
+    [GraphDB](https://graphdb.ontotext.com/) offers a free perpetual license that 
+    should be sufficient for most smaller deployments or testing deployments.
+    This free license is created automatically when you don't explicitly
     provide a license.
+
     The free edition mostly offers the same features 
     [as the paid versions](https://www.ontotext.com/products/graphdb/#comparison-table), 
     but restricts the number of concurrent operations
@@ -56,6 +36,12 @@ We have tested the following options:
 
     **Note: Stardog no longer provides free academic licenses. 
     The below instructions are deprecated and shown only for legacy reasons.**
+
+    [Stardog](https://www.stardog.com/) 
+    is a very performant RDF store
+    with a large number of extensions. However, it has
+    a very restrictive license. We therefore do not recommend
+    Stardog for most deployments or testing.
 
     Stardog has a free, annually renewable license for academic use.
     In order to make a separate deployment of Neurobagel, 
@@ -79,6 +65,11 @@ We have tested the following options:
     You will need to download the license in a place that is accessible
     to your new Stardog instance when it is launched (see below).
 
+!!! info 
+
+    RDF stores are relatively niche applications for very large data applications,
+    so most implementations are commercial.
+
 ## Launch the Neurobagel node API and graph stack
 
 We recommend launching the Neurobagel API and your graph backend instance using `docker compose`.
@@ -89,11 +80,13 @@ We recommend launching the Neurobagel API and your graph backend instance using 
 The [`neurobagel/recipes`](https://github.com/neurobagel/recipes) repository contains templates of all files needed for configuring different types of Neurobagel deployments.
 
 Configuration files for setting up a single Neurobagel node are found in the [`local_node`](https://github.com/neurobagel/recipes/tree/main/local_node) subdirectory.
-**You can follow the below steps directly in this subdirectory, or in a new directory outside of the repository.**
+
 ```bash
 git clone https://github.com/neurobagel/recipes.git
 cd recipes/local_node
 ```
+
+You can follow the next steps directly in this subdirectory, or in a new directory outside of the `recipes` repository.
 
 ### Set the environment variables
 Create a `.env` file to house the environment variables used by the Neurobagel API-graph network.
@@ -429,7 +422,7 @@ with a name of `test_data`.
 
 The `neurobagel/recipes` repo contains a helper script [`add_data_to_graph.sh`](https://github.com/neurobagel/recipes/blob/main/scripts/add_data_to_graph.sh) in the `scripts` subdirectory for automatically uploading all JSONLD and/or TTL files (i.e., graph-ready data) in a directory to a specific graph database, 
 with the option to clear the existing data in the database first.
-In the context of Neurobagel, each `.jsonld` file is expected to correspond to a single **dataset**.
+In the context of Neurobagel, each `.jsonld` file is expected to correspond to a single dataset.
 
 To view all the command line arguments for add_data_to_graph.sh:
 ```bash
@@ -622,12 +615,6 @@ as a standalone docker container.
 ```bash
 docker run -d -p 3000:3000 --env API_QUERY_URL=http://localhost:8000/ --name query_tool neurobagel/query_tool:latest
 ```
-
-??? todo
-
-    Update docker example to use a specific version
-    once https://github.com/neurobagel/planning/issues/64 
-    is closed.
 
 Make sure to replace the value of `API_QUERY_URL` with the `IP:PORT` or domain name of the
 new neurobagel node-API you just deployed!
