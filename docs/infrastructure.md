@@ -109,22 +109,22 @@ Below are all the possible Neurobagel environment variables that can be set in `
 
 === "GraphDB"
 
-    _* These values will have to be changed for your deployment from their default value:_
-
-    !!! warning "Change the following default values in your .env file for a GraphDB deployment!"
-
-        ```bash
-        NB_GRAPH_IMG=ontotext/graphdb:10.3.1
-        NB_GRAPH_ROOT_CONT=/opt/graphdb/home
-        NB_GRAPH_ROOT_HOST=~/graphdb-home  # Or, replace with another directory on your own (host) system where you want to store the database files
-        NB_GRAPH_PORT=7200
-        NB_GRAPH_PORT_HOST=7200
-        NB_GRAPH_DB=repositories/my_db  # For GraphDB, this value should always take the format of: repositories/<your_database_name>
-        ```
+    _* These defaults are configured for a GraphDB backend - you should not have to change them if you are running a GraphDB backend._
 
 === "Stardog"
 
-    _* These defaults are configured for a Stardog backend - you should not have to change them if you are running a Stardog backend._
+    _* These values will have to be changed for your deployment from their default value:_
+
+    !!! warning "Change the following default values in your .env file for a Stardog deployment!"
+
+        ```bash
+        NB_GRAPH_IMG=stardog/stardog:8.2.2-java11-preview
+        NB_GRAPH_ROOT_CONT=/var/opt/stardog
+        NB_GRAPH_ROOT_HOST=~/stardog-home  # Or, replace with another directory on your own (host) system where you want to store the database files
+        NB_GRAPH_PORT=5820
+        NB_GRAPH_PORT_HOST=5820
+        NB_GRAPH_DB=test_data/query  # For Stardog, this value should always take the format of: <database_name>/query
+        ```
 
     !!! Note "Your Stardog license file must be in the right directory"
 
