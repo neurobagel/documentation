@@ -58,7 +58,8 @@ cp template.env .env
 Then, edit `local_nb_nodes.json` and `.env` in your `local_federation/` directory as needed for your specific deployment, based on the instructions in the below sections.
 
 !!! note
-    If desired, you can also create the three configuration files manually in a new directory of your choice.
+    You can also make a copy of and modify the three configuration files in a new directory of your choice.
+    However, ensure that the f-API configuration files are stored in a separate directory from [those used to set up your local node](http://127.0.0.1:8000/infrastructure/#clone-the-configuration-file-templates).
 
 #### `local_nb_nodes.json`
 `local_nb_nodes.json` contains the URLs and (arbitrary) names of the local nodes you wish to federate over.
@@ -69,18 +70,18 @@ Multiple nodes must be wrapped in a list `[]`.
 
 Let's assume there are two local nodes already running on different servers of your institutional network, and you want to set up federation across both nodes:
 
-- a node named `"node_archive"` running on your local computer (localhost), on port `8000` and 
-- a node named `"node_recruitment"` running on a different computer with the local IP `192.168.0.1`, listening on the default http port `80`. 
+- a node named `"Node Archive"` running on your local computer (localhost), on port `8000` and 
+- a node named `"Node Recruitment"` running on a different computer with the local IP `192.168.0.1`, listening on the default http port `80`. 
 
 In your `local_nb_nodes.json` file you would configure this as follows:
 ``` {.json title="local_nb_nodes.json"}
 [
   {
-    "NodeName": "node_archive",
+    "NodeName": "Node Archive",
     "ApiURL": "http://host.docker.internal:8000",
   },
   {
-    "NodeName": "node_recruitment",
+    "NodeName": "Node Recruitment",
     "ApiURL": "http://192.168.0.1"
   }
 ]
@@ -89,7 +90,7 @@ In your `local_nb_nodes.json` file you would configure this as follows:
 !!! warning "Do not use `localhost`/`127.0.0.1` in `local_nb_nodes.json`"
 
     If the local node API(s) you are federating over is running on the same host machine as your federation API (e.g., the URL to access the node API is http://localhost:XXXX), make sure that you replace `localhost` with `host.docker.internal` in the `"ApiURL"` for the node inside `local_nb_nodes.json`.
-    For an example, see the configuration for the node called `"node_archive"` above.
+    For an example, see the configuration for the node called `"Node Archive"` above.
 
 
 !!! Info "Nodes that do not need to be manually configured"
@@ -104,11 +105,11 @@ In your `local_nb_nodes.json` file you would configure this as follows:
 To add one or more local nodes to the list of nodes known to your `f-API`, simply add more dictionaries to this file.
 
 
-#### `fed.env`
+#### `.env`
 
-`fed.env` holds environment variables needed for the `f-API` deployment.
+`.env` holds environment variables needed for the `f-API` deployment.
 
-``` {.bash .annotate title="fed.env"}
+``` {.bash .annotate title=".env"}
 # Configuration for f-API
 # Define the port that the f-API will run on INSIDE the docker container (default 8000)
 NB_API_PORT=8000
@@ -119,20 +120,20 @@ NB_API_TAG=latest
 
 # Configuration for query tool
 # Define the URL of the f-API as it will appear to a user
-API_QUERY_URL=http://localhost:8080 # (1)!
+API_QUERY_URL=http://206.12.85.19:8080 # (1)!
 # Chose the docker image tag of the query tool (default latest)
 NB_QUERY_TAG=latest
 # Chose the port that the query tool will be exposed on the host and likely the network (default 3000)
 NB_QUERY_PORT_HOST=3000
 ```
 
-1.  When a user users the graphical query tool to query your
-    f-API, these requests will be sent from the users machine,
+1.  When a user uses the graphical query tool to query your
+    f-API, these requests will be sent from the user's machine,
     not from the machine hosting the query tool.
 
-    Make sure you set the `API_QUERY_URL` in your `fed.env`
+    Make sure you set the `API_QUERY_URL` in your `.env`
     as it will appear to a user on their own machine 
-    - otherwise the request will fail..
+    - otherwise the request will fail.
 
 The template file above can be adjusted according to your own deployment. 
 If you have used the default Neurobagel configuration for your local `n-API` up to this point, you likely do not need to change anything in this file.
@@ -150,7 +151,7 @@ to launch the `f-API` together with a connected query tool.
     as described in the [official documentation](https://docs.docker.com/engine/install/).
 
 You should not have to change the template contents of this file.
-All local configuration changes should be made in either the `local_nb_nodes.json` or `fed.env` files.
+All local configuration changes should be made in either the `local_nb_nodes.json` or `.env` files.
 
 ``` {.yaml .annotate title="docker-compose.yml"}
 version: "3.8"
@@ -176,8 +177,10 @@ services:
 
 
 ## Launch f-API and query tool
-Once you have created your `local_nb_nodes.json`, `fed.env`, and `docker-compose.yml` files as described above, you can simply launch the services by running
+Once you have created your `local_nb_nodes.json`, `.env`, and `docker-compose.yml` files as described above, you can simply launch the services by running
 
-`docker compose --env-file fed.env up -d`
+```bash
+docker compose up -d
+```
 
 from the same directory.
