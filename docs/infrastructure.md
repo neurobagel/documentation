@@ -407,6 +407,11 @@ with a name of `test_data`.
         you would use the following permissions list:
         `{"grantedAuthorities": ["WRITE_REPO_my_db2","READ_REPO_my_db2"]}`
 
+        You can verify a user's settings at any time with the following:
+        ```bash
+        curl -u "admin:NewAdminPassword" http://localhost:7200/rest/security/users/DBUSER
+        ```
+
 === "Stardog"
 
     ```bash
