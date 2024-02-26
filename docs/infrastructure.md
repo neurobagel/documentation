@@ -392,14 +392,14 @@ with a name of `test_data`.
 
     !!! warning "Be careful when adding more user permissions"
 
-        With GraphDB, there does not seem to be a straightforward REST API call to _update_ a user's database access permissions without replacing the list of their existing database permissions (`"grantedAuthorities"`) entirely. 
+        With GraphDB, there is no straightforward REST API call to _update_ a user's database access permissions without replacing the list of their existing database permissions (`"grantedAuthorities"`) entirely. 
         
         For example, if user `DBUSER` has been granted read/write access to database `my_db1` via a curl command with the following:
         `{"grantedAuthorities": ["WRITE_REPO_my_db1","READ_REPO_my_db1"]}`
 
-        To grant `DBUSER` read/write access to a second database `my_db2` (so they have access to `my_db1` and `my_db2`), 
+        To grant `DBUSER` read/write access to a second database `my_db2` (while keeping the existing access to `my_db1`), 
         when modifying http://localhost:7200/rest/security/users/DBUSER, 
-        you must provide a list that re-specifies the read/write permissions to `my_db1` you wish to retain, 
+        you must specify all permissions - existing and new - in the same command 
         since the existing permissions list will be overwritten:
         `{"grantedAuthorities": ["WRITE_REPO_my_db1","READ_REPO_my_db1", "WRITE_REPO_my_db2","READ_REPO_my_db2"]}`
 

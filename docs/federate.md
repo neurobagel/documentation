@@ -59,7 +59,7 @@ Then, edit `local_nb_nodes.json` and `.env` in your `local_federation/` director
 
 !!! note
     You can also make a copy of and modify the three configuration files in a new directory of your choice.
-    However, ensure that the f-API configuration files are stored in a separate directory from [those used to set up your local node](http://127.0.0.1:8000/infrastructure/#clone-the-configuration-file-templates).
+    However, ensure that the f-API configuration files are stored in a separate directory from [those used to set up your local node](infrastructure.md#clone-the-configuration-file-templates).
 
 #### `local_nb_nodes.json`
 `local_nb_nodes.json` contains the URLs and (arbitrary) names of the local nodes you wish to federate over.
