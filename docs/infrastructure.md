@@ -387,7 +387,7 @@ with a name of `test_data`.
 
     !!! Note
     
-        make sure you replace `my_db` with the name of the graph db you 
+        Make sure you replace `my_db` with the name of the graph db you 
         have just created. 
 
     !!! warning "Be careful when adding more user permissions"
@@ -411,6 +411,12 @@ with a name of `test_data`.
         ```bash
         curl -u "admin:NewAdminPassword" http://localhost:7200/rest/security/users/DBUSER
         ```
+
+    !!! info "Managing user permissions using the GraphDB Workbench"
+
+        If you are managing multiple GraphDB databases, the web-based administration interface for a GraphDB instance, the Workbench, 
+        might be an easier way to manage user permissions than the REST API.
+        More information on using the GraphDB Workbench can be found [here](https://graphdb.ontotext.com/documentation/10.0/workbench-user-interface.html).
 
 === "Stardog"
 
