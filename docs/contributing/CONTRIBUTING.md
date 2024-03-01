@@ -1,6 +1,6 @@
 # Contributing Guidelines
 
-*We're so excited that you're interested in contributing to Neurobagel! :tada:*
+*We're so excited that you're interested in contributing to Neurobagel!* :partying_face:
 
 We appreciate all contributions, and hope that the below guidelines will make it as easy as possible for you to contribute to the [Neurobagel codebase](https://github.com/neurobagel) and to ensure your contribution can be easily integrated.
 
@@ -9,7 +9,7 @@ We appreciate all contributions, and hope that the below guidelines will make it
 The easiest way to get started contributing is to explore the list of open issues in one of our [GitHub repositories](https://github.com/orgs/neurobagel/repositories). 
 For example, see the [open issues for the Neurobagel API](https://github.com/neurobagel/api/issues).
 
-Regardless of if you would like to contribute a feature, bug fix, or other type of change, we recommend that you first either
+Regardless of if you would like to contribute a feature, bug fix, or another type of change, we recommend that you first either
 
 - **If an issue exists**: 
 Comment on the open issue to indicate you would like to work on it, along with any clarification/implementation questions you have
@@ -39,7 +39,7 @@ All Neurobagel issues are expected to be addressed through [pull requests](https
 
 As an external contributor, the process you would follow to make your [proposed changes](#identifying-an-issue-to-work-on) should look something like this:
 
-#### 1. [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) the relevant Neurobagel repository to your GitHub profile.
+#### 1. [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) the relevant Neurobagel repository to your profile.
 
 #### 2. [Clone](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#cloning-your-forked-repository) your fork of the Neurobagel repository to your local machine.
 
