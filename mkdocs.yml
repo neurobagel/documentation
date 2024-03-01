@@ -51,7 +51,7 @@ nav:
     - Trackers: "nipoppy/trackers.md"
     - Glossary: "nipoppy/glossary.md"
   - Contributing:
-    - Pull requests: "contributing/pull_requests.md"
+    - How to contribute: "contributing/CONTRIBUTING.md"
     - Our team: "contributing/team.md"
   - Getting help: "getting_help.md"
   - Glossary: "glossary.md"
