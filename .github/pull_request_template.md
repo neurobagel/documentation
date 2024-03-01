@@ -5,7 +5,7 @@ You can also link to other issues if necessary, e.g. "See also #1234".
 
 https://help.github.com/articles/closing-issues-using-keywords
 -->
-Closes #
+- Closes #
 
 <!-- 
 Please give a brief overview of what has changed or been added in the PR.
@@ -18,7 +18,8 @@ Changes proposed in this pull request:
 
 <!-- To be checked off by reviewers -->
 ## Checklist
+_Please leave checkboxes empty for PR reviewers_
 
-- [ ] PR has an interpretable title with a prefix (`[ENH]`, `[FIX]`, `[REF]`, `[TST]`, `[CI]`, `[MNT]`, `[INF]`) _(see https://neurobagel.org/contributing/pull_requests for more info)_
+- [ ] PR has an interpretable title with a prefix (`[ENH]`, `[FIX]`, `[REF]`, `[TST]`, `[CI]`, `[MNT]`, `[INF]`) _see our [Contributing Guidelines](https://neurobagel.org/contributing/CONTRIBUTING/#pull-request-guidelines) for more info)_
 - [ ] PR links to GitHub issue with mention `Closes #XXXX`
 - [ ] Checks pass
