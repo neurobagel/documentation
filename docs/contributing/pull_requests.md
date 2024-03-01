@@ -6,17 +6,17 @@ We appreciate all contributions, and hope that the below guidelines will make it
 
 ## Identifying an issue to work on
 
-The easiest way to get started contributing is to explore the list of open issues in one of our [GitHub repositories](https://github.com/neurobagel). 
-For example, see [here](https://github.com/neurobagel/api/issues) for the open issues for the Neurobagel API.
+The easiest way to get started contributing is to explore the list of open issues in one of our [GitHub repositories](https://github.com/orgs/neurobagel/repositories). 
+For example, see the [open issues for the Neurobagel API](https://github.com/neurobagel/api/issues).
 
 Regardless of if you would like to contribute a feature, bug fix, or other type of change, we recommend that you first either
 
 - **If an issue exists**: 
-Comment on the relevant open issue in to indicate you would like to work on it and any clarification/implementation questions you have
+Comment on the open issue to indicate you would like to work on it, along with any clarification/implementation questions you have
     - Check that no one is currently [assigned](https://docs.github.com/en/issues/tracking-your-work-with-issues/assigning-issues-and-pull-requests-to-other-github-users) to the issue, 
     which indicates it is already being worked on
 - **If an issue does not exist**: 
-Open a new issue describing your proposed addition and why it is necessary/beneficial. 
+Open a new issue describing your proposed change and why it is necessary/beneficial. 
 The more detail here, the better!
 
 This allows members of the Neurobagel developer team to confirm that you will not be overlapping with currently active work and that everyone is on the same page about the task to be accomplished.
@@ -37,7 +37,7 @@ If you would like to contribute but are not sure where to start, we recommend lo
 
 All Neurobagel issues are expected to be addressed through [pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests).
 
-As an external contributor, the process you would follow [once you have communicated that you will be addressing an issue](#identifying-an-issue-to-work-on) should look something like this:
+As an external contributor, the process you would follow to make your [proposed changes](#identifying-an-issue-to-work-on) should look something like this:
 
 #### 1. [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) the relevant Neurobagel repository to your GitHub profile.
 
@@ -68,6 +68,11 @@ pre-commit install
 Now, a number of code linters and formatters will automatically run when you attempt to make a commit, which will keep your changes consistent with the rest of the codebase.
 
 #### 4. [Create a new branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/) to make the proposed changes
+Please consider using descriptive branch names. Some examples:
+
+- `<username>/<issue-identifier>` (`jsmith/fix-1234`)
+- `<username>/<brief-change-title>` (`jsmith/add-logging`, `jsmith/enh/add-logging`)
+
 Once you are satisfied with your local changes, [add, commit, and push](https://docs.github.com/en/repositories/working-with-files/managing-files/adding-a-file-to-a-repository#adding-a-file-to-a-repository-using-the-command-line) them to your branch on your forked repository on GitHub. 
 
 #### 5. [Open a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
