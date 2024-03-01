@@ -4,6 +4,11 @@
 
 We appreciate all contributions, and hope that the below guidelines will make it as easy as possible for you to contribute to the [Neurobagel codebase](https://github.com/neurobagel) and to ensure your contribution can be easily integrated.
 
+## Contributing through GitHub
+
+In order to contribute to Neurobagel, you'll need to set up a [GitHub](https://github.com/) account and sign in.
+Here are some [instructions](https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github) to help you get started.
+
 ## Identifying an issue to contribute to
 
 The best way to get started contributing is to explore the list of open issues in one of our [GitHub repositories](https://github.com/orgs/neurobagel/repositories). 
