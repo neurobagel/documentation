@@ -1,6 +1,84 @@
-# Pull requests
+# Contributing Guidelines
 
-When submitting a pull request, titles should begin with a descriptive prefix (e.g., "[ENH] Implement check for presence of a session ID column").
+*We're so excited that you're interested in contributing to Neurobagel! :tada:*
+
+We appreciate all contributions, and hope that the below guidelines will make it as easy as possible for you to contribute to the [Neurobagel codebase](https://github.com/neurobagel) and to ensure your contribution can be easily integrated.
+
+## Identifying an issue to work on
+
+The easiest way to get started contributing is to explore the list of open issues in one of our [GitHub repositories](https://github.com/neurobagel). 
+For example, see [here](https://github.com/neurobagel/api/issues) for the open issues for the Neurobagel API.
+
+Regardless of if you would like to contribute a feature, bug fix, or other type of change, we recommend that you first either
+
+- **If an issue exists**: 
+Comment on the relevant open issue in to indicate you would like to work on it and any clarification/implementation questions you have
+    - Check that no one is currently [assigned](https://docs.github.com/en/issues/tracking-your-work-with-issues/assigning-issues-and-pull-requests-to-other-github-users) to the issue, 
+    which indicates it is already being worked on
+- **If an issue does not exist**: 
+Open a new issue describing your proposed addition and why it is necessary/beneficial. 
+The more detail here, the better!
+
+This allows members of the Neurobagel developer team to confirm that you will not be overlapping with currently active work and that everyone is on the same page about the task to be accomplished.
+
+If you would like to contribute but are not sure where to start, we recommend looking for open issues with the following labels:
+
+![good first issue](https://img.shields.io/github/labels/neurobagel/planning/good%20first%20issue) 
+*Issue that is good for a new or beginner contributor, as it does not involve a steep learning curve or advanced understanding of the codebase.
+(Please note: if you're a seasoned contributor, we would appreciate if you could select a different issue to work on to keep these available for less experienced folks!)*
+ 
+![PR welcome](https://img.shields.io/github/labels/neurobagel/planning/PR%20welcome) 
+*Issue that is not an internal priority, but external pull requests to address it are welcome.*
+
+![quick fix](https://img.shields.io/github/labels/neurobagel/planning/quick%20fix): 
+*Issue that should involve minimal planning or implementation work, given an understanding of the relevant code.*
+
+## Making a change
+
+All Neurobagel issues are expected to be addressed through [pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests).
+
+As an external contributor, the process you would follow [once you have communicated that you will be addressing an issue](#identifying-an-issue-to-work-on) should look something like this:
+
+#### 1. [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) the relevant Neurobagel repository to your GitHub profile.
+
+#### 2. [Clone](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#cloning-your-forked-repository) your fork of the Neurobagel repository to your local machine.
+
+To keep up with changes in the Neurobagel repository while you work and avoid merge conflicts later on, make sure to:
+
+- [Add the "upstream" Neurobagel repository as a remote](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#configuring-git-to-sync-your-fork-with-the-upstream-repository) to your locally cloned repository
+- [Keep your fork up to date](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork#syncing-a-fork-branch-from-the-command-line) with the upstream repository
+
+#### 3. Set up a development environment.
+Refer to the repository README for instructions on how to set up a development environment so you can test any local code changes you make.
+Note that the steps to set up a development environment (usually under a "Local installation", "Manual installation", or "Development environment" section) are generally different than those used to install the tool purely as a user, which usually appears at the top of the README.
+
+For example, for the [Neurobagel CLI](https://github.com/neurobagel/bagel-cli):
+
+- ["Development" mode installation steps](https://github.com/neurobagel/bagel-cli?tab=readme-ov-file#installation)
+- [Normal (non-development mode) installation steps](https://github.com/neurobagel/bagel-cli?tab=readme-ov-file#development-environment)
+
+If you are working on a repository written in Python, we recommend that you also set up automatic code formatting and linting according to the project's code style, 
+which is pre-configured in the development environment for these repositories using [pre-commit](https://pre-commit.com/).
+
+Run the following from the repository root of your local clone:
+```bash
+pre-commit install
+```
+
+Now, a number of code linters and formatters will automatically run when you attempt to make a commit, which will keep your changes consistent with the rest of the codebase.
+
+#### 4. [Create a new branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/) to make the proposed changes
+Once you are satisfied with your local changes, [add, commit, and push](https://docs.github.com/en/repositories/working-with-files/managing-files/adding-a-file-to-a-repository#adding-a-file-to-a-repository-using-the-command-line) them to your branch on your forked repository on GitHub. 
+
+#### 5. [Open a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
+See the below sections for information on [how to submit your pull request](#pull-request-guidelines) and [what to expect in a pull request review](#pull-request-reviews).
+
+## Pull request guidelines
+
+When you first open a pull request, you should automatically see a template in the pull request body that looks something like [this](https://github.com/neurobagel/.github/blob/main/.github/pull_request_template.md?plain=1) that you can fill out.
+The template is designed to make it easier for maintainers to review your pull request, but feel free to add any additional information that you feel is useful or necessary.
+
+Pull request titles should begin with a descriptive prefix (e.g., "[ENH] Implement check for presence of a session ID column"):
 
 - `[ENH]:` Feature improvements or additions
 - `[REF]:` Refactoring existing code
@@ -11,10 +89,13 @@ When submitting a pull request, titles should begin with a descriptive prefix (e
 - `[FIX]`: Bug fixes
 - `[MODEL]`: Updates or changes related to the Neurobagel data model
 - `[DOC]`: Documentation-only changes to a code repo (READMEs, within-code documentation, etc.) 
-_Note: do not use for changes to the [`neurobagel/documentation`](https://github.com/neurobagel/documentation) repo_. See below for PR prefixes for the documentation repo.
+    - Exception: changes to the [`documentation`](https://github.com/neurobagel/documentation) repo should use one of the below PR prefixes instead of `[DOC]`
 
-## Changes to documentation pages
-In PRs for the [Neurobagel documentation](https://github.com/neurobagel/documentation), using the `[DOC]` title prefix is discouraged as it is too broad. 
+If you are an external contributor, once your pull request is opened,
+we recommend that you [request a review](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/requesting-a-pull-request-review) from a [Neurobagel core maintainer](http://127.0.0.1:8000/contributing/team/#developers) to ensure it gets reviewed in a timely manner.
+
+### Pull requests to the [`documentation`](https://github.com/neurobagel/documentation) repo
+In PRs to the [Neurobagel documentation](https://github.com/neurobagel/documentation), using the `[DOC]` title prefix is discouraged as it is too broad. 
 Instead, for documentation content changes, the following prefixes can be used to specify the nature of the change:
 
 - `[ENH]`: Updating or adding new documentation
@@ -36,3 +117,10 @@ If (required) changes are requested, the PR author should re-request a review fr
 If you **are not a member of the Neurobagel developer team**: the reviewing Neurobagel maintainer is responsible for merging the PR.
 
 If you **are a member of the Neurobagel developer team** (i.e., you have write access to the repository): the PR author is responsible for merging the PR.
+
+## Have a question about contributing?
+At any point during a contribution, 
+please do not hesitate to [mention](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#mentioning-people-and-teams) one of the core maintainers if you have a question or need further guidance, 
+in either the issue or pull request.
+
+For any aspects of the contribution process you feel are not sufficiently documented in this guide, we welcome you to [open an issue](https://github.com/neurobagel/documentation/issues).
