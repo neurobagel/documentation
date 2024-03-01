@@ -9,11 +9,13 @@ We appreciate all contributions, and hope that the below guidelines will make it
 The easiest way to get started contributing is to explore the list of open issues in one of our [GitHub repositories](https://github.com/orgs/neurobagel/repositories). 
 For example, see the [open issues for the Neurobagel API](https://github.com/neurobagel/api/issues).
 
-Regardless of if you would like to contribute a feature, bug fix, or another type of change, we recommend that you first either
+When you are ready to contribute, the best way to join the conversation is by opening an issue to describe a change you would like to see or would like to contribute. Opening an issue before you start contributing code is important because it allows others in the project to discuss your idea and tell you where your contribution would be the most helpful.```
+
+Something like that?
 
 - **If an issue exists**: 
 Comment on the open issue to indicate you would like to work on it, along with any clarification/implementation questions you have
-    - Check that no one is currently [assigned](https://docs.github.com/en/issues/tracking-your-work-with-issues/assigning-issues-and-pull-requests-to-other-github-users) to the issue, 
+    - If someone is already [assigned to the issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/assigning-issues-and-pull-requests-to-other-github-users), the problem is actively being worked on and a solution will soon be proposed. Feel free to share some helpful resources or pointers that may be interesting to the person who is working the issue, and check back in a couple of days.
     which indicates it is already being worked on
 - **If an issue does not exist**: 
 Open a new issue describing your proposed change and why it is necessary/beneficial. 
@@ -49,7 +51,7 @@ To keep up with changes in the Neurobagel repository while you work and avoid me
 - [Keep your fork up to date](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork#syncing-a-fork-branch-from-the-command-line) with the upstream repository
 
 #### 3. Set up a development environment.
-Refer to the repository README for instructions on how to set up a development environment so you can test any local code changes you make.
+Refer to the README of the Neurobagel repository you are contributing to for instructions on how to set up a development environment so you can test any local code changes you make.
 Note that the steps to set up a development environment (usually under a "Local installation", "Manual installation", or "Development environment" section) are generally different than those used to install the tool purely as a user, which usually appears at the top of the README.
 
 For example, for the [Neurobagel CLI](https://github.com/neurobagel/bagel-cli):
@@ -57,8 +59,8 @@ For example, for the [Neurobagel CLI](https://github.com/neurobagel/bagel-cli):
 - ["Development" mode installation steps](https://github.com/neurobagel/bagel-cli?tab=readme-ov-file#installation)
 - [Normal (non-development mode) installation steps](https://github.com/neurobagel/bagel-cli?tab=readme-ov-file#development-environment)
 
-If you are working on a repository written in Python, we recommend that you also set up automatic code formatting and linting according to the project's code style, 
-which is pre-configured in the development environment for these repositories using [pre-commit](https://pre-commit.com/).
+Most repositories use tools to apply automatic code formatting and linting according to the project's code style, 
+which is pre-configured in the development environment for these repositories using [pre-commit](https://pre-commit.com/). Please make sure to set up these tools before you begin your work to ensure your contribution matches the existing code.
 
 Run the following from the repository root of your local clone:
 ```bash
@@ -108,7 +110,7 @@ Instead, for documentation content changes, the following prefixes can be used t
 - `[FIX]`: Fixing errors in the documentation
 
 ## Pull request reviews
-A core maintainer will review each PR and may provide comments or suggestions for the PR author to address.
+A maintainer will review each PR and may provide comments or suggestions for the PR author to address.
 
 Neurobagel PR reviews may use the following emoji signifiers:
 
@@ -128,4 +130,4 @@ At any point during a contribution,
 please do not hesitate to [mention](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#mentioning-people-and-teams) one of the core maintainers if you have a question or need further guidance, 
 in either the issue or pull request.
 
-For any aspects of the contribution process you feel are not sufficiently documented in this guide, we welcome you to [open an issue](https://github.com/neurobagel/documentation/issues).
+If you have ideas for improving this page, please help us improve them by [opening an issue](https://github.com/neurobagel/documentation/issues) :tada:.
