@@ -364,7 +364,7 @@ By default the Neurobagel API will query a graph database named `test_data`.
     For example, if `NB_GRAPH_DB=my_db`, then
     `rep:repositoryID "my_db" ;`.
 
-    You can use this example file and save
+    You can edit this example file and save
     it as `data-config.ttl` locally:
 
     ```turtle hl_lines="11"
@@ -419,7 +419,8 @@ By default the Neurobagel API will query a graph database named `test_data`.
         ].
     ```
 
-    Then you can create a new graph db with the following command (replace "my_db" as needed):
+    Then, create a new graph database with the following command (replace "my_db" as needed). 
+    If your `data-config.ttl` is not in the current directory, replace `"@data-config.ttl"` in the command with `"@PATH/TO/data-config.ttl"`.
 
     ```bash
     curl -X PUT -u "admin:NewAdminPassword" http://localhost:7200/repositories/my_db --data-binary "@data-config.ttl" -H "Content-Type: application/x-turtle"
