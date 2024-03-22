@@ -161,7 +161,7 @@ Run the following in the directory containing both the `docker-compose.yml` file
 ```bash
 docker compose up -d
 ```
-Or, if you want to ensure you always pull the latest Docker images first:
+Or, to ensure you have the latest Docker images first:
 ```bash
 docker compose pull && docker compose up -d
 ```
@@ -172,29 +172,56 @@ When you launch the graph backend for the first time,
 there are a couple of setup steps that need to be done. 
 These will not have to be repeated for subsequent starts.
 
-To interact with your graph backend, 
-you have two general options:
+### Using our automated script 
 
 === "GraphDB"
 
-    1. Send HTTP requests from the neurobagel API to the HTTP REST endpoints of the GraphDB backend 
-    e.g. using `curl`. GraphDB uses the [RDF4J API](https://rdf4j.org/documentation/reference/rest-api/) specification.
-    2. Use the GraphDB web interface (called [the workbench](https://graphdb.ontotext.com/documentation/10.0/architecture-components.html)). 
-    Once your local GraphDB backend is running
-    you can connect to it at [http://localhost:7200](http://localhost:7200)
+    The `recipes` repo you cloned contains a script [`graphdb_setup.sh`](https://github.com/neurobagel/recipes/blob/main/scripts/graphdb_setup.sh) which runs the first-time setup steps automatically for GraphDB.
 
+    Run the script as follows 
+    (assuming you are in the `recipes/scripts` directory):
 
-    !!! info 
+    ```bash
+    ./graphdb_setup --env-file-path /PATH/TO/.env "NewAdminPassword"
+    ```
+
+    Make sure to replace:
+
+    - `/PATH/TO/.env` with the path to the `.env` file you created in the step [Set the environment variables](#set-the-environment-variables)
+    - `"NewAdminPassword"` with a secure password of your choice
+
+    This will:
+
+    1. Set the password of the default `admin` superuser and enable password-based access to databases
+    2. Create a new graph database user based on credentials defined in your `.env` file
+    3. Create a new graph database with the name defined in your `.env` and grant the newly created user from step 2 permissions to access the database
+
+    If the script has finished running successfully, you should see:
+    ```bash
+    Done.
+    ```
+
+    The rest of this section explains each of the setup steps performed by the script in more detail, including the `curl` commands used.
     
-        Using the GraphDB workbench is a more accessible way to manage the GraphDB endpoint.
-        The workbench is well documented on the GraphDB website.
-        Here we will focus instead on setting up GraphDB with RDF4J API calls, 
-        that can be automated.
+    **If you have successfully run `graphdb_setup.sh`, you can now skip to the section [Uploading data to the graph](#uploading-data-to-the-graph).**
+
+    !!! info "Other ways to interact with the GraphDB backend"
+
+        1. Directly send HTTP requests to the HTTP REST endpoints of the GraphDB backend 
+        e.g. using `curl`. GraphDB uses the [RDF4J API](https://rdf4j.org/documentation/reference/rest-api/) specification.
+        2. Use the GraphDB web interface (called [the Workbench](https://graphdb.ontotext.com/documentation/10.0/architecture-components.html)), which offers a more accessible way to manage the GraphDB instance. 
+        Once your local GraphDB backend is running
+        you can connect to the Workbench at [http://localhost:7200](http://localhost:7200).
+        The Workbench is well documented on the [GraphDB website](https://graphdb.ontotext.com/documentation/10.0/workbench-user-interface.html).
 
 === "Stardog"
 
-    1. Send HTTP request from the neurobagel API to the HTTP REST endpoints of the Stardog graph backend (e.g. with `curl`). See [https://stardog-union.github.io/http-docs/](https://stardog-union.github.io/http-docs/) for a full reference of Stardog API endpoints
-    2. Use the free Stardog-Studio web app. See the [Stardog documentation](https://docs.stardog.com/stardog-applications/dockerized_access#stardog-studio) for instruction to deploy Stardog-Studio as a Docker container.
+    **Note: Stardog has been deprecated as a supported Neurobagel graph backend, and no automated script is available for first-time setup.**
+
+    To interact with your graph backend, you have two general options:
+
+    1. Send HTTP requests to the HTTP REST endpoints of the Stardog graph backend (e.g. with `curl`). See [https://stardog-union.github.io/http-docs/](https://stardog-union.github.io/http-docs/) for a full reference of Stardog API endpoints
+    2. Use the free Stardog-Studio web app. See the [Stardog documentation](https://docs.stardog.com/stardog-applications/dockerized_access#stardog-studio) for instructions to deploy Stardog-Studio as a Docker container.
 
 
     !!! info 
@@ -206,7 +233,7 @@ you have two general options:
         Please refer to the 
         [official docs](https://docs.stardog.com/stardog-applications/studio/) to learn how.
 
-### Change the database admin password
+### Set the database admin password
 
 When you first launch the graph server, a default `admin` user with superuser privilege will automatically be created for you. 
 This `admin` user is meant to create other database users and modify their permissions.
@@ -291,7 +318,7 @@ we have to create a new database user:
 
 ### Create new database
 
-When you first launch graph store,
+When you first launch the graph store,
 there are no graph databases.
 You have to create a new one to store
 your metadata.
