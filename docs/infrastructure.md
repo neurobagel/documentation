@@ -178,6 +178,22 @@ These will not have to be repeated for subsequent starts.
 
     The `recipes` repo you cloned contains a script [`graphdb_setup.sh`](https://github.com/neurobagel/recipes/blob/main/scripts/graphdb_setup.sh) which runs the first-time setup steps automatically for GraphDB.
 
+    ??? info "Redeploying Neurobagel after having run the first-time setup"
+
+        If you have already completed the first-time setup for Neurobagel (i.e., you previously set up a Neurobagel node on your machine) but need to redeploy Neurobagel _from scratch_, you will likely need to first wipe all the settings you previously set for GraphDB. 
+        
+        To do this, you need to either:
+        
+        - Clear the contents of your persistent GraphDB home directory on your filesystem (the path specified for `NB_GRAPH_ROOT_HOST` in your `.env`, which is `~/graphdb-home` by default)
+
+        OR
+
+        - Modify `.env` to specify a new, different path for `NB_GRAPH_ROOT_HOST`
+
+        (Note that `NB_GRAPH_ROOT_CONT` does not need to be modified!)
+
+        This is because the configuration for a GraphDB instance is not tied to a specific GraphDB Docker container, but to the persistent home directory for GraphDB on the host machine.
+
     Run the script as follows 
     (assuming you are in the `recipes/scripts` directory):
 
@@ -194,9 +210,10 @@ These will not have to be repeated for subsequent starts.
 
     1. Set the password of the default `admin` superuser and enable password-based access to databases
     2. Create a new graph database user based on credentials defined in your `.env` file
-    3. Create a new graph database with the name defined in your `.env` and grant the newly created user from step 2 permissions to access the database
+    3. Create a new graph database with the name defined in your `.env`
+    4. Grant the newly created user from step 2 permissions to access the database
 
-    If the script has finished running successfully, you should see:
+    If the script has finished running all steps successfully, you should see:
     ```bash
     Done.
     ```
@@ -204,6 +221,11 @@ These will not have to be repeated for subsequent starts.
     The rest of this section explains each of the setup steps performed by the script in more detail, including the `curl` commands used.
     
     **If you have successfully run `graphdb_setup.sh`, you can now skip to the section [Uploading data to the graph](#uploading-data-to-the-graph).**
+
+    !!! warning "Changing existing database user permissions" 
+
+        If you have already set up your GraphDB instance but want to add or modify database access permissions for a given user, this will need to be done manually.
+        See [this section](#grant-database-permissions-to-user) for more information.
 
     !!! info "Other ways to interact with the GraphDB backend"
 
@@ -402,7 +424,18 @@ with a name of `test_data`.
     curl -X PUT -u "admin:NewAdminPassword" http://localhost:7200/repositories/my_db --data-binary "@data-config.ttl" -H "Content-Type: application/x-turtle"
     ```
 
-    and add give our user access permission to the new resource:
+=== "Stardog"
+    
+    ```bash
+    curl -X POST -i -u "admin:NewAdminPassword" http://localhost:5820/admin/databases \
+    --form 'root="{\"dbname\":\"test_data\"}"'
+    ```
+
+### Grant database permissions to user
+    
+=== "GraphDB"
+
+    Now, we need to give our newly created database user access permission to the new resource:
 
     ```bash
     curl -X PUT --header 'Content-Type: application/json' -d '
@@ -446,11 +479,6 @@ with a name of `test_data`.
         More information on using the GraphDB Workbench can be found [here](https://graphdb.ontotext.com/documentation/10.0/workbench-user-interface.html).
 
 === "Stardog"
-
-    ```bash
-    curl -X POST -i -u "admin:NewAdminPassword" http://localhost:5820/admin/databases \
-    --form 'root="{\"dbname\":\"test_data\"}"'
-    ```
 
     Now we need to give our new database user read and write permission for 
     this database:
