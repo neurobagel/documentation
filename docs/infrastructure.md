@@ -208,28 +208,28 @@ These will not have to be repeated for subsequent starts.
     - `/PATH/TO/.env` with the path to the `.env` file you created in the step [Set the environment variables](#set-the-environment-variables)
     - `"NewAdminPassword"` with a secure password of your choice
 
-    This will:
+    The script will:
 
     1. Set the password of the default `admin` superuser and enable password-based access to databases
     2. Create a new graph database user based on credentials defined in your `.env` file
     3. Create a new graph database with the name defined in your `.env`
     4. Grant the newly created user from step 2 permissions to access the database
 
-    If the script has finished running all steps successfully, you should see:
+    If the script has run all steps successfully, you should see:
     ```bash
     Done.
     ```
 
-    The rest of this section explains each of the setup steps performed by the script in more detail, including the `curl` commands used.
+    Each of the setup steps performed by the script are explained below in more detail, including the `curl` commands used.
     
-    **If you have successfully run `graphdb_setup.sh`, you can now skip to the section [Uploading data to the graph](#uploading-data-to-the-graph).**
+    **If you have successfully run `graphdb_setup.sh`, you can skip to the section [Uploading data to the graph](#uploading-data-to-the-graph).**
 
     !!! warning "Changing existing database user permissions" 
 
         If you have already set up your GraphDB instance but want to add or modify database access permissions for a given user, this will need to be done manually.
         See [this section](#grant-database-permissions-to-user) for more information.
 
-    !!! info "Other ways to interact with the GraphDB backend"
+    ??? info "Other ways to interact with the GraphDB backend"
 
         1. Directly send HTTP requests to the HTTP REST endpoints of the GraphDB backend 
         e.g. using `curl`. GraphDB uses the [RDF4J API](https://rdf4j.org/documentation/reference/rest-api/) specification.
@@ -349,8 +349,7 @@ your metadata.
 
 If you have defined a custom `NB_GRAPH_DB` name in the `.env` file,
 make sure to create a database with a matching name.
-By default the Neurobagel API will query a graph database
-with a name of `test_data`.
+By default the Neurobagel API will query a graph database named `test_data`.
 
 === "GraphDB"
 
