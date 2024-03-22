@@ -32,6 +32,8 @@ We have tested the following options:
 
     We recommend using GraphDB if these restrictions are not a blocker.
 
+    **Note: You do not need to download GraphDB from the official website for the setup steps below.**
+
 === "Stardog"
 
     **Note: Stardog no longer provides free academic licenses. 
