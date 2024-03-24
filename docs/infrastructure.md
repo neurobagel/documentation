@@ -174,8 +174,6 @@ When you launch the graph backend for the first time,
 there are a couple of setup steps that need to be done. 
 These will not have to be repeated for subsequent starts.
 
-### Using our automated script 
-
 === "GraphDB"
 
     The `recipes` repo you cloned contains a script [`graphdb_setup.sh`](https://github.com/neurobagel/recipes/blob/main/scripts/graphdb_setup.sh) which runs the first-time setup steps automatically for GraphDB.
@@ -211,17 +209,112 @@ These will not have to be repeated for subsequent starts.
     The script will:
 
     1. Set the password of the default `admin` superuser and enable password-based access to databases
+
+        ??? info "More info"
+
+            When you first launch the graph server, a default `admin` user with superuser privilege will automatically be created for you. 
+            This `admin` user is meant to create other database users and modify their permissions.
+            (For more information, see the [official GraphDB documentation](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/curl-commands.html#security-management).)
+
+        ??? example "Doing this manually using `curl`"
+
+            First, change the password for the admin user that has been automatically
+            created by GraphDB:
+
+            ```bash
+            curl -X PATCH --header 'Content-Type: application/json' http://localhost:7200/rest/security/users/admin -d '
+            {"password": "NewAdminPassword"}'
+            ```
+            (make sure to replace `"NewAdminPassword"` with your own, secure password).
+
+            Next, enable GraphDB security to only allow authenticated users access:
+            ```bash
+            curl -X POST --header 'Content-Type: application/json' -d true http://localhost:7200/rest/security
+            ```
+
+            and confirm that this was successful:
+            ```bash
+            ➜ curl -X GET http://localhost:7200/rest/security                                                  
+            true
+            ```
+
     2. Create a new graph database user based on credentials defined in your `.env` file
+
+        ??? info "More info"
+            
+            We do not recommend using `admin` for normal read and write operations, instead we can create a regular database user.
+
+            The `.env` file created as part of the `docker compose` setup instructions
+            declares the `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` for the database user.
+            The Neurobagel API will send requests to the graph using these credentials.
+
+        ??? example "Doing this manually using `curl`"
+
+            When you launch the RDF store for the first time, 
+            we have to create a new database user:
+
+            ```bash
+            curl -X POST --header 'Content-Type: application/json' -u "admin:NewAdminPassword" -d '
+            {
+            "username": "DBUSER",
+            "password": "DBPASSWORD"
+            }' http://localhost:7200/rest/security/users/DBUSER
+            ```
+
+            Make sure to use the exact `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` you defined in the `.env` file when creating the new database user.
+            Otherwise the Neurobagel API will not have the correct permission to query the graph.
+
     3. Create a new graph database with the name defined in your `.env`
+
+        ??? info "More info"
+    
+            When you first launch the graph store, there are no graph databases.
+            You have to create a new one to store your metadata.
+
+            By default the Neurobagel API will query a graph database named `my_db`. 
+            If you have defined a custom `NB_GRAPH_DB` name in the `.env` file, you will first need to create a database with a matching name.
+
+        ??? example "Doing this manually using `curl`"
+
+            In GraphDB, graph databases are called resources.
+            To create a new one, you will also have to prepare a `data-config.ttl` file
+            that contains the settings for the resource you will create 
+            (for more information, see the [GraphDB docs](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/location-and-repository-tutorial.html#create-a-repository)).
+
+            You can edit [this example file](https://github.com/neurobagel/recipes/blob/main/scripts/data-config_template.ttl) and save
+            it as `data-config.ttl` locally.
+            **Ensure the value for `rep:repositoryID`
+            in `data-config.ttl` matches the value in
+            `NB_GRAPH_DB` in your `.env` file**. 
+            For example, if `NB_GRAPH_DB=repositories/my_db`, then
+            `rep:repositoryID "my_db" ;`.
+
+            Then, create a new graph database with the following command (replace "my_db" as needed). 
+            If your `data-config.ttl` is not in the current directory, replace `"@data-config.ttl"` in the command with `"@PATH/TO/data-config.ttl"`.
+
+            ```bash
+            curl -X PUT -u "admin:NewAdminPassword" http://localhost:7200/repositories/my_db --data-binary "@data-config.ttl" -H "Content-Type: application/x-turtle"
+            ```
+
     4. Grant the newly created user from step 2 permissions to access the database
+
+        ??? info "Doing this manually using `curl`"
+
+            ```bash
+            curl -X PUT --header 'Content-Type: application/json' -d '
+            {"grantedAuthorities": ["WRITE_REPO_my_db","READ_REPO_my_db"]}'  http://localhost:7200/rest/security/users/DBUSER -u "admin:NewAdminPassword"
+            ```
+
+            - `"WRITE_REPO_my_db"`: Grants write permission.
+            - `"READ_REPO_my_db"`: Grants read permission.
+
+            Make sure you replace `my_db` with the name of the graph db you have just created. 
 
     If the script has run all steps successfully, you should see:
     ```bash
     Done.
     ```
 
-    Each of the setup steps performed by the script are explained below in more detail, including the `curl` commands used.
-    
     **If you have successfully run `graphdb_setup.sh`, you can skip to the section [Uploading data to the graph](#uploading-data-to-the-graph).**
 
     !!! warning "Changing existing database user permissions" 
@@ -240,268 +333,39 @@ These will not have to be repeated for subsequent starts.
 
 === "Stardog"
 
-    **Note: Stardog has been deprecated as a supported Neurobagel graph backend, and no automated script is available for first-time setup.**
+    **Note: Stardog has been deprecated as a supported Neurobagel graph backend.**
 
-    To interact with your graph backend, you have two general options:
-
-    1. Send HTTP requests to the HTTP REST endpoints of the Stardog graph backend (e.g. with `curl`). See [https://stardog-union.github.io/http-docs/](https://stardog-union.github.io/http-docs/) for a full reference of Stardog API endpoints
-    2. Use the free Stardog-Studio web app. See the [Stardog documentation](https://docs.stardog.com/stardog-applications/dockerized_access#stardog-studio) for instructions to deploy Stardog-Studio as a Docker container.
-
-
-    !!! info 
-        Stardog-Studio is the most accessible way 
-        of manually interacting with a Stardog instance. 
-        Here we will focus instead on using the HTTP API for configuration,
-        as this allows programmatic access.
-        All of these steps can also be achieved via Stardog-Studio manually.
-        Please refer to the 
-        [official docs](https://docs.stardog.com/stardog-applications/studio/) to learn how.
-
-### Set the database admin password
-
-When you first launch the graph server, a default `admin` user with superuser privilege will automatically be created for you. 
-This `admin` user is meant to create other database users and modify their permissions.
-
-=== "GraphDB"
-
-    (For more information, see the [official GraphDB documentation](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/curl-commands.html#security-management).)
-
-    First, change the password for the admin user that has been automatically
-    created by GraphDB:
-
-    ```bash
-    curl -X PATCH --header 'Content-Type: application/json' http://localhost:7200/rest/security/users/admin -d '
-    {"password": "NewAdminPassword"}'
-    ```
-    make sure to replace `"NewAdminPassword"` with your own, secure password.
-
-    Next, enable GraphDB security to only allow authenticated users access:
-    ```bash
-    curl -X POST --header 'Content-Type: application/json' -d true http://localhost:7200/rest/security
-    ```
-
-    and confirm that this was successful:
-    ```bash
-    ➜ curl -X GET http://localhost:7200/rest/security                                                  
-    true
-    ```
-
-=== "Stardog"
-
-    You should first change the password of the database `admin`:
-
-    ```bash
-    curl -X PUT -i -u "admin:admin" http://localhost:5820/admin/users/admin/pwd \
-    --data '{"password": "NewAdminPassword"}'
-    ```
-
-### Create a new database user
-
-We do not recommend using `admin` for normal read and write operations, instead we can create a regular database user.
-
-The `.env` file created as part of the `docker compose` setup instructions
-declares the `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` for the database user.
-The Neurobagel API will send requests to the graph using these credentials.
-When you launch the RDF store for the first time, 
-we have to create a new database user:
-
-=== "GraphDB"
-
-    ```bash
-    curl -X POST --header 'Content-Type: application/json' -u "admin:NewAdminPassword" -d '
-    {
-    "username": "DBUSER",
-    "password": "DBPASSWORD"
-    }' http://localhost:7200/rest/security/users/DBUSER
-    ```
-
-=== "Stardog"
-
-    ```bash
-    curl -X POST -i -u "admin:NewAdminPassword" http://localhost:5820/admin/users \
-    -H 'Content-Type: application/json' \
-    --data '{
-        "username": "DBUSER",
-        "password": [
-            "DBPASSWORD"
-        ]
-    }'
-    ```
-
-    Confirm that the new user exists:
-
-    ```bash
-    curl -u "admin:NewAdminPassword" http://localhost:5820/admin/users
-    ```
-
-!!! note
-    Make sure to use the exact `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` you
-    defined in the `.env` file when creating the new database user.
-    Otherwise the Neurobagel API will not have the correct permission
-    to query the graph.
-
-### Create new database
-
-When you first launch the graph store,
-there are no graph databases.
-You have to create a new one to store
-your metadata.
-
-If you have defined a custom `NB_GRAPH_DB` name in the `.env` file,
-make sure to create a database with a matching name.
-By default the Neurobagel API will query a graph database named `test_data`.
-
-=== "GraphDB"
-
-    In GraphDB, graph databases are called resources.
-    To create a new one, you will also have to prepare a `data-config.ttl` file
-    that contains the settings for the resource you will create 
-    (for more information, see the [GraphDB docs](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/location-and-repository-tutorial.html#create-a-repository)).
-
-    **Make sure that the value for `rep:repositoryID`
-    in the `data-config.ttl` file matches the value of
-    `NB_GRAPH_DB` in your `.env` file**. 
-    For example, if `NB_GRAPH_DB=my_db`, then
-    `rep:repositoryID "my_db" ;`.
-
-    You can edit this example file and save
-    it as `data-config.ttl` locally:
-
-    ```turtle hl_lines="11"
-    #
-    # RDF4J configuration template for a GraphDB repository
-    #
-    @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-    @prefix rep: <http://www.openrdf.org/config/repository#>.
-    @prefix sr: <http://www.openrdf.org/config/repository/sail#>.
-    @prefix sail: <http://www.openrdf.org/config/sail#>.
-    @prefix graphdb: <http://www.ontotext.com/config/graphdb#>.
-
-    [] a rep:Repository ;
-        rep:repositoryID "my_db" ;
-        rdfs:label "" ;
-        rep:repositoryImpl [
-            rep:repositoryType "graphdb:SailRepository" ;
-            sr:sailImpl [
-                sail:sailType "graphdb:Sail" ;
-
-                graphdb:read-only "false" ;
-
-                # Inference and Validation
-                graphdb:ruleset "rdfsplus-optimized" ;
-                graphdb:disable-sameAs "true" ;
-                graphdb:check-for-inconsistencies "false" ;
-
-                # Indexing
-                graphdb:entity-id-size "32" ;
-                graphdb:enable-context-index "false" ;
-                graphdb:enablePredicateList "true" ;
-                graphdb:enable-fts-index "false" ;
-                graphdb:fts-indexes ("default" "iri") ;
-                graphdb:fts-string-literals-index "default" ;
-                graphdb:fts-iris-index "none" ;
-
-                # Queries and Updates
-                graphdb:query-timeout "0" ;
-                graphdb:throw-QueryEvaluationException-on-timeout "false" ;
-                graphdb:query-limit-results "0" ;
-
-                # Settable in the file but otherwise hidden in the UI and in the RDF4J console
-                graphdb:base-URL "http://example.org/owlim#" ;
-                graphdb:defaultNS "" ;
-                graphdb:imports "" ;
-                graphdb:repository-type "file-repository" ;
-                graphdb:storage-folder "storage" ;
-                graphdb:entity-index-size "10000000" ;
-                graphdb:in-memory-literal-properties "true" ;
-                graphdb:enable-literal-index "true" ;
-            ]
-        ].
-    ```
-
-    Then, create a new graph database with the following command (replace "my_db" as needed). 
-    If your `data-config.ttl` is not in the current directory, replace `"@data-config.ttl"` in the command with `"@PATH/TO/data-config.ttl"`.
-
-    ```bash
-    curl -X PUT -u "admin:NewAdminPassword" http://localhost:7200/repositories/my_db --data-binary "@data-config.ttl" -H "Content-Type: application/x-turtle"
-    ```
-
-=== "Stardog"
-    
-    ```bash
-    curl -X POST -i -u "admin:NewAdminPassword" http://localhost:5820/admin/databases \
-    --form 'root="{\"dbname\":\"test_data\"}"'
-    ```
+## Managing an existing database
 
 ### Grant database permissions to user
     
-=== "GraphDB"
+!!! warning "Be careful when adding more user permissions"
 
-    Now, we need to give our newly created database user access permission to the new resource:
-
-    ```bash
-    curl -X PUT --header 'Content-Type: application/json' -d '
-    {"grantedAuthorities": ["WRITE_REPO_my_db","READ_REPO_my_db"]}'  http://localhost:7200/rest/security/users/DBUSER -u "admin:NewAdminPassword"
-    ```
-
-    - `"WRITE_REPO_my_db"`: Grants write permission.
-    - `"READ_REPO_my_db"`: Grants read permission.
-
-    !!! Note
+    With GraphDB, there is no straightforward REST API call to _update_ a user's database access permissions without replacing the list of their existing database permissions (`"grantedAuthorities"`) entirely. 
     
-        Make sure you replace `my_db` with the name of the graph db you 
-        have just created. 
+    For example, if user `DBUSER` has been granted read/write access to database `my_db1` via a curl command with the following:
+    `{"grantedAuthorities": ["WRITE_REPO_my_db1","READ_REPO_my_db1"]}`
 
-    !!! warning "Be careful when adding more user permissions"
+    To grant `DBUSER` read/write access to a second database `my_db2` (while keeping the existing access to `my_db1`), 
+    when modifying http://localhost:7200/rest/security/users/DBUSER, 
+    you must specify all permissions - existing and new - in the same command 
+    since the existing permissions list will be overwritten:
+    `{"grantedAuthorities": ["WRITE_REPO_my_db1","READ_REPO_my_db1", "WRITE_REPO_my_db2","READ_REPO_my_db2"]}`
 
-        With GraphDB, there is no straightforward REST API call to _update_ a user's database access permissions without replacing the list of their existing database permissions (`"grantedAuthorities"`) entirely. 
-        
-        For example, if user `DBUSER` has been granted read/write access to database `my_db1` via a curl command with the following:
-        `{"grantedAuthorities": ["WRITE_REPO_my_db1","READ_REPO_my_db1"]}`
+    Similarly, to revoke `my_db1` access for `DBUSER`, so they only have access to `my_db2`, 
+    you would use the following permissions list:
+    `{"grantedAuthorities": ["WRITE_REPO_my_db2","READ_REPO_my_db2"]}`
 
-        To grant `DBUSER` read/write access to a second database `my_db2` (while keeping the existing access to `my_db1`), 
-        when modifying http://localhost:7200/rest/security/users/DBUSER, 
-        you must specify all permissions - existing and new - in the same command 
-        since the existing permissions list will be overwritten:
-        `{"grantedAuthorities": ["WRITE_REPO_my_db1","READ_REPO_my_db1", "WRITE_REPO_my_db2","READ_REPO_my_db2"]}`
-
-        Similarly, to revoke `my_db1` access for `DBUSER`, so they only have access to `my_db2`, 
-        you would use the following permissions list:
-        `{"grantedAuthorities": ["WRITE_REPO_my_db2","READ_REPO_my_db2"]}`
-
-        You can verify a user's settings at any time with the following:
-        ```bash
-        curl -u "admin:NewAdminPassword" http://localhost:7200/rest/security/users/DBUSER
-        ```
-
-    !!! info "Managing user permissions using the GraphDB Workbench"
-
-        If you are managing multiple GraphDB databases, the web-based administration interface for a GraphDB instance, the Workbench, 
-        might be an easier way to manage user permissions than the REST API.
-        More information on using the GraphDB Workbench can be found [here](https://graphdb.ontotext.com/documentation/10.0/workbench-user-interface.html).
-
-=== "Stardog"
-
-    Now we need to give our new database user read and write permission for 
-    this database:
-
+    You can verify a user's settings at any time with the following:
     ```bash
-    curl -X PUT -i -u "admin:NewAdminPassword" http://localhost:5820/admin/permissions/user/DBUSER \
-    -H 'Content-Type: application/json' \
-    --data '{
-        "action": "ALL",
-        "resource_type": "DB",
-        "resource": [
-            "test_data"
-        ]
-    }'
+    curl -u "admin:NewAdminPassword" http://localhost:7200/rest/security/users/DBUSER
     ```
 
-    ??? note "Finer permission control is also possible"
+!!! info "Managing user permissions using the GraphDB Workbench"
 
-        For simplicity's sake, here we give `"ALL"` permission to the new database user.
-        The Stardog API provide more fine grained permission control.
-        See [the official Stardog API documentation](https://stardog-union.github.io/http-docs/#tag/Permissions/operation/addUserPermission).
+    If you are managing multiple GraphDB databases, the web-based administration interface for a GraphDB instance, the Workbench, 
+    might be an easier way to manage user permissions than the REST API.
+    More information on using the GraphDB Workbench can be found [here](https://graphdb.ontotext.com/documentation/10.0/workbench-user-interface.html).
 
 ## Uploading data to the graph
 
