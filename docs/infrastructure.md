@@ -178,21 +178,14 @@ These will not have to be repeated for subsequent starts.
 
     The `recipes` repo you cloned contains a script [`graphdb_setup.sh`](https://github.com/neurobagel/recipes/blob/main/scripts/graphdb_setup.sh) which runs the first-time setup steps automatically for GraphDB.
 
-    ??? info "Redeploying Neurobagel after having run the first-time setup"
+    ??? info "Non-automated options for interacting with the GraphDB backend"
 
-        If you have already completed the first-time setup for Neurobagel (i.e., you previously set up a Neurobagel node on your machine) but need to redeploy Neurobagel _from scratch_, you will likely need to first wipe all the settings you previously set for GraphDB. 
-        
-        To do this, you need to either:
-        
-        - Clear the contents of your persistent GraphDB home directory on your filesystem (the path specified for `NB_GRAPH_ROOT_HOST` in your `.env`, which is `~/graphdb-home` by default)
-
-        OR
-
-        - Modify `.env` to specify a new, different path for `NB_GRAPH_ROOT_HOST`
-
-        (Note that `NB_GRAPH_ROOT_CONT` does not need to be modified!)
-
-        This is because the configuration for a GraphDB instance is not tied to a specific GraphDB Docker container, but to the persistent home directory for GraphDB on the host machine.
+        1. Directly send HTTP requests to the HTTP REST endpoints of the GraphDB backend 
+        e.g. using `curl`. GraphDB uses the [RDF4J API](https://rdf4j.org/documentation/reference/rest-api/) specification.
+        2. Use the GraphDB web interface (called [the Workbench](https://graphdb.ontotext.com/documentation/10.0/architecture-components.html)), which offers a more accessible way to manage the GraphDB instance. 
+        Once your local GraphDB backend is running
+        you can connect to the Workbench at [http://localhost:7200](http://localhost:7200).
+        The Workbench is well documented on the [GraphDB website](https://graphdb.ontotext.com/documentation/10.0/workbench-user-interface.html).
 
     Run the script as follows 
     (assuming you are in the `recipes/scripts` directory):
@@ -302,7 +295,7 @@ These will not have to be repeated for subsequent starts.
 
             ```bash
             curl -X PUT --header 'Content-Type: application/json' -d '
-            {"grantedAuthorities": ["WRITE_REPO_my_db","READ_REPO_my_db"]}'  http://localhost:7200/rest/security/users/DBUSER -u "admin:NewAdminPassword"
+            {"grantedAuthorities": ["WRITE_REPO_my_db","READ_REPO_my_db"]}' http://localhost:7200/rest/security/users/DBUSER -u "admin:NewAdminPassword"
             ```
 
             - `"WRITE_REPO_my_db"`: Grants write permission.
@@ -315,57 +308,78 @@ These will not have to be repeated for subsequent starts.
     Done.
     ```
 
-    **If you have successfully run `graphdb_setup.sh`, you can skip to the section [Uploading data to the graph](#uploading-data-to-the-graph).**
-
-    !!! warning "Changing existing database user permissions" 
-
-        If you have already set up your GraphDB instance but want to add or modify database access permissions for a given user, this will need to be done manually.
-        See [this section](#grant-database-permissions-to-user) for more information.
-
-    ??? info "Other ways to interact with the GraphDB backend"
-
-        1. Directly send HTTP requests to the HTTP REST endpoints of the GraphDB backend 
-        e.g. using `curl`. GraphDB uses the [RDF4J API](https://rdf4j.org/documentation/reference/rest-api/) specification.
-        2. Use the GraphDB web interface (called [the Workbench](https://graphdb.ontotext.com/documentation/10.0/architecture-components.html)), which offers a more accessible way to manage the GraphDB instance. 
-        Once your local GraphDB backend is running
-        you can connect to the Workbench at [http://localhost:7200](http://localhost:7200).
-        The Workbench is well documented on the [GraphDB website](https://graphdb.ontotext.com/documentation/10.0/workbench-user-interface.html).
+    You can now proceed to the section [Uploading data to the graph](#uploading-data-to-the-graph).
 
 === "Stardog"
 
     **Note: Stardog has been deprecated as a supported Neurobagel graph backend.**
 
-## Managing an existing database
+## Updating your graph backend configuration
 
-### Grant database permissions to user
-    
-!!! warning "Be careful when adding more user permissions"
+### Updating existing database user permissions
 
-    With GraphDB, there is no straightforward REST API call to _update_ a user's database access permissions without replacing the list of their existing database permissions (`"grantedAuthorities"`) entirely. 
-    
-    For example, if user `DBUSER` has been granted read/write access to database `my_db1` via a curl command with the following:
-    `{"grantedAuthorities": ["WRITE_REPO_my_db1","READ_REPO_my_db1"]}`
-
-    To grant `DBUSER` read/write access to a second database `my_db2` (while keeping the existing access to `my_db1`), 
-    when modifying http://localhost:7200/rest/security/users/DBUSER, 
-    you must specify all permissions - existing and new - in the same command 
-    since the existing permissions list will be overwritten:
-    `{"grantedAuthorities": ["WRITE_REPO_my_db1","READ_REPO_my_db1", "WRITE_REPO_my_db2","READ_REPO_my_db2"]}`
-
-    Similarly, to revoke `my_db1` access for `DBUSER`, so they only have access to `my_db2`, 
-    you would use the following permissions list:
-    `{"grantedAuthorities": ["WRITE_REPO_my_db2","READ_REPO_my_db2"]}`
-
+!!! tip
     You can verify a user's settings at any time with the following:
     ```bash
     curl -u "admin:NewAdminPassword" http://localhost:7200/rest/security/users/DBUSER
     ```
 
-!!! info "Managing user permissions using the GraphDB Workbench"
+If you want to change database access permissions (e.g., adding or removing access to a database) for an _existing_ user in your GraphDB instance, you must do so manually.
+
+Of note, in GraphDB, there is no straightforward REST API call to update a user's database access permissions without replacing the list of their existing database permissions (`"grantedAuthorities"`) entirely. 
+
+For example, if user `DBUSER` has been granted read/write access to database `my_db1` with the following command:
+
+```bash
+curl -X PUT --header 'Content-Type: application/json' -d '
+{"grantedAuthorities": ["WRITE_REPO_my_db","READ_REPO_my_db"]}' http://localhost:7200/rest/security/users/DBUSER -u "admin:NewAdminPassword"
+```
+
+!!! info
+    This command is also run as part of the [`graphdb_setup.sh`]() script for first-time GraphDB backend setup.
+
+To grant `DBUSER` read/write access to a second database `my_db2` (while keeping the existing access to `my_db1`), 
+you would rerun the above command with _all_ permissions (existing and new) specified since the existing permissions list will be overwritten.
+
+So, your new provided permissions list would look as follows:
+```json
+{"grantedAuthorities": ["WRITE_REPO_my_db1","READ_REPO_my_db1", "WRITE_REPO_my_db2","READ_REPO_my_db2"]}
+```
+
+Similarly, to revoke `my_db1` access for `DBUSER` so they only have access to `my_db2`, 
+you would use the following permissions list:
+```json
+{"grantedAuthorities": ["WRITE_REPO_my_db2","READ_REPO_my_db2"]}
+```
+
+!!! tip "Managing user permissions using the GraphDB Workbench"
 
     If you are managing multiple GraphDB databases, the web-based administration interface for a GraphDB instance, the Workbench, 
     might be an easier way to manage user permissions than the REST API.
     More information on using the GraphDB Workbench can be found [here](https://graphdb.ontotext.com/documentation/10.0/workbench-user-interface.html).
+
+### Resetting your GraphDB instance
+
+If you previously started/completed the first-time graph setup for Neurobagel (i.e., you previously set up a Neurobagel node on your machine) but want to set up your graph database again _from scratch_, 
+the most foolproof way would be to start with a clean GraphDB configuration to avoid conflicts with any credentials or databases that were been previously created.
+
+The configuration for a given GraphDB instance is not tied to a specific GraphDB Docker container, but to the persistent home directory for GraphDB on the host machine.
+
+So, to 'reset' your GraphDB instance for Neurobagel, you need to either:
+
+- Clear the contents of your persistent GraphDB home directory on your filesystem (this is the path specified for `NB_GRAPH_ROOT_HOST` in your `.env`, which is `~/graphdb-home` by default)
+
+    !!! warning
+
+        **This action will wipe any graph databases and users you previously created!** 
+        We recommend shutting down any Neurobagel services you are currently running (e.g., API, query tool containers) before doing this to prevent your services from breaking in unexpected ways.
+
+OR
+
+- Modify `.env` to specify a new, different path for `NB_GRAPH_ROOT_HOST`
+
+    !!! note
+        `NB_GRAPH_ROOT_CONT` does not need to be modified.
 
 ## Uploading data to the graph
 
