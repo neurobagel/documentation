@@ -32,7 +32,8 @@ We have tested the following options:
 
     We recommend using GraphDB if these restrictions are not a blocker.
 
-    **Note: You do not need to download GraphDB from the official website for the setup steps below.**
+    !!! note
+        You do not need to download GraphDB from the official website for the setup steps below.
 
 === "Stardog"
 
@@ -66,11 +67,6 @@ We have tested the following options:
     It is valid for one year and for a major version of Stardog.
     You will need to download the license in a place that is accessible
     to your new Stardog instance when it is launched (see below).
-
-!!! info 
-
-    RDF stores are relatively niche applications for very large data applications,
-    so most implementations are commercial.
 
 ## Launch the Neurobagel node API and graph stack
 
@@ -203,13 +199,13 @@ These will not have to be repeated for subsequent starts.
 
     1. Set the password of the default `admin` superuser and enable password-based access to databases
 
-        ??? info "More info"
+        ??? info "Details"
 
             When you first launch the graph server, a default `admin` user with superuser privilege will automatically be created for you. 
             This `admin` user is meant to create other database users and modify their permissions.
             (For more information, see the [official GraphDB documentation](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/curl-commands.html#security-management).)
 
-        ??? example "Doing this manually using `curl`"
+        ??? example "Doing this manually with `curl`"
 
             First, change the password for the admin user that has been automatically
             created by GraphDB:
@@ -233,7 +229,7 @@ These will not have to be repeated for subsequent starts.
 
     2. Create a new graph database user based on credentials defined in your `.env` file
 
-        ??? info "More info"
+        ??? info "Details"
             
             We do not recommend using `admin` for normal read and write operations, instead we can create a regular database user.
 
@@ -241,7 +237,7 @@ These will not have to be repeated for subsequent starts.
             declares the `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` for the database user.
             The Neurobagel API will send requests to the graph using these credentials.
 
-        ??? example "Doing this manually using `curl`"
+        ??? example "Doing this manually with `curl`"
 
             When you launch the RDF store for the first time, 
             we have to create a new database user:
@@ -259,7 +255,7 @@ These will not have to be repeated for subsequent starts.
 
     3. Create a new graph database with the name defined in your `.env`
 
-        ??? info "More info"
+        ??? info "Details"
     
             When you first launch the graph store, there are no graph databases.
             You have to create a new one to store your metadata.
@@ -267,7 +263,7 @@ These will not have to be repeated for subsequent starts.
             By default the Neurobagel API will query a graph database named `my_db`. 
             If you have defined a custom `NB_GRAPH_DB` name in the `.env` file, you will first need to create a database with a matching name.
 
-        ??? example "Doing this manually using `curl`"
+        ??? example "Doing this manually with `curl`"
 
             In GraphDB, graph databases are called resources.
             To create a new one, you will also have to prepare a `data-config.ttl` file
@@ -291,7 +287,7 @@ These will not have to be repeated for subsequent starts.
 
     4. Grant the newly created user from step 2 permissions to access the database
 
-        ??? info "Doing this manually using `curl`"
+        ??? example "Doing this manually with `curl`"
 
             ```bash
             curl -X PUT --header 'Content-Type: application/json' -d '
@@ -339,14 +335,14 @@ curl -X PUT --header 'Content-Type: application/json' -d '
     This command is also run as part of the [`graphdb_setup.sh`]() script for first-time GraphDB backend setup.
 
 To grant `DBUSER` read/write access to a second database `my_db2` (while keeping the existing access to `my_db1`), 
-you would rerun the above command with _all_ permissions (existing and new) specified since the existing permissions list will be overwritten.
+you would rerun the above `curl` command with _all_ permissions (existing and new) specified since the existing permissions list will be overwritten.
 
 So, your new provided permissions list would look as follows:
 ```json
 {"grantedAuthorities": ["WRITE_REPO_my_db1","READ_REPO_my_db1", "WRITE_REPO_my_db2","READ_REPO_my_db2"]}
 ```
 
-Similarly, to revoke `my_db1` access for `DBUSER` so they only have access to `my_db2`, 
+Similarly, to revoke `my_db1` access so `DBUSER` only has access to `my_db2`, 
 you would use the following permissions list:
 ```json
 {"grantedAuthorities": ["WRITE_REPO_my_db2","READ_REPO_my_db2"]}
@@ -371,7 +367,8 @@ So, to 'reset' your GraphDB instance for Neurobagel, you need to either:
 
     !!! warning
 
-        **This action will wipe any graph databases and users you previously created!** 
+        This action will wipe any graph databases and users you previously created!
+        
         We recommend shutting down any Neurobagel services you are currently running (e.g., API, query tool containers) before doing this to prevent your services from breaking in unexpected ways.
 
 OR
@@ -399,7 +396,7 @@ In addition to dataset `.jsonld` files, **this script should also be used to add
     chmod +x add_data_to_graph.sh
     ```
 
-??? info "To directly use `curl` requests to modify the graph database instead of the helper script"
+??? example "Doing this manually with `curl`"
 
     === "GraphDB"
         Add a single dataset to the graph database (example)
