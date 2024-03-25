@@ -1,0 +1,20 @@
+name: Label pull requests from forks
+
+on:
+  pull_request_target:
+    types: [opened]
+
+jobs:
+  handle_external_pr:
+    # Only run this entire workflow if the PR was opened from a forked repo
+    # The reasoning is that both bots and external contributors have to make
+    # a fork of the repo before they can open a PR because they don't have
+    # write access to the repo.
+    if: github.event.pull_request.head.repo.full_name != github.repository
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Label pull request with "_community"
+        run: gh pr edit ${{ github.event.pull_request.number }} -R ${{ github.repository }} --add-label "_community"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
