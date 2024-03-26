@@ -324,7 +324,7 @@ Of note, in GraphDB, there is no straightforward REST API call to update a user'
     curl -u "admin:NewAdminPassword" http://localhost:7200/rest/security/users/DBUSER
     ```
 
-For example, if user `DBUSER` has been granted read/write access to database `my_db1` with the following command
+Example: if user `DBUSER` was granted read/write access to database `my_db1` with the following command
 (this command is run by default as part of [`graphdb_setup.sh`](https://github.com/neurobagel/recipes/blob/main/scripts/graphdb_setup.sh)):
 
 ```bash
@@ -333,17 +333,18 @@ curl -X PUT --header 'Content-Type: application/json' -d '
 ```
 
 To grant `DBUSER` read/write access to a second database `my_db2` (while keeping the existing access to `my_db1`), 
-you would rerun the above `curl` command with _all_ permissions (existing and new) specified since the existing permissions list will be overwritten.
+you would rerun the above `curl` command with _all_ permissions (existing and new) specified since the existing permissions list will be overwritten:
 
-So, your new provided permissions list would look as follows:
-```json
-{"grantedAuthorities": ["WRITE_REPO_my_db1","READ_REPO_my_db1", "WRITE_REPO_my_db2","READ_REPO_my_db2"]}
+```bash
+curl -X PUT --header 'Content-Type: application/json' -d '
+{"grantedAuthorities": ["WRITE_REPO_my_db1","READ_REPO_my_db1", "WRITE_REPO_my_db2","READ_REPO_my_db2"]}' http://localhost:7200/rest/security/users/DBUSER -u "admin:NewAdminPassword"
 ```
 
-Similarly, to revoke `my_db1` access so `DBUSER` only has access to `my_db2`, 
-you would use the following permissions list:
-```json
-{"grantedAuthorities": ["WRITE_REPO_my_db2","READ_REPO_my_db2"]}
+Similarly, to revoke `my_db1` access so `DBUSER` only has access to `my_db2`:
+
+```bash
+curl -X PUT --header 'Content-Type: application/json' -d '
+{"grantedAuthorities": ["WRITE_REPO_my_db2","READ_REPO_my_db2"]}' http://localhost:7200/rest/security/users/DBUSER -u "admin:NewAdminPassword"
 ```
 
 ??? tip "Managing user permissions using the GraphDB Workbench"
@@ -354,10 +355,10 @@ you would use the following permissions list:
 
 ### Resetting your GraphDB instance
 
-If you have previously set up a Neurobagel node on your machine but want to reset your graph database to start again _from scratch_, 
+If you previously set up a Neurobagel node on your machine but want to reset your graph database to start again _from scratch_, 
 the most foolproof way would be to start with a clean GraphDB configuration to avoid conflicts with any previously created credentials or databases.
 
-Some examples of when you may want to do this:
+Some examples of when you might want to do this:
 
 - You started but did not complete Neurobagel node setup previously and want to ensure you are using up-to-date instructions and recommended configuration options
 - Your local node has stopped working after a configuration change to your graph database (e.g., your Neurobagel node API no longer starts or responds with an error, but you have confirmed all environment variables you have set should be correct)
