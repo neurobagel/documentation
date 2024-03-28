@@ -1,0 +1,18 @@
+Environment variable	Required in .env?	Description	Default value if not set	Relevant installation mode(s)
+`NB_GRAPH_USERNAME`	Yes	Username to access graph database that API will communicate with	-	Docker, Python
+`NB_GRAPH_PASSWORD`	Yes	Password to access graph database that API will communicate with	-	Docker, Python
+`NB_GRAPH_ADDRESS`	No	IP address for the graph database (or container name, if graph is hosted locally)	`206.12.99.17 (graph)` **	Docker, Python
+`NB_GRAPH_DB`	No	Name of graph database endpoint to query (e.g., for a GraphDB database, this will take the format of `repositories/{database_name}`)	`repositories/my_db`	Docker, Python
+`NB_RETURN_AGG`	No	Whether to return only dataset-level query results (including data locations) and exclude subject-level attributes. One of [true, false]	`true`	Docker, Python
+`NB_API_TAG`	No	Docker image tag for the API	`latest`	Docker
+`NB_API_PORT_HOST`	No	Port number on the _host machine_ to map the API container port to	`8000`	Docker
+`NB_API_PORT`	No	Port number on which to run the API	`8000`	Docker, Python
+`NB_API_ALLOWED_ORIGINS`	Yes, if using a frontend query tool ‡	Origins allowed to make cross-origin resource sharing requests. Multiple origins must be separated with spaces in a single string enclosed in quotes. See ‡ for more info	"`""""`"	Docker, Python
+`NB_GRAPH_IMG`	No	Graph server Docker image	`ontotext/graphdb:10.3.1`	Docker
+`NB_GRAPH_ROOT_HOST`	No	Path to directory on the _host machine_ to store graph database files and data (the directory does not have to exist beforehand).	`~/graphdb-home`	Docker
+`NB_GRAPH_ROOT_CONT`	No	Path to directory for graph databases in the _graph server container_	`/opt/graphdb/home` *	Docker
+`NB_GRAPH_PORT_HOST`	No	Port number on the _host machine_ to map the graph server container port to	`7200`	Docker, Python
+`NB_GRAPH_PORT`	No	Port number used by the _graph server container_	`7200` *	Docker
+`NB_QUERY_TAG`	No	Docker image tag for the query tool	`latest`	Docker
+`NB_QUERY_PORT_HOST`	No	Port number used by the `query_tool` on the host machine	`3000`	Docker
+`NB_API_QUERY_URL`	Yes, unless default is correct	URL of the API that the query tool will send its requests to. The port number in the URL **must** correspond to `NB_API_PORT_HOST`. See also the [query tool README](https://github.com/neurobagel/query-tool?tab=readme-ov-file#set-the-environment-variables). **Must** end in a forward slash `/`!	`http://localhost:8000/`	Docker

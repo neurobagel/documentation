@@ -1,0 +1,2 @@
+DatasetID	DatasetName	PortalURI	NumMatchingSubjects	AvailableImageModalities
+http://neurobagel.org/vocab/81e47a09-658d-48ea-b7c5-8d54820d038e	BIDS synthetic	https://github.com/bids-standard/bids-examples	5	http://purl.org/nidash/nidm#T1Weighted, http://purl.org/nidash/nidm#FlowWeighted
