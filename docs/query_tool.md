@@ -34,18 +34,18 @@ A good way to manage different node versions is to use the [node version manager
 
 ### Set the Environment Variables
 
-You'll need to set the `API_QUERY_URL` environment variable required to run the query tool. `API_QUERY_URL` is the [Neurobagel API](https://github.com/neurobagel/api) URL that the query tool uses to send requests to for results. The query tool utilizes [nuxt dotenv module](https://github.com/nuxt-community/dotenv-module) for managing environment variables. 
+You'll need to set the `NB_API_QUERY_URL` environment variable required to run the query tool. `NB_API_QUERY_URL` is the [Neurobagel API](https://github.com/neurobagel/api) URL that the query tool uses to send requests to for results. The query tool utilizes [nuxt dotenv module](https://github.com/nuxt-community/dotenv-module) for managing environment variables. 
 
 To set environment variables, create an `.env` file in the root directory and add the environment variables there. If you're running the Neurobagel API locally on your machine (following the instructions [here](https://github.com/neurobagel/api#local-installation)), your `.env` file would look something like this:
 
 ```bash
-API_QUERY_URL=http://localhost:8000/
+NB_API_QUERY_URL=http://localhost:8000/
 ```
 
 if you're using the remote api, your `.env` file would look something like this:
 
 ```bash
-API_QUERY_URL=https://api.neurobagel.org/
+NB_API_QUERY_URL=https://api.neurobagel.org/
 ```
 
 ### Launch the Query Tool

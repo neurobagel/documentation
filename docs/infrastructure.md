@@ -570,10 +570,10 @@ as a standalone docker container.
 
 
 ```bash
-docker run -d -p 3000:3000 --env API_QUERY_URL=http://localhost:8000/ --name query_tool neurobagel/query_tool:latest
+docker run -d -p 3000:3000 --env NB_API_QUERY_URL=http://localhost:8000/ --name query_tool neurobagel/query_tool:latest
 ```
 
-Make sure to replace the value of `API_QUERY_URL` with the `IP:PORT` or domain name of the
+Make sure to replace the value of `NB_API_QUERY_URL` with the `IP:PORT` or domain name of the
 new neurobagel node-API you just deployed!
 
 If using the default port mappings for the query tool (`-p 3000:3000` in above command),

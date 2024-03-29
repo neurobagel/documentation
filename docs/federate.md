@@ -120,7 +120,7 @@ NB_API_TAG=latest
 
 # Configuration for query tool
 # Define the URL of the f-API as it will appear to a user
-API_QUERY_URL=http://206.12.85.19:8080 # (1)!
+NB_API_QUERY_URL=http://206.12.85.19:8080 # (1)!
 # Chose the docker image tag of the query tool (default latest)
 NB_QUERY_TAG=latest
 # Chose the port that the query tool will be exposed on the host and likely the network (default 3000)
@@ -131,7 +131,7 @@ NB_QUERY_PORT_HOST=3000
     f-API, these requests will be sent from the user's machine,
     not from the machine hosting the query tool.
 
-    Make sure you set the `API_QUERY_URL` in your `.env`
+    Make sure you set the `NB_API_QUERY_URL` in your `.env`
     as it will appear to a user on their own machine 
     - otherwise the request will fail.
 
@@ -172,7 +172,7 @@ services:
     ports:
       - "${NB_QUERY_PORT_HOST:-3000}:3000"
     environment:
-      - API_QUERY_URL=${API_QUERY_URL:-http://localhost:8000/}
+      - NB_API_QUERY_URL=${NB_API_QUERY_URL:-http://localhost:8000/}
 ```
 
 
