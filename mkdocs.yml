@@ -100,3 +100,4 @@ plugins:
       - url: "https://github.com/neurobagel/neurobagel_examples"
         include: [ "query-tool-results" ]
         branch: "main"
+  - include-markdown
