@@ -170,7 +170,7 @@ services:
   query:
     image: "neurobagel/query_tool:${NB_QUERY_TAG:-latest}"
     ports:
-      - "${NB_QUERY_PORT_HOST:-3000}:3000"
+      - "${NB_QUERY_PORT_HOST:-3000}:5173"
     environment:
       - NB_API_QUERY_URL=${NB_API_QUERY_URL:-http://localhost:8000/}
 ```
