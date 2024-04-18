@@ -45,13 +45,15 @@ This TSV contains the following columns:
 Note that this ID is not guaranteed to be persistent across versions of a graph/across graphs, but will always be identical across a pair of query tool result files. 
 _This column can be used as the key to join the dataset-level and participant-level results TSVs for a given query result, if needed._
 - `SubjectID`: subject label
+- `SessionID`: the label of the session
+- `SessionType`: either `ImagingSession` or `PhenotypicSession`
 - `Age`: subject age, if available
 - `Sex`: subject sex, if available
 - `Diagnosis`: list of diagnoses of subject, if available
 - `Assessment` : list of assessments completed by subject, if available
-- `SessionID`: session label
-- `SessionPath`: the path of the session directory relative to the dataset root (for datasets available through DataLad) or root of the filesystem where the dataset is stored
-- `NumSessions`: (aggregate variable) total number of available sessions for subject. 
+- `SessionFilePath`: the path of the session directory (for imaging sessions) either relative to the dataset root (for datasets available through DataLad) or relative to the root of the filesystem where the dataset is stored
+- `NumPhenotypicSessions`: (aggregate variable) total number of **phenotypic** sessions that match the query for a subject
+- `NumImagingSessions`: (aggregate variable) total number of **imaging** sessions that match the query for a subject
 This number will be the same across rows corresponding to the same subject.
 - `Modality`: imaging modalities acquired in the session, if available
 
