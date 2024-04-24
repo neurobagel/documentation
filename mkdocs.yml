@@ -101,3 +101,7 @@ plugins:
         include: [ "query-tool-results" ]
         branch: "main"
   - include-markdown
+
+extra:
+  analytics:
+    provider: plausible
