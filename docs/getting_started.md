@@ -114,7 +114,7 @@ cp local_nb_nodes.template.json local_nb_nodes.json
    
 !!! info
 
-    This is the minimial configuration you need to make before you can launch Neurobagel.
+    This is the minimal configuration you need to make before you can launch Neurobagel.
     In most cases, and especially when you are deploying Neurobagel for other users,
     you will have to make additional configurations. 
 
