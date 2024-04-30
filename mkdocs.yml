@@ -3,6 +3,7 @@ theme:
   name: material
   custom_dir: docs/overrides
   features:
+  - navigation.footer
   - navigation.tabs
   - navigation.tabs.sticky
   - navigation.indexes
@@ -24,6 +25,7 @@ nav:
   - Welcome: "index.md"
   - User guide:
     - Overview: "overview.md"
+    - Getting started: "getting_started.md"
     - Preparing data for annotation: "data_prep.md"
     - Annotating a dataset: "annotation_tool.md"
     - Generating harmonized subject-level metadata: "cli.md"
