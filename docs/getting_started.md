@@ -138,10 +138,34 @@ this will:
 - automatically setup and configure the services for you
 - automatically upload data to the Neurobagel graph (we provide example data for testing purposes)
 
+You can check that your docker containers have launched correctly by running:
+
+```bash
+docker ps
+```
+and you will want to see something like this to show all 4 services running:
+```bash
+❯ docker ps
+CONTAINER ID   IMAGE                              COMMAND                  CREATED         STATUS         PORTS                                                 NAMES
+d5e43f9ff0c2   neurobagel/federation_api:latest   "/bin/sh -c 'uvicorn…"   8 seconds ago   Up 8 seconds   0.0.0.0:8080->8000/tcp, :::8080->8000/tcp             recipes-federation-1
+f0a26d0ea574   neurobagel/api:latest              "/usr/src/api_entryp…"   8 seconds ago   Up 8 seconds   0.0.0.0:8000->8000/tcp, :::8000->8000/tcp             recipes-api-1
+d44d0b7359c8   ontotext/graphdb:10.3.1            "/usr/src/neurobagel…"   8 seconds ago   Up 8 seconds   0.0.0.0:7200->7200/tcp, :::7200->7200/tcp, 7300/tcp   recipes-graph-1
+29a61a2d83de   neurobagel/query_tool:latest       "/bin/sh -c 'npm run…"   8 seconds ago   Up 8 seconds   0.0.0.0:3000->5173/tcp, :::3000->5173/tcp             recipes-query_federation-1
+```
+
 The `docker-compose.yml` recipe provides additional profiles
 for specific deployment use cases. Please refer to
 our [detailed profile documentation]() for details.
 
 ## Next steps
 
+:tada: You are now the proud owner of a running Neurobagel stack. Here are some things you can do now:
 
+- Prepare your own dataset for Neurobagel: [TODO Nipoppy Link]()
+- Annotate your own data with the Neurobagel Annotator: [TODO link]()
+- Add your own data to the Neurobagel graph hso you can search over them: [TODO Link]()
+- Learn about the different configuration options in Neurobagel: [TODO link]()
+- Hopefully all went well, but if you are experiencing issues: 
+  - Look at our [TODO FrequentlyAskedQuestions]()
+  - and if that doesn't help: [TODO open an issue]()
+- Say hello on our discord: [TODO Discord]()
