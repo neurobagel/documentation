@@ -95,18 +95,53 @@ cd recipes
 2. Make copies of the template config files
 ```bash
 cp template.env .env
-cp local.nb_nodes.template.json local.nb_nodes.json  
+cp local_nb_nodes.template.json local_nb_nodes.json
 ```
-3. Edit the config files
-```bash
-ls
-```
+3. Change `NB_API_QUERY_URL` in the `.env` file 
 
+    You **must** replace the placeholder value for `NB_API_QUERY_URL`in the `.env` file
+    
+    ```bash
+    NB_API_QUERY_URL=http://XX.XX.XX.XX
+    ```
+    with the address for the machine you are going to deploy Neurobagel on.
+
+    - If you are deploying Neurobagel **for yourself** or just to try things out locally, 
+   you can use: `NB_API_QUERY_URL=http://localhost:8080` 
+    where `:8080` is the default port for the federation API.
+    - If you are deploying Neurobagel on a server for other users, 
+   you **must** use the IP (and Port) or URL that your users will access the server with. 
+   
+!!! info
+
+    This is the minimial configuration you need to make before you can launch Neurobagel.
+    In most cases, and especially when you are deploying Neurobagel for other users,
+    you will have to make additional configurations. 
+
+    Please refer to [our detailed documentation]() for a complete overview of 
+    configuration options.
 
 ## Launch Neurobagel
 
-### Profile 1
+Once you have configured your Neurobagel deployment by editing the `.env`
+and optionally the `local_nb_nodes.json` file, you can launch the Neurobagel
+tools using `docker compose` like this: 
+
 ```bash
 docker compose --profile full_stack up -d
 ```
-### Profile 2
+
+this will:
+
+- pull the correct docker images (if you haven't pulled them before)
+- launch the Neurobagel services
+- automatically setup and configure the services for you
+- automatically upload data to the Neurobagel graph (we provide example data for testing purposes)
+
+The `docker-compose.yml` recipe provides additional profiles
+for specific deployment use cases. Please refer to
+our [detailed profile documentation]() for details.
+
+## Next steps
+
+
