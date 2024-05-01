@@ -3,6 +3,8 @@ there are some recurring tasks you may have to do to keep it operating correctly
 
 ## Updating the Neurobagel services
 
+### Updating the Neurobagel Docker images
+
 We are continuously improving Neurobagel tools and services, 
 so you may want to update your Neurobagel node to the latest version to benefit from new features and bug fixes.
 We always publish our tools as [Docker images on Dockerhub](https://hub.docker.com/repositories/neurobagel).
@@ -25,6 +27,32 @@ docker compose --profile full_stack pull
 
     See the [deployment profiles](infrastructure.md#deployment-profiles) 
     section for more information on the available profiles.
+
+### Restarting services after an update
+
+Whether you have updated the Docker images, the [configuration](config.md), or the [data](#updating-the-data-in-your-graph) 
+of your Neurobagel node, you will need to restart the services to apply the changes.
+
+To shut down a running Neurobagel node, 
+navigate to the path on your file system where 
+you have stored the `docker-compose.yml` file from the [initial setup](getting_started.md) and run:
+
+```bash
+docker compose --profile full_stack down
+```
+
+Then, to start the services again:
+
+```bash
+docker compose --profile full_stack up -d
+```
+
+!!! note "Specify the deployment profile"
+    
+    Whenever you use `docker compose` commands, you also have to specify
+    the deployment profile you want to use with the `-p` or `--profile` flag.
+    If you forget this step, `docker compose` will use the default profile (`local_node`),
+    and will only shut down, update, or start the services for that profile.
 
 ## Updating the data in your graph
 
