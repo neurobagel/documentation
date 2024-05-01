@@ -34,6 +34,86 @@ For a local deployment, we recommend to **explicitly set** at least the followin
 
     For more information, see [Docker's environment variable precedence](https://docs.docker.com/compose/environment-variables/envvars-precedence/).
 
+### federation service specific `.env` variables
+
+#### `local_nb_nodes.json`
+`local_nb_nodes.json` contains the URLs and (arbitrary) names of the local nodes you wish to federate over.
+Each node must be denoted by a dictionary `{}` with two key-value pairs:  
+`"NodeName"` for the name of the node,  
+`"ApiURL"` for the URL of the API exposed for that node.  
+Multiple nodes must be wrapped in a list `[]`.
+
+Let's assume there are two local nodes already running on different servers of your institutional network, and you want to set up federation across both nodes:
+
+- a node named `"Node Archive"` running on your local computer (localhost), on port `8000` and 
+- a node named `"Node Recruitment"` running on a different computer with the local IP `192.168.0.1`, listening on the default http port `80`. 
+
+In your `local_nb_nodes.json` file you would configure this as follows:
+``` {.json title="local_nb_nodes.json"}
+[
+  {
+    "NodeName": "Node Archive",
+    "ApiURL": "http://host.docker.internal:8000",
+  },
+  {
+    "NodeName": "Node Recruitment",
+    "ApiURL": "http://192.168.0.1"
+  }
+]
+```
+
+!!! warning "Do not use `localhost`/`127.0.0.1` in `local_nb_nodes.json`"
+
+    If the local node API(s) you are federating over is running on the same host machine as your federation API (e.g., the URL to access the node API is http://localhost:XXXX), make sure that you replace `localhost` with `host.docker.internal` in the `"ApiURL"` for the node inside `local_nb_nodes.json`.
+    For an example, see the configuration for the node called `"Node Archive"` above.
+
+
+!!! Info "Nodes that do not need to be manually configured"
+    We maintain a list of public Neurobagel nodes 
+    [here](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json).
+    By default every new `f-API` will lookup this list
+    on startup and include it in the list of nodes to
+    federate over.
+    This also means that you do not have to manually
+    configure public nodes, i.e. you **do not have to explicitly add them** to your `local_nb_nodes.json` file.
+
+To add one or more local nodes to the list of nodes known to your `f-API`, simply add more dictionaries to this file.
+
+
+#### `.env`
+
+`.env` holds environment variables needed for the `f-API` deployment.
+
+``` {.bash .annotate title=".env"}
+# Configuration for f-API
+# Define the port that the f-API will run on INSIDE the docker container (default 8000)
+NB_API_PORT=8000
+# Define the port that the f-API will be exposed on to the host computer (and likely the outside network)
+NB_API_PORT_HOST=8080
+# Chose the docker image tag of the f-API (default latest)
+NB_API_TAG=latest
+
+# Configuration for query tool
+# Define the URL of the f-API as it will appear to a user
+NB_API_QUERY_URL=http://206.12.85.19:8080 # (1)!
+# Chose the docker image tag of the query tool (default latest)
+NB_QUERY_TAG=latest
+# Chose the port that the query tool will be exposed on the host and likely the network (default 3000)
+NB_QUERY_PORT_HOST=3000
+```
+
+1.  When a user uses the graphical query tool to query your
+    f-API, these requests will be sent from the user's machine,
+    not from the machine hosting the query tool.
+
+    Make sure you set the `NB_API_QUERY_URL` in your `.env`
+    as it will appear to a user on their own machine 
+    - otherwise the request will fail.
+
+The template file above can be adjusted according to your own deployment. 
+If you have used the default Neurobagel configuration for your local `n-API` up to this point, you likely do not need to change anything in this file.
+
+
 ## Manual post-launch setup
 
 The Neurobagel docker compose recipe will automatically setup and configure 
@@ -41,7 +121,7 @@ all services for you after deployment.
 The following steps are only documented as a reference and for advanced users.
 You should not need to do this in most cases.
 
-### GraphDB
+### Configuring graph store
 
 These are manual steps for configuring the GraphDB backend after launching the Neurobagel stack.
 
@@ -147,6 +227,7 @@ These are manual steps for configuring the GraphDB backend after launching the N
 
     Make sure you replace `my_db` with the name of the graph db you have just created.
 
+
 ??? info "Non-automated options for interacting with the GraphDB backend"
 
     1. Directly send HTTP requests to the HTTP REST endpoints of the GraphDB backend 
@@ -155,3 +236,39 @@ These are manual steps for configuring the GraphDB backend after launching the N
     Once your local GraphDB backend is running
     you can connect to the Workbench at [http://localhost:7200](http://localhost:7200).
     The Workbench is well documented on the [GraphDB website](https://graphdb.ontotext.com/documentation/10.0/workbench-user-interface.html).
+
+### Uploading data to the graph store
+
+Data are automatically uploaded to the graph from the path specified with 
+the `LOCAL_GRAPH_DATA` in the `.env` configuration file. when the Neurobagel stack is launched.
+However, if you need to upload data manually, you can use the script 
+[`add_data_to_graph.sh`](https://github.com/neurobagel/recipes/blob/main/scripts/add_data_to_graph.sh):
+
+``` bash
+./add_data_to_graph.sh PATH/TO/YOUR/GRAPH-DATA \
+  localhost:7200 repositories/my_db DBUSER DBPASSWORD \
+  --clear-data
+```
+
+### Adding vocabulary files to the graph database
+
+??? "Why we need vocabulary files in the graph"
+    In the context of an RDF store, in addition to information about specific observations of given standardized concepts such as "subject", "age", and "diagnosis" (represented in the subject-level JSONLDs generated by Neurobagel tools),
+    hierarchical relationships between concepts themselves can also be represented.
+    Including these relationships in a graph is important to be able to answer questions such as how many different diagnoses are represented in a graph database, to query for higher-order concepts for a given variable, and more.
+
+The participant variables modeled by Neurobagel are named using Neurobagel's own vocabulary (for more information, see this page on [controlled terms](./term_naming_standards.md)).
+This vocabulary, which defines internal relationships between vocabulary terms, 
+is serialized in the file [`nb_vocab.ttl`](https://github.com/neurobagel/recipes/blob/main/vocab/nb_vocab.ttl) available from the `neurobagel/recipes` repository.
+If you have cloned this repository, you will already have downloaded the vocabulary file.
+
+**The `nb_vocab.ttl` file should be added to every created Neurobagel graph database.**
+This can be done using the same script we used to upload the dataset JSONLD files, [`add_data_to_graph.sh`](https://github.com/neurobagel/recipes/blob/main/scripts/add_data_to_graph.sh), which adds all `.ttl` and/or `.jsonld` files in a given directory to the specified graph.
+
+Run the following code (assumes you are in the `scripts` subdirectory inside the `recipes` repository):
+
+``` bash
+./add_data_to_graph.sh ../vocab \
+  localhost:7200 repositories/my_db DBUSER DBPASSWORD
+```
+
