@@ -27,7 +27,7 @@ nav:
     - Overview: "overview.md"
     - Getting started: "getting_started.md"
     - Preparing data for annotation: "data_prep.md"
-    - Neurobagel services:
+    - Neurobagel tool guides:
         - Annotation tool: "annotation_tool.md"
         - Running cohort queries: "query_tool.md"
         - Generating harmonized subject-level metadata: "cli.md"

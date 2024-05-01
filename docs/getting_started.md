@@ -1,9 +1,3 @@
-If you want to just get an idea of what Neurobagel does:
-
-- take a look at our [Overview page](./overview.md),
-- try out the [Annotation tool](https://annotate.neurobagel.org/)
-- and [Query tool](https://query.neurobagel.org/)
-
 The following sections will show you 
 at a high level how to deploy and use the 
 Neurobagel tools on your own hardware.
