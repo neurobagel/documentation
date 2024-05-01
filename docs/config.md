@@ -10,7 +10,7 @@ and coordinates them to work together:
 - `api`: the [Neurobagel node API](api.md). It communicates with the graph store and determines 
     how detailed the response to a query should be.
 - `graph`: a third-party graph (RDF) store. At the moment our recipe uses the free tier
-    of [GraphDB](https://www.ontotext.com/products/graphdb/#comparison-table) for this.
+    of [GraphDB](https://db-engines.com/en/system/GraphDB) for this.
 - `federation`: the Neurobagel federation API. It is a special API that can federate over
     multiple Neurobagel nodes to provide a single point of access to multiple nodes.
 - `query_tool`: The [Neurobagel graphical query tool](query_tool.md) that allows users to query the federation API
