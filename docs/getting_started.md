@@ -3,7 +3,6 @@ If you want to just get an idea of what Neurobagel does:
 - take a look at our [Overview page](./overview.md),
 - try out the [Annotation tool](https://annotate.neurobagel.org/)
 - and [Query tool](https://query.neurobagel.org/)
-- or look at our [high level slide deck](https://docs.google.com/presentation/d/1dyRJkJWVwEBSU5CPqj-GuD5Jw_csltOULvGqVswycGc/edit?usp=sharing)
 
 The following sections will show you 
 at a high level how to deploy and use the 
@@ -104,7 +103,7 @@ cp local_nb_nodes.template.json local_nb_nodes.json
     ```bash
     NB_API_QUERY_URL=http://XX.XX.XX.XX
     ```
-    with the address for the machine you are going to deploy Neurobagel on.
+    with the address of the machine you are going to deploy Neurobagel on.
 
     - If you are deploying Neurobagel **for yourself** or just to try things out locally, 
    you can use: `NB_API_QUERY_URL=http://localhost:8080` 
@@ -161,9 +160,10 @@ our [detailed profile documentation]() for details.
 
 :tada: You are now the proud owner of a running Neurobagel stack. Here are some things you can do now:
 
-- Prepare your own dataset for Neurobagel: [TODO Nipoppy Link]()
-- Annotate your own data with the Neurobagel Annotator: [TODO link]()
-- Add your own data to the Neurobagel graph hso you can search over them: [TODO Link]()
+- Try your own query tool (e.g. [http://localhost:3000](http://localhost:3000)) and read about the [query tool](./query_tool.md) guide
+- [Prepare your own dataset](./data_prep.md) for Neurobagel
+- [Annotate your own data](./annotation_tool.md) with the Neurobagel Annotator
+- Add your own data to your Neurobagel graph to search: [TODO Link]()
 - Learn about the different configuration options in Neurobagel: [TODO link]()
 - Hopefully all went well, but if you are experiencing issues: 
   - Look at our [TODO FrequentlyAskedQuestions]()
