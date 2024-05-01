@@ -1,12 +1,55 @@
 Neurobagel is designed to be easily deployed with a single command without deep configuration.
 In many cases however, you will want to customize your deployment to fit your needs.
 
-## Deployment profiles
+## Deployment
 
-1. full_stack
-2. api_only
-3. query_tool_only
-4. local_node
+### Available services
+The Neurobagel docker compose recipe includes several services
+and coordinates them to work together:
+
+- `api`: the [Neurobagel node API](api.md). It communicates with the graph store and determines 
+    how detailed the response to a query should be.
+- `graph`: a third-party graph (RDF) store. At the moment our recipe uses the free tier
+    of [GraphDB](https://www.ontotext.com/products/graphdb/) for this.
+- `federation`: the Neurobagel federation API. It is a special API that can federate over
+    multiple Neurobagel nodes to provide a single point of access to multiple nodes.
+- `query_tool`: The [Neurobagel graphical query tool](query_tool.md) that allows users to query the federation API
+    and visualize the results. Because the query tool is a static app and is run locally
+    in the users browser, this service simply hosts the app.
+
+### Available profiles
+Because you may not need all of these services for your specific use case
+we have created deployment profiles that let you spin up specific combinations of services.
+
+1. `full_stack`: Best profile to get started with Neurobagel. 
+    It includes all services you need to run a single standalone Neurobagel node:
+       - `api`
+       - `graph`
+       - `federation`
+       - `query_tool`
+2. `local_node`: Best profile if you want to run a standalone Neurobagel node
+    and already a different deployment that provides federation and the query tool.
+    **This is the default profile** if you don't specify one.
+       - `api`
+       - `graph` 
+3. `local_federation`: Best profile if you already have standalone Neurobagel node
+    deployments running and you now want to provide federation over them.
+       - `federation`
+       - `query_tool`
+4. `local_node_query`: Legacy profile. This lets you create a local node without 
+    federation. The query tool hosted by this deployment will talk directly to the
+    local node.
+       - `api`
+       - `graph`
+       - `query_tool`
+
+You can then launch these profiles by using the `--profile` flag with `docker compose`:
+
+```bash
+docker compose --profile full_stack up -d
+```
+
+Take a look at the [getting started guide](getting_started.md) for more information setting up for a first launch.
 
 ## Environment variables
 

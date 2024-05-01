@@ -26,14 +26,16 @@ nav:
   - User guide:
     - Overview: "overview.md"
     - Getting started: "getting_started.md"
+    - Configuration options: "config.md"
     - Preparing data for annotation: "data_prep.md"
+    - Updating a harmonized dataset: "updating_dataset.md"
     - Neurobagel tool guides:
         - Annotation tool: "annotation_tool.md"
         - Running cohort queries: "query_tool.md"
         - Generating harmonized subject-level metadata: "cli.md"
         - Using the API directly: "api.md"
-    - Configuration options: "config.md"
-    - Updating a harmonized dataset: "updating_dataset.md"
+
+
 
 
   - Data models: 

@@ -74,7 +74,7 @@ docker --version
 ```bash
 docker compose version
 ```
-### Get neurobagel launch recipe
+### Get the neurobagel launch recipe
 
 The [`neurobagel/recipes` repository](https://github.com/neurobagel/recipes) 
 on GitHub contains our official
