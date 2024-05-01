@@ -3,7 +3,7 @@ at a high level how to deploy and use the
 Neurobagel tools on your own hardware.
 If you want to go more in depth on the technical
 architecture and options to configure Neurobagel
-for your use case, refer to [NOT YET MADE LINK]()
+for your use case, refer to [configuration section](config.md#deployment).
 
 Whether you just want to try them out 
 or deploy them for other users, 
@@ -157,9 +157,8 @@ our [detailed profile documentation]() for details.
 - Try your own query tool (e.g. [http://localhost:3000](http://localhost:3000)) and read about the [query tool](./query_tool.md) guide
 - [Prepare your own dataset](./data_prep.md) for Neurobagel
 - [Annotate your own data](./annotation_tool.md) with the Neurobagel Annotator
-- Add your own data to your Neurobagel graph to search: [TODO Link]()
-- Learn about the different configuration options in Neurobagel: [TODO link]()
+- [Add your own data to your Neurobagel graph](maintaining.md#updating-the-data-in-your-graph) to search
+- Learn about the different [configuration options](config.md) in Neurobagel
 - Hopefully all went well, but if you are experiencing issues: 
   - Look at our [TODO FrequentlyAskedQuestions]()
-  - and if that doesn't help: [TODO open an issue]()
-- Say hello on our discord: [TODO Discord]()
+  - and if that doesn't help: [open an issue on our github repos](https://github.com/neurobagel)
