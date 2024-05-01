@@ -30,8 +30,6 @@ nav:
     - Annotating a dataset: "annotation_tool.md"
     - Generating harmonized subject-level metadata: "cli.md"
     - Configuration options: "config.md"
-    - Set up a neurobagel node: "infrastructure.md"
-    - Set up local federation: "federate.md"
     - Updating a harmonized dataset: "updating_dataset.md"
     - Using the API directly: "api.md"
     - Running cohort queries: "query_tool.md"

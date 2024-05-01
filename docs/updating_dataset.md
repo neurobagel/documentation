@@ -41,5 +41,5 @@ This will ensure that if you use the latest version of the Neurobagel CLI to pro
 Note that if upgrading to a newer version of the data model, **you should regenerate the `.jsonld` files for _all_ datasets in your existing graph**.
 
 ## Updating the graph database
-To allow easy (re-)uploading of the updated `.jsonld` for your dataset(s) to a graph database, make a copy of it in a [central directory on your research data fileserver for storing local Neurobagel `jsonld` datasets](infrastructure.md#where-to-store-neurobagel-graph-ready-data). 
+To allow easy (re-)uploading of the updated `.jsonld` for your dataset(s) to a graph database, make a copy of it in a [central directory on your research data fileserver for storing local Neurobagel `jsonld` datasets](config.md). 
 Then, follow the steps for [uploading/updating a dataset in the graph database](infrastructure.md#uploading-data-to-the-graph) (needs to be completed by user with database write access).
