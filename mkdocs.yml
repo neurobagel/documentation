@@ -27,12 +27,15 @@ nav:
     - Overview: "overview.md"
     - Getting started: "getting_started.md"
     - Preparing data for annotation: "data_prep.md"
-    - Annotating a dataset: "annotation_tool.md"
-    - Generating harmonized subject-level metadata: "cli.md"
+    - Neurobagel services:
+        - Annotation tool: "annotation_tool.md"
+        - Running cohort queries: "query_tool.md"
+        - Generating harmonized subject-level metadata: "cli.md"
+        - Using the API directly: "api.md"
     - Configuration options: "config.md"
     - Updating a harmonized dataset: "updating_dataset.md"
-    - Using the API directly: "api.md"
-    - Running cohort queries: "query_tool.md"
+
+
   - Data models: 
     - Augmented BIDS data dictionaries: "dictionaries.md"
     - Data files for Neurobagel graphs: "graph_data.md"
