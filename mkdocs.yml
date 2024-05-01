@@ -27,8 +27,8 @@ nav:
     - Overview: "overview.md"
     - Getting started: "getting_started.md"
     - Configuration options: "config.md"
+    - Maintaining a node: "maintaining.md"
     - Preparing data for annotation: "data_prep.md"
-    - Updating a harmonized dataset: "updating_dataset.md"
     - Neurobagel tool guides:
         - Annotation tool: "annotation_tool.md"
         - Running cohort queries: "query_tool.md"

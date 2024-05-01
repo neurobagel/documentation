@@ -150,7 +150,7 @@ You could run the CLI as follows:
 Neurobagel is under active, early development and future releases of the CLI may introduce breaking changes to the data model for subject-level information in a `.jsonld` graph file. Breaking changes will be highlighted in the release notes!
 
 _If you have already created `.jsonld` files for your Neurobagel graph database using the CLI_, 
-they can be quickly re-generated under the new data model by following the instructions [here](updating_dataset.md#following-a-change-in-the-neurobagel-data-model) so that they will not conflict with dataset `.jsonld` files generated using the latest CLI version.
+they can be quickly re-generated under the new data model by following the instructions [here](maintaining.md#following-a-change-in-the-neurobagel-data-model) so that they will not conflict with dataset `.jsonld` files generated using the latest CLI version.
 
 
 ## Development environment
