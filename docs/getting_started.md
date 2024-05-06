@@ -1,15 +1,16 @@
 The following sections will show you 
 at a high level how to deploy and use the 
 Neurobagel tools on your own hardware.
-If you want to go more in depth on the technical
+
+For more details on the technical
 architecture and options to configure Neurobagel
-for your use case, refer to [configuration section](config.md#deployment).
+for your deployment context, refer to the [Configuration section](config.md).
 
 Whether you just want to try them out 
 or deploy them for other users, 
 the setup is the same.
 
-## Prerequisites
+## Requirements
 
 Neurobagel tools are provided as Docker containers 
 and are launched with docker compose. 
@@ -29,29 +30,23 @@ for your operating system:
 
 === "Linux"
 
-    Directly install `docker engine` 
+    1. [Install the Docker engine](https://docs.docker.com/engine/install/)
+     and [follow the post-setup instructions](https://docs.docker.com/engine/install/linux-postinstall/)
     
-    - [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)
-    - and then follow the post-setup instructions: [https://docs.docker.com/engine/install/linux-postinstall/](https://docs.docker.com/engine/install/linux-postinstall/)
-
-    Next, install `docker compose`: 
-
-    - [https://docs.docker.com/compose/install/linux/#install-using-the-repository](https://docs.docker.com/compose/install/linux/#install-using-the-repository)
+    2. [Install Docker Compose using the repository option](https://docs.docker.com/compose/install/linux/#install-using-the-repository)
 
 === "Windows"
 
-    To install `docker` on Windows you can either:
-
-    - install "Docker Desktop on Windows": [https://docs.docker.com/desktop/install/windows-install/](https://docs.docker.com/desktop/install/windows-install/) or
-    - consider using [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install)
-    to get a Windows supported Linux installation. You can then install `docker` using the Linux instructions
-
-    If you install "Docker Desktop on Windows" you will also install `docker compose` automatically.
-
+   1. [Install Docker Desktop on Windows](https://docs.docker.com/desktop/install/windows-install/). 
+   This will install both `docker` and `docker compose`.
+   
+   2. We strongly recommend also [installing Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install)
+    to get a Windows-supported Linux installation for a more seamless Neurobagel deployment experience. 
+    Simply follow [these instructions](https://docs.docker.com/desktop/wsl/) to make your existing Docker Desktop installation (including Docker and Docker Compose) available when running WSL.
 === "MacOS"
 
-    Install Docker Desktop on Mac: [https://docs.docker.com/desktop/install/mac-install/](https://docs.docker.com/desktop/install/mac-install/).
-    If you install "Docker Desktop on Mac" you will also install `docker compose` automatically.
+    [Install Docker Desktop on Mac](https://docs.docker.com/desktop/install/mac-install/).
+    This will install both `docker` and `docker compose` automatically.
 
 ??? warning "Linux is the only supported OS"
 
@@ -74,18 +69,18 @@ docker --version
 ```bash
 docker compose version
 ```
-### Get the neurobagel launch recipe
+### The Neurobagel node deployment recipe
 
 The [`neurobagel/recipes` repository](https://github.com/neurobagel/recipes) 
 on GitHub contains our official
-docker compose setup recipe. 
+docker compose recipe and template configuration files for setting up a local Neurobagel node.
 
-1. Clone the github repository to your machine and navigate to it
+1. Clone the GitHub repository to your machine and navigate to it
 ```bash
 git clone https://github.com/neurobagel/recipes.git
 cd recipes
 ```
-2. Make copies of the template config files
+2. Make copies of the template configuration files to edit for your deployment (do not edit the templates themselves)
 ```bash
 cp template.env .env
 cp local_nb_nodes.template.json local_nb_nodes.json
@@ -126,10 +121,10 @@ docker compose --profile full_stack up -d
 
 this will:
 
-- pull the correct docker images (if you haven't pulled them before)
-- launch the Neurobagel services
-- automatically setup and configure the services for you
-- automatically upload data to the Neurobagel graph (we provide example data for testing purposes)
+- pull the required Docker images (if you haven't pulled them before)
+- launch the containers for Neurobagel services
+- automatically set up and configure the services based on your configuration files
+- automatically upload specified datasets to the Neurobagel graph (by default, it will upload an example dataset we have provided for a test deployment)
 
 You can check that your docker containers have launched correctly by running:
 
@@ -146,13 +141,13 @@ d44d0b7359c8   ontotext/graphdb:10.3.1            "/usr/src/neurobagel…"   8 s
 29a61a2d83de   neurobagel/query_tool:latest       "/bin/sh -c 'npm run…"   8 seconds ago   Up 8 seconds   0.0.0.0:3000->5173/tcp, :::3000->5173/tcp             recipes-query_federation-1
 ```
 
-The `docker-compose.yml` recipe provides additional profiles
-for specific deployment use cases. Please refer to
+The `docker-compose.yml` recipe provides additional service profiles
+for different deployment use cases (e.g., if you do not need to set up local query federation). Please refer to
 our [detailed profile documentation]() for details.
 
 ## Next steps
 
-:tada: You are now the proud owner of a running Neurobagel stack. Here are some things you can do now:
+:tada: You are now the proud owner of a running Neurobagel node. Here are some things you can do now:
 
 - Try your own query tool (e.g. [http://localhost:3000](http://localhost:3000)) and read about the [query tool](./query_tool.md) guide
 - [Prepare your own dataset](./data_prep.md) for Neurobagel
