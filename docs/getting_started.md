@@ -1,6 +1,6 @@
 The following sections will show you 
 at a high level how to deploy and use the 
-Neurobagel tools on your own hardware.
+[Neurobagel tools](config.md#available-services) on your own hardware.
 If you want to go more in depth on the technical
 architecture and options to configure Neurobagel
 for your use case, refer to [configuration section](config.md#deployment).
