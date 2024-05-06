@@ -9,33 +9,37 @@ and coordinates them to work together:
 
 - `api`: the [Neurobagel node API](api.md). It communicates with the graph store and determines 
     how detailed the response to a query should be.
-- `graph`: a third-party graph (RDF) store. At the moment our recipe uses the free tier
+- `graph`: a third-party graph (RDF) store, which stores Neurobagel-harmonized data to be queried. At the moment our recipe uses the free tier
     of [GraphDB](https://db-engines.com/en/system/GraphDB) for this.
 - `federation`: the Neurobagel federation API. It is a special API that can federate over
     multiple Neurobagel nodes to provide a single point of access to multiple nodes.
-- `query_tool`: The [Neurobagel graphical query tool](query_tool.md) that allows users to query the federation API
+    By default it will federate over all public nodes and any local nodes you specify. 
+- `query_tool`: The [Neurobagel graphical query tool](query_tool.md) that allows users to query the federation API (or node API)
     and visualize the results. Because the query tool is a static app and is run locally
     in the users browser, this service simply hosts the app.
 
 ### Available profiles
-Because you may not need all of these services for your specific use case
-we have created deployment profiles that let you spin up specific combinations of services.
+Neurobagel offers different deployment profiles that allow you to spin up specific combinations of services, depending on your use case.
 
 1. `full_stack`: Best profile to get started with Neurobagel. 
-    It includes all services you need to run a single standalone Neurobagel node:
+    It includes all services you need to run a single standalone Neurobagel node. 
+    :information_source: By default this profile will also federate over all publicly accessible neurobagel nodes:
        - `api`
        - `graph`
        - `federation`
        - `query_tool`
 2. `local_node`: Best profile if you want to run a standalone Neurobagel node
     and already a different deployment that provides federation and the query tool.
-    **This is the default profile** if you don't specify one.
+    :information_source: **This is the default profile** if you don't specify one.
        - `api`
        - `graph` 
-3. `local_federation`: Best profile if you already have standalone Neurobagel node
-    deployments running and you now want to provide federation over them.
-       - `federation`
-       - `query_tool`
+3. `local_federation`: Best profile if you already have standalone and private Neurobagel node
+    deployments running and you now want to provide federation over them. 
+    :information_source: If you only want to federate over a single node and all public Neurobagel nodes
+    you can use the `full_stack` profile. If you use the `local_federation` profile, 
+    you will have to [manually configure your `local_nb_nodes.json` file](#local_nb_nodesjson).
+      - `federation`
+      - `query_tool`
 4. `local_node_query`: Legacy profile. This lets you create a local node without 
     federation. The query tool hosted by this deployment will talk directly to the
     local node.
@@ -43,7 +47,7 @@ we have created deployment profiles that let you spin up specific combinations o
        - `graph`
        - `query_tool`
 
-You can then launch these profiles by using the `--profile` flag with `docker compose`:
+You can then launch these profiles by using the `--profile` flag with `docker compose`, e.g.:
 
 ```bash
 docker compose --profile full_stack up -d
@@ -57,15 +61,14 @@ Below are all the possible Neurobagel environment variables that can be set in `
 
 {{ read_table('./repos/recipes/docs/neurobagel_environment_variables.tsv') }}
 
-For a local deployment, we recommend to **explicitly set** at least the following variables in `.env`
-(note that `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` must always be set):
+At minimum, we recommend reviewing and changing the values of the following variables in `.env` for security purposes:
 
+> `NB_GRAPH_ADMIN_PASSWORD`
 > `NB_GRAPH_USERNAME`  
 > `NB_GRAPH_PASSWORD`  
-> `NB_GRAPH_DB`  
-> `NB_GRAPH_IMG`  
+> `NB_GRAPH_DB` 
 > `NB_RETURN_AGG`  
-> `NB_API_ALLOWED_ORIGINS`
+> `NB_API_QUERY_URL`
 
 ??? warning "Ensure that shell variables do not clash with `.env` file"
     
@@ -80,9 +83,7 @@ For a local deployment, we recommend to **explicitly set** at least the followin
 !!! tip
     Double check that any environment variables you have customized in `.env` are resolved with your expected values using the command `docker compose config`.
 
-### federation service specific `.env` variables
-
-#### `local_nb_nodes.json`
+### `local_nb_nodes.json`
 `local_nb_nodes.json` contains the URLs and (arbitrary) names of the local nodes you wish to federate over.
 Each node must be denoted by a dictionary `{}` with two key-value pairs:  
 `"NodeName"` for the name of the node,  
@@ -98,8 +99,8 @@ In your `local_nb_nodes.json` file you would configure this as follows:
 ``` {.json title="local_nb_nodes.json"}
 [
   {
-    "NodeName": "Node Archive",
-    "ApiURL": "http://host.docker.internal:8000",
+    "NodeName": "My Institute",
+    "ApiURL": "https://neurobagel.myinstitute.edu",
   },
   {
     "NodeName": "Node Recruitment",
@@ -110,8 +111,10 @@ In your `local_nb_nodes.json` file you would configure this as follows:
 
 !!! warning "Do not use `localhost`/`127.0.0.1` in `local_nb_nodes.json`"
 
-    If the local node API(s) you are federating over is running on the same host machine as your federation API (e.g., the URL to access the node API is http://localhost:XXXX), make sure that you replace `localhost` with `host.docker.internal` in the `"ApiURL"` for the node inside `local_nb_nodes.json`.
-    For an example, see the configuration for the node called `"Node Archive"` above.
+    Even if the local node API(s) you are federating over are running 
+    on the same host machine as your federation API 
+    you cannot use `localhost` here and instead have to provide a network-accessible URL or IP address.
+    For an example, see the configuration for the node called `"My Institute"` above.
 
 
 !!! Info "Nodes that do not need to be manually configured"
@@ -125,49 +128,17 @@ In your `local_nb_nodes.json` file you would configure this as follows:
 
 To add one or more local nodes to the list of nodes known to your `f-API`, simply add more dictionaries to this file.
 
-
-#### `.env`
-
-`.env` holds environment variables needed for the `f-API` deployment.
-
-``` {.bash .annotate title=".env"}
-# Configuration for f-API
-# Define the port that the f-API will run on INSIDE the docker container (default 8000)
-NB_API_PORT=8000
-# Define the port that the f-API will be exposed on to the host computer (and likely the outside network)
-NB_API_PORT_HOST=8080
-# Chose the docker image tag of the f-API (default latest)
-NB_API_TAG=latest
-
-# Configuration for query tool
-# Define the URL of the f-API as it will appear to a user
-NB_API_QUERY_URL=http://206.12.85.19:8080 # (1)!
-# Chose the docker image tag of the query tool (default latest)
-NB_QUERY_TAG=latest
-# Chose the port that the query tool will be exposed on the host and likely the network (default 3000)
-NB_QUERY_PORT_HOST=3000
-```
-
-1.  When a user uses the graphical query tool to query your
-    f-API, these requests will be sent from the user's machine,
-    not from the machine hosting the query tool.
-
-    Make sure you set the `NB_API_QUERY_URL` in your `.env`
-    as it will appear to a user on their own machine 
-    - otherwise the request will fail.
-
-The template file above can be adjusted according to your own deployment. 
-If you have used the default Neurobagel configuration for your local `n-API` up to this point, you likely do not need to change anything in this file.
-
-
-## Manual post-launch setup
+## Manually setting up a Neurobagel graph backend
 
 The Neurobagel docker compose recipe will automatically setup and configure 
 all services for you after deployment. 
-The following steps are only documented as a reference and for advanced users.
-You should not need to do this in most cases.
 
-### Configuring graph store
+!!! warning "For advanced users / debugging purposes only"
+
+    The following steps are only documented as a reference and for advanced users.
+    You should not need to do this in most cases.
+
+### Configuring the graph store
 
 These are manual steps for configuring the GraphDB backend after launching the Neurobagel stack.
 
