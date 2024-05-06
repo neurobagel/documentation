@@ -260,13 +260,12 @@ These are manual steps for configuring the GraphDB backend after launching the N
 
 Data are automatically uploaded to the graph from the path specified with 
 the `LOCAL_GRAPH_DATA` in the `.env` configuration file. when the Neurobagel stack is launched.
-However, if you need to upload data manually, you can use the script 
+Below is an example of how you would upload data manually using the script 
 [`add_data_to_graph.sh`](https://github.com/neurobagel/recipes/blob/main/scripts/add_data_to_graph.sh):
 
 ``` bash
 ./add_data_to_graph.sh PATH/TO/YOUR/GRAPH-DATA \
   localhost:7200 repositories/my_db DBUSER DBPASSWORD \
-  --clear-data
 ```
 
 ### Updating a dataset in the graph database
@@ -292,9 +291,9 @@ is serialized in the file [`nb_vocab.ttl`](https://github.com/neurobagel/recipes
 If you have cloned this repository, you will already have downloaded the vocabulary file.
 
 **The `nb_vocab.ttl` file should be added to every created Neurobagel graph database.**
-This can be done using the same script we used to upload the dataset JSONLD files, [`add_data_to_graph.sh`](https://github.com/neurobagel/recipes/blob/main/scripts/add_data_to_graph.sh), which adds all `.ttl` and/or `.jsonld` files in a given directory to the specified graph.
+Below is an example of how you would do this using the same script we used to upload the dataset JSONLD files, [`add_data_to_graph.sh`](https://github.com/neurobagel/recipes/blob/main/scripts/add_data_to_graph.sh).
 
-Run the following code (assumes you are in the `scripts` subdirectory inside the `recipes` repository):
+(assumes you are in the `scripts` subdirectory inside the `recipes` repository):
 
 ``` bash
 ./add_data_to_graph.sh ../vocab \
