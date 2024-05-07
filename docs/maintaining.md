@@ -38,7 +38,7 @@ of your Neurobagel node, you will need to restart the services to apply the chan
     If you have updated the data model or the data in your graph, 
     you should **not** restart the graph backend services without first updating the data in the graph.
     
-    This is a current limiation of the deployment profile and we are working to resolve it.
+    This is a current limitation of the deployment profile and we are working to resolve it.
 
     In the meantime, here is how you can restart and update the services in your Neurobagel node
     without affecting the graph backend: 
