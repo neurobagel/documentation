@@ -1,14 +1,15 @@
-The following sections will show you 
-at a high level how to deploy and use the 
-[Neurobagel tools](config.md#available-services) on your own hardware.
+The following sections will get you started
+with deploying your own [Neurobagel node](config.md#available-services),
+a graphical query tool, 
+and a local federation API
+(everything in blue in the picture below)
+that lets search across your own data and public Neurobagel nodes.
 
-For more details on the technical
-architecture and options to configure Neurobagel
-for your deployment context, refer to the [Configuration section](config.md).
+![Neurobagel node](../imgs/neurobagel_local_node.jpg)
 
-Whether you just want to try them out 
-or deploy them for other users, 
-the setup is the same.
+To prepare your Neurobagel node for production use,
+and to configure your deployment according to your specific needs,
+refer to the detailed [Configuration documentation](config.md).
 
 ## Requirements
 
@@ -153,8 +154,7 @@ our [detailed profile documentation](config.md#environment-variables) for detail
 - Try the Neurobagel node you just deployed by accessing:
     - your own query tool at  [http://localhost:3000](http://localhost:3000) and reading the [query tool](./query_tool.md) guide
     - the interactive API docs at [http://localhost:8000/docs](http://localhost:8000/docs) and reading the [API](./api.md) guides
-- [Prepare your own dataset](./data_prep.md) for Neurobagel
-- [Annotate your own data](./annotation_tool.md) with the Neurobagel Annotator
+- [Prepare your own dataset](./data_prep.md) for annotation with Neurobagel
 - [Add your own data to your Neurobagel graph](maintaining.md#updating-the-data-in-your-graph) to search
 - Learn about the different [configuration options](config.md) in Neurobagel
 - Hopefully all went well, but if you are experiencing issues take a look at our [getting help guide](./getting_help.md)
