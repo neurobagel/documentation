@@ -1,3 +1,7 @@
+{%
+    include-markdown "cli_note.md"
+%}
+
 ## What is Nipoppy? 
 
 [Nipoppy](https://github.com/neurodatascience/nipoppy) is a lightweight framework for analyzing (neuro)imaging and clinical data. It is designed to help users do the following:
