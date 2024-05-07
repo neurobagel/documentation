@@ -1,3 +1,7 @@
+{%
+    include-markdown "nipoppy/cli_note.md"
+%}
+
 ## Code installation and dataset setup
 
 ---
