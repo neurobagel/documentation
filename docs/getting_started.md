@@ -1,4 +1,4 @@
-The following sections will show you 
+kThe following sections will show you 
 at a high level how to deploy and use the 
 [Neurobagel tools](config.md#available-services) on your own hardware.
 
@@ -28,19 +28,32 @@ and are launched with docker compose.
 If you haven't yet, please install both `docker` and `docker compose`
 for your operating system:
 
+Because we rely on some modern features of these
+tools, please make sure you have at least the following
+versions on your machine:
+
+- `docker` engine: [v20.10.24](https://docs.docker.com/engine/release-notes/20.10/) or greater
+```bash
+docker --version
+```
+- `docker compose`: [v2.0.0](https://github.com/docker/compose/releases/tag/v2.0.0) or above
+```bash
+docker compose version
+```
+
 === "Linux"
 
     1. [Install the Docker engine](https://docs.docker.com/engine/install/)
-     and [follow the post-setup instructions](https://docs.docker.com/engine/install/linux-postinstall/)
+    and [follow the post-setup instructions](https://docs.docker.com/engine/install/linux-postinstall/)
     
     2. [Install Docker Compose using the repository option](https://docs.docker.com/compose/install/linux/#install-using-the-repository)
 
 === "Windows"
 
-   1. [Install Docker Desktop on Windows](https://docs.docker.com/desktop/install/windows-install/). 
-   This will install both `docker` and `docker compose`.
-   
-   2. We strongly recommend also [installing Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install)
+    1. [Install Docker Desktop on Windows](https://docs.docker.com/desktop/install/windows-install/). 
+    This will install both `docker` and `docker compose`.
+
+    2. We strongly recommend also [installing Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install)
     to get a Windows-supported Linux installation for a more seamless Neurobagel deployment experience. 
     Simply follow [these instructions](https://docs.docker.com/desktop/wsl/) to make your existing Docker Desktop installation (including Docker and Docker Compose) available when running WSL.
 
@@ -58,18 +71,6 @@ for your operating system:
     but as a small team with limited resources we won't be able to 
     help you debug Operating System specific problems. 
 
-Because we rely on some modern features of these
-tools, please make sure you have at least the following
-versions on your machine:
-
-- `docker` engine: [v20.10.24](https://docs.docker.com/engine/release-notes/20.10/) or greater
-```bash
-docker --version
-```
-- `docker compose`: [v2.0.0](https://github.com/docker/compose/releases/tag/v2.0.0) or above
-```bash
-docker compose version
-```
 ### The Neurobagel node deployment recipe
 
 The [`neurobagel/recipes` repository](https://github.com/neurobagel/recipes) 
@@ -144,17 +145,17 @@ d44d0b7359c8   ontotext/graphdb:10.3.1            "/usr/src/neurobagel…"   8 s
 
 The `docker-compose.yml` recipe provides additional service profiles
 for different deployment use cases (e.g., if you do not need to set up local query federation). Please refer to
-our [detailed profile documentation]() for details.
+our [detailed profile documentation](config.md#environment-variables) for details.
 
 ## Next steps
 
 :tada: You are now the proud owner of a running Neurobagel node. Here are some things you can do now:
 
-- Try your own query tool (e.g. [http://localhost:3000](http://localhost:3000)) and read about the [query tool](./query_tool.md) guide
+- Try the Neurobagel node you just deployed by accessing:
+    - your own query tool at  [http://localhost:3000](http://localhost:3000) and reading the [query tool](./query_tool.md) guide
+    - the interactive API docs at [http://localhost:8000/docs](http://localhost:8000/docs) and reading the [API](./api.md) guides
 - [Prepare your own dataset](./data_prep.md) for Neurobagel
 - [Annotate your own data](./annotation_tool.md) with the Neurobagel Annotator
 - [Add your own data to your Neurobagel graph](maintaining.md#updating-the-data-in-your-graph) to search
 - Learn about the different [configuration options](config.md) in Neurobagel
-- Hopefully all went well, but if you are experiencing issues: 
-  - Look at our [TODO FrequentlyAskedQuestions]()
-  - and if that doesn't help: [open an issue on our github repos](https://github.com/neurobagel)
+- Hopefully all went well, but if you are experiencing issues take a look at our [getting help guide](./getting_help.md)
