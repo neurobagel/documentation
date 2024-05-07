@@ -40,7 +40,8 @@ Neurobagel offers different deployment profiles that allow you to spin up specif
     you will have to [manually configure your `local_nb_nodes.json` file](#local_nb_nodesjson).
       - `federation`
       - `query_tool`
-4. `local_node_query`: Legacy profile. This lets you create a local node without 
+4. `local_node_query`: :warning: Deprecated profile. 
+    This profile lets you create a local node without 
     federation. The query tool hosted by this deployment will talk directly to the
     local node.
        - `api`

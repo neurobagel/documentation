@@ -22,7 +22,7 @@ and are launched with docker compose.
     them with our provided `docker-compose.yml` recipe.
 
     Do not install graphDB locally on your computer, 
-    as that can interfere with the deployment of the Neurobagel tools.
+    as doing so can interfere with the deployment of the Neurobagel tools.
 
 ### `docker` and `docker compose` 
 If you haven't yet, please install both `docker` and `docker compose`
@@ -113,9 +113,8 @@ cp local_nb_nodes.template.json local_nb_nodes.json
 
 ## Launch Neurobagel
 
-Once you have configured your Neurobagel deployment by editing the `.env`
-and optionally the `local_nb_nodes.json` file, you can launch the Neurobagel
-tools using `docker compose` like this: 
+Once you have edited the `.env` and optionally the `local_nb_nodes.json` file, 
+you can launch your own Neurobagel node with the following `docker compose` command:
 
 ```bash
 docker compose --profile full_stack up -d
@@ -124,7 +123,7 @@ docker compose --profile full_stack up -d
 this will:
 
 - pull the required Docker images (if you haven't pulled them before)
-- launch the containers for Neurobagel services
+- launch the containers for [the Neurobagel services](config.md#available-services
 - automatically set up and configure the services based on your configuration files
 - automatically upload datas to the Neurobagel graph (by default, it will upload an example dataset we have provided for testing)
 
