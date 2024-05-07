@@ -1,5 +1,5 @@
 {%
-    include-markdown "cli_note.md"
+    include-markdown "nipoppy/cli_note.md"
 %}
 
 ## What is Nipoppy? 
