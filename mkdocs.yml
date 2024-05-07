@@ -25,19 +25,17 @@ nav:
   - Welcome: "index.md"
   - User guide:
     - Overview: "overview.md"
-    - Getting started: "getting_started.md"
-    - Configuration options: "config.md"
-    - Maintaining a node: "maintaining.md"
-    - Preparing data for annotation: "data_prep.md"
-    - Neurobagel tool guides:
-        - Annotation tool: "annotation_tool.md"
+    - Finding data:
         - Running cohort queries: "query_tool.md"
-        - Generating harmonized subject-level metadata: "cli.md"
+    - Setting up your own Neurobagel node:
+        - Getting started: "getting_started.md"
+        - Configuring a node: "config.md"
+        - Maintaining a node: "maintaining.md"
         - Using the API directly: "api.md"
-
-
-
-
+    - Annotating your data:
+        - Preparing data for annotation: "data_prep.md"
+        - Annotation tool guide: "annotation_tool.md"
+        - Generating harmonized subject-level metadata: "cli.md"
   - Data models: 
     - Augmented BIDS data dictionaries: "dictionaries.md"
     - Data files for Neurobagel graphs: "graph_data.md"

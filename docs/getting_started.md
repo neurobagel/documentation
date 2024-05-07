@@ -1,4 +1,4 @@
-kThe following sections will show you 
+The following sections will show you 
 at a high level how to deploy and use the 
 [Neurobagel tools](config.md#available-services) on your own hardware.
 
