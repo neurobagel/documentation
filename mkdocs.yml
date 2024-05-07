@@ -25,8 +25,7 @@ nav:
   - Welcome: "index.md"
   - User guide:
     - Overview: "overview.md"
-    - Finding data:
-        - Running cohort queries: "query_tool.md"
+    - How to run cohort queries: "query_tool.md"
     - Setting up your own Neurobagel node:
         - Getting started: "getting_started.md"
         - Configuring a node: "config.md"
@@ -36,7 +35,7 @@ nav:
         - Preparing data for annotation: "data_prep.md"
         - Annotation tool guide: "annotation_tool.md"
         - Generating harmonized subject-level metadata: "cli.md"
-  - Data models: 
+  - Data models:
     - Augmented BIDS data dictionaries: "dictionaries.md"
     - Data files for Neurobagel graphs: "graph_data.md"
     - Naming conventions for terms: "term_naming_standards.md"

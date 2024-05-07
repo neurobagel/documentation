@@ -18,3 +18,9 @@ The Neurobagel ecosystem comprises four primary tools:
     - static site, deployed on GitHub Pages
 
 You can also find official Docker images for our containerized tools on the [Neurobagel Docker Hub profile](https://hub.docker.com/u/neurobagel).
+
+## What to do next
+
+- [Learn how to run a cohort query](./query_tool.md) on publicly accessible Neurobagel nodes
+- [Deploy your own Neurobagel node](./getting_started.md) using our official Docker Compose recipe
+- [Prepare your own dataset](./data_prep.md) for annotation and harmonization with Neurobagel
