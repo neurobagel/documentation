@@ -109,7 +109,7 @@ cp local_nb_nodes.template.json local_nb_nodes.json
     In most cases, and especially when you are deploying Neurobagel for other users,
     you will have to make additional configurations. 
 
-    Please refer to [our detailed documentation]() for a complete overview of 
+    Please refer to [our detailed documentation](config.md#environment-variables) for a complete overview of 
     configuration options.
 
 ## Launch Neurobagel
