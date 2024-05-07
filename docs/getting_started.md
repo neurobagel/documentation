@@ -125,7 +125,7 @@ this will:
 - pull the required Docker images (if you haven't pulled them before)
 - launch the containers for [the Neurobagel services](config.md#available-services
 - automatically set up and configure the services based on your configuration files
-- automatically upload datas to the Neurobagel graph (by default, it will upload an example dataset we have provided for testing)
+- automatically upload data to the Neurobagel graph (by default, it will upload an example dataset we have provided for testing)
 
 You can check that your docker containers have launched correctly by running:
 
