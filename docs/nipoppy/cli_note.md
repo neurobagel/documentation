@@ -1,4 +1,4 @@
-!!! note
+!!! note "Nipoppy docs are moving"
 
     Nipoppy is undergoing a major refactor to move from scripts to a 
     command-line interface (CLI) and Python API. The new documentation website
