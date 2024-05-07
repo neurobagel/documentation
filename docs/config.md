@@ -269,16 +269,6 @@ Below is an example of how you would upload data manually using the script
   localhost:7200 repositories/my_db DBUSER DBPASSWORD \
 ```
 
-### Updating a dataset in the graph database
-If the raw data for a previously harmonized dataset (i.e., already has a corresponding JSONLD _which is in the graph_) has been updated, [a new JSONLD file must first be generated for that dataset](maintaining.md).
-To push the update to the corresponding graph database, our current recommended approach is to simply clear the database and re-upload all existing datasets, including the **new** JSONLD file for the updated dataset.
-
-To do this, rerun `add_data_to_graph.sh` on the directory containing the JSONLD files currently in the graph database, including the replaced JSONLD file for the dataset that has been updated.
-**Make sure to include the `--clear-data` flag when running the script so that the database is cleared first.**
-
-**After the dataset(s) have been uploaded, ensure that you also re-upload the Neurobagel vocabulary file `nb_vocab.ttl` to the graph database following [this section](#adding-vocabulary-files-to-the-graph-database).**
-
-
 ### Adding vocabulary files to the graph database
 
 ??? "Why we need vocabulary files in the graph"
