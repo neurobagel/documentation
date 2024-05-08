@@ -3,6 +3,7 @@ theme:
   name: material
   custom_dir: docs/overrides
   features:
+  - navigation.footer
   - navigation.tabs
   - navigation.tabs.sticky
   - navigation.indexes
@@ -24,15 +25,19 @@ nav:
   - Welcome: "index.md"
   - User guide:
     - Overview: "overview.md"
-    - Preparing data for annotation: "data_prep.md"
-    - Annotating a dataset: "annotation_tool.md"
-    - Generating harmonized subject-level metadata: "cli.md"
-    - Set up a neurobagel node: "infrastructure.md"
-    - Set up local federation: "federate.md"
-    - Updating a harmonized dataset: "updating_dataset.md"
-    - Using the API directly: "api.md"
-    - Running cohort queries: "query_tool.md"
-  - Data models: 
+    - Running cohort queries:
+        - Search the public nodes: "public_nodes.md"
+        - How to use the query tool: "query_tool.md"
+        - Querying the API directly: "api.md"
+    - Setting up your own Neurobagel node:
+        - Getting started: "getting_started.md"
+        - Configuring a node: "config.md"
+        - Maintaining a node: "maintaining.md"
+    - Annotating your data:
+        - Preparing data for annotation: "data_prep.md"
+        - Annotation tool guide: "annotation_tool.md"
+        - Generating harmonized subject-level metadata: "cli.md"
+  - Data models:
     - Augmented BIDS data dictionaries: "dictionaries.md"
     - Data files for Neurobagel graphs: "graph_data.md"
     - Naming conventions for terms: "term_naming_standards.md"
@@ -65,8 +70,8 @@ markdown_extensions:
   - md_in_html  # for annotations
   - pymdownx.details
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true 
