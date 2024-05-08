@@ -8,7 +8,8 @@ enter your cohort criteria into the web interface, and click the "Submit" button
 
 ## Public Neurobagel Nodes
 
-At the moment, the following public Neurobagel nodes are available:
+At the moment, the following public Neurobagel nodes are available 
+(you can query a specific node by selecting it from the dropdown under "Neurobagel graph" in the query tool):
 
 - **OpenNeuro**. This node contains a (growing) subset of the datasets on [OpenNeuro](https://openneuro.org/). 
   You can query this node by selecting the "OpenNeuro" option in the query tool.
