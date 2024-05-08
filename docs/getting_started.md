@@ -29,19 +29,6 @@ and are launched with docker compose.
 If you haven't yet, please install both `docker` and `docker compose`
 for your operating system:
 
-Because we rely on some modern features of these
-tools, please make sure you have at least the following
-versions on your machine:
-
-- `docker` engine: [v20.10.24](https://docs.docker.com/engine/release-notes/20.10/) or greater
-```bash
-docker --version
-```
-- `docker compose`: [v2.0.0](https://github.com/docker/compose/releases/tag/v2.0.0) or above
-```bash
-docker compose version
-```
-
 === "Linux"
 
     1. [Install the Docker engine](https://docs.docker.com/engine/install/)
@@ -71,6 +58,19 @@ docker compose version
     We also try to provide docs and help for different architectures,
     but as a small team with limited resources we won't be able to 
     help you debug Operating System specific problems. 
+
+Because we rely on some modern features of these
+tools, please make sure you have at least the following
+versions on your machine:
+
+- `docker` engine: [v20.10.24](https://docs.docker.com/engine/release-notes/20.10/) or greater
+```bash
+docker --version
+```
+- `docker compose`: [v2.0.0](https://github.com/docker/compose/releases/tag/v2.0.0) or above
+```bash
+docker compose version
+```
 
 ### The Neurobagel node deployment recipe
 

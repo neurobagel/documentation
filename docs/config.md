@@ -1,6 +1,12 @@
 Neurobagel is designed to be easily deployed with a single command without deep configuration.
 In many cases however, you will want to customize your deployment to fit your needs.
 
+If you already have a running Neurobagel node, 
+after making any configuration changes 
+(including changing the data you want to be available in the graph database), 
+follow the instructions to [restart your services](maintaining.md#restarting-services-after-an-update) 
+for the changes to take effect.
+
 ## Deployment
 
 ### Available services
@@ -132,7 +138,8 @@ To add one or more local nodes to the list of nodes known to your `f-API`, simpl
 ## Manually setting up a Neurobagel graph backend
 
 The Neurobagel docker compose recipe will automatically setup and configure 
-all services for you after deployment. 
+all services for you after deployment.
+The automated setup steps are explained in more detail below.
 
 !!! warning "For advanced users / debugging purposes only"
 
