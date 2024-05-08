@@ -25,7 +25,7 @@ docker compose --profile full_stack pull
     If you don't specify a deployment profile, the default profile (`local_node`) will be used,
     which only pulls the images for the [API](api.md), and graph store.
 
-    See the [deployment profiles](infrastructure.md#deployment-profiles) 
+    See the [deployment profiles](config.md#available-profiles) 
     section for more information on the available profiles.
 
 ### Restarting services after an update
