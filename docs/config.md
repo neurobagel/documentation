@@ -103,7 +103,7 @@ Multiple nodes must be wrapped in a list `[]`.
 
 Let's assume there are two local nodes already running on different servers of your institutional network, and you want to set up federation across both nodes:
 
-- a node named `"Node Archive"` running on your local computer (localhost), on port `8000` and 
+- a node named `"My Institute"` running on your local computer (localhost), on port `8000` and 
 - a node named `"Node Recruitment"` running on a different computer with the local IP `192.168.0.1`, listening on the default http port `80`. 
 
 In your `local_nb_nodes.json` file you would configure this as follows:
