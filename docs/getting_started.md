@@ -124,7 +124,7 @@ docker compose --profile full_stack up -d
 this will:
 
 - pull the required Docker images (if you haven't pulled them before)
-- launch the containers for [the Neurobagel services](config.md#available-services)
+- launch the containers for [the Neurobagel services](config.md#available-services) using the `full_stack` [service profile](config.md#available-profiles)
 - automatically set up and configure the services based on your configuration files
 - automatically upload data to the Neurobagel graph (by default, it will upload an example dataset we have provided for testing)
 
