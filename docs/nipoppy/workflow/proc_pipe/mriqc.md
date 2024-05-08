@@ -1,3 +1,7 @@
+{%
+    include-markdown "nipoppy/cli_note.md"
+%}
+
 ## MRIQC image processing pipeline
 
 ---
