@@ -1,3 +1,7 @@
+{%
+    include-markdown "nipoppy/cli_note.md"
+%}
+
 ## Glossary
 
 This page lists some definitions for important/recurring terms used in the Nipoppy framework.
