@@ -7,42 +7,44 @@ In many cases however, you will want to customize your deployment to fit your ne
 The Neurobagel docker compose recipe includes several services
 and coordinates them to work together:
 
-- `api`: the [Neurobagel node API](api.md). It communicates with the graph store and determines 
+(In parentheses are the names of services within the Docker Compose stack)
+
+- [Neurobagel node API](api.md) (`api`): The API that communicates with the graph store and determines 
     how detailed the response to a query should be.
-- `graph`: a third-party graph (RDF) store, which stores Neurobagel-harmonized data to be queried. At the moment our recipe uses the free tier
+- Graph store (`graph`): A third-party RDF store that stores Neurobagel-harmonized data to be queried. At the moment our recipe uses the free tier
     of [GraphDB](https://db-engines.com/en/system/GraphDB) for this.
-- `federation`: the Neurobagel federation API. It is a special API that can federate over
+- Neurobagel federation API (`federation`): A special API that can federate over
     multiple Neurobagel nodes to provide a single point of access to multiple nodes.
     By default it will federate over all public nodes and any local nodes you specify. 
-- `query_tool`: The [Neurobagel graphical query tool](query_tool.md) that allows users to query the federation API (or node API)
+- [Neurobagel query tool](query_tool.md): A graphical web tool allows users to query the federation API (or node API)
     and visualize the results. Because the query tool is a static app and is run locally
     in the users browser, this service simply hosts the app.
 
 ### Available profiles
-Neurobagel offers different deployment profiles that allow you to spin up specific combinations of services, depending on your use case.
+Neurobagel offers different deployment profiles that allow you to spin up specific combinations of services (listed below), depending on your use case.
 
 1. `full_stack`: Best profile to get started with Neurobagel. 
-    It includes all services you need to run a single standalone Neurobagel node. 
-    :information_source: By default this profile will also federate over all publicly accessible neurobagel nodes:
+    It includes all services you need to run a single standalone Neurobagel node, including a graphical query tool.
+    :information_source: By default this profile will also federate over all publicly accessible neurobagel nodes.
        - `api`
        - `graph`
        - `federation`
        - `query_tool`
 2. `local_node`: Best profile if you want to run a standalone Neurobagel node
-    and already a different deployment that provides federation and the query tool.
+    and rely on a different deployment for providing federation and the query tool.
     :information_source: **This is the default profile** if you don't specify one.
        - `api`
        - `graph` 
-3. `local_federation`: Best profile if you already have standalone and private Neurobagel node
+3. `local_federation`: Best profile if you already have multiple standalone (local or non-publicly-accessible) Neurobagel node
     deployments running and you now want to provide federation over them. 
-    :information_source: If you only want to federate over a single node and all public Neurobagel nodes
-    you can use the `full_stack` profile. If you use the `local_federation` profile, 
+    :information_source: If you only want to federate over a local node and all public Neurobagel nodes
+    we recommend using the `full_stack` profile to set up your node and federation in one step. If you use the `local_federation` profile, 
     you will have to [manually configure your `local_nb_nodes.json` file](#local_nb_nodesjson).
       - `federation`
       - `query_tool`
 4. `local_node_query`: :warning: Deprecated profile. 
     This profile lets you create a local node without 
-    federation. The query tool hosted by this deployment will talk directly to the
+    federation. The query tool hosted by this deployment will talk only to the
     local node.
        - `api`
        - `graph`
@@ -64,7 +66,7 @@ Below are all the possible Neurobagel environment variables that can be set in `
 
 At minimum, we recommend reviewing and changing the values of the following variables in `.env` for security purposes:
 
-> `NB_GRAPH_ADMIN_PASSWORD`
+> `NB_GRAPH_ADMIN_PASSWORD`  
 > `NB_GRAPH_USERNAME`  
 > `NB_GRAPH_PASSWORD`  
 > `NB_GRAPH_DB` 
@@ -84,7 +86,9 @@ At minimum, we recommend reviewing and changing the values of the following vari
 !!! tip
     Double check that any environment variables you have customized in `.env` are resolved with your expected values using the command `docker compose config`.
 
-### `local_nb_nodes.json`
+## `local_nb_nodes.json`
+
+This file is only used by deployment profiles that include the federation API. 
 `local_nb_nodes.json` contains the URLs and (arbitrary) names of the local nodes you wish to federate over.
 Each node must be denoted by a dictionary `{}` with two key-value pairs:  
 `"NodeName"` for the name of the node,  
@@ -113,8 +117,8 @@ In your `local_nb_nodes.json` file you would configure this as follows:
 !!! warning "Do not use `localhost`/`127.0.0.1` in `local_nb_nodes.json`"
 
     Even if the local node API(s) you are federating over are running 
-    on the same host machine as your federation API 
-    you cannot use `localhost` here and instead have to provide a network-accessible URL or IP address.
+    on the same host machine as your federation API, 
+    you cannot use `localhost` for the `ApiURL` and instead have to provide a network-accessible URL or IP address.
     For an example, see the configuration for the node called `"My Institute"` above.
 
 
@@ -268,7 +272,9 @@ Below is an example of how you would upload data manually using the script
 ./add_data_to_graph.sh PATH/TO/YOUR/GRAPH-DATA \
   localhost:7200 repositories/my_db DBUSER DBPASSWORD \
 ```
-
+!!! warning
+  To update any _existing_ datasets in your graph database, you can clear the database and reupload all datasets using `add_data_to_graph.sh` following the command above and including the `--clear-data` flag. 
+  Ensure that you also re-upload the Neurobagel vocabulary file `nb_vocab.ttl` following the section below.
 ### Adding vocabulary files to the graph database
 
 ??? "Why we need vocabulary files in the graph"

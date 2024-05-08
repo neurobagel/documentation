@@ -3,18 +3,18 @@ with deploying your own [Neurobagel node](config.md#available-services),
 a graphical query tool, 
 and a local federation API
 (everything in blue in the picture below)
-that lets search across your own data and public Neurobagel nodes.
+that lets you search across the data in your node and in public Neurobagel nodes.
 
 ![Neurobagel node](../imgs/neurobagel_local_node.jpg)
 
-To prepare your Neurobagel node for production use,
+To prepare your Neurobagel node for production use (i.e., for local or other users),
 and to configure your deployment according to your specific needs,
 refer to the detailed [Configuration documentation](config.md).
 
 ## Requirements
 
 Neurobagel tools are provided as Docker containers 
-and are launched with docker compose. 
+and are launched with Docker Compose. 
 
 !!! danger "Don't install Neurobagel tools directly on your machine"
     
@@ -22,7 +22,7 @@ and are launched with docker compose.
     (or the third party providers Neurobagel relies on) and only launch
     them with our provided `docker-compose.yml` recipe.
 
-    Do not install graphDB locally on your computer, 
+    Do not install GraphDB locally on your computer, 
     as doing so can interfere with the deployment of the Neurobagel tools.
 
 ### `docker` and `docker compose` 
@@ -76,7 +76,7 @@ docker compose version
 
 The [`neurobagel/recipes` repository](https://github.com/neurobagel/recipes) 
 on GitHub contains our official
-docker compose recipe and template configuration files for setting up a local Neurobagel node.
+Docker Compose recipe and template configuration files for setting up a local Neurobagel node.
 
 1. Clone the GitHub repository to your machine and navigate to it
 ```bash
@@ -145,7 +145,7 @@ d44d0b7359c8   ontotext/graphdb:10.3.1            "/usr/src/neurobagel…"   8 s
 
 The `docker-compose.yml` recipe provides additional service profiles
 for different deployment use cases (e.g., if you do not need to set up local query federation). Please refer to
-our [detailed profile documentation](config.md#environment-variables) for details.
+our [service profile documentation](config.md#available-profiles) for details.
 
 ## Next steps
 
@@ -156,5 +156,5 @@ our [detailed profile documentation](config.md#environment-variables) for detail
     - the interactive API docs at [http://localhost:8000/docs](http://localhost:8000/docs) and reading the [API](./api.md) guides
 - [Prepare your own dataset](./data_prep.md) for annotation with Neurobagel
 - [Add your own data to your Neurobagel graph](maintaining.md#updating-the-data-in-your-graph) to search
-- Learn about the different [configuration options](config.md) in Neurobagel
+- Learn about the different [configuration options](config.md) for your Neurobagel node
 - Hopefully all went well, but if you are experiencing issues take a look at our [getting help guide](./getting_help.md)
