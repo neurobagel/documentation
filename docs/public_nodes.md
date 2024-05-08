@@ -11,12 +11,10 @@ enter your cohort criteria into the web interface, and click the "Submit" button
 At the moment, the following public Neurobagel nodes are available 
 (you can query a specific node by selecting it from the dropdown under "Neurobagel graph" in the query tool):
 
-- **OpenNeuro**. This node contains a (growing) subset of the datasets on [OpenNeuro](https://openneuro.org/). 
-  You can query this node by selecting the "OpenNeuro" option in the query tool.
+- **OpenNeuro**. This node contains a (growing) subset of the datasets on [OpenNeuro](https://openneuro.org/).
   The datasets you can find in this node have been annotated by the community and live in the
   [OpenNeuroDatasets-JSONLD](https://github.com/OpenNeuroDatasets-jsonld) GitHub organization.
 - **International Neuroimaging Data-sharing Initiative** (INDI): This node contains public datasets from the [INDI](https://fcon_1000.projects.nitrc.org/) project.
-  You can query this node by selecting the "INDI" option in the query tool.
   At the moment, the following datasets are queryable in the INDI node:
     - [ABIDE 1](https://fcon_1000.projects.nitrc.org/indi/abide/abide_I.html)
     - [ABIDE 2](https://fcon_1000.projects.nitrc.org/indi/abide/abide_II.html)
