@@ -75,7 +75,7 @@ At minimum, we recommend reviewing and changing the values of the following vari
 > `NB_GRAPH_ADMIN_PASSWORD`  
 > `NB_GRAPH_USERNAME`  
 > `NB_GRAPH_PASSWORD`  
-> `NB_GRAPH_DB` 
+> `NB_GRAPH_DB`  
 > `NB_RETURN_AGG`  
 > `NB_API_QUERY_URL`
 
