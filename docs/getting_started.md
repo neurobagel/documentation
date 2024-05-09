@@ -5,7 +5,7 @@ and a local federation API
 (everything in blue in the picture below)
 that lets you search across the data in your node and in public Neurobagel nodes.
 
-![Neurobagel node](../imgs/neurobagel_local_node.jpg)
+![Neurobagel node](imgs/neurobagel_local_node.jpg)
 
 To prepare your Neurobagel node for production use (i.e., for local or other users),
 and to configure your deployment according to your specific needs,
