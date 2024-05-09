@@ -70,15 +70,6 @@ Below are all the possible Neurobagel environment variables that can be set in `
 
 {{ read_table('./repos/recipes/docs/neurobagel_environment_variables.tsv') }}
 
-At minimum, we recommend reviewing and changing the values of the following variables in `.env` for security purposes:
-
-> `NB_GRAPH_ADMIN_PASSWORD`  
-> `NB_GRAPH_USERNAME`  
-> `NB_GRAPH_PASSWORD`  
-> `NB_GRAPH_DB`  
-> `NB_RETURN_AGG`  
-> `NB_API_QUERY_URL`
-
 ??? warning "Ensure that shell variables do not clash with `.env` file"
     
     If the shell you run `docker compose` from already has any 
@@ -91,6 +82,33 @@ At minimum, we recommend reviewing and changing the values of the following vari
 
 !!! tip
     Double check that any environment variables you have customized in `.env` are resolved with your expected values using the command `docker compose config`.
+
+### Change security relevant variables
+
+At minimum, we recommend reviewing and changing the values of the following variables in `.env` for security purposes:
+
+> `NB_GRAPH_ADMIN_PASSWORD`  
+> `NB_GRAPH_USERNAME`  
+> `NB_GRAPH_PASSWORD`  
+> `NB_GRAPH_DB` 
+> `NB_RETURN_AGG`  
+> `NB_API_QUERY_URL`
+
+Make sure to use a secure password for the `NB_GRAPH_ADMIN_PASSWORD` and `NB_GRAPH_PASSWORD` variables.
+Here is how you can create a random password in the terminal:
+
+```bash
+openssl rand -hex 16
+```
+
+??? info "Passwords are handled as Docker secrets"
+
+    Although the `NB_GRAPH_ADMIN_PASSWORD` and `NB_GRAPH_PASSWORD` variables are set in the `.env` file,
+    they are passed to the containers as [Docker secrets](https://docs.docker.com/engine/swarm/secrets/).
+    This ensures that your passwords are not exposed in the container logs or in the `docker-compose.yml` file.
+    
+    Make sure to not share your `.env` file with others, 
+    especially if it contains sensitive information like passwords.
 
 ## `local_nb_nodes.json`
 
