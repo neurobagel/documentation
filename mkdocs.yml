@@ -110,6 +110,3 @@ plugins:
 extra:
   analytics:
     provider: plausible
-
-extra_css:
-  - stylesheets/output.css

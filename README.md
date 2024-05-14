@@ -27,19 +27,3 @@ mkdocs gh-deploy
 ```
 
 See the [docs for more details](https://www.mkdocs.org/user-guide/deploying-your-docs/).
-
-## Installing tailwind
-
-To install tailwind, run:
-
-```bash
-npm i
-```
-
-## Rebuilding tailwind
-
-If you need to rebuild the tailwind css, run:
-
-```bash
-npx tailwindcss build docs/stylesheets/tailwind.css -o docs/stylesheets/output.css
-```
