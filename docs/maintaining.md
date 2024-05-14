@@ -71,9 +71,35 @@ docker compose --profile full_stack up -d
 
 ## Updating the data in your graph
 
+If you have followed the [initial setup](getting_started.md)
+and have deployed your Neurobagel node from our Docker Compose recipe,
+your node will have a dedicated graph database that only contains 
+the data for your node.
+
+This makes updating the data in your graph a straightforward process.
+Once you have generated the updated files you want to upload,
+the process to update the data in your graph is:
+
+1. Shut down the Neurobagel node
+
+    ```bash
+    docker compose --profile full_stack down
+    ```
+
+2. Update the data files in [your `LOCAL_GRAPH_DATA` directory](config.md#uploading-data-to-the-graph-store)
+3. Restart the Neurobagel node
+
+    ```bash
+    docker compose --profile full_stack up -d
+    ```
+
+Here are some common scenarios where you might need to update the data in your graph:
+
 ### Following a change in my _dataset_
 
-When using Neurobagel tools on a dataset that is still undergoing data collection, you may need to update the Neurobagel annotations and/or graph-ready data for the dataset when you want to add new subjects or measurements or to correct mistakes in prior data versions.
+When using Neurobagel tools on a dataset that is still undergoing data collection,
+you may need to update the Neurobagel annotations and/or graph-ready data for the dataset
+when you want to add new subjects or measurements or to correct mistakes in prior data versions.
 
 For any of the below types of changes, you will need to regenerate a graph-ready `.jsonld` file for the dataset which reflects the change.
 
