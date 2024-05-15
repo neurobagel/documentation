@@ -73,11 +73,12 @@ docker compose --profile full_stack up -d
 
 If you have followed the [initial setup](getting_started.md)
 and have deployed your Neurobagel node from our Docker Compose recipe,
-your node will have a dedicated graph database that only contains 
-the data for your node.
+your node now has a dedicated graph database that stores
+the datasets for your node.
+By default, the graph database will only contain an [example dataset called `BIDS synthetic`](https://github.com/neurobagel/recipes/blob/main/data/example_synthetic_pheno-bids.jsonld). 
 
-This makes updating the data in your graph a straightforward process.
-Once you have generated the updated files you want to upload,
+Replacing the existing data in your graph database with your own data (or updated data) is a straightforward process.
+Once you have generated or updated the JSONLD files you want to upload,
 the process to update the data in your graph is:
 
 1. Shut down the Neurobagel node
@@ -86,6 +87,8 @@ the process to update the data in your graph is:
     docker compose --profile full_stack down
     ```
 
+   (or, replace `full_stack` with the profile you are using)
+
 2. Update the data files in [your `LOCAL_GRAPH_DATA` directory](config.md#uploading-data-to-the-graph-store)
 3. Restart the Neurobagel node
 
@@ -93,7 +96,7 @@ the process to update the data in your graph is:
     docker compose --profile full_stack up -d
     ```
 
-Here are some common scenarios where you might need to update the data in your graph:
+Here are some other common scenarios where you might need to update the data in your graph:
 
 ### Following a change in my _dataset_
 
@@ -205,10 +208,10 @@ follow these steps:
 2. Delete the docker volume that contains the GraphDB data for your node.
 
     ```bash
-    docker volume rm neurobagel_graphdb_data
+    docker volume rm neurobagel_node_graphdb_home
     ```
 
-    replace `neurobagel_graphdb_data` with the name of the volume that was created for your node.
+    replace `neurobagel_node_graphdb_home` with the name of the volume that was created for your node.
     It is usually named `<project_name>_graphdb_data`
     where `<project_name>` is the name of the directory where you have stored the `docker-compose.yml` file for your Neurobagel node.
 
@@ -217,6 +220,8 @@ follow these steps:
     ```bash
     docker compose --profile full_stack up -d
     ```
+
+    If you are not using the `full_stack` profile, replace `full_stack` with the name of the profile you are using.
 
 Some examples of when you might want to do this:
 
