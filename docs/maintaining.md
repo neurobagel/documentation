@@ -35,7 +35,7 @@ of your Neurobagel node, you will need to restart the services to apply the chan
 
 !!! warning "Restarting the graph backend after an update can introduce problems"
 
-    If you have updated the data model or the data in your graph, 
+    If you have updated the data model or the data in your graph,
     you should **not** restart the graph backend services without first updating the data in the graph.
     
     This is a current limitation of the deployment profile and we are working to resolve it.
@@ -213,7 +213,8 @@ follow these steps:
 
     replace `neurobagel_node_graphdb_home` with the name of the volume that was created for your node.
     It is usually named `<project_name>_graphdb_data`
-    where `<project_name>` is the name of the directory where you have stored the `docker-compose.yml` file for your Neurobagel node.
+    where `<project_name>` is the name of your docker compose stack
+    as defined in `COMPOSE_PROJECT_NAME` in the `.env` file.
 
 3. Start your Neurobagel node again.
 
@@ -222,6 +223,11 @@ follow these steps:
     ```
 
     If you are not using the `full_stack` profile, replace `full_stack` with the name of the profile you are using.
+
+!!! info "Use `docker volume ls` to list all volumes on your system"
+
+    You can use the `docker volume ls` command to list all volumes on your system.
+    This will help you identify the name of the volume that was created for your Neurobagel node.
 
 Some examples of when you might want to do this:
 
