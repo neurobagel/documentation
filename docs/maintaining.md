@@ -212,7 +212,7 @@ follow these steps:
     ```
 
     replace `neurobagel_node_graphdb_home` with the name of the volume that was created for your node.
-    It is usually named `<project_name>_graphdb_data`
+    It is usually named `<project_name>_graphdb_home`
     where `<project_name>` is the name of your docker compose stack
     as defined in `COMPOSE_PROJECT_NAME` in the `.env` file.
 
