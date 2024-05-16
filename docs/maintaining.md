@@ -89,7 +89,7 @@ the process to update the data in your graph is:
 
    (or, replace `full_stack` with the profile you are using)
 
-2. Update the data files in [your `LOCAL_GRAPH_DATA` directory](config.md#uploading-data-to-the-graph-store)
+2. Update the data files in the directory specified by the [`LOCAL_GRAPH_DATA` environment variable](config.md#uploading-data-to-the-graph-store), or simply change the path to a directory containing your JSONLD files.
 3. Restart the Neurobagel node
 
     ```bash
