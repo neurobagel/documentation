@@ -1,0 +1,21 @@
+Environment variable	Set manually in .env?	Description	Default value if not set	Used in these installation modes
+`NB_GRAPH_ADMIN_PASSWORD`	Yes	Secure password to set for the admin user.	-	Docker
+`NB_GRAPH_USERNAME`	Yes	Username to set for the graph database user.	-	Docker, Python
+`NB_GRAPH_PASSWORD`	Yes	Secure password to set for the graph database user.	-	Docker, Python
+`NB_GRAPH_DB`	Yes	Name to give your graph database (e.g., for a GraphDB database, use the format `repositories/{database_name}`)	`repositories/my_db`	Docker, Python
+`LOCAL_GRAPH_DATA`	Yes	Path on your filesystem to the JSONLD files you want to upload to the graph database	`./data`	Docker
+`NB_API_ALLOWED_ORIGINS`	Yes, if using a frontend query tool ‡	Origins allowed to make cross-origin resource sharing requests. Multiple origins must be separated with spaces in a single string enclosed in quotes. See ‡ for more info	"`""""`"	Docker, Python
+`NB_API_QUERY_URL`	Yes	URL (and port number, if needed) of the Neurobagel API that the query tool will send its requests to. The query tool sends requests from a user's machine, so ensure the API URL is provided *as a user would access it from their own machine*. See also the [query tool README](https://github.com/neurobagel/query-tool?tab=readme-ov-file#set-the-environment-variables).	-	Docker
+`NB_RETURN_AGG`	Yes	Whether to return only aggregate, dataset-level query results (excluding subject/session-level attributes). One of [true, false]	`true`	Docker, Python
+`NB_NAPI_TAG`	No	Docker image tag for the Neurobagel node API	`latest`	Docker
+`NB_NAPI_PORT_HOST`	No	Port number on the _host machine_ to map the Neurobagel node API container port to	`8000`	Docker
+`NB_NAPI_PORT`	No	Port number on which to run the Neurobagel node API _in the API container_	`8000`	Docker
+`NB_FAPI_TAG`	No	Docker image tag for the Neurobagel federation API	`latest`	Docker
+`NB_FAPI_PORT_HOST`	No	Port number on the _host machine_ to map the Neurobagel federation API container port to	`8080`	Docker
+`NB_FAPI_PORT`	No	Port number on which to run the Neurobagel federation API _in the API container_	`8000`	Docker
+`NB_GRAPH_IMG`	No	Graph server Docker image	`ontotext/graphdb:10.3.1`	Docker
+`NB_GRAPH_ADDRESS`	No	IP address for the graph database (or container name, if graph is hosted locally)	`206.12.99.17 (graph)` **	Docker, Python
+`NB_GRAPH_PORT_HOST`	No	Port number on the _host machine_ to map the graph server container port to	`7200`	Docker
+`NB_GRAPH_PORT`	No	Port number used by the _graph server container_	`7200` *	Docker, Python
+`NB_QUERY_TAG`	No	Docker image tag for the query tool	`latest`	Docker
+`NB_QUERY_PORT_HOST`	No	Port number used by the `query_tool` on the host machine	`3000`	Docker

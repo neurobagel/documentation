@@ -1,0 +1,8 @@
+/* 
+This file only exists to prevent the tailwind styles for ordered lists from being applied
+If we don't do this, all ordered list elements will become invisible.
+ */
+ol,
+menu {
+  list-style: decimal;
+}
