@@ -5,7 +5,8 @@
         {"pattern": "https://www.cognitiveatlas.org/task/id/"},
         {"pattern": "^../"},
         {"pattern": "localhost*"},
-        {"pattern": "https://api.neurobagel.org/*"}
+        {"pattern": "https://api.neurobagel.org/*"},
+        {"patter": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"}
     ],
     "timeout": "60s"
 }
