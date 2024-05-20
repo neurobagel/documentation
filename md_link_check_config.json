@@ -6,7 +6,7 @@
         {"pattern": "^../"},
         {"pattern": "localhost*"},
         {"pattern": "https://api.neurobagel.org/*"},
-        {"patter": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"}
+        {"pattern": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"}
     ],
     "timeout": "60s"
 }
