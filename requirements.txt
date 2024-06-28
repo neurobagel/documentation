@@ -2,3 +2,4 @@ mkdocs-include-markdown-plugin[cache]
 mkdocs-material
 mkdocs-table-reader-plugin
 mkdocs-yamp
+pre-commit
