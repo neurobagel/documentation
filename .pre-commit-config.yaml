@@ -1,0 +1,10 @@
+repos:
+  - repo: https://github.com/tcort/markdown-link-check
+    rev: v3.12.2
+    hooks:
+      - id: markdown-link-check
+        args: [-q]
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.3.0
+    hooks:
+      - id: codespell
