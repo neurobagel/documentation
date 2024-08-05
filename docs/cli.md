@@ -3,19 +3,27 @@
 The `bagel-cli` is a simple Python command-line tool to automatically parse and describe subject-level phenotypic and [BIDS](https://bids-specification.readthedocs.io/en/stable/) attributes in an annotated dataset for integration into the Neurobagel graph.
 
 ## Installation
-### Docker
-Option 1 (RECOMMENDED): Pull the Docker image for the CLI from DockerHub: `docker pull neurobagel/bagelcli`
 
-Option 2: Clone the repository and build the Docker image locally:
-```bash
-git clone https://github.com/neurobagel/bagel-cli.git
-cd bagel-cli
-docker build -t bagel .
-```
+=== "Docker"
 
-### Singularity
-Build a Singularity image for `bagel-cli` using the DockerHub image:  
-`singularity pull bagel.sif docker://neurobagel/bagelcli`
+    Option 1 (RECOMMENDED): Pull the Docker image for the CLI from DockerHub:
+    ```bash
+    docker pull neurobagel/bagelcli
+    ```
+
+    Option 2: Clone the repository and build the Docker image locally:
+    ```bash
+    git clone https://github.com/neurobagel/bagel-cli.git
+    cd bagel-cli
+    docker build -t bagel .
+    ```
+
+=== "Singularity"
+
+    Build a Singularity image for `bagel-cli` using the DockerHub image:  
+    ```bash
+    singularity pull bagel.sif docker://neurobagel/bagelcli
+    ```
 
 ## Running the CLI
 CLI commands can be accessed using the Docker/Singularity image.
@@ -35,7 +43,11 @@ To run the CLI on a dataset you have annotated, you will need:
 
 1. A valid BIDS dataset is needed for the CLI to automatically generate harmonized subject-level imaging metadata alongside harmonized phenotypic attributes.
 
-### To view the available CLI commands
+### Viewing CLI commands and options
+
+The `bagel-cli` has two commands, `pheno` and `bids`.
+
+Information about each command can be found by running:
 
 === "Docker"
 
@@ -65,22 +77,30 @@ To view the command-line arguments for a specific command:
     singularity run bagel.sif <command-name> --help
     ```
 
-
-### To run the CLI on data
+### Running the CLI on your data
 1. `cd` into your local directory containing (1) your phenotypic .tsv file, (2) Neurobagel-annotated data dictionary, and (3) BIDS directory (if available). 
 2. Run a `bagel-cli` container and include your CLI command and arguments at the end in the following format:
 
 === "Docker"
     ```bash
-    docker run --rm --volume=$PWD:$PWD -w $PWD neurobagel/bagelcli <CLI command here>
+    docker run --rm --volume=$PWD:$PWD -w $PWD neurobagel/bagelcli <full CLI command here>
     ```
+
+    !!! info "What is this command doing?"
+
+        This combination of options `--volume=$PWD:$PWD -w $PWD` mounts your current working directory (containing all inputs for the CLI) at the same path inside the container, and also sets the _container's_ working directory to the mounted path (so it matches your location on your host machine). 
+        This allows you to pass paths to the containerized CLI which are composed the same way as on your local machine. (And both absolute paths and relative top-down paths from your working directory will work!)
 
 === "Singularity"
     ```bash
     singularity run --no-home --bind $PWD --pwd $PWD /path/to/bagel.sif <CLI command here>
     ```
 
-In the above command, `--volume=$PWD:$PWD -w $PWD` (or `--bind $PWD --pwd $PWD` for Singularity) mounts your current working directory (containing all inputs for the CLI) at the same path inside the container, and also sets the _container's_ working directory to the mounted path (so it matches your location on your host machine). This allows you to pass paths to the containerized CLI which are composed the same way as on your local machine. (And both absolute paths and relative top-down paths from your working directory will work!)
+    !!! info "What is this command doing?"
+
+        This combination of options `--bind $PWD --pwd $PWD` mounts your current working directory (containing all inputs for the CLI) at the same path inside the container, and also sets the _container's_ working directory to the mounted path (so it matches your location on your host machine). 
+        This allows you to pass paths to the containerized CLI which are composed the same way as on your local machine. (And both absolute paths and relative top-down paths from your working directory will work!)
+
 
 ### Example  
 If your dataset lives in `/home/data/Dataset1`:
@@ -138,11 +158,18 @@ You could run the CLI as follows:
         --output "neurobagel/Dataset1_pheno_bids.jsonld"
     ```
 
-!!! note
+!!! tip
+    For short forms of CLI command options, see:  
+    `docker run --rm neurobagel/bagelcli pheno --help`  
+    or  
+    `docker run --rm neurobagel/bagelcli bids --help`
+
+
+!!! note "Speed of the `bids` command"
     The `bids` command of the `bagel-cli` (step 2) currently can take upwards of several minutes for datasets greater than a few hundred subjects, due to the time needed for pyBIDS to read the dataset structure.
     Once the slow initial dataset reading step is complete, you should see the message:
     ```bash
-    Parsing BIDS metadata to be merged with phenotypic annotations:
+    BIDS parsing completed.
     ...
     ```
 
