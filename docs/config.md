@@ -70,15 +70,6 @@ Below are all the possible Neurobagel environment variables that can be set in `
 
 {{ read_table('./repos/recipes/docs/neurobagel_environment_variables.tsv') }}
 
-At minimum, we recommend reviewing and changing the values of the following variables in `.env` for security purposes:
-
-> `NB_GRAPH_ADMIN_PASSWORD`  
-> `NB_GRAPH_USERNAME`  
-> `NB_GRAPH_PASSWORD`  
-> `NB_GRAPH_DB`  
-> `NB_RETURN_AGG`  
-> `NB_API_QUERY_URL`
-
 ??? warning "Ensure that shell variables do not clash with `.env` file"
     
     If the shell you run `docker compose` from already has any 
@@ -91,6 +82,33 @@ At minimum, we recommend reviewing and changing the values of the following vari
 
 !!! tip
     Double check that any environment variables you have customized in `.env` are resolved with your expected values using the command `docker compose config`.
+
+### Change security relevant variables
+
+At minimum, we recommend reviewing and changing the values of the following variables in `.env` for security purposes:
+
+> `NB_GRAPH_ADMIN_PASSWORD`  
+> `NB_GRAPH_USERNAME`  
+> `NB_GRAPH_PASSWORD`  
+> `NB_GRAPH_DB` 
+> `NB_RETURN_AGG`  
+> `NB_API_QUERY_URL`
+
+Make sure to use a secure password for the `NB_GRAPH_ADMIN_PASSWORD` and `NB_GRAPH_PASSWORD` variables.
+Here is how you can create a random password in the terminal:
+
+```bash
+openssl rand -hex 16
+```
+
+??? info "Passwords are handled as Docker secrets"
+
+    Although the `NB_GRAPH_ADMIN_PASSWORD` and `NB_GRAPH_PASSWORD` variables are set in the `.env` file,
+    they are passed to the containers as [Docker secrets](https://docs.docker.com/engine/swarm/secrets/).
+    This ensures that your passwords are not exposed in the container logs or in the `docker-compose.yml` file.
+    
+    Make sure to not share your `.env` file with others, 
+    especially if it contains sensitive information like passwords.
 
 ## `local_nb_nodes.json`
 
@@ -266,14 +284,14 @@ These are manual steps for configuring the GraphDB backend after launching the N
     you can connect to the Workbench at [http://localhost:7200](http://localhost:7200).
     The Workbench is well documented on the [GraphDB website](https://graphdb.ontotext.com/documentation/10.0/workbench-user-interface.html).
 
-
-
 ### Uploading data to the graph store
 
-Data are automatically uploaded to the graph from the path specified with 
-the `LOCAL_GRAPH_DATA` in the `.env` configuration file. when the Neurobagel stack is launched.
-Below is an example of how you would upload data manually using the script 
-[`add_data_to_graph.sh`](https://github.com/neurobagel/recipes/blob/main/scripts/add_data_to_graph.sh):
+Data are automatically uploaded to the graph from the path specified with
+the `LOCAL_GRAPH_DATA` in the `.env` configuration file when the Neurobagel stack is (re-)started.
+
+If you instead prefer to upload data manually,
+you can use the
+[`add_data_to_graph.sh`](https://github.com/neurobagel/recipes/blob/main/scripts/add_data_to_graph.sh) script:
 
 ``` bash
 ./add_data_to_graph.sh PATH/TO/YOUR/GRAPH-DATA \
