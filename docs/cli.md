@@ -68,13 +68,13 @@ To view the command-line arguments for a specific command:
 === "Docker"
 
     ```bash
-    docker run --rm neurobagel/bagelcli <command-name> --help
+    docker run --rm neurobagel/bagelcli <command-name> -h
     ```
 
 === "Singularity"
 
     ```bash
-    singularity run bagel.sif <command-name> --help
+    singularity run bagel.sif <command-name> -h
     ```
 
 ### Running the CLI on your data
