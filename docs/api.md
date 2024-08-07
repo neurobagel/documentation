@@ -41,7 +41,7 @@ curl -L https://api.neurobagel.org/query?sex=snomed:248152002
 
     Neurobagel APIs have strict requirements regarding trailing slashes.
     When sending `curl` requests to an instance of a Neurobagel API, ensure that you do not include trailing slashes in endpoint URLs. 
-    For example, requests to https://api.neurobagel.org/query will work, but https://api.neurobagel.org/query/ will not.
+    For example, requests to `https://api.neurobagel.org/query` will work, but `https://api.neurobagel.org/query/` will not.
 
 
 ## Using the interactive Neurobagel API docs

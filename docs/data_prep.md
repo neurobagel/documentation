@@ -26,9 +26,15 @@ Neurobagel **additionally** requires that:
 If this condition is not met, you will encounter an error when [running the Neurobagel CLI](cli.md) on your dataset to generate Neurobagel graph-ready files.
 
     !!! note
-        Subject IDs are case-sensitive and must be exact string matches. e.g., BIDS subject `sub-MNI001` != a subject with ID `sub-mni001` or `mni001` in a phenotypic TSV.
+        Subject IDs are case-sensitive and must match BIDS subject IDs exactly 
+        for Neurobagel to be able to link phenotypic and BIDS information. 
+        e.g., a BIDS ID of `sub-MNI001` is not the same as subject IDs `sub-mni001` or `mni001` 
+        in a phenotypic TSV and would not be linked by Neurobagel.
 
-- The subjects in the phenotypic TSV must be the same or a superset of subjects found in the BIDS directory. Neurobagel does not currently allow for datasets where subjects have BIDS data but are not represented in the phenotypic TSV.
+- All BIDS subjects must be included in the phenotypic TSV, 
+  even if they only have BIDS imaging information. 
+  Neurobagel does not allow for datasets where subjects have BIDS 
+  data but are not represented in the phenotypic TSV, although subjects who have phenotypic data but no BIDS data are allowed.
 
 ## Examples of valid phenotypic TSVs
 
