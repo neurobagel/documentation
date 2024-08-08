@@ -67,7 +67,7 @@ versions on your machine:
 ```bash
 docker --version
 ```
-- `docker compose`: [v2.0.0](https://github.com/docker/compose/releases/tag/v2.0.0) or above
+- `docker compose`: [v2.7.0](https://github.com/docker/compose/releases/tag/v2.7.0) or above
 ```bash
 docker compose version
 ```
