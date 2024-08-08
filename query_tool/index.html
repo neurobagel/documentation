@@ -1,0 +1,2654 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../public_nodes/">
+      
+      
+        <link rel="next" href="../api/">
+      
+      
+      <link rel="icon" href="../imgs/logo/neurobagel_favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.31">
+    
+    
+      
+        <title>How to use the query tool - Neurobagel</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  <script defer data-domain="neurobagel.org" src="https://plausible.neurobagel.org/js/script.js"></script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-neurobagel-query-tool" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Neurobagel" class="md-header__button md-logo" aria-label="Neurobagel" data-md-component="logo">
+      
+  <img src="../imgs/logo/neurobagel_logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Neurobagel
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              How to use the query tool
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/neurobagel/documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  Welcome
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
+          
+  
+    
+  
+  User guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../dictionaries/" class="md-tabs__link">
+          
+  
+    
+  
+  Data models
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../nipoppy/overview/" class="md-tabs__link">
+          
+  
+    
+  
+  Preparing data using Nipoppy
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../contributing/CONTRIBUTING/" class="md-tabs__link">
+          
+  
+    
+  
+  Contributing
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../getting_help/" class="md-tabs__link">
+        
+  
+    
+  
+  Getting help
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../glossary/" class="md-tabs__link">
+        
+  
+    
+  
+  Glossary
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cite/" class="md-tabs__link">
+        
+  
+    
+  
+  Citing Neurobagel
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Neurobagel" class="md-nav__button md-logo" aria-label="Neurobagel" data-md-component="logo">
+      
+  <img src="../imgs/logo/neurobagel_logo.png" alt="logo">
+
+    </a>
+    Neurobagel
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/neurobagel/documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    User guide
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            User guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Running cohort queries
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Running cohort queries
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public_nodes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Search the public nodes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    How to use the query tool
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    How to use the query tool
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quickstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quickstart
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local Installation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Local Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mandatory-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mandatory configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mandatory configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nb_api_query_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      NB_API_QUERY_URL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nb_is_federation_api" class="md-nav__link">
+    <span class="md-ellipsis">
+      NB_IS_FEDERATION_API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nb_query_url_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      NB_QUERY_URL_PATH
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nb_enable_auth" class="md-nav__link">
+    <span class="md-ellipsis">
+      NB_ENABLE_AUTH
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nb_query_client_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      NB_QUERY_CLIENT_ID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-the-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Set the environment variables
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker installation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manual installation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Manual installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#developer-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Developer setup
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#downloading-query-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Downloading query results
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Downloading query results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dataset-level-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dataset-level results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#participant-level-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Participant-level results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protected-participant-level-results-in-aggregate-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      protected participant-level results in aggregate mode
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      License
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Querying the API directly
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Setting up your own Neurobagel node
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Setting up your own Neurobagel node
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting_started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuring a node
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maintaining/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Maintaining a node
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Annotating your data
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Annotating your data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_prep/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preparing data for annotation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../annotation_tool/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Annotation tool guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generating harmonized subject-level metadata
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Data models
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data models
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dictionaries/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Augmented BIDS data dictionaries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph_data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data files for Neurobagel graphs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../term_naming_standards/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Naming conventions for terms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Preparing data using Nipoppy
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Preparing data using Nipoppy
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nipoppy/overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nipoppy/installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nipoppy/configs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nipoppy/code_org/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code organization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nipoppy/data_org/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data organization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Workflow
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            Workflow
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nipoppy/workflow/dicom_org/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DICOM organization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nipoppy/workflow/bids_conv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BIDS conversion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6_3" id="__nav_4_6_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Pipeline-specific instructions
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            Pipeline-specific instructions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nipoppy/workflow/proc_pipe/fmriprep/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    fmriprep
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nipoppy/workflow/proc_pipe/mriqc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    mriqc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nipoppy/trackers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Trackers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nipoppy/glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Contributing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/CONTRIBUTING/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to contribute
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/team/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Our team
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting_help/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting help
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cite/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Citing Neurobagel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quickstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quickstart
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local Installation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Local Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mandatory-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mandatory configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mandatory configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nb_api_query_url" class="md-nav__link">
+    <span class="md-ellipsis">
+      NB_API_QUERY_URL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nb_is_federation_api" class="md-nav__link">
+    <span class="md-ellipsis">
+      NB_IS_FEDERATION_API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nb_query_url_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      NB_QUERY_URL_PATH
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nb_enable_auth" class="md-nav__link">
+    <span class="md-ellipsis">
+      NB_ENABLE_AUTH
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nb_query_client_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      NB_QUERY_CLIENT_ID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-the-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Set the environment variables
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker installation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manual installation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Manual installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#developer-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Developer setup
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#downloading-query-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Downloading query results
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Downloading query results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dataset-level-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dataset-level results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#participant-level-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Participant-level results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protected-participant-level-results-in-aggregate-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      protected participant-level results in aggregate mode
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      License
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="the-neurobagel-query-tool">The Neurobagel Query Tool</h1>
+<p>Neurobagel's query tool is a web interface for searching across a Neurobagel graph based on various subject clinical-demographic and imaging parameters.</p>
+<p>The query tool is a React application, developed in <a href="https://www.typescriptlang.org/">TypeScript</a> using a variety of tools including <a href="https://vitejs.dev/">Vite</a>, <a href="https://www.cypress.io/">Cypress</a>, and <a href="https://mui.com/">MUI</a>.</p>
+<h2 id="quickstart">Quickstart</h2>
+<!-- BEGIN INCLUDE https://raw.githubusercontent.com/neurobagel/query-tool/main/README.md '## Quickstart' 'You can refer to [the neurobagel documentation](https://neurobagel.org/query_tool/#downloading-query-results) to see what the outputs of the query tool look like' -->
+
+<p>The query tool is hosted at https://query.neurobagel.org/ and interfaces with <a href="https://federate.neurobagel.org/docs">Neurobagel federation API</a>.</p>
+<h2 id="local-installation">Local Installation</h2>
+<p>To run the query tool locally, you have two options:</p>
+<ol>
+<li>Use our docker image</li>
+<li>Do a manual install from the cloned git repo.</li>
+</ol>
+<p>but before proceeding with either you need to set the environment variables.</p>
+<h3 id="mandatory-configuration">Mandatory configuration</h3>
+<table>
+<thead>
+<tr>
+<th>Environment variable</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default value if not set</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NB_API_QUERY_URL</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>-</td>
+<td><code>https://federate.neurobagel.org/</code></td>
+</tr>
+<tr>
+<td><code>NB_IS_FEDERATION_API</code></td>
+<td>boolean</td>
+<td>No</td>
+<td><code>true</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>NB_QUERY_URL_PATH</code></td>
+<td>string</td>
+<td>No</td>
+<td><code>/</code></td>
+<td><code>/query/</code></td>
+</tr>
+<tr>
+<td><code>NB_ENABLE_AUTH</code></td>
+<td>boolean</td>
+<td>No</td>
+<td><code>false</code></td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>NB_QUERY_CLIENT_ID</code></td>
+<td>string</td>
+<td>Yes (if <code>NB_ENABLE_AUTH</code> is set to true)</td>
+<td>-</td>
+<td><code>46923719231972-dhsahgasl3123.apps.googleusercontent.com</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="nb_api_query_url"><code>NB_API_QUERY_URL</code></h4>
+<p>You'll need to set the <code>NB_API_QUERY_URL</code> environment variable required to run the query tool. <code>NB_API_QUERY_URL</code> is the <a href="https://github.com/neurobagel/api">Neurobagel API</a> URL that the query tool uses to send requests to for results.</p>
+<h4 id="nb_is_federation_api"><code>NB_IS_FEDERATION_API</code></h4>
+<p>If the API you'd like to send queries to is not a <a href="https://neurobagel.org/federate/">federation api</a>, you need to set the <code>NB_IS_FEDERATION_API</code> to <code>false</code> as it is <code>true</code> by default.</p>
+<h4 id="nb_query_url_path"><code>NB_QUERY_URL_PATH</code></h4>
+<p>If you are using a custom configuration where the query tool is accessible via a path other than the root (<code>/</code>), you need to set the <code>NB_QUERY_URL_PATH</code> to your custom path. This ensures that the query tool is correctly rendered and accessible at the specified URL</p>
+<h4 id="nb_enable_auth"><code>NB_ENABLE_AUTH</code></h4>
+<p>If the API you'd like to send queries to requires authentication, you need to set <code>NB_ENABLE_AUTH</code> to <code>true</code> as it is <code>false</code> by default. This will enable authentication flow of the app.</p>
+<h4 id="nb_query_client_id"><code>NB_QUERY_CLIENT_ID</code></h4>
+<p>If the <code>NB_ENABLE_AUTH</code> is set to <code>true</code> (it is <code>false</code> by default), you need to provide a valid client ID for the authentication.
+<em>At the moment, query tool uses Google for authentication, so you need to obtain a client ID from Google developer console. See <a href="https://developers.google.com/identity/gsi/web/guides/get-google-api-clientid">documentation</a> for more information.</em></p>
+<h4 id="set-the-environment-variables">Set the environment variables</h4>
+<p>To set environment variables, create a <code>.env</code> file in the root directory and add the environment variables there. If you're running a neurobagel node-API locally on your machine (following the instructions <a href="https://github.com/neurobagel/api#local-installation">here</a>), your <code>.env</code> file would look something like this:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">NB_API_QUERY_URL</span><span class="o">=</span>http://localhost:8000/
+<span class="nv">NB_IS_FEDERATION_API</span><span class="o">=</span><span class="nb">false</span><span class="w"> </span><span class="c1"># For node API</span>
+</code></pre></div>
+<p>if you're using the remote (in this example federation) api, your <code>.env</code> file would look something like this:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">NB_API_QUERY_URL</span><span class="o">=</span>https://federate.neurobagel.org/
+</code></pre></div>
+<p>if you're using a federation api with authentication, your <code>.env</code> file would look something like this:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">NB_API_QUERY_URL</span><span class="o">=</span>https://federate.neurobagel.org/
+<span class="nv">NB_ENABLE_AUTH</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">NB_QUERY_CLIENT_ID</span><span class="o">=</span><span class="m">46923719231972</span>-dhsahgasl3123.apps.googleusercontent.com
+</code></pre></div>
+<p><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/26a0.svg" title=":warning:" /> The protocol matters here.
+If you wish to use the Neurobagel remote API, ensure your <code>NB_API_QUERY_URL</code> uses <code>https</code> instead of <code>http</code>.</p>
+<h3 id="docker-installation">Docker installation</h3>
+<p>To obtain the query tool docker image, simply run the following command in your terminal:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>pull<span class="w"> </span>neurobagel/query_tool:latest
+</code></pre></div>
+<p>This Docker image includes the latest release of the query tool and a minimal http server to serve the static tool.</p>
+<p>To launch the query tool Docker container and pass in the <code>.env</code> file you have created, simply run</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">5173</span>:5173<span class="w"> </span>--env-file<span class="o">=</span>.env<span class="w"> </span>neurobagel/query_tool:latest
+</code></pre></div>
+<p>Then you can access the query tool at http://localhost:5173</p>
+<p><strong>Note</strong>: the query tool is listening on port <code>5173</code> inside the docker container,
+replace port <code>5173</code> by the port you would like to expose to the host.
+For example if you'd like to run the tool on port <code>8000</code> of your machine you can run the following command:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:5173<span class="w"> </span>--env-file<span class="o">=</span>.env<span class="w"> </span>neurobagel/query_tool:latest
+</code></pre></div>
+<h3 id="manual-installation">Manual installation</h3>
+<p>To install the query tool directly, you'll need <a href="https://www.npmjs.com/">node package manager (npm)</a> and <a href="https://nodejs.org/en/">Node.js</a>.
+You can find the instructions on installing npm and node in the official <a href="https://docs.npmjs.com/downloading-and-installing-node-js-and-npm">documentation</a>.</p>
+<p>Once you have npm and node installed, you'll need to install the dependencies outlined in the package.json file.
+You can do so by running the following command:</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install
+</code></pre></div>
+<p>To launch the tool in developer mode run the following command:</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>dev
+</code></pre></div>
+<p>You can also build and then run the tool from (<a href="https://vitejs.dev/guide/build">production</a>) build of the application by running the following command:</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>preview
+</code></pre></div>
+<p>You can verify the tool is running by watching for the` info messages from Vite regarding environment, rendering, and what port the tool is running on in your terminal.</p>
+<h4 id="developer-setup">Developer setup</h4>
+<p>Having installed the dependencies, run the following command to enable husky <code>pre-commit</code> and <code>post-merge</code> hooks:</p>
+<div class="highlight"><pre><span></span><code>npx husky install
+</code></pre></div>
+<h2 id="usage">Usage</h2>
+<p>To define a cohort, set your inclusion criteria using the following:</p>
+<ul>
+<li>Age: Minimum and/or maximum age (in years) of participant that should be included in the results.</li>
+<li>Sex: Sex of participant that should be included in the results.</li>
+<li>Diagnosis: Diagnosis of participant that should be included in the results</li>
+<li>Healthy control: Whether healthy participants should be included in the results. Once healthy control checkbox is selected, diagnosis field will be disabled since a participant cannot be both a healthy control and have a diagnosis.</li>
+<li>Minimum number of sessions: Minimum number of imaging sessions that participant should have to be included in the results.</li>
+<li>Assessment tool: Non-imaging assessment completed by participant that should be included in the results.</li>
+<li>Modality: Imaging modality of participant scans that should be included in the results.</li>
+</ul>
+<p>Once you've defined your criteria, submit them as a query and the query tool will display the results.\
+The query tool offers two different TSV files for results:</p>
+<ul>
+<li>Dataset-level results TSV contains: dataset id, dataset name, dataset portal uri, number of matching subjects, and available imaging modalities</li>
+<li>Participant-level results TSV contains: dataset id, subject id, age, sex, diagnosis, assessment, session id, session file path, number of sessions, and imaging modality</li>
+</ul>
+<p>The output files can be joined using <code>DatasetID</code> as key.</p>
+<!-- END INCLUDE -->
+
+<h3 id="downloading-query-results">Downloading query results</h3>
+<p>For a given query, the query tool offers two kinds of TSV files for results that users can download. 
+At least one dataset matching the query must be selected in the interface in order to download the query results.</p>
+<h4 id="dataset-level-results">Dataset-level results</h4>
+<p>The dataset-level results TSV describes the datasets that contain subjects matching the user's query.
+This TSV contains the following columns:</p>
+<ul>
+<li><code>DatasetID</code>: unique identifier (UUID) for dataset in the graph. 
+Note that this ID is not guaranteed to be persistent across versions of a graph/across graphs, but will always be identical across a pair of query tool result files. 
+<em>This column can be used as the key to join the dataset-level and participant-level results TSVs for a given query result, if needed.</em></li>
+<li><code>DatasetName</code>: human readable name of the dataset</li>
+<li><code>PortalURI</code>: URL to a website or page about the dataset, if available</li>
+<li><code>NumMatchingSubjects</code>: (aggregate variable) number of subjects matching the query within the dataset</li>
+<li><code>AvailableImageModalites</code>: (aggregate variable) list of unique imaging modalities available for the dataset</li>
+</ul>
+<p>Example:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">DatasetID</th>
+<th style="text-align: left;">DatasetName</th>
+<th style="text-align: left;">PortalURI</th>
+<th style="text-align: right;">NumMatchingSubjects</th>
+<th style="text-align: left;">AvailableImageModalities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">BIDS synthetic</td>
+<td style="text-align: left;">https://github.com/bids-standard/bids-examples</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">http://purl.org/nidash/nidm#FlowWeighted, http://purl.org/nidash/nidm#T1Weighted</td>
+</tr>
+</tbody>
+</table>
+<h4 id="participant-level-results">Participant-level results</h4>
+<p>The participant-level results TSV contains the available harmonized participant attributes for subject sessions matching the query in each (selected) matching dataset.
+Each row in the TSV corresponds to a single matching subject <em>session</em>.</p>
+<p>This TSV contains the following columns:</p>
+<ul>
+<li><code>DatasetID</code>: unique identifier (UUID) for dataset in the graph. 
+Note that this ID is not guaranteed to be persistent across versions of a graph/across graphs, but will always be identical across a pair of query tool result files. 
+<em>This column can be used as the key to join the dataset-level and participant-level results TSVs for a given query result, if needed.</em></li>
+<li><code>SubjectID</code>: subject label</li>
+<li><code>SessionID</code>: the label of the session</li>
+<li><code>SessionType</code>: either <code>ImagingSession</code> or <code>PhenotypicSession</code></li>
+<li><code>Age</code>: subject age, if available</li>
+<li><code>Sex</code>: subject sex, if available</li>
+<li><code>Diagnosis</code>: list of diagnoses of subject, if available</li>
+<li><code>Assessment</code> : list of assessments completed by subject, if available</li>
+<li><code>SessionFilePath</code>: the path of the session directory (for imaging sessions) either relative to the dataset root (for datasets available through DataLad) or relative to the root of the filesystem where the dataset is stored</li>
+<li><code>NumPhenotypicSessions</code>: (aggregate variable) total number of <strong>phenotypic</strong> sessions that match the query for a subject</li>
+<li><code>NumImagingSessions</code>: (aggregate variable) total number of <strong>imaging</strong> sessions that match the query for a subject
+This number will be the same across rows corresponding to the same subject.</li>
+<li><code>Modality</code>: imaging modalities acquired in the session, if available</li>
+</ul>
+<p>Example:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">DatasetID</th>
+<th style="text-align: left;">SubjectID</th>
+<th style="text-align: left;">SessionID</th>
+<th style="text-align: left;">SessionType</th>
+<th style="text-align: right;">Age</th>
+<th style="text-align: left;">Sex</th>
+<th style="text-align: left;">Diagnosis</th>
+<th style="text-align: left;">Assessment</th>
+<th style="text-align: left;">SessionFilePath</th>
+<th style="text-align: right;">NumPhenotypicSessions</th>
+<th style="text-align: right;">NumImagingSessions</th>
+<th style="text-align: left;">Modality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">sub-01</td>
+<td style="text-align: left;">ses-01</td>
+<td style="text-align: left;">http://neurobagel.org/vocab/ImagingSession</td>
+<td style="text-align: right;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">/data/neurobagel/bagel-cli/bids-examples/synthetic/sub-01/ses-01</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">http://purl.org/nidash/nidm#T1Weighted, http://purl.org/nidash/nidm#FlowWeighted</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">sub-01</td>
+<td style="text-align: left;">ses-01</td>
+<td style="text-align: left;">http://neurobagel.org/vocab/PhenotypicSession</td>
+<td style="text-align: right;">34.1</td>
+<td style="text-align: left;">http://purl.bioontology.org/ontology/SNOMEDCT/248152002</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">https://www.cognitiveatlas.org/task/id/trm_57964b8a66aed, https://www.cognitiveatlas.org/task/id/tsk_4a57abb949ece</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">nan</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">sub-01</td>
+<td style="text-align: left;">ses-02</td>
+<td style="text-align: left;">http://neurobagel.org/vocab/ImagingSession</td>
+<td style="text-align: right;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">/data/neurobagel/bagel-cli/bids-examples/synthetic/sub-01/ses-02</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">http://purl.org/nidash/nidm#T1Weighted, http://purl.org/nidash/nidm#FlowWeighted</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">sub-01</td>
+<td style="text-align: left;">ses-02</td>
+<td style="text-align: left;">http://neurobagel.org/vocab/PhenotypicSession</td>
+<td style="text-align: right;">35.3</td>
+<td style="text-align: left;">http://purl.bioontology.org/ontology/SNOMEDCT/248152002</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">https://www.cognitiveatlas.org/task/id/trm_57964b8a66aed, https://www.cognitiveatlas.org/task/id/tsk_4a57abb949ece</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">nan</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">sub-02</td>
+<td style="text-align: left;">ses-01</td>
+<td style="text-align: left;">http://neurobagel.org/vocab/ImagingSession</td>
+<td style="text-align: right;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">/data/neurobagel/bagel-cli/bids-examples/synthetic/sub-02/ses-01</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">http://purl.org/nidash/nidm#T1Weighted, http://purl.org/nidash/nidm#FlowWeighted</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">sub-02</td>
+<td style="text-align: left;">ses-01</td>
+<td style="text-align: left;">http://neurobagel.org/vocab/PhenotypicSession</td>
+<td style="text-align: right;">nan</td>
+<td style="text-align: left;">http://purl.bioontology.org/ontology/SNOMEDCT/248153007</td>
+<td style="text-align: left;">http://purl.bioontology.org/ontology/SNOMEDCT/406506008</td>
+<td style="text-align: left;">https://www.cognitiveatlas.org/task/id/trm_57964b8a66aed, https://www.cognitiveatlas.org/task/id/tsk_4a57abb949ece</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">nan</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">sub-02</td>
+<td style="text-align: left;">ses-02</td>
+<td style="text-align: left;">http://neurobagel.org/vocab/ImagingSession</td>
+<td style="text-align: right;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">/data/neurobagel/bagel-cli/bids-examples/synthetic/sub-02/ses-02</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">http://purl.org/nidash/nidm#T1Weighted, http://purl.org/nidash/nidm#FlowWeighted</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">sub-02</td>
+<td style="text-align: left;">ses-02</td>
+<td style="text-align: left;">http://neurobagel.org/vocab/PhenotypicSession</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: left;">http://purl.bioontology.org/ontology/SNOMEDCT/248153007</td>
+<td style="text-align: left;">http://purl.bioontology.org/ontology/SNOMEDCT/406506008</td>
+<td style="text-align: left;">https://www.cognitiveatlas.org/task/id/trm_57964b8a66aed, https://www.cognitiveatlas.org/task/id/tsk_4a57abb949ece</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">nan</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">sub-03</td>
+<td style="text-align: left;">ses-01</td>
+<td style="text-align: left;">http://neurobagel.org/vocab/ImagingSession</td>
+<td style="text-align: right;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">/data/neurobagel/bagel-cli/bids-examples/synthetic/sub-03/ses-01</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">http://purl.org/nidash/nidm#T1Weighted, http://purl.org/nidash/nidm#FlowWeighted</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">sub-03</td>
+<td style="text-align: left;">ses-01</td>
+<td style="text-align: left;">http://neurobagel.org/vocab/PhenotypicSession</td>
+<td style="text-align: right;">22.1</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">https://www.cognitiveatlas.org/task/id/trm_57964b8a66aed</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">nan</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">sub-03</td>
+<td style="text-align: left;">ses-02</td>
+<td style="text-align: left;">http://neurobagel.org/vocab/ImagingSession</td>
+<td style="text-align: right;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">/data/neurobagel/bagel-cli/bids-examples/synthetic/sub-03/ses-02</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">http://purl.org/nidash/nidm#T1Weighted, http://purl.org/nidash/nidm#FlowWeighted</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">sub-03</td>
+<td style="text-align: left;">ses-02</td>
+<td style="text-align: left;">http://neurobagel.org/vocab/PhenotypicSession</td>
+<td style="text-align: right;">23.2</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">http://purl.bioontology.org/ontology/SNOMEDCT/406506008</td>
+<td style="text-align: left;">https://www.cognitiveatlas.org/task/id/trm_57964b8a66aed, https://www.cognitiveatlas.org/task/id/tsk_4a57abb949ece</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">nan</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">sub-04</td>
+<td style="text-align: left;">ses-01</td>
+<td style="text-align: left;">http://neurobagel.org/vocab/ImagingSession</td>
+<td style="text-align: right;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">/data/neurobagel/bagel-cli/bids-examples/synthetic/sub-04/ses-01</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">http://purl.org/nidash/nidm#T1Weighted, http://purl.org/nidash/nidm#FlowWeighted</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">sub-04</td>
+<td style="text-align: left;">ses-01</td>
+<td style="text-align: left;">http://neurobagel.org/vocab/PhenotypicSession</td>
+<td style="text-align: right;">21.1</td>
+<td style="text-align: left;">http://purl.bioontology.org/ontology/SNOMEDCT/248152002</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">https://www.cognitiveatlas.org/task/id/tsk_4a57abb949ece</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">nan</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">sub-04</td>
+<td style="text-align: left;">ses-02</td>
+<td style="text-align: left;">http://neurobagel.org/vocab/ImagingSession</td>
+<td style="text-align: right;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">/data/neurobagel/bagel-cli/bids-examples/synthetic/sub-04/ses-02</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">http://purl.org/nidash/nidm#T1Weighted, http://purl.org/nidash/nidm#FlowWeighted</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">sub-04</td>
+<td style="text-align: left;">ses-02</td>
+<td style="text-align: left;">http://neurobagel.org/vocab/PhenotypicSession</td>
+<td style="text-align: right;">22.3</td>
+<td style="text-align: left;">http://purl.bioontology.org/ontology/SNOMEDCT/248152002</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">https://www.cognitiveatlas.org/task/id/trm_57964b8a66aed, https://www.cognitiveatlas.org/task/id/tsk_4a57abb949ece</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">nan</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">sub-05</td>
+<td style="text-align: left;">ses-01</td>
+<td style="text-align: left;">http://neurobagel.org/vocab/ImagingSession</td>
+<td style="text-align: right;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">/data/neurobagel/bagel-cli/bids-examples/synthetic/sub-05/ses-01</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">http://purl.org/nidash/nidm#T1Weighted, http://purl.org/nidash/nidm#FlowWeighted</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">sub-05</td>
+<td style="text-align: left;">ses-01</td>
+<td style="text-align: left;">http://neurobagel.org/vocab/PhenotypicSession</td>
+<td style="text-align: right;">42.5</td>
+<td style="text-align: left;">http://purl.bioontology.org/ontology/SNOMEDCT/248153007</td>
+<td style="text-align: left;">http://purl.bioontology.org/ontology/SNOMEDCT/406506008</td>
+<td style="text-align: left;">https://www.cognitiveatlas.org/task/id/trm_57964b8a66aed, https://www.cognitiveatlas.org/task/id/tsk_4a57abb949ece</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">nan</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">sub-05</td>
+<td style="text-align: left;">ses-02</td>
+<td style="text-align: left;">http://neurobagel.org/vocab/ImagingSession</td>
+<td style="text-align: right;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: left;">/data/neurobagel/bagel-cli/bids-examples/synthetic/sub-05/ses-02</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">http://purl.org/nidash/nidm#T1Weighted, http://purl.org/nidash/nidm#FlowWeighted</td>
+</tr>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">sub-05</td>
+<td style="text-align: left;">ses-02</td>
+<td style="text-align: left;">http://neurobagel.org/vocab/PhenotypicSession</td>
+<td style="text-align: right;">43.2</td>
+<td style="text-align: left;">http://purl.bioontology.org/ontology/SNOMEDCT/248153007</td>
+<td style="text-align: left;">http://purl.bioontology.org/ontology/SNOMEDCT/406506008</td>
+<td style="text-align: left;">https://www.cognitiveatlas.org/task/id/trm_57964b8a66aed, https://www.cognitiveatlas.org/task/id/tsk_4a57abb949ece</td>
+<td style="text-align: left;">nan</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">nan</td>
+</tr>
+</tbody>
+</table>
+<h4 id="protected-participant-level-results-in-aggregate-mode"><code>protected</code> participant-level results in aggregate mode</h4>
+<p>If the values for all columns except for <code>DatasetID</code> and <code>SessionPath</code> in the participant-level results tsv are set to <code>protected</code>, this indicates the graph being queried has been configured (via its corresponding Neurobagel node API) to return only aggregate information about matches (due to data privacy reasons). 
+This configuration can be modified by setting the <code>NB_RETURN_AGG</code> environment variable to <code>false</code> (the value is by default <code>true</code>). 
+See related section of the documentation <a href="../config/#environment-variables">here</a>.</p>
+<p>Example:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">DatasetID</th>
+<th style="text-align: left;">SubjectID</th>
+<th style="text-align: left;">SessionID</th>
+<th style="text-align: left;">SessionType</th>
+<th style="text-align: left;">Age</th>
+<th style="text-align: left;">Sex</th>
+<th style="text-align: left;">Diagnosis</th>
+<th style="text-align: left;">Assessment</th>
+<th style="text-align: left;">SessionFilePath</th>
+<th style="text-align: left;">NumPhenotypicSessions</th>
+<th style="text-align: left;">NumImagingSessions</th>
+<th style="text-align: left;">Modality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">http://neurobagel.org/vocab/e0c7d08c-edcc-4c2a-816a-306878ed7be2</td>
+<td style="text-align: left;">protected</td>
+<td style="text-align: left;">protected</td>
+<td style="text-align: left;">protected</td>
+<td style="text-align: left;">protected</td>
+<td style="text-align: left;">protected</td>
+<td style="text-align: left;">protected</td>
+<td style="text-align: left;">protected</td>
+<td style="text-align: left;">protected</td>
+<td style="text-align: left;">protected</td>
+<td style="text-align: left;">protected</td>
+<td style="text-align: left;">protected</td>
+</tr>
+</tbody>
+</table>
+<h2 id="testing">Testing</h2>
+<!-- BEGIN INCLUDE https://raw.githubusercontent.com/neurobagel/query-tool/main/README.md '## Testing' '' -->
+
+<p>The query tool utilizes <a href="https://www.cypress.io/">Cypress</a> framework for testing.</p>
+<p>To run the tests execute the following command:</p>
+<div class="highlight"><pre><span></span><code>npx<span class="w"> </span>cypress<span class="w"> </span>open
+</code></pre></div>
+<h2 id="license">License</h2>
+<p>The query tool is released under the terms of the <a href="../https:/raw.githubusercontent.com/neurobagel/query-tool/main/LICENSE">MIT License</a></p>
+<!-- END INCLUDE -->
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../public_nodes/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Search the public nodes">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Search the public nodes
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../api/" class="md-footer__link md-footer__link--next" aria-label="Next: Querying the API directly">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Querying the API directly
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.footer", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.expand", "content.tabs.link", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+    
+  </body>
+</html>
