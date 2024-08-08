@@ -15,46 +15,45 @@ and coordinates them to work together:
 
 (In parentheses are the names of services within the Docker Compose stack)
 
-- [Neurobagel node API](api.md) (`api`): The API that communicates with the graph store and determines 
-    how detailed the response to a query should be.
-- Graph store (`graph`): A third-party RDF store that stores Neurobagel-harmonized data to be queried. At the moment our recipe uses the free tier
+- **[Neurobagel node API/n-API](api.md)** (`api`): The API that communicates with a single graph store and determines 
+    how detailed the response to a query should be from that graph.
+- **Graph store** (`graph`): A third-party RDF store that stores Neurobagel-harmonized data to be queried. At the moment our recipe uses the free tier
     of [GraphDB](https://db-engines.com/en/system/GraphDB) for this.
-- Neurobagel federation API (`federation`): A special API that can federate over
-    multiple Neurobagel nodes to provide a single point of access to multiple nodes.
+- **Neurobagel federation/f-API** (`federation`): A special API that can federate over one or more
+    Neurobagel nodes to provide a single point of access to multiple distributed databases.
     By default it will federate over all public nodes and any local nodes you specify. 
-- [Neurobagel query tool](query_tool.md): A graphical web tool allows users to query the federation API (or node API)
-    and visualize the results. Because the query tool is a static app and is run locally
-    in the users browser, this service simply hosts the app.
+- **[Neurobagel query tool](query_tool.md)** (`query_tool`): A web app that provides a graphical interface for users to query a 
+    federation API and view the results from one or more nodes. Because the query tool is a static app and is run locally
+    in the user's browser, this service simply hosts the app.
 
 ### Available profiles
 Neurobagel offers different deployment profiles that allow you to spin up specific combinations of services (listed below), depending on your use case.
 
 1. `full_stack`: Best profile to get started with Neurobagel. 
-    It includes all services you need to run a single standalone Neurobagel node, including a graphical query tool.
-    :information_source: By default this profile will also federate over all publicly accessible neurobagel nodes.
+    It includes all services you need to run a local Neurobagel node and have the ability to query public nodes, along with a graphical query tool.
        - `api`
        - `graph`
        - `federation`
        - `query_tool`
+    !!! info
+            By default this profile will also federate over all publicly accessible Neurobagel nodes, although this behaviour can be disabled in the f-API using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables).
+
 2. `local_node`: Best profile if you want to run a standalone Neurobagel node
-    and rely on a different deployment for providing federation and the query tool.
-    :information_source: **This is the default profile** if you don't specify one.
+    but rely on a separate deployment for providing federation and a graphical query tool (such as Neurobagel's own hosted public instances).
        - `api`
        - `graph` 
+    !!! info
+         This is the **default profile** if you don't specify one.
+
 3. `local_federation`: Best profile if you already have multiple standalone (local or non-publicly-accessible) Neurobagel node
-    deployments running and you now want to provide federation over them. 
-    :information_source: If you only want to federate over a local node and all public Neurobagel nodes
-    we recommend using the `full_stack` profile to set up your node and federation in one step. If you use the `local_federation` profile, 
-    you will have to [manually configure your `local_nb_nodes.json` file](#local_nb_nodesjson).
-      - `federation`
-      - `query_tool`
-4. `local_node_query`: :warning: Deprecated profile. 
-    This profile lets you create a local node without 
-    federation. The query tool hosted by this deployment will talk only to the
-    local node.
-       - `api`
-       - `graph`
+    deployments running and you now want to provide federation over them.  
+       - `federation`
        - `query_tool`
+    !!! info
+        If you only want to federate over a single local node and all public Neurobagel nodes,
+        we recommend using the `full_stack` profile to set up your node and federation in one step.
+        If you choose to use the `local_federation` profile, 
+        you will have to [manually configure your `local_nb_nodes.json` file](#local_nb_nodesjson).
 
 You can then launch these profiles by using the `--profile` flag with `docker compose`, e.g.:
 

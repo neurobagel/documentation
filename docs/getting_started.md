@@ -88,20 +88,19 @@ cd recipes
 cp template.env .env
 cp local_nb_nodes.template.json local_nb_nodes.json
 ```
-3. Change `NB_API_QUERY_URL` in the `.env` file 
+3. Change `NB_API_QUERY_URL` in the `.env` file
 
     You **must** replace the placeholder value for `NB_API_QUERY_URL`in the `.env` file
     
     ```bash
     NB_API_QUERY_URL=http://XX.XX.XX.XX
     ```
-    with the address of the machine you are going to deploy Neurobagel on.
+    with the URL address where the Neurobagel federation API will be accessed:
 
-    - If you are deploying Neurobagel **for yourself** or just to try things out locally, 
-   you can use: `NB_API_QUERY_URL=http://localhost:8080` 
-    where `:8080` is the default port for the federation API.
-    - If you are deploying Neurobagel on a server for other users, 
-   you **must** use the IP (and Port) or URL that your users will access the server with. 
+    - If you are deploying Neurobagel for yourself or deploying and trying the services **on your local machine only**, 
+   you can use `NB_API_QUERY_URL=http://localhost:8080`, where `8080` is the [default host port for the federation API](./config.md#environment-variables).
+    - If you are deploying Neurobagel **on a server for other users**, 
+   you must use the IP (and port) or URL intended for your users to access the federation API on the server with.
    
 !!! info
 
@@ -152,9 +151,9 @@ our [service profile documentation](config.md#available-profiles) for details.
 :tada: You are now the proud owner of a running Neurobagel node. Here are some things you can do now:
 
 - Try the Neurobagel node you just deployed by accessing:
-    - your own query tool at  [http://localhost:3000](http://localhost:3000) and reading the [query tool](./query_tool.md) guide
-    - the interactive API docs at [http://localhost:8000/docs](http://localhost:8000/docs) and reading the [API](./api.md) guides
+    - your own query tool at  [http://localhost:3000](http://localhost:3000), and reading the [query tool usage](./query_tool.md#usage) guide
+    - the interactive docs for your node API at [http://localhost:8000/docs](http://localhost:8000/docs), and reading the [API usage](./api.md) guide
 - [Prepare your own dataset](./data_prep.md) for annotation with Neurobagel
 - [Add your own data to your Neurobagel graph](maintaining.md#updating-the-data-in-your-graph) to search
 - Learn about the different [configuration options](config.md) for your Neurobagel node
-- Hopefully all went well, but if you are experiencing issues take a look at our [getting help guide](./getting_help.md)
+- Hopefully all went well, but if you are experiencing issues, see how to [get help](./getting_help.md)
