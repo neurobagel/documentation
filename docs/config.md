@@ -10,7 +10,7 @@ for the changes to take effect.
 ## Deployment
 
 ### Available services
-The Neurobagel docker compose recipe includes several services
+The Neurobagel Docker Compose recipe includes several services
 and coordinates them to work together:
 
 (In parentheses are the names of services within the Docker Compose stack)
@@ -89,7 +89,7 @@ At minimum, we recommend reviewing and changing the values of the following vari
 > `NB_GRAPH_ADMIN_PASSWORD`  
 > `NB_GRAPH_USERNAME`  
 > `NB_GRAPH_PASSWORD`  
-> `NB_GRAPH_DB` 
+> `NB_GRAPH_DB`  
 > `NB_RETURN_AGG`  
 > `NB_API_QUERY_URL`
 
@@ -114,10 +114,13 @@ openssl rand -hex 16
 This file is only used by deployment profiles that include the federation API. 
 `local_nb_nodes.json` contains the URLs and (arbitrary) names of the local nodes you wish to federate over.
 Each node must be denoted by a dictionary `{}` with two key-value pairs:  
-`"NodeName"` for the name of the node,  
-`"ApiURL"` for the URL of the API exposed for that node.  
-Multiple nodes must be wrapped in a list `[]`.
 
+- `"NodeName"`: name of the node
+- `"ApiURL"`: URL of the node API exposed for that node
+
+Multiple nodes must be wrapped in a list `[]`.  
+
+Example: 
 Let's assume there are two local nodes already running on different servers of your institutional network, and you want to set up federation across both nodes:
 
 - a node named `"My Institute"` running on your local computer (localhost), on port `8000` and 
@@ -158,7 +161,7 @@ To add one or more local nodes to the list of nodes known to your `f-API`, simpl
 
 ## Manually setting up a Neurobagel graph backend
 
-The Neurobagel docker compose recipe will automatically setup and configure 
+The Neurobagel Docker Compose recipe will automatically set up and configure 
 all services for you after deployment.
 The automated setup steps are explained in more detail below.
 

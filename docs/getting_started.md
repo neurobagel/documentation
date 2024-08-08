@@ -18,7 +18,7 @@ and are launched with Docker Compose.
 
 !!! danger "Don't install Neurobagel tools directly on your machine"
     
-    Please only use the docker images provided by Neurobagel 
+    Please only use the Docker images provided by Neurobagel 
     (or the third party providers Neurobagel relies on) and only launch
     them with our provided `docker-compose.yml` recipe.
 
