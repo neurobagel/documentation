@@ -1,6 +1,11 @@
 <!-- Custom HTML site displayed as the Home chapter -->
 {% extends "main.html" %}
 
+{% block styles %}
+{{ super() }}
+<link href="../stylesheets/output.css" rel="stylesheet">
+{% endblock %}
+
 {% block tabs %}
 {{ super() }}
 
