@@ -112,7 +112,7 @@ openssl rand -hex 16
 ## `local_nb_nodes.json`
 
 This file is only used by deployment profiles that include the federation API. 
-`local_nb_nodes.json` contains the URLs and (arbitrary) names of the local nodes you wish to federate over.
+`local_nb_nodes.json` contains the URLs and (arbitrary) names of the _node APIs_ of local nodes you wish to federate over.
 Each node must be denoted by a dictionary `{}` with two key-value pairs:  
 
 - `"NodeName"`: name of the node
