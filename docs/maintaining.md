@@ -56,21 +56,6 @@ docker compose --profile full_stack pull
 Whether you have updated the Docker images, the [configuration](config.md), or the [data](#updating-the-data-in-your-graph)
 of your Neurobagel node, you will need to restart the services to apply the changes.
 
-!!! warning "Restarting the graph backend after an update can introduce problems"
-
-    If you have updated the data model or the data in your graph,
-    you should **not** restart the graph backend services without first updating the data in the graph.
-    
-    This is a current limitation of the deployment profile and we are working to resolve it.
-
-    In the meantime, here is how you can restart and update the services in your Neurobagel node
-    without affecting the graph backend: 
-
-    ```bash
-    docker compose down api query_federation federation
-    docker compose pull && docker compose up -d
-    ```
-
 To shut down a running Neurobagel node,
 navigate to the path on your file system where
 you have stored the `docker-compose.yml` file from the [initial setup](getting_started.md) and run:
