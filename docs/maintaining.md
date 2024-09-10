@@ -7,9 +7,9 @@ there are some recurring tasks you may have to do to keep it operating correctly
 
 We are continuously improving Neurobagel tools and services,
 so you may want to update your Neurobagel node to the latest version to benefit from new features and bug fixes.
-We always publish our tools as [Docker images on Dockerhub](https://hub.docker.com/repositories/neurobagel).
+We always publish our tools as [Docker images on DockerHub](https://hub.docker.com/repositories/neurobagel).
 
-Each Docker image has a version tag, and also two rolling tags:
+Each Docker image has a semantic version tag (vX.Y.Z), and also two rolling tags:
 
 - `latest` (the latest stable release). This is the default tag used in the Neurobagel `docker-compose.yml` file.
 - `nightly` (the latest build from the main branch). This tag is only used for compatibility testing and should not be used in production.
@@ -19,6 +19,29 @@ You can pull the most recent docker images for Neurobagel tools by running:
 ```bash
 docker compose --profile full_stack pull
 ```
+
+??? tip "Not sure what version you have?"
+
+    Since `latest` is a rolling tag, each `latest` Docker image for a Neurobagel tool includes its corresponding semver number (vX.Y.X) as part of its Docker image labels.
+
+    You can find the labels for an image you have pulled in the image metadata, e.g.:
+    ```bash
+    docker image inspect neurobagel/api:latest
+    ```
+    or, to view only the labels:
+    ```bash
+    docker image inspect --format='{{json .Config.Labels}}' neurobagel/api:latest
+    ```
+    In either case, you should see something like this in the output:
+
+    ```bash
+        "Labels": {
+            "org.opencontainers.image.created": "https://github.com/neurobagel/api",
+            "org.opencontainers.image.revision": "01530f467e163f3dff595d3327bc60ba453de47d",
+            "org.opencontainers.image.version": "v0.3.1"
+        }
+    ```
+    where `"org.opencontainers.image.version"` refers to the version number.
 
 !!! warning "`docker compose` will only pull the images that are used by the current deployment profile."
 
