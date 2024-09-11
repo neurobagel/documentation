@@ -1,6 +1,6 @@
 # Getting Help
 
-There are several ways to interact with the Neurobagel team, including:
+There are several ways you can interact with the Neurobagel team:
 
 - Create an issue in our [GitHub repositories](https://github.com/neurobagel)
 - Our tag on the [Neurostars forum](https://neurostars.org/tag/neurobagel)

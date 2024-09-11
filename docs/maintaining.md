@@ -9,7 +9,7 @@ We are continuously improving Neurobagel tools and services,
 so you may want to update your Neurobagel node to the latest version to benefit from new features and bug fixes.
 We always publish our tools as [Docker images on DockerHub](https://hub.docker.com/repositories/neurobagel).
 
-Each Docker image has a semantic version tag (vX.Y.Z), and also two rolling tags:
+Each Docker image has a [semantic version](https://semver.org/) tag (vX.Y.Z), and also two rolling tags:
 
 - `latest` (the latest stable release). This is the default tag used in the Neurobagel `docker-compose.yml` file.
 - `nightly` (the latest build from the main branch). This tag is only used for compatibility testing and should not be used in production.
