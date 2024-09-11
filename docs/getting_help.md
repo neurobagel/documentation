@@ -2,23 +2,23 @@
 
 There are several ways to interact with the Neurobagel team, including:
 
-- Issues in our [GitHub repositories](https://github.com/neurobagel)
-- Our [Neurostars forum](https://neurostars.org/tag/neurobagel)
-- Our [Discord server](https://discord.gg/BEXXgt3hXk)
+- Create an issue in our [GitHub repositories](https://github.com/neurobagel)
+- Our tag on the [Neurostars forum](https://neurostars.org/tag/neurobagel)
+- Join our [Discord server](https://discord.gg/BEXXgt3hXk) to chat with us
 
 ## Usage or general questions
 If you have a _usage question_ about Neurobagel (e.g., troubleshooting setup, feedback on a specific use case), 
 or want to _discuss the Neurobagel project in general_ with the development team or other users, 
 please either:
 
-- open an issue on Neurostars with the `neurobagel` tag: [https://neurostars.org/tag/neurobagel](https://neurostars.org/tag/neurobagel) or
+- search for or start a new thread on Neurostars with the `neurobagel` tag: [https://neurostars.org/tag/neurobagel](https://neurostars.org/tag/neurobagel) or
 - send us a message in the [Neurobagel Discord server](https://discord.gg/BEXXgt3hXk)
 
 ## Report a bug or request a feature
 For _bug reports_ or _feature requests_, we prefer if you open an issue in the repository for the relevant tool in the [Neurobagel GitHub organization](https://github.com/neurobagel).
 
 If you are using one of our web tools ([https://annotate.neurobagel.org](https://annotate.neurobagel.org) or [https://query.neurobagel.org](https://query.neurobagel.org)), 
-you may also submit bug reports and feature requests using the feedback widget directly on the site.
+you may also submit bug reports and feature requests using the feedback widget directly on the app.
 
 ## Documentation feedback
 We are always looking to improve our user documentation.
