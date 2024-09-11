@@ -7,9 +7,9 @@ there are some recurring tasks you may have to do to keep it operating correctly
 
 We are continuously improving Neurobagel tools and services,
 so you may want to update your Neurobagel node to the latest version to benefit from new features and bug fixes.
-We always publish our tools as [Docker images on Dockerhub](https://hub.docker.com/repositories/neurobagel).
+We always publish our tools as [Docker images on DockerHub](https://hub.docker.com/repositories/neurobagel).
 
-Each Docker image has a version tag, and also two rolling tags:
+Each Docker image has a [semantic version](https://semver.org/) tag (vX.Y.Z), and also two rolling tags:
 
 - `latest` (the latest stable release). This is the default tag used in the Neurobagel `docker-compose.yml` file.
 - `nightly` (the latest build from the main branch). This tag is only used for compatibility testing and should not be used in production.
@@ -19,6 +19,29 @@ You can pull the most recent docker images for Neurobagel tools by running:
 ```bash
 docker compose --profile full_stack pull
 ```
+
+??? tip "Not sure what version you have?"
+
+    Since `latest` is a rolling tag, each `latest` Docker image for a Neurobagel tool includes its corresponding semver number (vX.Y.X) as part of its Docker image labels.
+
+    You can find the labels for an image you have pulled in the image metadata, e.g.:
+    ```bash
+    docker image inspect neurobagel/api:latest
+    ```
+    or, to view only the labels:
+    ```bash
+    docker image inspect --format='{{json .Config.Labels}}' neurobagel/api:latest
+    ```
+    In either case, you should see something like this in the output:
+
+    ```bash
+        "Labels": {
+            "org.opencontainers.image.created": "https://github.com/neurobagel/api",
+            "org.opencontainers.image.revision": "01530f467e163f3dff595d3327bc60ba453de47d",
+            "org.opencontainers.image.version": "v0.3.1"
+        }
+    ```
+    where `"org.opencontainers.image.version"` refers to the version number.
 
 !!! warning "`docker compose` will only pull the images that are used by the current deployment profile."
 
@@ -32,21 +55,6 @@ docker compose --profile full_stack pull
 
 Whether you have updated the Docker images, the [configuration](config.md), or the [data](#updating-the-data-in-your-graph)
 of your Neurobagel node, you will need to restart the services to apply the changes.
-
-!!! warning "Restarting the graph backend after an update can introduce problems"
-
-    If you have updated the data model or the data in your graph,
-    you should **not** restart the graph backend services without first updating the data in the graph.
-    
-    This is a current limitation of the deployment profile and we are working to resolve it.
-
-    In the meantime, here is how you can restart and update the services in your Neurobagel node
-    without affecting the graph backend: 
-
-    ```bash
-    docker compose down api query_federation federation
-    docker compose pull && docker compose up -d
-    ```
 
 To shut down a running Neurobagel node,
 navigate to the path on your file system where
