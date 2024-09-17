@@ -1,5 +1,10 @@
 # Preparing the phenotypic data
 
+!!! tip "Looking for more general guidelines on how to organize your dataset?"
+
+    We recommend also checking out [Nipoppy](https://nipoppy.readthedocs.io/), a protocol for standardized organization and processing of clinical-neuroimaging datasets that extends [BIDS](https://bids-specification.readthedocs.io/en/stable/). 
+    Neurobagel tools are designed to be compatible with data organized according to the Nipoppy specification, although you do not need to use Nipoppy in order to use Neurobagel.
+
 To use the Neurobagel annotation tool, 
 please prepare the tabular data for your dataset as a single, tab-separated file (`.tsv`).
 

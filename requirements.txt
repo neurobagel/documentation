@@ -1,5 +1,5 @@
 mkdocs-include-markdown-plugin[cache]
 mkdocs-material
-mkdocs-table-reader-plugin
+mkdocs-table-reader-plugin>=3.0.0
 mkdocs-yamp
 pre-commit
