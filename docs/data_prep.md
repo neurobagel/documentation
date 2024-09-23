@@ -17,18 +17,24 @@ please prepare the tabular data for your dataset as a single, tab-separated file
 
 ### All datasets
 
-A valid dataset for Neurobagel **must** include a TSV file that describes participant attributes. 
-The TSV must contain a minimum of two columns: at least one column must contain subject IDs, 
-and at least one column must describe demographic or other phenotypic information 
-(for variables currently modeled by Neurobagel, see the [data dictionary section](dictionaries.md)).
+A valid dataset for Neurobagel **MUST** include a TSV file that describes participant attributes. 
+The TSV **MUST** contain a minimum of two columns: 
+
+- at least one column must contain subject IDs, and 
+- at least one column must describe demographic or other phenotypic information 
+
+for variables currently modeled by Neurobagel, see the [data dictionary section](dictionaries.md).
 
 ### Datasets with imaging (BIDS) data
 
 If a dataset has imaging data in [BIDS](https://bids-specification.readthedocs.io/en/stable/) format, 
 Neurobagel **additionally** requires that:
 
-- At least one column in the phenotypic TSV contains subject IDs that match the names of [BIDS subject subdirectories](https://bids-specification.readthedocs.io/en/stable/02-common-principles.html#filesystem-structure). 
-If this condition is not met, you will encounter an error when [running the Neurobagel CLI](cli.md) on your dataset to generate Neurobagel graph-ready files, indicating that your BIDS directory contains subjects not found in your phenotypic file.
+- At least one column in the phenotypic TSV contains subject IDs that 
+  match the names of [BIDS subject subdirectories](https://bids-specification.readthedocs.io/en/stable/02-common-principles.html#filesystem-structure). 
+  If this condition is not met, you will encounter an error 
+  when [running the Neurobagel CLI](cli.md) on your dataset to generate Neurobagel graph-ready files, 
+  indicating that your BIDS directory contains subjects not found in your phenotypic file.
 
     !!! note
         Subject IDs are case-sensitive and must match BIDS subject IDs exactly 
@@ -39,7 +45,8 @@ If this condition is not met, you will encounter an error when [running the Neur
 - All BIDS subjects are included in the phenotypic TSV, 
   even if they only have BIDS imaging information. 
   Neurobagel does not allow for datasets where subjects have BIDS 
-  data but are not represented in the phenotypic TSV (however, subjects who have phenotypic data but no BIDS data are allowed).
+  data but are not represented in the phenotypic TSV 
+  (however, subjects who have phenotypic data but no BIDS data are allowed).
 
 ## Examples of valid phenotypic TSVs
 
