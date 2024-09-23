@@ -22,5 +22,5 @@ You can also find official Docker images for our containerized tools on the [Neu
 ## What to do next
 
 - [Learn how to run a cohort query](./query_tool.md) on publicly accessible Neurobagel nodes
-- [Deploy your own Neurobagel node](./getting_started.md) using our official Docker Compose recipe
+- [Deploy your own Neurobagel node](guide/getting_started.md) using our official Docker Compose recipe
 - [Prepare your own dataset](./data_prep.md) for annotation and harmonization with Neurobagel

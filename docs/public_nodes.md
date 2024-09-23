@@ -32,4 +32,4 @@ Downloading of imaging data is performed via [datalad](https://rpq-qpn.ca/en/hom
 Nodes that are not purposefully made public are not accessible 
 outside of the institute or network where they are deployed.
 If you are interested in deploying a Neurobagel node for your institution,
-please refer to our [deployment documentation](./getting_started.md) for more information.
+please refer to our [deployment documentation](guide/getting_started.md) for more information.
