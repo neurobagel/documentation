@@ -52,6 +52,11 @@ Neurobagel **additionally** requires that:
   Neurobagel does not allow for datasets where subjects have BIDS 
   data but are not represented in the phenotypic TSV 
   (however, subjects who have phenotypic data but no BIDS data are allowed).
+- If the dataset is longitudinal, the session IDs in the phenotypic TSV 
+  MAY match the session IDs in the BIDS dataset, but don't have to. 
+  If matching session IDs are present in the phenotypic TSV and the BIDS dataset, neurobagel will interpret
+  this to mean that the phenotypic data is associated with the corresponding BIDS session.
+  If phenotypic and BIDS session IDs do not match, Neurobagel will treat them as distinct sessions.
 
 ## Examples of valid phenotypic TSVs
 
@@ -105,6 +110,14 @@ In this case, both types of participant IDs should be recorded in the tabular fi
 
 The only requirement is that **the combination of all ID values for a row is unique**.
 
+!!! Warning "Neurobagel currently supports only one subject ID and one session ID"
+    Neurobagel does not support multiple subject or session IDs in the same TSV file. 
+    If you have multiple subject or session IDs, you must choose one to use as the primary ID 
+    and include the others as additional columns.
+    
+
+    We are planning to support multiple IDs in the future. 
+
 Example **invalid** TSV:
 
 | participant_id | alternative_participant_id | ... |
@@ -123,3 +136,5 @@ Example **valid** TSV:
 | sub-01         | SID-1234           | ses-02     | visit-2        | 23  |     |
 | sub-02         | SID-2222           | ses-01     | visit-1        | 28  |     |
 | ...            |                    |            |                |     |     |
+
+
