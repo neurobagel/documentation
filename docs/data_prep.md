@@ -22,7 +22,7 @@ A valid dataset for Neurobagel **MUST** include a TSV file that describes partic
 The TSV: 
 
 - MUST contain a minimum of two columns
-- MUST contain at least one colum with subject IDs
+- MUST contain at least one column with subject IDs
 
     ??? note "Only one subject ID column can be annotated"
         Neurobagel currently does not support annotating multiple subject ID columns 
