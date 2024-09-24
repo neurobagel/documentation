@@ -41,7 +41,7 @@ The TSV MAY contain:
 
 The TSV MUST **NOT** contain:
 
-- Missing values in the subject ID and session ID (if available) columns
+- Missing values in the columns you plan to annotate as containing the primary subject IDs and session IDs (if available)
 
 For all variables currently modeled by Neurobagel, see the [data dictionary section](dictionaries.md).
 
