@@ -19,24 +19,29 @@ please prepare the tabular data for your dataset as a single, tab-separated file
 
 A valid dataset for Neurobagel **MUST** include a TSV file that describes participant attributes.
 
-The TSV MUST:
+The TSV MUST contain:
 
-- MUST contain a minimum of two columns
-- MUST contain at least one column with subject IDs
+- A minimum of two columns
+- At least one column containing subject IDs
 
     ??? note "Only one subject ID column can be annotated"
         Neurobagel currently does not support annotating multiple subject ID columns
         so you must choose one as the primary ID during annotation
 
-- MUST contain at least one column that describes demographic or other phenotypic information
-- MAY contain a column with session IDs if the dataset is longitudinal.
+- At least one column that describes demographic or other phenotypic information
+- Unique values in the subject ID column or unique combinations of IDs if both subject and session ID columns are present
 
+The TSV MAY contain:
+
+- A column with session IDs, e.g. if the dataset is longitudinal
+  
     ??? note "Only one session ID column can be annotated"
         Neurobagel currently does not support annotating multiple session ID columns
         so you must choose one as the primary ID during annotation
-  
-- MUST NOT contain any missing values in the subject ID and session ID (if available) column
-- MUST have unique values in the subject ID column OR in the combination of subject ID and session ID columns
+
+The TSV MUST **NOT** contain:
+
+- Missing values in the subject ID and session ID (if available) columns
 
 For all variables currently modeled by Neurobagel, see the [data dictionary section](dictionaries.md).
 
