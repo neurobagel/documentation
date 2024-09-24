@@ -15,14 +15,14 @@ and coordinates them to work together:
 
 (In parentheses are the names of services within the Docker Compose stack)
 
-- **[Neurobagel node API/n-API](../api.md)** (`api`): The API that communicates with a single graph store and determines 
+- **[Neurobagel node API/n-API](api.md)** (`api`): The API that communicates with a single graph store and determines 
     how detailed the response to a query should be from that graph.
 - **Graph store** (`graph`): A third-party RDF store that stores Neurobagel-harmonized data to be queried. At the moment our recipe uses the free tier
     of [GraphDB](https://db-engines.com/en/system/GraphDB) for this.
 - **Neurobagel federation/f-API** (`federation`): A special API that can federate over one or more
     Neurobagel nodes to provide a single point of access to multiple distributed databases.
     By default it will federate over all public nodes and any local nodes you specify. 
-- **[Neurobagel query tool](../query_tool.md)** (`query_tool`): A web app that provides a graphical interface for users to query a 
+- **[Neurobagel query tool](query_tool.md)** (`query_tool`): A web app that provides a graphical interface for users to query a 
     federation API and view the results from one or more nodes. Because the query tool is a static app and is run locally
     in the user's browser, this service simply hosts the app.
 
@@ -309,7 +309,7 @@ you can use the
     hierarchical relationships between concepts themselves can also be represented.
     Including these relationships in a graph is important to be able to answer questions such as how many different diagnoses are represented in a graph database, to query for higher-order concepts for a given variable, and more.
 
-The participant variables modeled by Neurobagel are named using Neurobagel's own vocabulary (for more information, see this page on [controlled terms](../term_naming_standards.md)).
+The participant variables modeled by Neurobagel are named using Neurobagel's own vocabulary (for more information, see this page on [controlled terms](./term_naming_standards.md)).
 This vocabulary, which defines internal relationships between vocabulary terms, 
 is serialized in the file [`nb_vocab.ttl`](https://github.com/neurobagel/recipes/blob/main/vocab/nb_vocab.ttl) available from the `neurobagel/recipes` repository.
 If you have cloned this repository, you will already have downloaded the vocabulary file.

@@ -65,7 +65,7 @@ Example:
 
 If the values for all columns except for `DatasetID` and `SessionPath` in the participant-level results tsv are set to `protected`, this indicates the graph being queried has been configured (via its corresponding Neurobagel node API) to return only aggregate information about matches (due to data privacy reasons). 
 This configuration can be modified by setting the `NB_RETURN_AGG` environment variable to `false` (the value is by default `true`). 
-See related section of the documentation [here](guide/config.md#environment-variables).
+See related section of the documentation [here](config.md#environment-variables).
 
 Example:
 
