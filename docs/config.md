@@ -35,15 +35,17 @@ Neurobagel offers different deployment profiles that allow you to spin up specif
        - `graph`
        - `federation`
        - `query_tool`
+
     !!! info
-            By default this profile will also federate over all publicly accessible Neurobagel nodes, although this behaviour can be disabled in the f-API using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables).
+        This is the **default profile** if you don't specify one.
+        
+    !!! info
+        By default this profile will also federate over all publicly accessible Neurobagel nodes, although this behaviour can be disabled in the f-API using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables).
 
 2. `local_node`: Best profile if you want to run a standalone Neurobagel node
     but rely on a separate deployment for providing federation and a graphical query tool (such as Neurobagel's own hosted public instances).
        - `api`
-       - `graph` 
-    !!! info
-         This is the **default profile** if you don't specify one.
+       - `graph`
 
 3. `local_federation`: Best profile if you already have multiple standalone (local or non-publicly-accessible) Neurobagel node
     deployments running and you now want to provide federation over them.  
@@ -55,11 +57,23 @@ Neurobagel offers different deployment profiles that allow you to spin up specif
         If you choose to use the `local_federation` profile, 
         you will have to [manually configure your `local_nb_nodes.json` file](#local_nb_nodesjson).
 
-You can then launch these profiles by using the `--profile` flag with `docker compose`, e.g.:
+#### Launching a profile
+You can then launch a specific profile in one of two ways:
 
-```bash
-docker compose --profile full_stack up -d
-```
+- Using the `--profile` flag with `docker compose`, e.g.:
+    ```bash
+    docker compose --profile full_stack up -d
+    ```
+- Editing the value of `COMPOSE_PROFILES` (a [built-in Docker Compose environment variable](https://docs.docker.com/compose/how-tos/environment-variables/envvars/#compose_profiles)) in `.env`, which defines the 
+default profile that should be started when no profile is specified:
+  ``` sh title=".env"
+  ...
+  COMPOSE_PROFILES=full_stack
+  ```
+  Then, you can launch the profile you have defined in `.env` simply using:
+  ```bash
+  docker compose up -d
+  ```
 
 Take a look at the [getting started guide](getting_started.md) for more information setting up for a first launch.
 
