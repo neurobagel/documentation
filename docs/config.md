@@ -38,9 +38,8 @@ Neurobagel offers different deployment profiles that allow you to spin up specif
 
     !!! info
         This is the **default profile** if you don't specify one.
-        
-    !!! info
-        By default this profile will also federate over all publicly accessible Neurobagel nodes, although this behaviour can be disabled in the f-API using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables).
+    
+        By default, this profile will also federate over all publicly accessible Neurobagel nodes, although this behaviour can be disabled in the f-API using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables).
 
 2. `local_node`: Best profile if you want to run a standalone Neurobagel node
     but rely on a separate deployment for providing federation and a graphical query tool (such as Neurobagel's own hosted public instances).

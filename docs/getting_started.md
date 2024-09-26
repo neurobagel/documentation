@@ -119,7 +119,7 @@ you can launch your own Neurobagel node with the following `docker compose` comm
 ```bash
 docker compose up -d
 ```
-!!! info
+??? info "Explanation"
     This is a shorthand for: `docker compose --profile full_stack up -d`
 
 this will:
