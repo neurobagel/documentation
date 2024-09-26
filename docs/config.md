@@ -57,22 +57,11 @@ Neurobagel offers different deployment profiles that allow you to spin up specif
         you will have to [manually configure your `local_nb_nodes.json` file](#local_nb_nodesjson).
 
 #### Launching a profile
-You can then launch a specific profile in one of two ways:
-
-- Using the `--profile` flag with `docker compose`, e.g.:
-    ```bash
-    docker compose --profile full_stack up -d
-    ```
-- Editing the value of `COMPOSE_PROFILES` (a [built-in Docker Compose environment variable](https://docs.docker.com/compose/how-tos/environment-variables/envvars/#compose_profiles)) in `.env`, which defines the 
-default profile that should be started when no profile is specified:
-  ``` sh title=".env"
-  ...
-  COMPOSE_PROFILES=full_stack
-  ```
-  Then, you can launch the profile you have defined in `.env` simply using:
-  ```bash
-  docker compose up -d
-  ```
+You can then launch a specific profile using the `--profile` or  `-p` flag with `docker compose`, e.g.:
+```bash
+docker compose --profile full_stack up -d
+```
+If no profile is specified, `docker compose up -d` will start the services for the default profile, `full_stack`.
 
 Take a look at the [getting started guide](getting_started.md) for more information setting up for a first launch.
 
