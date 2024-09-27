@@ -43,10 +43,10 @@ docker compose --profile full_stack pull
     ```
     where `"org.opencontainers.image.version"` refers to the version number.
 
-!!! warning "`docker compose` will only pull the images that are used by the current deployment profile."
+!!! warning "`docker compose` will only pull the images used by the current deployment profile"
 
-    If you don't specify a deployment profile, the default profile (`local_node`) will be used,
-    which only pulls the images for the [API](api.md), and graph store.
+    If you don't specify a deployment profile, the default profile (`full_stack`) will be used,
+    which pulls the images for all Neurobagel services including the [node API](api.md), [federation API](api.md), graph store, and [graphical query tool](query_tool.md).
 
     See the [deployment profiles](config.md#available-profiles) 
     section for more information on the available profiles.
@@ -70,12 +70,11 @@ Then, to start the services again:
 docker compose --profile full_stack up -d
 ```
 
-!!! note "Specify the deployment profile"
+!!! tip "Explicitly specify the deployment profile"
 
-    Whenever you use `docker compose` commands, you also have to specify
-    the deployment profile you want to use with the `-p` or `--profile` flag.
-    If you forget this step, `docker compose` will use the default profile (`local_node`),
-    and will only shut down, update, or start the services for that profile.
+    To avoid unexpected behaviour when running `docker compose` commands, we recommend always explicitly specifying the deployment profile you want to use with the `-p` or `--profile` flag.
+    Otherwise, `docker compose` will only manage (start, stop, or update) the services in the default profile 
+    (for more info, see [Launching a profile](config.md#launching-a-profile)).
 
 ## Updating the data in your graph
 

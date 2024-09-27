@@ -35,15 +35,16 @@ Neurobagel offers different deployment profiles that allow you to spin up specif
        - `graph`
        - `federation`
        - `query_tool`
+
     !!! info
-            By default this profile will also federate over all publicly accessible Neurobagel nodes, although this behaviour can be disabled in the f-API using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables).
+        This is the **default profile** if you don't specify one.
+    
+        By default, this profile will also federate over all publicly accessible Neurobagel nodes, although this behaviour can be disabled in the f-API using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables).
 
 2. `local_node`: Best profile if you want to run a standalone Neurobagel node
     but rely on a separate deployment for providing federation and a graphical query tool (such as Neurobagel's own hosted public instances).
        - `api`
-       - `graph` 
-    !!! info
-         This is the **default profile** if you don't specify one.
+       - `graph`
 
 3. `local_federation`: Best profile if you already have multiple standalone (local or non-publicly-accessible) Neurobagel node
     deployments running and you now want to provide federation over them.  
@@ -55,11 +56,12 @@ Neurobagel offers different deployment profiles that allow you to spin up specif
         If you choose to use the `local_federation` profile, 
         you will have to [manually configure your `local_nb_nodes.json` file](#local_nb_nodesjson).
 
-You can then launch these profiles by using the `--profile` flag with `docker compose`, e.g.:
-
+#### Launching a profile
+You can then launch a specific profile using the `--profile` or  `-p` flag with `docker compose`, e.g.:
 ```bash
 docker compose --profile full_stack up -d
 ```
+If no profile is specified, `docker compose up -d` will start the services for the default profile, `full_stack`.
 
 Take a look at the [getting started guide](getting_started.md) for more information setting up for a first launch.
 
@@ -84,30 +86,32 @@ Below are all the possible Neurobagel environment variables that can be set in `
 
 ### Change security relevant variables
 
-At minimum, we recommend reviewing and changing the values of the following variables in `.env` for security purposes:
+For security purposes, we recommend the following additional steps for configuring your node if you are using a deployment profile that includes a graph store:
 
-> `NB_GRAPH_ADMIN_PASSWORD`  
-> `NB_GRAPH_USERNAME`  
-> `NB_GRAPH_PASSWORD`  
-> `NB_GRAPH_DB`
-> `NB_RETURN_AGG`  
-> `NB_API_QUERY_URL`
+1. Review and change the values of the following variables in `.env`:
+    - `NB_GRAPH_USERNAME`
+    - `NB_GRAPH_SECRETS_PATH`
+    - `NB_GRAPH_DB`
+    - `NB_RETURN_AGG`
 
-Make sure to use a secure password for the `NB_GRAPH_ADMIN_PASSWORD` and `NB_GRAPH_PASSWORD` variables.
-Here is how you can create a random password in the terminal:
+2. Change the default passwords for the `admin` superuser and newly created graph database user (`NB_GRAPH_USERNAME`) for your graph store. 
+These are set to the contents of files called `NB_GRAPH_ADMIN_PASSWORD.txt` and `NB_GRAPH_PASSWORD.txt`, respectively, which are found by default in [`./secrets`](https://github.com/neurobagel/recipes/tree/main/secrets) in the Neurobagel recipes repo.
+To change the location of your password files, simply edit the variable `NB_GRAPH_SECRETS_PATH` in `.env` to point to a more secure directory where you have stored the two text files.
 
-```bash
-openssl rand -hex 16
-```
+    Make sure to use secure passwords for `NB_GRAPH_ADMIN_PASSWORD.txt` and `NB_GRAPH_PASSWORD.txt`.
 
-??? info "Passwords are handled as Docker secrets"
+    To generate a random password in the terminal, you can use:
 
-    Although the `NB_GRAPH_ADMIN_PASSWORD` and `NB_GRAPH_PASSWORD` variables are set in the `.env` file,
-    they are passed to the containers as [Docker secrets](https://docs.docker.com/engine/swarm/secrets/).
-    This ensures that your passwords are not exposed in the container logs or in the `docker-compose.yml` file.
-    
-    Make sure to not share your `.env` file with others, 
-    especially if it contains sensitive information like passwords.
+    ```bash
+    openssl rand -hex 16
+    ```
+
+    ??? info "Passwords are handled as Docker secrets"
+
+        The contents of `NB_GRAPH_ADMIN_PASSWORD.txt` and `NB_GRAPH_PASSWORD.txt` are passed to Neurobagel containers as [Docker secrets](https://docs.docker.com/reference/compose-file/secrets/).
+        This ensures that your passwords are not exposed in the container logs or in the `docker-compose.yml` file.
+        
+        Make sure to not share your password files with others.
 
 ## `local_nb_nodes.json`
 
