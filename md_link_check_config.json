@@ -2,7 +2,8 @@
     "ignorePatterns": [
         {"pattern": "http://neurobagel.org/vocab/.*"},
         {"pattern": "http://neurobagel.org/graph/"},
-        {"pattern": "https://www.cognitiveatlas.org/task/id/"},
+        {"pattern": "http://neurobagel.org/graph/"},
+        {"pattern": "http://purl.org/nidash/nidm#.*"},
         {"pattern": "^../.*"},
         {"pattern": ".*localhost.*"},
         {"pattern": "https://api.neurobagel.org/.*"},
