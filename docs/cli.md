@@ -1,6 +1,6 @@
 # The Neurobagel CLI
 
-The `bagel-cli` is a simple Python command-line tool to automatically parse and describe subject-level phenotypic and [BIDS](https://bids-specification.readthedocs.io/en/stable/) attributes in an annotated dataset for integration into the Neurobagel graph.
+The `bagel-cli` is a simple Python command-line tool to automatically parse and describe subject phenotypic and imaging attributes in an annotated dataset for integration into the Neurobagel graph.
 
 ## Installation
 
@@ -37,11 +37,14 @@ To run the CLI on a dataset you have annotated, you will need:
 
 <div class="annotate" markdown>
 - [A phenotypic TSV](./data_prep.md)
-- [A corresponding phenotypic JSON data dictionary](./dictionaries.md)
+- [A JSON data dictionary corresponding to the TSV](./dictionaries.md)
 - (Optional) The imaging dataset in [BIDS](https://bids-specification.readthedocs.io/en/stable/) format, if subjects have imaging data available (1)
+- (Optional) A TSV containing subject statuses for any image processing pipelines that have been run, following the [Nipoppy processing status file schema](https://nipoppy.readthedocs.io/en/latest/schemas/index.html#bagel-file) (2)
 </div>
 
-1. A valid BIDS dataset is needed for the CLI to automatically generate harmonized subject-level imaging metadata alongside harmonized phenotypic attributes.
+1. A valid BIDS dataset is needed for the CLI to automatically generate harmonized raw imaging metadata for subjects.
+2. This file is used by the CLI to generate harmonized processing pipeline and derivative metadata for subjects.
+It has compatibility with the [Nipoppy](https://nipoppy.readthedocs.io/en/latest/index.html) workflow, and can be automatically generated using the [Nipoppy pipeline trackers](https://nipoppy.readthedocs.io/en/latest/user_guide/tracking.html).
 
 ### Viewing CLI commands and options
 
