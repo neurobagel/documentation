@@ -50,7 +50,7 @@ It has compatibility with the [Nipoppy](https://nipoppy.readthedocs.io/en/latest
 
 ### Viewing CLI commands and options
 
-The `bagel-cli` has three commands:
+The `bagel-cli` has different commands:
 
 - `pheno`
 - `bids`
