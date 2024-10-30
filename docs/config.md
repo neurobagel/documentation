@@ -22,7 +22,7 @@ and coordinates them to work together:
 - **Neurobagel federation/f-API** (`federation`): A special API that can federate over one or more
     Neurobagel nodes to provide a single point of access to multiple distributed databases.
     By default it will federate over all public nodes and any local nodes you specify. 
-- **[Neurobagel query tool](query_tool.md)** (`query_tool`): A web app that provides a graphical interface for users to query a 
+- **[Neurobagel query tool](query_tool.md)** (`query_federation`): A web app that provides a graphical interface for users to query a 
     federation API and view the results from one or more nodes. Because the query tool is a static app and is run locally
     in the user's browser, this service simply hosts the app.
 
