@@ -38,6 +38,7 @@ nav:
         - Annotation tool guide: "annotation_tool.md"
         - Generating harmonized subject-level metadata: "cli.md"
   - Data models:
+    - Harmonized variables: "variables.md"
     - Augmented BIDS data dictionaries: "dictionaries.md"
     - Data files for Neurobagel graphs: "graph_data.md"
     - Naming conventions for terms: "term_naming_standards.md"
