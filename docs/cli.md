@@ -51,12 +51,14 @@ It has compatibility with the [Nipoppy](https://nipoppy.readthedocs.io/en/latest
 
 ### Viewing CLI commands and options
 
-The `bagel-cli` has different commands:
+The `bagel-cli` has different commands, each generating a different type of subject (meta)data:
 
 - `pheno`
 - `bids`
 - `derivatives`
 
+The `pheno` command must always be run first on a dataset (each subject in a Neurobagel graph must have at least phenotypic information); 
+other metadata are optional and can be added in an arbitrary order.
 
 To view the general CLI help and information about the commands:
 
@@ -207,8 +209,6 @@ you could run the CLI as follows:
     !!! tip
         Short forms for a CLI command's options can be found by running:  
         `singularity run bagel.sif pheno --help`
-
-The `pheno` command must always be run first on a dataset; other metadata can be added in an arbitrary order.
 
 !!! note "Speed of the `bids` command"
     The `bids` command of the `bagel-cli` (step 2) currently can take upwards of several minutes for datasets greater than a few hundred subjects, due to the time needed for pyBIDS to read the dataset structure.
