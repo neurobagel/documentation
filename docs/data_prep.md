@@ -43,7 +43,7 @@ The TSV MUST **NOT** contain:
 
 - Missing values in the columns you plan to annotate as containing the primary subject IDs and session IDs (if available)
 
-For all variables currently modeled by Neurobagel, see the [data dictionary section](dictionaries.md).
+For all phenotypic variables currently modeled by Neurobagel, see the [data dictionary section](dictionaries.md).
 
 ### Datasets with imaging (BIDS) data
 
