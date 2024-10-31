@@ -57,7 +57,7 @@ The `bagel-cli` has different commands, each generating a different type of subj
 - `bids`
 - `derivatives`
 
-The `pheno` command must always be run first on a dataset (each subject in a Neurobagel graph must have at least phenotypic information); 
+The `pheno` command must be run first on a dataset (each subject in a Neurobagel graph must have at least phenotypic information); 
 other metadata are optional and can be added in an arbitrary order.
 
 To view the general CLI help and information about the commands:
