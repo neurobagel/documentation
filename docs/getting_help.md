@@ -23,3 +23,7 @@ you may also submit bug reports and feature requests using the feedback widget d
 ## Documentation feedback
 We are always looking to improve our user documentation.
 To request a change or addition to existing documentation, please [open an issue in the `neurobagel/documentation` repo](https://github.com/neurobagel/documentation/issues).
+
+## Propose a new variable to be added to the Neurobagel data model
+If there is a variable you'd like to be able to harmonize and query using Neurobagel that is not [currently supported](variables.md), 
+please suggest it using a discussion in our dedicated [GitHub Discussion category](https://github.com/orgs/neurobagel/discussions/categories/subject-data-model-requests).

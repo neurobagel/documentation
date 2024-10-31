@@ -4,10 +4,10 @@ Neurobagel semantically harmonizes a number of variables used to describe differ
 
 The following list summarizes the variables that can currently be modeled and queried using Neurobagel, at the level of a single subject session.
 
-**We are actively working to expand our subject data model, and welcome [feedback](http://127.0.0.1:8000/getting_help/) on any other variables you would like to be able to query.**
+**We are actively working to expand our subject data model, and welcome [feedback](https://github.com/orgs/neurobagel/discussions/categories/subject-data-model-requests) on any other variables you would like to be able to query.**
 
 ## Phenotypic
-For more information on how phenotypic attributes are modeled, see the page on [Neurobagel data dictionaries](dictionaries.md).
+For details on how phenotypic attributes are modeled, see the page on [Neurobagel data dictionaries](dictionaries.md).
 
 - Age
 - Sex
