@@ -1,0 +1,1806 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../data_prep/">
+      
+      
+        <link rel="next" href="../cli/">
+      
+      
+      <link rel="icon" href="../imgs/logo/neurobagel_favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+    
+    
+      
+        <title>Annotation tool guide - Neurobagel</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  <script defer data-domain="neurobagel.org" src="https://plausible.neurobagel.org/js/script.js"></script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-neurobagel-annotation-tool" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Neurobagel" class="md-header__button md-logo" aria-label="Neurobagel" data-md-component="logo">
+      
+  <img src="../imgs/logo/neurobagel_logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Neurobagel
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Annotation tool guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/neurobagel/documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  Welcome
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
+          
+  
+    
+  
+  User guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../variables/" class="md-tabs__link">
+          
+  
+    
+  
+  Data models
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../contributing/CONTRIBUTING/" class="md-tabs__link">
+          
+  
+    
+  
+  Contributing
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../getting_help/" class="md-tabs__link">
+        
+  
+    
+  
+  Getting help
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../glossary/" class="md-tabs__link">
+        
+  
+    
+  
+  Glossary
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cite/" class="md-tabs__link">
+        
+  
+    
+  
+  Citing Neurobagel
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Neurobagel" class="md-nav__button md-logo" aria-label="Neurobagel" data-md-component="logo">
+      
+  <img src="../imgs/logo/neurobagel_logo.png" alt="logo">
+
+    </a>
+    Neurobagel
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/neurobagel/documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    User guide
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            User guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Running cohort queries
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Running cohort queries
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public_nodes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Search the public nodes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../query_tool/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to use the query tool
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Querying the API directly
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Setting up your own Neurobagel node
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Setting up your own Neurobagel node
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting_started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuring a node
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maintaining/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Maintaining a node
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Annotating your data
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Annotating your data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_prep/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preparing data for annotation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Annotation tool guide
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Annotation tool guide
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quickstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quickstart
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local Installation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Local Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#building-and-running" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building and running
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#developer-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Developer information
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#annotation-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Annotation Workflow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Navigation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#page-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Page Instructions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Page Instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#home-upload-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      Home (Upload) page
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Home (Upload) page">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#selecting-a-data-table-participantstsv" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selecting a data table (participants.tsv)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selecting-a-data-dictionary-optional-participantsjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selecting a data dictionary (optional) (participants.json)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#categorization-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      Categorization page
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Categorization page">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#categorizing-data-table-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Categorizing data table columns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#annotation-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      Annotation page
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Annotation page">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#age-rows-continuous-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Age rows (continuous values)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sex-and-diagnosis-rows-categorical-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sex and Diagnosis rows (categorical values)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#missing-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Missing values
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unlinking-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unlinking columns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      Download page
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generating harmonized subject-level metadata
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Data models
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data models
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../variables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Harmonized variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dictionaries/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Augmented BIDS data dictionaries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph_data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data files for Neurobagel graphs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../term_naming_standards/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Naming conventions for terms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Contributing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/CONTRIBUTING/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to contribute
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/team/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Our team
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting_help/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting help
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cite/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Citing Neurobagel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quickstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quickstart
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local Installation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Local Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#building-and-running" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building and running
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#developer-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Developer information
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#annotation-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Annotation Workflow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Navigation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#page-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Page Instructions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Page Instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#home-upload-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      Home (Upload) page
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Home (Upload) page">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#selecting-a-data-table-participantstsv" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selecting a data table (participants.tsv)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selecting-a-data-dictionary-optional-participantsjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selecting a data dictionary (optional) (participants.json)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#categorization-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      Categorization page
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Categorization page">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#categorizing-data-table-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Categorizing data table columns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#annotation-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      Annotation page
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Annotation page">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#age-rows-continuous-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Age rows (continuous values)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sex-and-diagnosis-rows-categorical-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sex and Diagnosis rows (categorical values)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#missing-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Missing values
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unlinking-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unlinking columns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      Download page
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="the-neurobagel-annotation-tool">The Neurobagel Annotation Tool</h1>
+<p>Neurobagel's annotation tool takes BIDS-style <a href="https://github.com/neurobagel/annotation_tool/blob/master/cypress/fixtures/examples/good/ds003653_participant.tsv">phenotypic data</a> and <a href="https://github.com/neurobagel/annotation_tool/blob/master/cypress/fixtures/examples/good/ds003653_participant.json">corresponding data description files</a> and gives users the ability to annotate their data using the Neurobagel data model for preparation to inject that modeled data into Neurobagel's graph database for <a href="https://github.com/neurobagel/query-tool">federated querying</a>.</p>
+<p>The annotation tool is a Vue application, developed in <a href="https://www.javascript.com/">JavaScript</a> using a variety of tools including <a href="https://nuxtjs.org/">Nuxt</a>, <a href="https://www.cypress.io/">Cypress</a>, and <a href="https://bootstrap-vue.org/docs">BootstrapVue</a>.</p>
+<h2 id="quickstart">Quickstart</h2>
+<p>The demo version of the annotation tool is hosted at <a href="https://annotate.neurobagel.org/">https://annotate.neurobagel.org/</a>.</p>
+<h2 id="local-installation">Local Installation</h2>
+<h3 id="building-and-running">Building and running</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># First, clone the repository at https://github.com/neurobagel/annotation_tool</span>
+
+<span class="c1"># Install dependencies</span>
+$<span class="w"> </span>npm<span class="w"> </span>install
+
+<span class="c1"># Serve with hot reload at localhost:3000</span>
+$<span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>dev
+
+<span class="c1"># Build for production and launch server</span>
+$<span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>build
+$<span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>start
+
+<span class="c1"># Generate static project</span>
+$<span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>generate
+</code></pre></div>
+<h3 id="deployment">Deployment</h3>
+<p>To deploy the static build on GH pages, run</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>generate
+npm<span class="w"> </span>run<span class="w"> </span>deploy
+</code></pre></div>
+<p>See the <a href="https://nuxtjs.org/deployments/github-pages/">Nuxt documentation</a> for more details.</p>
+<h3 id="developer-information">Developer information</h3>
+<p><strong>use node v16.x LTS</strong>!</p>
+<p><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" title=":warning:" /> 
+The Annotation Tool is built with the Nuxt framework and currently depends on Nuxt2. 
+Nuxt2 does not support node versions beyond the v16 LTS (see e.g. <a href="https://github.com/nuxt/nuxt/issues/10844">this Github issue</a>).
+If you want to run the tool locally, make sure you are using node v16.x.
+A good way to manage different node versions is to use the <a href="https://github.com/nvm-sh/nvm">node version manager</a> tool.</p>
+<h2 id="annotation-workflow">Annotation Workflow</h2>
+<ol>
+<li>Upload data table (and/or data dictionary)</li>
+<li>Linking columns you want annotated with Neurobagel metadata categories</li>
+<li>Annotate the values of the those categirzed columns</li>
+<li>Download an annotated version of a BIDS-style data dictionary for your dataset</li>
+</ol>
+<h2 id="general-navigation">General Navigation</h2>
+<!--
+NOTE: Raw HTML is used for this set of images as in the README to restrict screenshot size, but mkdocs doesn't play well with the relative path links (see https://github.com/mkdocs/mkdocs/issues/991), so the paths have been modified to start with `../` instead of `./` so mkdocs can find the right files.
+-->
+<p><img width="300" src="../imgs/annotate/readme_navbar.png" alt="Annotation tool navbar screenshot">
+<img width="300" src="../imgs/annotate/readme_nextpage_button.png" alt="Annotation tool next page button screenshot"></p>
+<p>There are two means of moving forward to the next step in the annotation tool's workflow: (1) the <span style="color:green;">navbar</span> at the top right of the screen which features the page names, and (2) the <span style="color:green;">next page buttons</span> on the bottom right of each page.</p>
+<p><img width="300" src="../imgs/annotate/readme_nextpage_instructions.png" alt="Annotation tool next page button screenshot"></p>
+<p>However, special criteria for each page need to be be met in order to move forward. Instructions are offered above the <span style="color:green;">next page button</span> while those conditions are still as of yet unmet. (These are denoted below under <em>Next page criteria</em>.) After having done so, the next page's name in the <span style="color:green;">navbar</span> will turn from gray to green, and the <span style="color:green;">next page button</span> will turn from gray to green as well.</p>
+<h2 id="page-instructions">Page Instructions</h2>
+<h3 id="home-upload-page">Home (Upload) page</h3>
+<p>The Home page is where you can upload data tables and dictionaries either for a brand new annotation or to continue a previous annotation session.</p>
+<p><img alt="Home page with uploaded table and dictionary files" src="../imgs/annotate/readme_home_page.png" /></p>
+<h4 id="selecting-a-data-table-participantstsv">Selecting a data table (participants.tsv)</h4>
+<ol>
+<li>Click the 'Choose File' button in the 'Data Table' section of the page to upload the BIDS-style phenotypic data file you wish to annotate. (One typical name for this file is <code>participants.tsv</code>.)</li>
+<li>Once uploaded a preview of the tsv file will be shown in the 'Data Table' text box. You may want to examine the preview contents in the text box to ensure you have uploaded the file that you expect to be annotating.</li>
+</ol>
+<p>While the annotation tool does not transform data with annotations, it will link the columns found in the uploaded tsv file to categories Neurobagel's metadata schema. Which columns the tool links is up to you on the next page: the categorization page.</p>
+<h4 id="selecting-a-data-dictionary-optional-participantsjson">Selecting a data dictionary (optional) (participants.json)</h4>
+<ol>
+<li>In order to upload your data dictionary, a data table must be uploaded first. This allows the annotation tool to understand the full structure of your data and the add its own entries for annotation purposes to a new, enhanced version of the data dictionary you will be uploading.</li>
+<li>Click the now-enabled 'Choose File' button in the 'Data Dictionary' section of the page to uploads the BIDS-style data dictionary.</li>
+<li>Once uploaded a preview of the json file will be shown in the 'Data Dictionary' text box. You may want to examine the preview contents in the text box to ensure you have uploaded the file that you expect to be annotating.</li>
+</ol>
+<p><em>Next page criteria:</em> A <code>participants.tsv</code> file must be uploaded to proceed to categorization of that dataset's columns</p>
+<h3 id="categorization-page">Categorization page</h3>
+<p>The Categorization page is where you link the columns in your data table to the categories found in Neurobagel's metadata schema. Current categories include 'Subject ID', 'Age', 'Sex' and 'Diagnosis'. Aside from the 'Subject ID' which is a special case, categories represent different data types, 'Sex' and 'Diagnosis' are categorical while 'Age' is continuous.</p>
+<p><img alt="Home page with uploaded table and dictionary files" src="../imgs/annotate/readme_categorization_page.png" /></p>
+<h4 id="categorizing-data-table-columns">Categorizing data table columns</h4>
+<ol>
+<li>Select a category in the category selection component on the left.</li>
+<li>Select a column from your uploaded <code>participants.tsv</code> in the table on the right. (Its description from your <code>participants.json</code> - if uploaded - will be seen here as well.) This will paint the column's table row with the same color as the category you have selected. This column is now linked to that category and you will be able to annotate its values on the annotation page.</li>
+</ol>
+<p><em>Next page criteria:</em> A column must be annotated as holding a 'Subject ID', and at least one other column must be linked with one of the other categories</p>
+<h3 id="annotation-page">Annotation page</h3>
+<p>The Annotation page is where you can annotate the values in your uploaded <code>participants.tsv</code>. The Neurobagel categories which you have linked columns to on the previous Categorization page are listed as tabs on the left.</p>
+<ul>
+<li>Clicking on each category tab will allow you to use the interface to annotated the values of each categorized column.</li>
+<li>When multiple columns have been linked with a category, each column will have its own column in the annotation components on the page.</li>
+<li>Any value in the annotation interface can be marked as a 'missing value' (i.e. <code>'N/A'</code>, empty string, etc.)</li>
+</ul>
+<p><img alt="Home page with uploaded table and dictionary files" src="../imgs/annotate/readme_annotation_page.png" /></p>
+<h4 id="age-rows-continuous-values">Age rows (continuous values)</h4>
+<p><img alt="Home page with uploaded table and dictionary files" src="../imgs/annotate/readme_annotation_page_continuous_value.png" /></p>
+<p>All values for columns categorized as <code>Age</code> can be annotated here with a set of continuous value transformations. Clicking on the dropdown will allow you to select a transformation. Current transformations available include <code>bounded</code>, <code>euro</code>, <code>float</code>, <code>int</code>, and <code>iso8601</code>. The raw values from the column are shown and when a transformation type is selected a preview of how that transformation would alter each raw value is shown.</p>
+<h4 id="sex-and-diagnosis-rows-categorical-values">Sex and Diagnosis rows (categorical values)</h4>
+<p>All values for columns categorized as either <code>Sex</code> or <code>Diagnosis</code> can be annotated here with labels that come from Neurobagel and the controlled vocabularies it utilizes to help form the Neurobagel metadata model. Clicking on the drop down on each raw value row will allow you to select an appropriate Neurobagel label for this value.</p>
+<p><img alt="Home page with uploaded table and dictionary files" src="../imgs/annotate/readme_annotation_page_categorical_value.png" /></p>
+<h4 id="missing-values">Missing values</h4>
+<p>Any continuous or categorical value can be marked as 'missing' via the adjacent <code>Mark as missing</code> button. This will remove the value from the annotatable values and place it in the <code>Missing values</code> section on the page. This can be undone for any value by clicking the <code>Not Missing</code> button in this section of the page.</p>
+<p><img alt="Home page with uploaded table and dictionary files" src="../imgs/annotate/readme_annotation_page_missing_values.png" /></p>
+<h4 id="unlinking-columns">Unlinking columns</h4>
+<p>Data table columns can also be unlinked (e.g. un-categorized) on the Annotation page in this section of the page labeled <code>Review the annotated columns</code>. This will stop the column from being annotated and have any annotations made for its values removed. The change is also reflected on the previous Categorization page.</p>
+<p><img alt="Home page with uploaded table and dictionary files" src="../imgs/annotate/readme_annotation_page_unlinking.png" /></p>
+<p><em>Next page criteria:</em> At least one annotation must be made from any of the categorized columns</p>
+<h3 id="download-page">Download page</h3>
+<p>Click the <span style="color:green;">download annotated data button</span> to download what we refer to an 'annotated' data dictionary that is a Neurobagel-enhanced BIDS-style data dictionary. This file will include any entries in the original data dictionary that you uploaded on the home page.</p>
+<p><img alt="Home page with uploaded table and dictionary files" src="../imgs/annotate/readme_download_button.png" /></p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../data_prep/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Preparing data for annotation">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Preparing data for annotation
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../cli/" class="md-footer__link md-footer__link--next" aria-label="Next: Generating harmonized subject-level metadata">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Generating harmonized subject-level metadata
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.footer", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.expand", "content.tabs.link", "content.code.copy"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../js/open_in_new_tab.js"></script>
+      
+    
+  </body>
+</html>
