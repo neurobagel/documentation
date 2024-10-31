@@ -93,6 +93,7 @@ plugins:
         include: [ "query-tool-results" ]
         branch: "main"
   - include-markdown
+  - open-in-new-tab
 
 extra:
   analytics:
