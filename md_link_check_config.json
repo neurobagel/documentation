@@ -2,11 +2,13 @@
     "ignorePatterns": [
         {"pattern": "http://neurobagel.org/vocab/.*"},
         {"pattern": "http://neurobagel.org/graph/"},
-        {"pattern": "https://www.cognitiveatlas.org/task/id/"},
+        {"pattern": "http://neurobagel.org/graph/"},
         {"pattern": "^../.*"},
         {"pattern": ".*localhost.*"},
         {"pattern": "https://api.neurobagel.org/.*"},
-        {"pattern": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"}
+        {"pattern": "http://purl.org/nidash/nidm#.*"},
+        {"pattern": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"},
+        {"pattern": "https://www.cognitiveatlas.org/task/id/"}
     ],
     "timeout": "60s"
 }

@@ -25,7 +25,7 @@ At the moment, the following public Neurobagel nodes are available
 
 All nodes except for the Quebec Parkinson Network node allow you to download both participant-level information
 and the corresponding imaging data (where available) for the cohorts you search. 
-Downloading of imaging data is performed via [datalad](https://rpq-qpn.ca/en/home/).
+Downloading of imaging data is performed via [Datalad](https://www.datalad.org/).
 
 ## Private Neurobagel nodes
 
