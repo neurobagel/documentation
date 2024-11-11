@@ -10,7 +10,14 @@ jobs:
     name: Add issue to project
     runs-on: ubuntu-latest
     steps:
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.NB_BOT_ID }}
+          private-key: ${{ secrets.NB_BOT_KEY }}
+
       - uses: actions/add-to-project@main
         with:
           project-url: https://github.com/orgs/neurobagel/projects/1
-          github-token: ${{ secrets.NB_PROJECT_PAT }}
+          github-token: ${{ steps.generate-token.outputs.token }}
