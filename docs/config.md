@@ -467,8 +467,10 @@ you can use the
   localhost:7200 repositories/my_db DBUSER DBPASSWORD \
 ```
 !!! warning
-  To update any _existing_ datasets in your graph database, you can clear the database and reupload all datasets using `add_data_to_graph.sh` following the command above and including the `--clear-data` flag. 
-  Ensure that you also re-upload the Neurobagel vocabulary file `nb_vocab.ttl` following the section below.
+    To update any _existing_ datasets in your graph database, you can clear the database and reupload all datasets using `add_data_to_graph.sh` following the command above and including the `--clear-data` flag. 
+
+    Ensure that you also re-upload the Neurobagel vocabulary file `nb_vocab.ttl` following the section below.
+
 ### Adding vocabulary files to the graph database
 
 ??? "Why we need vocabulary files in the graph"
