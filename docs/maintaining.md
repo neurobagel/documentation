@@ -78,17 +78,16 @@ docker compose --profile full_stack up -d
 
 ## Updating the data in your graph
 
-If you have followed the [initial setup](getting_started.md)
-and have deployed your Neurobagel node from our Docker Compose recipe,
-your node now has a dedicated graph database that stores
-the datasets for your node.
+The Neurobagel deployment recipe launches a dedicated graph database that stores the datasets for a single node.
+The data in this graph database is defined using the [`LOCAL_GRAPH_DATA` environment variable](config.md#environment-variables), and can be changed at any time.
+
 By default, the graph database will only contain an [example dataset called `BIDS synthetic`](https://github.com/neurobagel/recipes/blob/main/data/example_synthetic_pheno-bids.jsonld). 
 
-Replacing the existing data in your graph database with your own data (or updated data) is a straightforward process.
-Once you have generated or updated the JSONLD files you want to upload,
-the process to update the data in your graph is:
+If you have followed the [initial setup](getting_started.md) for deploying a Neurobagel node from our Docker Compose recipe, replacing the existing data in your graph database with your own data (or updated data) is a straightforward process.
 
-1. Shut down the Neurobagel node
+Once you have generated or updated the JSONLD files you want to upload, to update the data in your graph:
+
+1. Shut down the Neurobagel node, if it is already running
 
     ```bash
     docker compose --profile full_stack down
@@ -96,8 +95,8 @@ the process to update the data in your graph is:
 
    (or, replace `full_stack` with the profile you are using)
 
-2. Update the data files in the directory specified by the [`LOCAL_GRAPH_DATA` environment variable](config.md#uploading-data-to-the-graph-store), or simply change the path to a directory containing your JSONLD files.
-3. Restart the Neurobagel node
+2. Update the data files in the directory specified by the `LOCAL_GRAPH_DATA` variable in `.env`, or simply change the path to a directory containing your JSONLD files.
+3. (Re)start the Neurobagel node
 
     ```bash
     docker compose --profile full_stack up -d
@@ -150,10 +149,10 @@ This will ensure that if you use the latest version of the Neurobagel CLI to pro
 
 Note that if upgrading to a newer version of the data model, **you should regenerate the `.jsonld` files for _all_ datasets in your existing graph**.
 
-### Updating the graph database
+### Re-uploading a modified dataset
 
-To allow easy (re-)uploading of the updated `.jsonld` for your dataset(s) to a graph database, make a copy of it in a [central directory on your research data fileserver for storing local Neurobagel `jsonld` datasets](config.md).
-Then, follow the steps for [uploading/updating a dataset in the graph database](config.md#uploading-data-to-the-graph-store) (needs to be completed by user with database write access).
+To allow easy (re-)uploading of the updated `.jsonld` for your dataset(s) to a graph database, we recommend making a copy of it in a central directory on your research data fileserver for storing local Neurobagel `jsonld` datasets.
+Then, simply follow the steps for [uploading/updating a dataset in the graph database](#updating-the-data-in-your-graph).
 
 ## Updating your graph backend configuration
 
