@@ -191,7 +191,7 @@ This file adds:
         docker compose up -d
         ```
         (or, see [here](#available-profiles) to launch a non-default service profile)
-    4. Ensure that ports 80 and 443 are reachable for the host machine where your Docker Compose stack is running
+    4. Ensure that ports 80 and 443 are open on the host machine where your Docker Compose stack is running
 
     ```{ .yaml .annotate title="docker-compose.yml" }
     services:
