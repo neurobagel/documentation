@@ -321,9 +321,9 @@ This file adds:
     1. Replace with your custom domain
     2. Replace with your custom domain (should be same as `VIRTUAL_HOST` for this service)
     3. Replace with your custom domain
-    4. Replace with your custom domain (should be same as `VIRTUAL_HOST` for this  service)
+    4. Replace with your custom domain (should be same as `VIRTUAL_HOST` for this service)
     5. Replace with your custom domain
-    6. Replace with your custom domain (should be same as `VIRTUAL_HOST` for this  service)
+    6. Replace with your custom domain (should be same as `VIRTUAL_HOST` for this service)
 
 
 ## Manually setting up a Neurobagel graph backend

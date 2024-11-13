@@ -81,7 +81,7 @@ docker compose --profile full_stack up -d
 The Neurobagel deployment recipe launches a dedicated graph database that stores the datasets for a single node.
 The data in this graph database is defined using the [`LOCAL_GRAPH_DATA` environment variable](config.md#environment-variables), and can be changed at any time.
 
-By default, the graph database will only contain an [example dataset called `BIDS synthetic`](https://github.com/neurobagel/recipes/blob/main/data/example_synthetic_pheno-bids.jsonld). 
+By default, the graph database will only contain an [example dataset called `BIDS synthetic`](https://github.com/neurobagel/recipes/blob/main/data/example_synthetic_pheno-bids-derivatives.jsonld). 
 
 If you have followed the [initial setup](getting_started.md) for deploying a Neurobagel node from our Docker Compose recipe, replacing the existing data in your graph database with your own data (or updated data) is a straightforward process.
 
