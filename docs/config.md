@@ -164,6 +164,168 @@ Ensure that you not accidentally provide the address of your actual federation A
 
 To add one or more local nodes to the list of nodes known to your f-API, simply add more dictionaries to this file.
 
+## Behind a reverse proxy
+
+!!! warning "For advanced users"
+
+To allow access to your Neurobagel node using a custom domain name, you will likely want to set up a reverse proxy (e.g., [NGINX](https://nginx.org/en/docs/beginners_guide.html), [Caddy](https://caddyserver.com/docs/quick-starts/reverse-proxy)) for your services. 
+This will route incoming requests from your custom domain(s) to your local Neurobagel node API, your local Neurobagel query tool, etc.
+
+Below is an example implementation of a reverse proxy, using a custom Docker Compose file that builds on [`docker-compose.yml`](https://github.com/neurobagel/recipes/blob/main/docker-compose.yml) in the default Neurobagel deployment recipe. 
+
+This file adds:
+
+- [nginx-proxy](https://github.com/nginx-proxy/nginx-proxy) to run NGINX in a container, and automatically generate/refresh NGINX reverse proxy configurations when Neurobagel service containers are started
+- [acme-companion](https://github.com/nginx-proxy/acme-companion) to automatically create and renew SSL certificates for NGINX proxied service containers
+
+??? abstract "Example `docker-compose.yml` with NGINX reverse proxy"
+    To use this file:
+
+    1. If you haven't already, follow the [steps](getting_started.md#the-neurobagel-node-deployment-recipe) to clone and minimally configure the services in the [Neurobagel deployment recipe](https://github.com/neurobagel/recipes)
+    2. Replace the default `docker-compose.yml` in the `recipes` directory with the below file
+    2. Open the file, and edit the values of `VIRTUAL_HOST` and `LETSENCRYPT_HOST` to the domains your proxied services will use (see  :material-plus-circle:)
+        - This assumes you have already registered your domain(s) with a DNS provider and configured the DNS settings to resolve correctly to your host machine
+
+    3. From the root of the `recipes` directory, run:
+        ```bash
+        docker compose up -d
+        ```
+        (or, see [here](#available-profiles) to launch a non-default service profile)
+    4. Ensure that ports 80 and 443 are reachable for the host machine where your Docker Compose stack is running
+
+    ```{ .yaml .annotate title="docker-compose.yml" }
+    services:
+
+      api:
+        image: "neurobagel/api:${NB_NAPI_TAG:-latest}"
+        profiles:
+          - "local_node"
+          - "full_stack"
+        ports:
+          - "${NB_NAPI_PORT_HOST:-8000}:8000"
+        environment:
+          NB_GRAPH_USERNAME: ${NB_GRAPH_USERNAME}
+          NB_GRAPH_ADDRESS: graph
+          NB_GRAPH_PORT: 7200
+          NB_GRAPH_DB: ${NB_GRAPH_DB:-repositories/my_db}
+          NB_RETURN_AGG: ${NB_RETURN_AGG:-true}
+          NB_API_PORT: 8000
+          NB_API_ALLOWED_ORIGINS: ${NB_NAPI_ALLOWED_ORIGINS}
+          NB_ENABLE_AUTH: ${NB_ENABLE_AUTH:-false}
+          NB_QUERY_CLIENT_ID: ${NB_QUERY_CLIENT_ID}
+          VIRTUAL_HOST: myservice1.myinstitute.org # (1)!
+          LETSENCRYPT_HOST: myservice1.myinstitute.org # (2)!
+          VIRTUAL_PORT: 8000
+        volumes:
+          - "./scripts/api_entrypoint.sh:/usr/src/api_entrypoint.sh"
+        entrypoint:
+          - "/usr/src/api_entrypoint.sh"
+        secrets:
+          - db_user_password
+
+      graph:
+        image: "ontotext/graphdb:10.3.1"
+        profiles:
+          - "local_node"
+          - "full_stack"
+        volumes:
+          - "graphdb_home:/opt/graphdb/home"
+          - "./scripts:/usr/src/neurobagel/scripts"
+          - "./vocab:/usr/src/neurobagel/vocab"
+          - "${LOCAL_GRAPH_DATA:-./data}:/data"
+        ports:
+          - "${NB_GRAPH_PORT_HOST:-7200}:7200"
+        environment:
+          NB_GRAPH_USERNAME: ${NB_GRAPH_USERNAME}
+          NB_GRAPH_PORT: 7200
+          NB_GRAPH_DB: ${NB_GRAPH_DB:-repositories/my_db}
+        entrypoint:
+          - "/usr/src/neurobagel/scripts/setup.sh"
+        working_dir: "/usr/src/neurobagel/scripts"
+        secrets:
+          - db_admin_password
+          - db_user_password
+
+      federation:
+        image: "neurobagel/federation_api:${NB_FAPI_TAG:-latest}"
+        profiles:
+          - "local_federation"
+          - "full_stack"
+        ports:
+          - "${NB_FAPI_PORT_HOST:-8080}:8000"
+        volumes:
+          - "./local_nb_nodes.json:/usr/src/local_nb_nodes.json:ro"
+        environment:
+          NB_API_PORT: 8000
+          NB_FEDERATE_REMOTE_PUBLIC_NODES: ${NB_FEDERATE_REMOTE_PUBLIC_NODES:-True}
+          NB_ENABLE_AUTH: ${NB_ENABLE_AUTH:-false}
+          NB_QUERY_CLIENT_ID: ${NB_QUERY_CLIENT_ID}
+          VIRTUAL_HOST: myservice2.myinstitute.org # (3)!
+          LETSENCRYPT_HOST: myservice2.myinstitute.org # (4)!
+          VIRTUAL_PORT: 8000
+
+      query_federation:
+        image: "neurobagel/query_tool:${NB_QUERY_TAG:-latest}"
+        profiles:
+          - "local_federation"
+          - "full_stack"
+        ports:
+          - "${NB_QUERY_PORT_HOST:-3000}:5173"
+        environment:
+          NB_API_QUERY_URL: ${NB_API_QUERY_URL}
+          NB_QUERY_APP_BASE_PATH: ${NB_QUERY_APP_BASE_PATH:-/}
+          NB_ENABLE_AUTH: ${NB_ENABLE_AUTH:-false}
+          NB_QUERY_CLIENT_ID: ${NB_QUERY_CLIENT_ID}
+          VIRTUAL_HOST: myservice3.myinstitute.org # (5)!
+          LETSENCRYPT_HOST: myservice3.myinstitute.org # (6)!
+          VIRTUAL_PORT: 5173
+
+      nginx-proxy:
+        image: nginxproxy/nginx-proxy
+        container_name: nginx-proxy
+        ports:
+          - "80:80"
+          - "443:443"
+        volumes:
+          - conf:/etc/nginx/conf.d
+          - vhost:/etc/nginx/vhost.d
+          - html:/usr/share/nginx/html
+          - certs:/etc/nginx/certs:ro
+          - /var/run/docker.sock:/tmp/docker.sock:ro
+
+      acme-companion:
+        image: nginxproxy/acme-companion
+        container_name: nginx-proxy-acme
+        volumes_from:
+          - nginx-proxy
+        volumes:
+          - certs:/etc/nginx/certs:rw
+          - acme:/etc/acme.sh
+          - /var/run/docker.sock:/var/run/docker.sock:ro
+
+    secrets:
+      db_admin_password:
+        file: ${NB_GRAPH_SECRETS_PATH:-./secrets}/NB_GRAPH_ADMIN_PASSWORD.txt
+      db_user_password:
+        file: ${NB_GRAPH_SECRETS_PATH:-./secrets}/NB_GRAPH_PASSWORD.txt
+
+    volumes:
+      graphdb_home:
+      conf:
+      vhost:
+      html:
+      certs:
+      acme:
+    ```
+
+    1. Replace with your custom domain
+    2. Replace with your custom domain (should be same as `VIRTUAL_HOST` for this service)
+    3. Replace with your custom domain
+    4. Replace with your custom domain (should be same as `VIRTUAL_HOST` for this  service)
+    5. Replace with your custom domain
+    6. Replace with your custom domain (should be same as `VIRTUAL_HOST` for this  service)
+
+
 ## Manually setting up a Neurobagel graph backend
 
 The Neurobagel Docker Compose recipe will automatically set up and configure 
