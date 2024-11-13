@@ -101,7 +101,11 @@ cp local_nb_nodes.template.json local_nb_nodes.json
    you can use `NB_API_QUERY_URL=http://localhost:8080`, where `8080` is the [default host port for the federation API](./config.md#environment-variables).
     - If you are deploying Neurobagel **on a server for other users**, 
    you must use the IP (and port) or URL intended for your users to access the federation API on the server with.
-   
+
+4. (Optional) If you have already [generated Neurobagel JSONLD data files](cli.md), update `LOCAL_GRAPH_DATA` in `.env` to the path containing the data files you wish to add to the graph database.
+    
+    Updating the data in the graph can be done at any time. For more information, see [this section](maintaining.md#updating-the-data-in-your-graph).
+
 !!! info
 
     This is the minimal configuration you need to make before you can launch Neurobagel.
