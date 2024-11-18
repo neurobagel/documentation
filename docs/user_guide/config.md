@@ -113,24 +113,36 @@ To change the location of your password files, simply edit the variable `NB_GRAP
         
         Make sure to not share your password files with others.
 
-## `local_nb_nodes.json`
+## Configuring node names and URLs for federation
 
-This file is used by the federation API, and so is only necessary for deployment profiles that include the f-API. 
-`local_nb_nodes.json` contains the URLs and (arbitrary) names of the **node APIs** of local nodes you wish to federate over.
-Each node must be denoted by a dictionary `{}` with two key-value pairs:  
+When using a deployment profile that provides federation (i.e., includes the federation API), you can define
+the URLs and display names of the **node APIs** of any local nodes you wish to federate over in a file called `local_nb_nodes.json`. 
+This file is used by the f-API.
 
-- `"NodeName"`: name of the node
-- `"ApiURL"`: URL of the **node API** exposed for that node
+Each node to be federated over is defined using a dictionary with two key-value pairs:
+```json
+{
+  "NodeName": "<display name for the node>",
+  "ApiURL": "<URL of the node API exposed for that node>"
+}
+```
 
-Multiple nodes must be wrapped in a list `[]`.  
+Values of `NodeName` are arbitrary. Multiple nodes must be wrapped in a list `[]`.  
 
-Example: 
-Let's assume there are two local nodes already running on different servers of your institutional network, and you want to set up federation across both nodes:
+!!! Info "Nodes that do not need to be manually configured"
+    We maintain a list of publicly accessible Neurobagel nodes 
+    [here](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json).
+    By default, every new f-API will look up this list
+    on startup and include it in its internal list of nodes to
+    federate over (this can be disabled using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables)).
+    This also means that **you do not have to explicitly add these public nodes** to your `local_nb_nodes.json` file.
+
+Example: Assume there are two local nodes already running on different servers of your institutional network, and you want to set up federation across both nodes:
 
 - a node named `"My Institute"` running on your local computer (localhost), on port `8000` and 
 - a node named `"Node Recruitment"` running on a different computer with the local IP `192.168.0.1`, listening on the default http port `80`. 
 
-In your `local_nb_nodes.json` file you would configure this as follows:
+You would configure your `local_nb_nodes.json` as follows:
 ``` {.json title="local_nb_nodes.json"}
 [
   {
@@ -143,7 +155,6 @@ In your `local_nb_nodes.json` file you would configure this as follows:
   }
 ]
 ```
-Ensure that you not accidentally provide the address of your actual federation API for `"ApiURL"` - this will cause an infinite request loop that will likely overload your service (as an f-API will be repeatedly making requests to itself).
 
 !!! warning "Do not use `localhost`/`127.0.0.1` in `local_nb_nodes.json`"
 
@@ -152,17 +163,9 @@ Ensure that you not accidentally provide the address of your actual federation A
     you cannot use `localhost` for the `"ApiURL"` and must instead provide a network-accessible URL, IP address, or container name.
     For an example, see the configuration for the node called `"My Institute"` above.
 
+**Ensure that you not accidentally provide the address of your actual federation API for `"ApiURL"`!** This will cause an infinite request loop that will likely overload your service (as an f-API will be repeatedly making requests to itself).
 
-!!! Info "Nodes that do not need to be manually configured"
-    We maintain a list of public Neurobagel nodes 
-    [here](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json).
-    By default every new f-API will lookup this list
-    on startup and include it in the list of nodes to
-    federate over.
-    This also means that you do not have to manually
-    configure public nodes, i.e. you **do not have to explicitly add them** to your `local_nb_nodes.json` file.
-
-To add one or more local nodes to the list of nodes known to your f-API, simply add more dictionaries to this file.
+To add one or more local nodes to the list of nodes known to your f-API, simply add more dictionaries to `local_nb_nodes.json`.
 
 ## Behind a reverse proxy
 
