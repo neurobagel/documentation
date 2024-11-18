@@ -76,7 +76,7 @@ However, special criteria for each page need to be be met in order to move forwa
 
 The Home page is where you can upload data tables and dictionaries either for a brand new annotation or to continue a previous annotation session.
 
-![Home page with uploaded table and dictionary files](./imgs/annotate/readme_home_page.png)
+![Home page with uploaded table and dictionary files](../imgs/annotate/readme_home_page.png)
 
 #### Selecting a data table (participants.tsv)
 
@@ -97,7 +97,7 @@ _Next page criteria:_ A `participants.tsv` file must be uploaded to proceed to c
 
 The Categorization page is where you link the columns in your data table to the categories found in Neurobagel's metadata schema. Current categories include 'Subject ID', 'Age', 'Sex' and 'Diagnosis'. Aside from the 'Subject ID' which is a special case, categories represent different data types, 'Sex' and 'Diagnosis' are categorical while 'Age' is continuous.
 
-![Home page with uploaded table and dictionary files](./imgs/annotate/readme_categorization_page.png)
+![Home page with uploaded table and dictionary files](../imgs/annotate/readme_categorization_page.png)
 
 #### Categorizing data table columns
 
@@ -114,11 +114,11 @@ The Annotation page is where you can annotate the values in your uploaded `parti
 * When multiple columns have been linked with a category, each column will have its own column in the annotation components on the page.
 * Any value in the annotation interface can be marked as a 'missing value' (i.e. `'N/A'`, empty string, etc.)
 
-![Home page with uploaded table and dictionary files](./imgs/annotate/readme_annotation_page.png)
+![Home page with uploaded table and dictionary files](../imgs/annotate/readme_annotation_page.png)
 
 #### Age rows (continuous values)
 
-![Home page with uploaded table and dictionary files](./imgs/annotate/readme_annotation_page_continuous_value.png)
+![Home page with uploaded table and dictionary files](../imgs/annotate/readme_annotation_page_continuous_value.png)
 
 All values for columns categorized as `Age` can be annotated here with a set of continuous value transformations. Clicking on the dropdown will allow you to select a transformation. Current transformations available include `bounded`, `euro`, `float`, `int`, and `iso8601`. The raw values from the column are shown and when a transformation type is selected a preview of how that transformation would alter each raw value is shown.
 
@@ -126,19 +126,19 @@ All values for columns categorized as `Age` can be annotated here with a set of 
 
 All values for columns categorized as either `Sex` or `Diagnosis` can be annotated here with labels that come from Neurobagel and the controlled vocabularies it utilizes to help form the Neurobagel metadata model. Clicking on the drop down on each raw value row will allow you to select an appropriate Neurobagel label for this value.
 
-![Home page with uploaded table and dictionary files](./imgs/annotate/readme_annotation_page_categorical_value.png)
+![Home page with uploaded table and dictionary files](../imgs/annotate/readme_annotation_page_categorical_value.png)
 
 #### Missing values
 
 Any continuous or categorical value can be marked as 'missing' via the adjacent `Mark as missing` button. This will remove the value from the annotatable values and place it in the `Missing values` section on the page. This can be undone for any value by clicking the `Not Missing` button in this section of the page.
 
-![Home page with uploaded table and dictionary files](./imgs/annotate/readme_annotation_page_missing_values.png)
+![Home page with uploaded table and dictionary files](../imgs/annotate/readme_annotation_page_missing_values.png)
 
 #### Unlinking columns
 
 Data table columns can also be unlinked (e.g. un-categorized) on the Annotation page in this section of the page labeled `Review the annotated columns`. This will stop the column from being annotated and have any annotations made for its values removed. The change is also reflected on the previous Categorization page.
 
-![Home page with uploaded table and dictionary files](./imgs/annotate/readme_annotation_page_unlinking.png)
+![Home page with uploaded table and dictionary files](../imgs/annotate/readme_annotation_page_unlinking.png)
 
 _Next page criteria:_ At least one annotation must be made from any of the categorized columns
 
@@ -146,4 +146,4 @@ _Next page criteria:_ At least one annotation must be made from any of the categ
 
 Click the <span style="color:green;">download annotated data button</span> to download what we refer to an 'annotated' data dictionary that is a Neurobagel-enhanced BIDS-style data dictionary. This file will include any entries in the original data dictionary that you uploaded on the home page.
 
-![Home page with uploaded table and dictionary files](./imgs/annotate/readme_download_button.png)
+![Home page with uploaded table and dictionary files](../imgs/annotate/readme_download_button.png)
