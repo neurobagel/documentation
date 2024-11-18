@@ -478,7 +478,7 @@ you can use the
     hierarchical relationships between concepts themselves can also be represented.
     Including these relationships in a graph is important to be able to answer questions such as how many different diagnoses are represented in a graph database, to query for higher-order concepts for a given variable, and more.
 
-The participant variables modeled by Neurobagel are named using Neurobagel's own vocabulary (for more information, see this page on [controlled terms](./term_naming_standards.md)).
+The participant variables modeled by Neurobagel are named using Neurobagel's own vocabulary (for more information, see this page on [controlled terms](../data_models/term_naming_standards.md)).
 This vocabulary, which defines internal relationships between vocabulary terms, 
 is serialized in the file [`nb_vocab.ttl`](https://github.com/neurobagel/recipes/blob/main/vocab/nb_vocab.ttl) available from the `neurobagel/recipes` repository.
 If you have cloned this repository, you will already have downloaded the vocabulary file.
