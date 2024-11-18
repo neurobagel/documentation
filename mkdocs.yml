@@ -24,7 +24,7 @@ repo_url: https://github.com/neurobagel/documentation
 nav:
   - Welcome: "index.md"
   - User guide:
-    - Overview: "user_guide/overview.md"
+    - "user_guide/index.md"
     - Running cohort queries:
         - Search the public nodes: "user_guide/public_nodes.md"
         - How to use the query tool: "user_guide/query_tool.md"
