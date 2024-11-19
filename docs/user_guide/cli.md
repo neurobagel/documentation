@@ -39,7 +39,7 @@ The Neurobagel CLI can compile information from several different data sources t
 
 <div class="annotate" markdown>
 - [A phenotypic TSV](./data_prep.md)
-- [A Neurobagel JSON data dictionary](./dictionaries.md) for the TSV
+- [A Neurobagel JSON data dictionary](../data_models/dictionaries.md) for the TSV
 - (Optional) The imaging dataset in [BIDS](https://bids-specification.readthedocs.io/en/stable/) format, if subjects have imaging data available (1)
 - (Optional) A TSV containing subject statuses for any image processing pipelines that have been run, following the [Nipoppy processing status file schema](https://nipoppy.readthedocs.io/en/latest/schemas/index.html#bagel-file) (2)
 

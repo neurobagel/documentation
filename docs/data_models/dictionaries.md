@@ -2,7 +2,7 @@
 
 ## Overview
 When you annotate a phenotypic TSV using the Neurobagel annotation tool 
-(see also the [section on the annotation tool](annotation_tool.md)),
+(see also the [section on the annotation tool](../user_guide/annotation_tool.md)),
 your annotations are automatically stored in a JSON data dictionary.
 A Neurobagel data dictionary essentially describes the meaning and properties of columns and column values
 using standardized vocabularies.

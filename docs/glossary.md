@@ -102,7 +102,7 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
     of describing tabular demographic, cognitive, and/or clinical (phenotypic) data for a dataset
     with terms from controlled vocabularies to create machine 
     understandable data dictionaries for the data. You can learn
-    more about this process in our [documentation](annotation_tool.md).
+    more about this process in our [documentation](user_guide/annotation_tool.md).
 
 ### Aggregated results
 :   If the owner of a Neurobagel node decides that query responses

@@ -5,7 +5,7 @@ and a local federation API
 (everything in blue in the picture below)
 that lets you search across the data in your node and in public Neurobagel nodes.
 
-![Neurobagel node](imgs/neurobagel_local_node.jpg)
+![Neurobagel node](../imgs/neurobagel_local_node.jpg)
 
 To prepare your Neurobagel node for production use (i.e., for local or other users),
 and to configure your deployment according to your specific needs,
@@ -162,4 +162,4 @@ our [service profile documentation](config.md#available-profiles) for details.
 - [Prepare your own dataset](./data_prep.md) for annotation with Neurobagel
 - [Add your own data to your Neurobagel graph](maintaining.md#updating-the-data-in-your-graph) to search
 - Learn about the different [configuration options](config.md) for your Neurobagel node
-- Hopefully all went well, but if you are experiencing issues, see how to [get help](./getting_help.md)
+- Hopefully all went well, but if you are experiencing issues, see how to [get help](../getting_help.md)

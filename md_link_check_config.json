@@ -8,7 +8,8 @@
         {"pattern": "https://api.neurobagel.org/.*"},
         {"pattern": "http://purl.org/nidash/nidm#.*"},
         {"pattern": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"},
-        {"pattern": "https://www.cognitiveatlas.org/task/id/"}
+        {"pattern": "https://www.cognitiveatlas.org/task/id/"},
+        {"pattern": "http://purl.bioontology.org/ontology/SNOMEDCT/"}
     ],
     "timeout": "60s"
 }
