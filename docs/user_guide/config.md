@@ -113,7 +113,7 @@ To change the location of your password files, simply edit the variable `NB_GRAP
         
         Make sure to not share your password files with others.
 
-## Configuring node names and URLs for federation
+## Configuring local node names and URLs for federation
 
 When using a deployment profile that provides federation (i.e., includes the federation API), you can define
 the URLs and display names of the **node APIs** of any local nodes you wish to federate over in a file called `local_nb_nodes.json`. 
