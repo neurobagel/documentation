@@ -8,68 +8,84 @@ The query tool is a React application, developed in [TypeScript](https://www.typ
 {%
    include-markdown "https://raw.githubusercontent.com/neurobagel/query-tool/main/README.md"
    start="## Quickstart"
-   end="You can refer to [the neurobagel documentation](https://neurobagel.org/query_tool/#downloading-query-results) to see what the outputs of the query tool look like"
+   end="The query tool offers two different TSV files for results"
    rewrite-relative-urls=false
 %}
 
 ### Downloading query results
 
-For a given query, the query tool offers two kinds of TSV files for results that users can download. 
-At least one dataset matching the query must be selected in the interface in order to download the query results.
+For a given query, there are two formats of query results that users can download as a TSV file.
+At least one dataset matching the query must be selected in the results panel in order to download the query results.
 
-#### Dataset-level results
+#### Descriptive harmonized tabular data (.tsv)
 
-The dataset-level results TSV describes the datasets that contain subjects matching the user's query.
-This TSV contains the following columns:
+The default TSV available for download describes the available harmonized attributes and metadata for subjects matching the query, from the (selected) matching datasets. 
+Harmonized data are provided as standardized vocabulary-derived labels for readability.
 
-- `DatasetID`: unique identifier (UUID) for dataset in the graph. 
-Note that this ID is not guaranteed to be persistent across versions of a graph/across graphs, but will always be identical across a pair of query tool result files. 
-_This column can be used as the key to join the dataset-level and participant-level results TSVs for a given query result, if needed._
-- `DatasetName`: human readable name of the dataset
-- `PortalURI`: URL to a website or page about the dataset, if available
-- `NumMatchingSubjects`: (aggregate variable) number of subjects matching the query within the dataset
-- `AvailableImageModalites`: (aggregate variable) list of unique imaging modalities available for the dataset
+Each row corresponds to a single matching subject session, except for [datasets configured to only return aggregate results](#protected-subject-level-results-for-aggregate-datasets).
 
-Example:
+??? abstract "Example query result TSV"
+    {{ read_table('./repos/neurobagel_examples/query-tool-results/cohort-participant-results.tsv') }}
 
-{{ read_table('./repos/neurobagel_examples/query-tool-results/dataset-level-results.tsv') }}
+Columns in the TSV are described below:
+* = required values
 
-#### Participant-level results
+| Column name | Description |
+| ---- | ---- |
+| DatasetName * | name of the dataset |
+| PortalURI | URL to a website or page about the dataset |
+| NumMatchingSubjects * | _(dataset-level)_ total number of subjects matching the query in the dataset |
+| SubjectID * | subject label |
+| SessionID * | session label |
+| SessionFilePath | _(imaging sessions only)_ path to the session directory, or subject directory if only one session exists. Either an absolute path from the filesystem root where the dataset is stored, or a relative path from the dataset root for DataLad datasets. |
+| SessionType * | type of data acquired in the session, either `ImagingSession` or `PhenotypicSession`. Represents the nature of data being described, without denoting specific time or visits. e.g., A session in which both imaging and non-imaging data were acquired would be represented by separate rows, one per type. |
+| Age | subject age |
+| Sex | subject sex |
+| Diagnosis | list of diagnoses for subject |
+| Assessment | list of assessments completed by subject |
+| NumMatchingPhenotypicSessions * | _(subject-level)_ total number of phenotypic sessions for the subject which match the query |
+| NumMatchingImagingSessions * | _(subject-level)_ total number of imaging sessions for the subject which match the query |
+| SessionImagingModalities | _(imaging sessions only)_ imaging modalities acquired in the session |
+| SessionCompletedPipelines | _(imaging sessions only)_ processing pipelines completed for the session |
+| DatasetImagingModalities | _(dataset-level)_ imaging modalities acquired in at least one session in the dataset |
+| DatasetPipelines | _(dataset-level)_ processing pipelines completed for at least one session in the dataset |
 
-The participant-level results TSV contains the available harmonized participant attributes for subject sessions matching the query in each (selected) matching dataset.
-Each row in the TSV corresponds to a single matching subject _session_.
+#### Machine-optimized harmonized tabular data (.tsv)
 
-This TSV contains the following columns:
+A machine-optimized version of the query results, containing [URIs](https://www.ontotext.com/knowledgehub/fundamentals/linked-data-linked-open-data/) instead of descriptive labels for harmonized attributes and metadata of matching subjects, is also available for download as a TSV. 
+After your query, select the `How to get data` button, then click the button in the pop-up window to download the TSV.
 
-- `DatasetID`: unique identifier (UUID) for dataset in the graph. 
-Note that this ID is not guaranteed to be persistent across versions of a graph/across graphs, but will always be identical across a pair of query tool result files. 
-_This column can be used as the key to join the dataset-level and participant-level results TSVs for a given query result, if needed._
-- `SubjectID`: subject label
-- `SessionID`: the label of the session
-- `SessionType`: either `ImagingSession` or `PhenotypicSession`
-- `Age`: subject age, if available
-- `Sex`: subject sex, if available
-- `Diagnosis`: list of diagnoses of subject, if available
-- `Assessment` : list of assessments completed by subject, if available
-- `SessionFilePath`: the path of the session directory (for imaging sessions) either relative to the dataset root (for datasets available through DataLad) or relative to the root of the filesystem where the dataset is stored
-- `NumPhenotypicSessions`: (aggregate variable) total number of **phenotypic** sessions that match the query for a subject
-- `NumImagingSessions`: (aggregate variable) total number of **imaging** sessions that match the query for a subject
-This number will be the same across rows corresponding to the same subject.
-- `Modality`: imaging modalities acquired in the session, if available
+Each row corresponds to a single matching subject session, except for [datasets configured to only return aggregate results](#protected-subject-level-results-for-aggregate-datasets).
 
-Example:
+??? abstract "Example query result TSV"
+    {{ read_table('./repos/neurobagel_examples/query-tool-results/cohort-participant-machine-results.tsv') }}
 
-{{ read_table('./repos/neurobagel_examples/query-tool-results/participant-level-results.tsv') }}
+Columns in the TSV are described below:
+* = required values
 
-#### `protected` participant-level results in aggregate mode
+| Column name | Description |
+| ---- | ---- |
+| DatasetName * | name of the dataset |
+| PortalURI | URL to a website or page about the dataset |
+| SubjectID * | subject label |
+| SessionID * | session label |
+| SessionFilePath | _(imaging sessions only)_ path to the session directory, or subject directory if only one session exists. Either an absolute path from the filesystem root where the dataset is stored, or a relative path from the dataset root for DataLad datasets. |
+| SessionType * | type of data acquired in the session, either `ImagingSession` or `PhenotypicSession`. Represents the nature of data being described, without denoting specific time or visits. e.g., A session in which both imaging and non-imaging data were acquired would be represented by separate rows, one per type. |
+| NumMatchingPhenotypicSessions * | _(subject-level)_ total number of phenotypic sessions for the subject which match the query |
+| NumMatchingImagingSessions * | _(subject-level)_ total number of imaging sessions for the subject which match the query |
+| SessionImagingModalities | _(imaging sessions only)_ imaging modalities acquired in the session, as URIs |
+| SessionCompletedPipelines | _(imaging sessions only)_ processing pipelines completed for the session, as URIs |
+| DatasetImagingModalities | _(dataset-level)_ imaging modalities acquired in at least one session in the dataset, as URIs |
+| DatasetPipelines | _(dataset-level)_ processing pipelines completed for at least one session in the dataset, as URIs |
 
-If the values for all columns except for `DatasetID` and `SessionPath` in the participant-level results tsv are set to `protected`, this indicates the graph being queried has been configured (via its corresponding Neurobagel node API) to return only aggregate information about matches (due to data privacy reasons). 
-This configuration can be modified by setting the `NB_RETURN_AGG` environment variable to `false` (the value is by default `true`). 
-See related section of the documentation [here](config.md#environment-variables).
+#### `protected` subject-level results for aggregate datasets
 
-Example:
+!!! example
+    For examples of aggregated matching dataset results, see the last rows of the example query result TSVs in the previous sections.
 
-{{ read_table('./repos/neurobagel_examples/query-tool-results/participant-level-results-agg.tsv') }}
+A row in a query result TSV may show `protected` for all columns except for `DatasetName`, `PortalURI`, and other dataset-level columns. This means the source graph database (node) has been configured (via its corresponding Neurobagel node API) to return only aggregate information about matching subjects e.g., for data privacy reasons.
+
+More information on this configuration setting, called `NB_RETURN_AGG`, and how to change it for a node can be found [here](config.md#environment-variables).
 
 ## Testing
 {%
