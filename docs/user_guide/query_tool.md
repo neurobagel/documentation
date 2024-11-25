@@ -53,7 +53,7 @@ Columns in the TSV are described below:
 #### Machine-optimized harmonized tabular data (.tsv)
 
 A machine-optimized version of the query results, containing [URIs](https://www.ontotext.com/knowledgehub/fundamentals/linked-data-linked-open-data/) instead of descriptive labels for harmonized attributes and metadata of matching subjects, is also available for download as a TSV. 
-After your query, select the `How to get data` button, then click the button in the pop-up window to download the TSV.
+After your query, click the `How to get data` button, then click the button in the pop-up window to download the TSV.
 
 Each row corresponds to a single matching subject session, except for [datasets configured to only return aggregate results](#protected-subject-level-results-for-aggregate-datasets).
 
@@ -81,7 +81,7 @@ Columns in the TSV are described below:
 #### `protected` subject-level results for aggregate datasets
 
 !!! example
-    For examples of aggregated matching dataset results, see the last rows of the example query result TSVs in the previous sections.
+    For examples of aggregated matching dataset results, see the last rows of the example query result TSV in the previous two sections.
 
 A row in a query result TSV may show `protected` for all columns except for `DatasetName`, `PortalURI`, and other dataset-level columns. This means the source graph database (node) has been configured (via its corresponding Neurobagel node API) to return only aggregate information about matching subjects e.g., for data privacy reasons.
 
