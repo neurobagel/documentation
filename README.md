@@ -1,4 +1,9 @@
-# documentation
+# Neurobagel Documentation
+
+![GitHub branch check runs](https://img.shields.io/github/check-runs/neurobagel/documentation/main?style=flat-square)
+![Static Badge](https://img.shields.io/badge/python-3.10%20%7C%203.11-blue?style=flat-square&logo=python)
+![GitHub License](https://img.shields.io/github/license/neurobagel/documentation?style=flat-square&color=purple&link=LICENSE)
+
 The neurobagel documentation.
 
 Our docs are built with the [Material Theme](https://squidfunk.github.io/mkdocs-material/) for [MKdocs](https://www.mkdocs.org/).
