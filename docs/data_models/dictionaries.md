@@ -120,8 +120,7 @@ syntax for [json-ld](https://w3c.github.io/json-ld-syntax/#the-context):
     "nb": "http://neurobagel.org/vocab/",
     "ncit": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#",
     "nidm": "http://purl.org/nidash/nidm#",
-    "snomed": "http://purl.bioontology.org/ontology/SNOMEDCT/",
-    "cogatlas": "https://www.cognitiveatlas.org/task/id/"
+    "snomed": "http://purl.bioontology.org/ontology/SNOMEDCT/"
   }
 }
 ```
@@ -187,8 +186,8 @@ Term from the Neurobagel vocabulary.
 
 ### Diagnosis
 
-Terms from the [SNOMED-CT ontology](https://browser.ihtsdotools.org/) for clinical diagnosis.
-Terms from the National Cancer Institute Thesaurus for healthy control status.
+Terms for clinical diagnosis are from the [SNOMED-CT ontology](https://browser.ihtsdotools.org/).
+Terms for healthy control status are from the National Cancer Institute Thesaurus.
 
 ```json hl_lines="10-11 13 15-16 19-20"
 {
@@ -307,6 +306,8 @@ Possible heuristics:
 
 ### Assessment tool
 
+Terms are from the SNOMED-CT ontology.
+
 For assessment tools like cognitive tests or rating scales, 
 Neurobagel encodes whether a subject has a value/score for _at least one_ item or subscale of the assessment.
 Because assessment tools often have several subscales or items 
@@ -330,8 +331,8 @@ when instances of missing values are present (see also section [Missing values](
         "Label": "Assessment tool"
       },
       "IsPartOf": {
-        "TermURL": "cogatlas:tsk_4a57abb949ece",
-        "Label": "Unified Parkinson's Disease Rating Scale"
+        "TermURL": "snomed:342061000000106",
+        "Label": "Unified Parkinsons disease rating scale score"
       }
     }
   },
@@ -343,8 +344,8 @@ when instances of missing values are present (see also section [Missing values](
         "Label": "Assessment tool"
       },
       "IsPartOf": {
-        "TermURL": "cogatlas:tsk_4a57abb949ece",
-        "Label": "Unified Parkinson's Disease Rating Scale"
+        "TermURL": "snomed:342061000000106",
+        "Label": "Unified Parkinsons disease rating scale score"
       },
       "MissingValues": [""]
     }

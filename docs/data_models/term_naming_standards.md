@@ -2,7 +2,7 @@
 
 ## Naming conventions
 ### Namespace prefixes
-- Names should be all lowercase (e.g., `nidm`, `cogatlas`)
+- Names should be all lowercase (e.g., `nidm`, `snomed`)
 
 ### Properties (graph "edges")
 - Names should adhere to camelCase (uses capitalized words except for the first word/letter)
@@ -27,14 +27,13 @@ What this might look like in semantic triples:
     In cases where we reuse a term for a class that comes from an existing controlled vocabulary, and that vocabulary follows a different naming convention (e.g., all lowercase), we should follow the existing naming convention.
 
 ## Currently used namespaces
-| Prefix     | IRI                                                 | Types of terms                            |
-| ---------- | --------------------------------------------------- | ----------------------------------------- |
-| `nb`       | http://neurobagel.org/vocab/                        | Neurobagel-"owned" properties and classes |
-| `nbg`      | http://neurobagel.org/graph/                        | Neurobagel graph databases                |
-| `snomed`   | http://purl.bioontology.org/ontology/SNOMEDCT/      | diagnosis and sex values                  |
-| `ncit`     | http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl# | group designation (e.g., healthy control) |
-| `nidm`     | http://purl.org/nidash/nidm#                        | imaging modalities                        |
-| `cogatlas` | https://www.cognitiveatlas.org/task/id/             | cognitive assessments and tasks           |
+| Prefix | IRI | Types of terms |
+| ----- | ----- | ----- |
+| `nb` | http://neurobagel.org/vocab/ | Neurobagel-"owned" properties and classes |
+| `snomed` | http://purl.bioontology.org/ontology/SNOMEDCT/ | diagnoses, sex, and assessments or instruments |
+| `ncit` | http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl# | group designation (e.g., healthy control) |
+| `nidm` | http://purl.org/nidash/nidm# | imaging modalities |
+| `np` | https://github.com/nipoppy/pipeline-catalog/tree/main/processing/ | processing pipeline and derivative metadata |
 
 
 ## What if an `nb` term already exists in another controlled vocabulary?
