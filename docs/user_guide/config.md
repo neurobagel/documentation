@@ -290,7 +290,7 @@ This file adds:
           - "80:80"
           - "443:443"
         volumes:
-          - conf:/etc/nginx/conf.d
+          - ./config/nginx:/etc/nginx/conf.d
           - vhost:/etc/nginx/vhost.d
           - html:/usr/share/nginx/html
           - certs:/etc/nginx/certs:ro
