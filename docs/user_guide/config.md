@@ -86,25 +86,23 @@ Below are all the possible Neurobagel environment variables that can be set in `
 
 ### Change security relevant variables
 
-For security purposes, we recommend the following additional steps for configuring your node if you are using a deployment profile that includes a graph store:
+For security and best practice purposes, follow the additional steps below for configuring your node if you are using a deployment profile that includes a graph store:
 
-1. Review and change the values of the following variables in `.env`:
+1. **Change the values** of the following variables in `.env`:
     - `NB_GRAPH_USERNAME`
-    - `NB_GRAPH_SECRETS_PATH`
     - `NB_GRAPH_DB`
-    - `NB_RETURN_AGG`
 
-2. Change the default passwords for the `admin` superuser and newly created graph database user (`NB_GRAPH_USERNAME`) for your graph store. 
-These are set to the contents of files called `NB_GRAPH_ADMIN_PASSWORD.txt` and `NB_GRAPH_PASSWORD.txt`, respectively, which are found by default in [`./secrets`](https://github.com/neurobagel/recipes/tree/main/secrets) in the Neurobagel recipes repo.
-To change the location of your password files, simply edit the variable `NB_GRAPH_SECRETS_PATH` in `.env` to point to a more secure directory where you have stored the two text files.
+2. **Change the default passwords** for the `admin` superuser and the newly created graph database user (`NB_GRAPH_USERNAME`) for your graph store. 
 
-    Make sure to use secure passwords for `NB_GRAPH_ADMIN_PASSWORD.txt` and `NB_GRAPH_PASSWORD.txt`.
+    - These passwords are set using the contents of files named `NB_GRAPH_ADMIN_PASSWORD.txt` and `NB_GRAPH_PASSWORD.txt`, respectively, which are found by default in [`./secrets`](https://github.com/neurobagel/recipes/tree/main/secrets) in the Neurobagel recipes repo.
+    - Make sure to use secure passwords for `NB_GRAPH_ADMIN_PASSWORD.txt` and `NB_GRAPH_PASSWORD.txt`. 
 
-    To generate a random password in the terminal, you can use:
+        To generate a random password in the terminal, you can use:
+          ```bash
+          openssl rand -hex 16
+          ```
 
-    ```bash
-    openssl rand -hex 16
-    ```
+    - (Optional) Change the location of your password files to a more secure directory path using the variable `NB_GRAPH_SECRETS_PATH`
 
     ??? info "Passwords are handled as Docker secrets"
 
@@ -112,6 +110,11 @@ To change the location of your password files, simply edit the variable `NB_GRAP
         This ensures that your passwords are not exposed in the container logs or in the `docker-compose.yml` file.
         
         Make sure to not share your password files with others.
+  
+2. **Review and change as necessary** values of the following variables in `.env` based on your data sharing requirements:
+    - `NB_RETURN_AGG`
+    - `NB_MIN_CELL_SIZE`
+
 
 ## Configuring local node names and URLs for federation
 
