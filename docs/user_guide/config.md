@@ -117,7 +117,7 @@ For security and best practice purposes, follow the below additional steps to co
     - `NB_RETURN_AGG`
     - `NB_MIN_CELL_SIZE`
     !!! info
-        You can change these values at any time.
+        These variables are modifiable after node initialization; you can [change their values at any time](maintaining.md#restarting-services-after-an-update).
 
 
 ## Configuring local node names and URLs for federation
