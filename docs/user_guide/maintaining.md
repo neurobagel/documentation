@@ -94,7 +94,6 @@ Once you have generated or updated the JSONLD files you want to upload, to updat
     ```bash
     docker compose --profile full_stack down
     ```
-
    (or, replace `full_stack` with the profile you are using)
 
 2. Update the data files in the directory specified by the `LOCAL_GRAPH_DATA` variable in `.env`, or simply change the path to a directory containing your JSONLD files.
