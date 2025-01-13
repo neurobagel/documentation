@@ -88,14 +88,14 @@ cd recipes
 cp template.env .env
 cp local_nb_nodes.template.json local_nb_nodes.json
 ```
-3. Change `NB_API_QUERY_URL` in the `.env` file
+3. Change the default credentials for your graph store (and optionally set any additional security variables as needed) following [these instructions](config.md#change-security-relevant-variables).
 
-    You **must** replace the placeholder value for `NB_API_QUERY_URL`in the `.env` file
+4. Change the placeholder value of `NB_API_QUERY_URL` in the `.env` file
     
     ```bash
     NB_API_QUERY_URL=http://XX.XX.XX.XX
     ```
-    with the URL address where the Neurobagel federation API will be accessed:
+   `http://XX.XX.XX.XX` must be replaced with the URL address where the Neurobagel federation API will be accessed:
 
     - If you are deploying Neurobagel for yourself or deploying and trying the services **on your local machine only**, 
    you can use `NB_API_QUERY_URL=http://localhost:8080`, where `8080` is the [default host port for the federation API](./config.md#environment-variables).
