@@ -86,7 +86,7 @@ Below are all the possible Neurobagel environment variables that can be set in `
 
 ### Change security relevant variables
 
-For security and best practice purposes, follow the additional steps below for configuring your node if you are using a deployment profile that includes a graph store:
+For security and best practice purposes, follow the below additional steps to configure your node if you are using a deployment profile that includes a graph store:
 
 1. **Change the values** of the following variables in `.env`:
     - `NB_GRAPH_USERNAME`
@@ -94,7 +94,8 @@ For security and best practice purposes, follow the additional steps below for c
 
 2. **Change the default passwords** for the `admin` superuser and the newly created graph database user (`NB_GRAPH_USERNAME`) for your graph store. 
 
-    - These passwords are set using the contents of files named `NB_GRAPH_ADMIN_PASSWORD.txt` and `NB_GRAPH_PASSWORD.txt`, respectively, which are found by default in [`./secrets`](https://github.com/neurobagel/recipes/tree/main/secrets) in the Neurobagel recipes repo.
+    - These passwords are set using the contents of files named `NB_GRAPH_ADMIN_PASSWORD.txt` and `NB_GRAPH_PASSWORD.txt`, respectively. 
+    The default location of these files is [`./secrets`](https://github.com/neurobagel/recipes/tree/main/secrets) in the Neurobagel [`recipes`](https://github.com/neurobagel/recipes) repo.
     - Make sure to use secure passwords for `NB_GRAPH_ADMIN_PASSWORD.txt` and `NB_GRAPH_PASSWORD.txt`. 
 
         To generate a random password in the terminal, you can use:
@@ -102,7 +103,7 @@ For security and best practice purposes, follow the additional steps below for c
           openssl rand -hex 16
           ```
 
-    - (Optional) Change the location of your password files to a more secure directory path using the variable `NB_GRAPH_SECRETS_PATH`
+    - (Optional) Change the location of your password files to a more secure directory using the variable `NB_GRAPH_SECRETS_PATH`.
 
     ??? info "Passwords are handled as Docker secrets"
 
