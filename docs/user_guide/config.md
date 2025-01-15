@@ -320,7 +320,7 @@ This file adds:
       acme:
     ```
 
-    5. Replace with your custom domain
+    1. Replace with your custom domain
     2. Replace with your custom domain (should be same as `VIRTUAL_HOST` for this service)
     3. Replace with your custom domain
     4. Replace with your custom domain (should be same as `VIRTUAL_HOST` for this service)
