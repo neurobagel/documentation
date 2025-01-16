@@ -94,20 +94,23 @@ For security and best practice purposes, follow the below additional steps to co
 
 2. **Replace the default passwords** for the `admin` superuser and the newly created graph database user (`NB_GRAPH_USERNAME`) for your graph store with your own secure passwords. 
 
-    - These passwords are set using the contents of files named `NB_GRAPH_ADMIN_PASSWORD.txt` and `NB_GRAPH_PASSWORD.txt`, respectively. 
-    The default location of these files is [`./secrets`](https://github.com/neurobagel/recipes/tree/main/secrets) in the Neurobagel [`recipes`](https://github.com/neurobagel/recipes) repo.
+    ??? warning "Already launched a Neurobagel node?"
+        If you have already completed the [Getting started](getting_started.md#the-neurobagel-node-deployment-recipe) instructions and launched a Neurobagel Docker Compose stack for the first time,
+        you will have to [reset your graph store](maintaining.md#resetting-your-graphdb-instance) before proceeding with this step. Don't worry, any other configuration changes you've made will be applied when you re-launch your node.
+
+    - These passwords are stored in the directory defined under `NB_GRAPH_SECRETS_PATH` in `.env` ([`./secrets`](https://github.com/neurobagel/recipes/tree/main/secrets) by default), as the file contents of `NB_GRAPH_ADMIN_PASSWORD.txt` and `NB_GRAPH_PASSWORD.txt`, respectively.
     - To generate a random password in the terminal, you can use:
       ```bash
       openssl rand -hex 16
       ```
 
-    - (Optional) Change the directory where your password files are stored by editing the variable `NB_GRAPH_SECRETS_PATH` in your `.env` file.
+    - (Optional) Change the directory where your password files are stored by editing the variable `NB_GRAPH_SECRETS_PATH` in `.env`.
 
     ??? info "Graph store passwords are not meant for use by node query users"
         The passwords specified in the deployment recipe are only used internally by the scripts that (automatically) set up and update the graph store, 
         or to interact directly with the graph store (e.g., to modify database configuration or data).
-        The passwords are also used to secure internal communication between your graph and its node API.
-        An external query user is not able to query your graph directly.
+        The passwords are also used to secure internal communication between your graph and its node API,
+        such that an external user cannot query your graph directly.
 
     ??? info "Passwords are handled as Docker secrets"
 
