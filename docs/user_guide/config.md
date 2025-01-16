@@ -101,10 +101,13 @@ For security and best practice purposes, follow the below additional steps to co
       openssl rand -hex 16
       ```
 
-    - (Optional) Change the location of your password files to a more secure directory using the variable `NB_GRAPH_SECRETS_PATH`.
+    - (Optional) Change the directory where your password files are stored by editing the variable `NB_GRAPH_SECRETS_PATH` in your `.env` file.
 
     ??? info "Graph store passwords are not meant for use by node query users"
-        The passwords specified in the deployment recipe are only used internally by the scripts that (automatically) set up and update the graph store, or to interact directly with the graph store (e.g., to modify database configuration or data).
+        The passwords specified in the deployment recipe are only used internally by the scripts that (automatically) set up and update the graph store, 
+        or to interact directly with the graph store (e.g., to modify database configuration or data).
+        The passwords are also used to secure internal communication between your graph and its node API.
+        An external query user is not able to query your graph directly.
 
     ??? info "Passwords are handled as Docker secrets"
 
