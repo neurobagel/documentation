@@ -212,18 +212,24 @@ follow these steps:
 
     If you are not using the `full_stack` profile, replace `full_stack` with the name of the profile you are using.
 
-2. Delete the docker volume that contains the GraphDB data for your node.
+2. Delete the Docker volume that contains the GraphDB data for your node.
 
     ```bash
     docker volume rm neurobagel_node_graphdb_home
     ```
 
-    replace `neurobagel_node_graphdb_home` with the name of the volume that was created for your node.
+    Replace `neurobagel_node_graphdb_home` with the name of the volume created for your node.
     It is usually named `<project_name>_graphdb_home`
-    where `<project_name>` is the name of your docker compose stack
-    as defined in `COMPOSE_PROJECT_NAME` in the `.env` file.
+    where `<project_name>` is the name of your Docker Compose stack
+    as defined in `COMPOSE_PROJECT_NAME` in your `.env` file.
 
-3. Start your Neurobagel node again.
+    ??? tip "`docker volume ls` lists all volumes on your system"
+
+        You can use the `docker volume ls` command to list all volumes on your system.
+        This will help you identify the name of the volume that was created for your Neurobagel node.
+
+
+3. Launch your Neurobagel node again.
 
     ```bash
     docker compose --profile full_stack up -d
@@ -231,15 +237,11 @@ follow these steps:
 
     If you are not using the `full_stack` profile, replace `full_stack` with the name of the profile you are using.
 
-!!! info "Use `docker volume ls` to list all volumes on your system"
-
-    You can use the `docker volume ls` command to list all volumes on your system.
-    This will help you identify the name of the volume that was created for your Neurobagel node.
-
 Some examples of when you might want to do this:
 
 - You started but did not complete Neurobagel node setup previously and want to ensure you are using up-to-date instructions and recommended configuration options
 - Your local node has stopped working after a configuration change to your graph database (e.g., your Neurobagel node API no longer starts or responds with an error, but you have confirmed all environment variables you have set should be correct)
+- You need to modify credentials for your graph store
 
 !!! warning
 
