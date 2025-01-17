@@ -88,37 +88,41 @@ cd recipes
 cp template.env .env
 cp local_nb_nodes.template.json local_nb_nodes.json
 ```
-3. Change `NB_API_QUERY_URL` in the `.env` file
 
-    You **must** replace the placeholder value for `NB_API_QUERY_URL`in the `.env` file
+3. Change the placeholder value of `NB_API_QUERY_URL` in the `.env` file
     
     ```bash
     NB_API_QUERY_URL=http://XX.XX.XX.XX
     ```
-    with the URL address where the Neurobagel federation API will be accessed:
+   `http://XX.XX.XX.XX` must be replaced with the URL address where the Neurobagel federation API will be accessed:
 
     - If you are deploying Neurobagel for yourself or deploying and trying the services **on your local machine only**, 
    you can use `NB_API_QUERY_URL=http://localhost:8080`, where `8080` is the [default host port for the federation API](./config.md#environment-variables).
     - If you are deploying Neurobagel **on a server for other users**, 
    you must use the IP (and port) or URL intended for your users to access the federation API on the server with.
 
-4. (Optional) If you have already [generated Neurobagel JSONLD data files](cli.md), update `LOCAL_GRAPH_DATA` in `.env` to the path containing the data files you wish to add to the graph database.
+#### If you have already have graph-ready data
+At this point, if you have already [generated Neurobagel JSONLD data files](cli.md), you can proceed with the below additional steps before launching Neurobagel:
+
+4. Update `LOCAL_GRAPH_DATA` in `.env` to the path containing the data files you wish to add to the graph database.
     
-    Updating the data in the graph can be done at any time. For more information, see [this section](maintaining.md#updating-the-data-in-your-graph).
+    You can update these data in the graph at any time. For more information, see [this section](maintaining.md#updating-the-data-in-your-graph).
+
+5. Change the default credentials for your graph database following [these instructions](config.md#change-security-relevant-variables).
 
 !!! info
 
-    This is the minimal configuration you need to make before you can launch Neurobagel.
-    In most cases, and especially when you are deploying Neurobagel for other users,
-    you will have to make additional configurations. 
+    This section provide a minimal configuration for launching Neurobagel.
+    In most cases, particularly when deploying Neurobagel for other users,
+    additional configurations may be necessary to ensure optimal usability and security of your node.
 
     Please refer to [our detailed documentation](config.md#environment-variables) for a complete overview of 
     configuration options.
 
 ## Launch Neurobagel
 
-Once you have edited the `.env` and optionally the `local_nb_nodes.json` file, 
-you can launch your own Neurobagel node with the following `docker compose` command:
+Once you have completed at least steps 1 to 3 [above](#the-neurobagel-node-deployment-recipe), 
+you can launch your own Neurobagel node using Docker Compose:
 
 ```bash
 docker compose up -d
@@ -126,7 +130,7 @@ docker compose up -d
 ??? info "Explanation"
     This is a shorthand for: `docker compose --profile full_stack up -d`
 
-this will:
+This will:
 
 - pull the required Docker images (if you haven't pulled them before)
 - launch the containers for [the Neurobagel services](config.md#available-services) using the default `full_stack` [service profile](config.md#available-profiles)

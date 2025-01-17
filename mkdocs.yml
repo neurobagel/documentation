@@ -61,7 +61,8 @@ markdown_extensions:
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.superfences
   - pymdownx.tabbed:
-      alternate_style: true 
+      alternate_style: true
+  - sane_lists  # for continuing numbered lists as specified after a paragraph
   - tables
   
 

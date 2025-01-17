@@ -86,25 +86,31 @@ Below are all the possible Neurobagel environment variables that can be set in `
 
 ### Change security relevant variables
 
-For security purposes, we recommend the following additional steps for configuring your node if you are using a deployment profile that includes a graph store:
+For security and best practice purposes, follow the below additional steps to configure your node if you are using a deployment profile that includes a graph store:
 
-1. Review and change the values of the following variables in `.env`:
+1. **Change the values** of the following variables in `.env` from their defaults:
     - `NB_GRAPH_USERNAME`
-    - `NB_GRAPH_SECRETS_PATH`
     - `NB_GRAPH_DB`
-    - `NB_RETURN_AGG`
 
-2. Change the default passwords for the `admin` superuser and newly created graph database user (`NB_GRAPH_USERNAME`) for your graph store. 
-These are set to the contents of files called `NB_GRAPH_ADMIN_PASSWORD.txt` and `NB_GRAPH_PASSWORD.txt`, respectively, which are found by default in [`./secrets`](https://github.com/neurobagel/recipes/tree/main/secrets) in the Neurobagel recipes repo.
-To change the location of your password files, simply edit the variable `NB_GRAPH_SECRETS_PATH` in `.env` to point to a more secure directory where you have stored the two text files.
+2. **Replace the default passwords** for the `admin` superuser and the newly created graph database user (`NB_GRAPH_USERNAME`) for your graph store with your own secure passwords. 
 
-    Make sure to use secure passwords for `NB_GRAPH_ADMIN_PASSWORD.txt` and `NB_GRAPH_PASSWORD.txt`.
+    ??? warning "Already launched a Neurobagel node?"
+        If you have already completed the [Getting started](getting_started.md#the-neurobagel-node-deployment-recipe) instructions and launched a Neurobagel Docker Compose stack for the first time,
+        you will have to [reset your graph store](maintaining.md#resetting-your-graphdb-instance) before proceeding with this step. Don't worry, any other configuration changes you've made will be applied when you re-launch your node.
 
-    To generate a random password in the terminal, you can use:
+    - These passwords are stored in the directory defined under `NB_GRAPH_SECRETS_PATH` in `.env` ([`./secrets`](https://github.com/neurobagel/recipes/tree/main/secrets) by default), as the file contents of `NB_GRAPH_ADMIN_PASSWORD.txt` and `NB_GRAPH_PASSWORD.txt`, respectively.
+    - To generate a random password in the terminal, you can use:
+      ```bash
+      openssl rand -hex 16
+      ```
 
-    ```bash
-    openssl rand -hex 16
-    ```
+    - (Optional) Change the directory where your password files are stored by editing the variable `NB_GRAPH_SECRETS_PATH` in `.env`.
+
+    ??? info "Graph store passwords are not meant for use by node query users"
+        The passwords specified in the deployment recipe are only used internally by the scripts that (automatically) set up and update the graph store, 
+        or to interact directly with the graph store (e.g., to modify database configuration or data).
+        The passwords are also used to secure internal communication between your graph and its node API,
+        such that an external user cannot query your graph directly.
 
     ??? info "Passwords are handled as Docker secrets"
 
@@ -112,6 +118,13 @@ To change the location of your password files, simply edit the variable `NB_GRAP
         This ensures that your passwords are not exposed in the container logs or in the `docker-compose.yml` file.
         
         Make sure to not share your password files with others.
+  
+2. **Review and change as necessary** values of the following variables in `.env` from their defaults, based on your data sharing requirements:
+    - `NB_RETURN_AGG`
+    - `NB_MIN_CELL_SIZE`
+    !!! info
+        These variables are modifiable after node initialization; you can [change their values at any time](maintaining.md#restarting-services-after-an-update).
+
 
 ## Configuring local node names and URLs for federation
 
