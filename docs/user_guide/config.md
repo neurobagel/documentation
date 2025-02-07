@@ -195,30 +195,25 @@ This file adds:
 - [acme-companion](https://github.com/nginx-proxy/acme-companion) to automatically create and renew SSL certificates for NGINX proxied service containers
 
 
-!!! warning "Community Contribution"
-        
-    **Disclaimer:** This example `docker-compose.yml` is a community-contributed resource and is not officially maintained or supported by the Neurobagel team.
+**Example `docker-compose.yml` with Reverse Proxy**
 
-    **Compatibility Note:** This example has been tested with version `v0.4.1` of the [Neurobagel deployment recipes](https://github.com/neurobagel/recipes). Ensure you are using the same or a compatible version for optimal results.
+To use this file:
 
-??? abstract "Example `docker-compose.yml` with reverse proxy"
-    To use this file:
+1. If you haven't already, follow the [steps](getting_started.md#the-neurobagel-node-deployment-recipe) to clone and minimally configure the services in the [Neurobagel deployment recipe](https://github.com/neurobagel/recipes).
+2. Replace the default `docker-compose.yml` in the `recipes` directory with the appropriate file from below.
+3. Select the reverse proxy recipe you prefer:
 
-    1. If you haven't already, follow the [steps](getting_started.md#the-neurobagel-node-deployment-recipe) to clone and minimally configure the services in the [Neurobagel deployment recipe](https://github.com/neurobagel/recipes).
-    2. Replace the default `docker-compose.yml` in the `recipes` directory with the below file.
-    3. Open the file, and edit the values of `VIRTUAL_HOST` and `LETSENCRYPT_HOST` to the domains your proxied services will use.
-       - This assumes you have already registered your domain(s) with a DNS provider and configured the DNS settings to resolve correctly to your host machine.
-    4. From the root of the `recipes` directory, run:
-        ```bash
-        docker compose up -d
-        ```
-        (or, see [here](#available-profiles) to launch a non-default service profile).
-    5. Ensure that ports 80 and 443 are open on the host machine where your Docker Compose stack is running.
+=== "NGINX"
+    ??? abstract "NGINX Reverse Proxy Configuration"
+        **To use this file:**
 
-    === "NGINX(`docker-compose.yml`)"
+        - Open the file and edit the values of `VIRTUAL_HOST` and `LETSENCRYPT_HOST` to the domains your proxied services will use.
+
+        - This assumes you have already registered your domain(s) with a DNS provider and configured the DNS settings to resolve correctly to your host machine.
+
+        **`docker-compose.yml`:**
         ```yaml
-        services:
-
+         services:
           api:
             image: "neurobagel/api:${NB_NAPI_TAG:-latest}"
             profiles:
@@ -236,8 +231,8 @@ This file adds:
               NB_API_ALLOWED_ORIGINS: ${NB_NAPI_ALLOWED_ORIGINS}
               NB_ENABLE_AUTH: ${NB_ENABLE_AUTH:-false}
               NB_QUERY_CLIENT_ID: ${NB_QUERY_CLIENT_ID}
-              VIRTUAL_HOST: myservice1.myinstitute.org
-              LETSENCRYPT_HOST: myservice1.myinstitute.org
+              VIRTUAL_HOST: myservice1.myinstitute.org 
+              LETSENCRYPT_HOST: myservice1.myinstitute.org 
               VIRTUAL_PORT: 8000
             volumes:
               - "./scripts/api_entrypoint.sh:/usr/src/api_entrypoint.sh"
@@ -340,10 +335,16 @@ This file adds:
           acme:
         ```
 
-    === "Caddy (`docker-compose.yml`)"
+=== "Caddy"
+    !!! warning "Community Contribution"
+        **Disclaimer:** This example `docker-compose.yml` is a community-contributed resource and is not officially maintained or supported by the Neurobagel team.
+        
+        **Compatibility Note:** This example has been tested with version `v0.4.1` of the [Neurobagel deployment recipes](https://github.com/neurobagel/recipes). Ensure you are using the same or a compatible version for optimal results.
+    
+    ??? abstract "Caddy Reverse Proxy Configuration"
+        **`docker-compose.yml`:**
         ```yaml
         services:
-
           api:
             image: "neurobagel/api:${NB_NAPI_TAG:-latest}"
             profiles:
@@ -441,22 +442,31 @@ This file adds:
           caddy_data:
           caddy_config:
         ```
-
-        ### Reverse Proxy Configuration with Caddy
-
+    
+        **Example `Caddyfile`:**
         ```caddyfile
         myservice1.myinstitute.org {
             reverse_proxy api:8000
         }
-
+        
         myservice2.myinstitute.org {
             reverse_proxy federation:8000
         }
-
+        
         myservice3.myinstitute.org {
             reverse_proxy query_federation:5173
         }
         ```
+
+4. Running the Stack
+
+- After selecting your reverse proxy configuration and updating the required values, start the services by running:
+
+    ```bash
+    docker compose up -d
+    ```
+
+5. Make sure that ports 80 and 443 are open on the host machine where your Docker Compose stack is running.
 
 ## Manually setting up a Neurobagel graph backend
 
