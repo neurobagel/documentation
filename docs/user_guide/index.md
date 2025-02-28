@@ -2,7 +2,7 @@
 
 The Neurobagel ecosystem comprises four primary tools:
 
-- The **annotation tool** [:simple-github:](https://github.com/neurobagel/annotation_tool) ([annotate.neurobagel.org](https://annotate.neurobagel.org))
+- The **annotation tool** [:simple-github:](https://github.com/neurobagel/legacy_annotation_tool) ([annotate.neurobagel.org](https://annotate.neurobagel.org))
     - to create harmonized annotations of phenotypic variables
     - intended for use by researchers and domain experts
     - static site, deployed on GitHub Pages
