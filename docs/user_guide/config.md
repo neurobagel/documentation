@@ -225,8 +225,10 @@ This file adds:
           NB_GRAPH_PORT: 7200
           NB_GRAPH_DB: ${NB_GRAPH_DB:-repositories/my_db}
           NB_RETURN_AGG: ${NB_RETURN_AGG:-true}
+          NB_MIN_CELL_SIZE: ${NB_MIN_CELL_SIZE:-0}
           NB_API_PORT: 8000
-          NB_API_ALLOWED_ORIGINS: ${NB_NAPI_ALLOWED_ORIGINS}
+          NB_NAPI_BASE_PATH: ${NB_NAPI_BASE_PATH}
+          NB_API_ALLOWED_ORIGINS: ${NB_NAPI_ALLOWED_ORIGINS="*"}
           NB_ENABLE_AUTH: ${NB_ENABLE_AUTH:-false}
           NB_QUERY_CLIENT_ID: ${NB_QUERY_CLIENT_ID}
           VIRTUAL_HOST: myservice1.myinstitute.org # (1)!
@@ -273,6 +275,7 @@ This file adds:
           - "./local_nb_nodes.json:/usr/src/local_nb_nodes.json:ro"
         environment:
           NB_API_PORT: 8000
+          NB_NAPI_BASE_PATH: ${NB_NAPI_BASE_PATH}
           NB_FEDERATE_REMOTE_PUBLIC_NODES: ${NB_FEDERATE_REMOTE_PUBLIC_NODES:-True}
           NB_ENABLE_AUTH: ${NB_ENABLE_AUTH:-false}
           NB_QUERY_CLIENT_ID: ${NB_QUERY_CLIENT_ID}
@@ -292,6 +295,7 @@ This file adds:
           NB_QUERY_APP_BASE_PATH: ${NB_QUERY_APP_BASE_PATH:-/}
           NB_ENABLE_AUTH: ${NB_ENABLE_AUTH:-false}
           NB_QUERY_CLIENT_ID: ${NB_QUERY_CLIENT_ID}
+          NB_QUERY_HEADER_SCRIPT: ${NB_QUERY_HEADER_SCRIPT}
           VIRTUAL_HOST: myservice3.myinstitute.org # (5)!
           LETSENCRYPT_HOST: myservice3.myinstitute.org # (6)!
           VIRTUAL_PORT: 5173
