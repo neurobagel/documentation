@@ -95,6 +95,7 @@ plugins:
         branch: "main"
   - include-markdown
   - open-in-new-tab
+  - awesome-nav
 
 extra:
   analytics:

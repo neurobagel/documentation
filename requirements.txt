@@ -1,3 +1,4 @@
+mkdocs-awesome-nav
 mkdocs-include-markdown-plugin[cache]
 mkdocs-material
 mkdocs-open-in-new-tab
