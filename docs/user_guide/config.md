@@ -54,7 +54,7 @@ Neurobagel offers different deployment profiles that allow you to spin up specif
         If you only want to federate over a single local node and all public Neurobagel nodes,
         we recommend using the `full_stack` profile to set up your node and federation in one step.
         If you choose to use the `local_federation` profile, 
-        you will have to [manually configure your `local_nb_nodes.json` file](#local_nb_nodesjson).
+        you will have to [manually configure your `local_nb_nodes.json` file](#configuring-local-node-names-and-urls-for-federation).
 
 #### Launching a profile
 You can then launch a specific profile using the `--profile` or  `-p` flag with `docker compose`, e.g.:
