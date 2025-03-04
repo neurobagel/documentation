@@ -21,6 +21,7 @@ theme:
 repo_url: https://github.com/neurobagel/documentation
 
 # For docs navigation definition, see docs/.nav.yml
+# See also README for more info on how to add new pages/sections
 
 markdown_extensions:
   - abbr
