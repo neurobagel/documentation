@@ -1,0 +1,10 @@
+# Top-level navigation structure for the documentation.
+# Uses the mkdocs-awesome-nav plugin, see https://lukasgeiter.github.io/mkdocs-awesome-nav/
+nav:
+  - Welcome: "index.md"
+  - User guide: user_guide  # see user_guide/.nav.yml
+  - Data models: data_models
+  - Contributing: contributing
+  - Getting help: "getting_help.md"
+  - Glossary: "glossary.md"
+  - Citing Neurobagel: "cite.md"
