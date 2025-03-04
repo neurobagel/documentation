@@ -1,15 +1,14 @@
 nav:
   - "index.md"
   - Running cohort queries:
-      - Search the public nodes: "public_nodes.md"
-      - How to use the query tool: "query_tool.md"
-      - Querying the API directly: "api.md"
+    - Search the public nodes: "public_nodes.md"
+    - How to use the query tool: "query_tool.md"
+    - Querying the API directly: "api.md"
   - Setting up your own Neurobagel node:
-      - Getting started: "getting_started.md"
-      - Configuring a node: "config.md"
-      - Maintaining a node: "maintaining.md"
+    - Getting started: "getting_started.md"
+    - Configuring a node: "config.md"
+    - Maintaining a node: "maintaining.md"
   - Annotating your data:
-      - Preparing data for annotation: "data_prep.md"
-      - Annotation tool guide: "annotation_tool.md"
-      - Generating harmonized subject-level metadata: "cli.md"
-      
+    - Preparing data for annotation: "data_prep.md"
+    - Annotation tool guide: "annotation_tool.md"
+    - Generating harmonized subject-level metadata: "cli.md"
