@@ -190,7 +190,7 @@ This will route incoming requests from your custom domain(s) to your local Neuro
 Below is an example implementation of a reverse proxy, using a custom Docker Compose file that builds on [`docker-compose.yml`](https://github.com/neurobagel/recipes/blob/main/docker-compose.yml) in the default Neurobagel deployment recipe: 
 
 1. If you haven't already, follow the [steps](getting_started.md#the-neurobagel-node-deployment-recipe) to clone and minimally configure the services in the [Neurobagel deployment recipe](https://github.com/neurobagel/recipes).
-2. Replace the default `docker-compose.yml` in the `recipes` directory with the appropriate file(s) below which contain an example reverse proxy configuration, based on the reverse proxy server you are using:
+2. Replace the default `docker-compose.yml` in the `recipes` directory with the appropriate file(s) below which contain an example reverse proxy configuration, based on the reverse proxy server you want to use:
     - Ensure you have already registered your desired domain(s) with a DNS provider and configured the DNS settings to resolve correctly to your host machine.
 
     === "NGINX"
