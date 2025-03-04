@@ -1,8 +1,8 @@
 # Neurobagel Documentation
 
-![GitHub branch check runs](https://img.shields.io/github/check-runs/neurobagel/documentation/main?style=flat-square)
-![Static Badge](https://img.shields.io/badge/python-3.10%20%7C%203.11-blue?style=flat-square&logo=python)
-![GitHub License](https://img.shields.io/github/license/neurobagel/documentation?style=flat-square&color=purple&link=LICENSE)
+[![Main branch check status](https://img.shields.io/github/check-runs/neurobagel/documentation/main?style=flat-square&logo=github)](https://github.com/neurobagel/documentation/actions?query=branch:main)
+[![Python versions static](https://img.shields.io/badge/python-3.10%20%7C%203.11-blue?style=flat-square&logo=python)](https://www.python.org)
+[![License](https://img.shields.io/github/license/neurobagel/documentation?style=flat-square&color=purple&link=LICENSE)](LICENSE)
 
 The neurobagel documentation.
 
@@ -12,6 +12,19 @@ Our docs are built with the [Material Theme](https://squidfunk.github.io/mkdocs-
 ## Setup
 Create a new virtual environment with `python -m venv venv` and activate it.
 Then install the dependencies with `pip install -r requirements.txt`
+
+## Adding new pages to the navigation
+We use [`mkdocs-awesome-nav`](https://lukasgeiter.github.io/mkdocs-awesome-nav/) to define the navigation structure of the docs.
+
+To add a new page, add it to the `.nav.yml` (structured the same way as the `nav` section of `mkdocs.yml`) of the directory the markdown file lives in.
+
+To add an entire subdirectory (section) of pages, you can simply specify the subdirectory name, e.g.:
+```yml
+  - User guide: user_guide
+``` 
+Each subdirectory can then itself contain a `.nav.yml` to organize the pages within.
+
+Note: Both relative and absolute paths can be used to specify files or directories in `.nav.yml`.
 
 ## Build
 

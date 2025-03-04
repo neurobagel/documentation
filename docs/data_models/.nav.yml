@@ -1,0 +1,5 @@
+nav:
+  - Harmonized variables: "variables.md"
+  - Augmented BIDS data dictionaries: "dictionaries.md"
+  - Data files for Neurobagel graphs: "graph_data.md"
+  - Naming conventions for terms: "term_naming_standards.md"
