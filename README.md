@@ -16,9 +16,12 @@ Then install the dependencies with `pip install -r requirements.txt`
 ## Adding new pages to the navigation
 We use [`mkdocs-awesome-nav`](https://lukasgeiter.github.io/mkdocs-awesome-nav/) to define the navigation structure of the docs.
 
-To add a new page to the navigation, add it to the `.nav.yml` (structured the same way as the `nav` section of `mkdocs.yml`) of the directory the markdown file lives in.
+To add a new page, add it to the `.nav.yml` (structured the same way as the `nav` section of `mkdocs.yml`) of the directory the markdown file lives in.
 
-To add an entire subdirectory (section) of pages, you can simply specify the subdirectory name. 
+To add an entire subdirectory (section) of pages, you can simply specify the subdirectory name, e.g.:
+```yml
+  - User guide: user_guide
+``` 
 Each subdirectory can then itself contain a `.nav.yml` to organize the pages within.
 
 Note: Both relative and absolute paths can be used to specify files or directories in `.nav.yml`.
