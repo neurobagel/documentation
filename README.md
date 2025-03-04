@@ -1,8 +1,8 @@
 # Neurobagel Documentation
 
-![GitHub branch check runs](https://img.shields.io/github/check-runs/neurobagel/documentation/main?style=flat-square)
-![Static Badge](https://img.shields.io/badge/python-3.10%20%7C%203.11-blue?style=flat-square&logo=python)
-![GitHub License](https://img.shields.io/github/license/neurobagel/documentation?style=flat-square&color=purple&link=LICENSE)
+[![Main branch check status](https://img.shields.io/github/check-runs/neurobagel/documentation/main?style=flat-square&logo=github)](https://github.com/neurobagel/documentation/actions?query=branch:main)
+[![Python versions static](https://img.shields.io/badge/python-3.10%20%7C%203.11-blue?style=flat-square&logo=python)](https://www.python.org)
+[![License](https://img.shields.io/github/license/neurobagel/documentation?style=flat-square&color=purple&link=LICENSE)](LICENSE)
 
 The neurobagel documentation.
 
