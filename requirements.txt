@@ -1,5 +1,5 @@
 mkdocs-include-markdown-plugin[cache]
-mkdocs-material
+mkdocs-material>=9.5.0
 mkdocs-open-in-new-tab
 mkdocs-table-reader-plugin>=3.0.0
 mkdocs-yamp
