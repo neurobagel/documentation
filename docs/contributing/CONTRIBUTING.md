@@ -44,7 +44,7 @@ If you would like to contribute but are not sure where to start, we recommend lo
 
 All Neurobagel issues are expected to be addressed through [pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests).
 
-As an external contributor, the process you would follow to make your [proposed changes](#identifying-an-issue-to-work-on) should look something like this:
+As an external contributor, the process you would follow to make your [proposed changes](#identifying-an-issue-to-contribute-to) should look something like this:
 
 ### 1. [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) the relevant Neurobagel repository to your profile.
 
