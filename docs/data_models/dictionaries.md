@@ -271,19 +271,19 @@ this is a Neurobagel common data element.
 ### Age
 Neurobagel has a common data element for `"Age"` describing a continuous column. 
 To ensure age values are represented as floats in Neurobagel graphs, 
-Neurobagel encodes the relevant "heuristic" describing the value format for a given age column. 
-This heuristic, stored in the `Transformation` annotation (required for continuous columns describing age), 
-maps internally to a specific transformation that is used to convert the values to floats.
+Neurobagel encodes the relevant "transformation" based on the format of values in a given age column. 
+This is stored in the `Transformation` annotation (required for continuous columns describing age) and maps internally to a specific transformation that is used to convert the values to floats.
 
-Possible heuristics: 
+Possible transformations: 
 
 | TermURL | Label | Example |
 | ----- | ----- | ----- |
-| `nb:FromFloat` | float value | `31.5`
-| `nb:FromInt` | integer value | `31`
-| `nb:FromEuro` | european decimal value | `31,5`
-| `nb:FromBounded` | bounded value | `30+`
-| `nb:FromISO8061` | period of time defined according to the ISO8601 standard | `31Y6M`
+| `nb:FromFloat` | float value | `31.5` |
+| `nb:FromInt` | integer value | `31` |
+| `nb:FromEuro` | european decimal value | `31,5` |
+| `nb:FromBounded` | bounded value | `30+` |
+| `nb:FromRange` | a range between a minimum and maximum value | `30-35` |
+| `nb:FromISO8061` | period of time defined according to the ISO8601 standard | `31Y6M` |
 
 
 ```json hl_lines="9-12"
