@@ -1,9 +1,75 @@
+# This is a centrally maintained dependabot configuration file
+# that is applied to all repositories in the neurobagel organization.
+# Do not make changes to this file directly. Instead, make changes
+# to the template file in the workflows: https://github.com/neurobagel/workflows/tree/main/template_workflows/dependabot.yml
+
 version: 2
 updates:
-  - package-ecosystem: 'github-actions'
-    directory: '/'
+
+  # We instruct dependabot to open PRs if a newer version
+  # of a github action has been released.
+  - package-ecosystem: "github-actions"
+    directory: "/"
     schedule:
-      interval: 'weekly'
+      interval: "weekly"
+    labels:
+      - "_bot"
+      - "dependencies"
+  
+  # We instruct dependabot to open PRs whenever the HEAD of 
+  # of a submodule repository has advanced beyond what our submodule
+  # is currently tracking.
+  # Note: this configuration will only have an effect in repositories that have
+  # submodules.
+  - package-ecosystem: "gitsubmodule"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "_bot"
+      - "dependencies"
+
+  # In repo settings, we have configured dependabot to open PRs for security updates.
+  # Here, we configure dependabot to open version update PRs for only patch and minor versions of javascript / npm dependencies,
+  # and configure labels for both types of dependabot PRs.
+  # Note: this configuration will only have an effect in repositories that have
+  # a package.json file / use npm.
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # This setting asks dependabot to group PRs for version updates of all development or production dependencies
+    # into single PRs to reduce the total number of PRs opened.
+    groups:
+      production-dependencies:
+        applies-to: version-updates
+        dependency-type: "production"
+      development-dependencies:
+        applies-to: version-updates
+        dependency-type: "development"
+    # We ignore all major version updates of dependencies.
+    # The idea is that we only bump major versions manually or if doing
+    # so addresses a security vulnerability.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    labels:
+      - "_bot"
+      - "dependencies"
+
+  # In repo settings we have configured dependabot to open PRs for security updates.
+  # Here we configure custom labels to be applied to security update PRs,
+  # while still preventing regular version update PRs.
+  # See https://docs.github.com/en/code-security/dependabot/dependabot-security-updates/configuring-dependabot-security-updates#overriding-the-default-behavior-with-a-configuration-file
+  # Note: this configuration only has an effect in repositories that have
+  # a requirements.txt file / use python / pip.
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # This setting instructs dependabot to not open PRs for version updates
+    # but to still open PRs for security vulnerabilities.
+    open-pull-requests-limit: 0
     labels:
       - "_bot"
       - "dependencies"
