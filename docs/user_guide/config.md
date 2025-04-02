@@ -226,9 +226,10 @@ Below is an example implementation of a reverse proxy, using a custom Docker Com
                   NB_API_ALLOWED_ORIGINS: ${NB_NAPI_ALLOWED_ORIGINS:-"*"}
                   NB_ENABLE_AUTH: ${NB_ENABLE_AUTH:-false}
                   NB_QUERY_CLIENT_ID: ${NB_QUERY_CLIENT_ID}
-                  VIRTUAL_HOST: myservice1.myinstitute.org 
-                  LETSENCRYPT_HOST: myservice1.myinstitute.org 
+                  VIRTUAL_HOST: myservice1.myinstitute.org
+                  VIRTUAL_PATH: ${NB_NAPI_BASE_PATH:-/}
                   VIRTUAL_PORT: 8000
+                  LETSENCRYPT_HOST: myservice1.myinstitute.org 
                 volumes:
                   - "./scripts/api_entrypoint.sh:/usr/src/api_entrypoint.sh"
                 entrypoint:
@@ -275,8 +276,9 @@ Below is an example implementation of a reverse proxy, using a custom Docker Com
                   NB_ENABLE_AUTH: ${NB_ENABLE_AUTH:-false}
                   NB_QUERY_CLIENT_ID: ${NB_QUERY_CLIENT_ID}
                   VIRTUAL_HOST: myservice2.myinstitute.org
-                  LETSENCRYPT_HOST: myservice2.myinstitute.org
                   VIRTUAL_PORT: 8000
+                  VIRTUAL_PATH: ${NB_FAPI_BASE_PATH:-/}
+                  LETSENCRYPT_HOST: myservice2.myinstitute.org
 
               query_federation:
                 image: "neurobagel/query_tool:${NB_QUERY_TAG:-latest}"
@@ -292,8 +294,9 @@ Below is an example implementation of a reverse proxy, using a custom Docker Com
                   NB_QUERY_CLIENT_ID: ${NB_QUERY_CLIENT_ID}
                   NB_QUERY_HEADER_SCRIPT: ${NB_QUERY_HEADER_SCRIPT}
                   VIRTUAL_HOST: myservice3.myinstitute.org
-                  LETSENCRYPT_HOST: myservice3.myinstitute.org
                   VIRTUAL_PORT: 5173
+                  VIRTUAL_PATH: ${NB_QUERY_APP_BASE_PATH:-/}
+                  LETSENCRYPT_HOST: myservice3.myinstitute.org
 
               nginx-proxy:
                 image: nginxproxy/nginx-proxy
