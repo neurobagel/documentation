@@ -203,6 +203,8 @@ Below is an example implementation of a reverse proxy, using a custom Docker Com
         **Instructions:**
 
         - In the file below, replace the values of the variables `VIRTUAL_HOST` and `LETSENCRYPT_HOST` in the `environment` section for the `api`, `federation`, and `query_federation` services to the custom domains your proxied services will use
+        - If you prefer to host services on different subpaths instead of different subdomains, 
+        update the base path variables in the `.env` file for each service (see the [the `.env` docs](config.md#environment-variables) for more details.
 
         ??? abstract "`docker-compose.yml` with NGINX configuration"
             ```{ .yaml .annotate title="docker-compose.yml" }
