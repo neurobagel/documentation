@@ -254,6 +254,7 @@ Below is an example implementation of a reverse proxy, using a custom Docker Com
                   NB_GRAPH_USERNAME: ${NB_GRAPH_USERNAME}
                   NB_GRAPH_PORT: 7200
                   NB_GRAPH_DB: ${NB_GRAPH_DB:-repositories/my_db}
+                  NB_GRAPH_MEMORY: ${NB_GRAPH_MEMORY:-2G}
                 entrypoint:
                   - "/usr/src/neurobagel/scripts/setup.sh"
                 working_dir: "/usr/src/neurobagel/scripts"
@@ -394,6 +395,7 @@ Below is an example implementation of a reverse proxy, using a custom Docker Com
                   NB_GRAPH_USERNAME: ${NB_GRAPH_USERNAME}
                   NB_GRAPH_PORT: 7200
                   NB_GRAPH_DB: ${NB_GRAPH_DB:-repositories/my_db}
+                  NB_GRAPH_MEMORY: ${NB_GRAPH_MEMORY:-2G}
                 entrypoint:
                   - "/usr/src/neurobagel/scripts/setup.sh"
                 working_dir: "/usr/src/neurobagel/scripts"
