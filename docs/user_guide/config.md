@@ -204,7 +204,7 @@ Below is an example implementation of a reverse proxy, using a custom Docker Com
 
         - In the file below, replace the values of the variables `VIRTUAL_HOST` and `LETSENCRYPT_HOST` in the `environment` section for the `api`, `federation`, and `query_federation` services to the custom domains your proxied services will use
         - If you prefer to host services on different subpaths instead of different subdomains, 
-        update the base path variables in the `.env` file for each service (see the [`.env` docs](config.md#environment-variables) for more details.
+        you must also update the `*_BASE_PATH` variables in the `.env` file for the relevant services, e.g., `NB_NAPI_BASE_PATH` for the node API (see the [`.env` docs](config.md#environment-variables) for more details)
         ??? abstract "`docker-compose.yml` with NGINX configuration"
             ```{ .yaml .annotate title="docker-compose.yml" }
             services:
@@ -347,9 +347,9 @@ Below is an example implementation of a reverse proxy, using a custom Docker Com
 
           - Copy both files below into your `recipes` directory
           - In the `Caddyfile`, replace the placeholder domains with the custom domains your proxied services will use (see comments) 
-          - If you prefer to host services on different subpaths instead of different subdomains, 
-          first update your `Caddyfile` (see the [Caddy docs](https://caddyserver.com/docs/caddyfile/matchers#path)) and then make sure to
-        update the base path variables in the `.env` file for each service (see the [`.env` docs](config.md#environment-variables) for more details.
+          - If you prefer to host services on different subpaths instead of different subdomains: 
+              - Update your `Caddyfile` accordingly (see the [Caddy docs](https://caddyserver.com/docs/caddyfile/matchers#path))
+              - Additionally, update the `*_BASE_PATH` variables in the `.env` file for the relevant services, e.g., `NB_NAPI_BASE_PATH` for the node API (see the [`.env` docs](config.md#environment-variables) for more details)
         ??? abstract "`docker-compose.yml` with Caddy and corresponding `Caddyfile`"
             ```{ .yaml .annotate title="docker-compose.yml" }
             services:
