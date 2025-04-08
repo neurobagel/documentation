@@ -203,7 +203,8 @@ Below is an example implementation of a reverse proxy, using a custom Docker Com
         **Instructions:**
 
         - In the file below, replace the values of the variables `VIRTUAL_HOST` and `LETSENCRYPT_HOST` in the `environment` section for the `api`, `federation`, and `query_federation` services to the custom domains your proxied services will use
-
+        - If you prefer to host services on different subpaths instead of different subdomains, 
+        you must also update the `*_BASE_PATH` variables in the `.env` file for the relevant services, e.g., `NB_NAPI_BASE_PATH` for the node API (see the [`.env` docs](config.md#environment-variables) for more details)
         ??? abstract "`docker-compose.yml` with NGINX configuration"
             ```{ .yaml .annotate title="docker-compose.yml" }
             services:
@@ -226,9 +227,10 @@ Below is an example implementation of a reverse proxy, using a custom Docker Com
                   NB_API_ALLOWED_ORIGINS: ${NB_NAPI_ALLOWED_ORIGINS:-"*"}
                   NB_ENABLE_AUTH: ${NB_ENABLE_AUTH:-false}
                   NB_QUERY_CLIENT_ID: ${NB_QUERY_CLIENT_ID}
-                  VIRTUAL_HOST: myservice1.myinstitute.org 
-                  LETSENCRYPT_HOST: myservice1.myinstitute.org 
+                  VIRTUAL_HOST: myservice1.myinstitute.org
+                  VIRTUAL_PATH: ${NB_NAPI_BASE_PATH:-/}
                   VIRTUAL_PORT: 8000
+                  LETSENCRYPT_HOST: myservice1.myinstitute.org 
                 volumes:
                   - "./scripts/api_entrypoint.sh:/usr/src/api_entrypoint.sh"
                 entrypoint:
@@ -252,6 +254,7 @@ Below is an example implementation of a reverse proxy, using a custom Docker Com
                   NB_GRAPH_USERNAME: ${NB_GRAPH_USERNAME}
                   NB_GRAPH_PORT: 7200
                   NB_GRAPH_DB: ${NB_GRAPH_DB:-repositories/my_db}
+                  NB_GRAPH_MEMORY: ${NB_GRAPH_MEMORY:-2G}
                 entrypoint:
                   - "/usr/src/neurobagel/scripts/setup.sh"
                 working_dir: "/usr/src/neurobagel/scripts"
@@ -275,8 +278,9 @@ Below is an example implementation of a reverse proxy, using a custom Docker Com
                   NB_ENABLE_AUTH: ${NB_ENABLE_AUTH:-false}
                   NB_QUERY_CLIENT_ID: ${NB_QUERY_CLIENT_ID}
                   VIRTUAL_HOST: myservice2.myinstitute.org
-                  LETSENCRYPT_HOST: myservice2.myinstitute.org
                   VIRTUAL_PORT: 8000
+                  VIRTUAL_PATH: ${NB_FAPI_BASE_PATH:-/}
+                  LETSENCRYPT_HOST: myservice2.myinstitute.org
 
               query_federation:
                 image: "neurobagel/query_tool:${NB_QUERY_TAG:-latest}"
@@ -292,8 +296,9 @@ Below is an example implementation of a reverse proxy, using a custom Docker Com
                   NB_QUERY_CLIENT_ID: ${NB_QUERY_CLIENT_ID}
                   NB_QUERY_HEADER_SCRIPT: ${NB_QUERY_HEADER_SCRIPT}
                   VIRTUAL_HOST: myservice3.myinstitute.org
-                  LETSENCRYPT_HOST: myservice3.myinstitute.org
                   VIRTUAL_PORT: 5173
+                  VIRTUAL_PATH: ${NB_QUERY_APP_BASE_PATH:-/}
+                  LETSENCRYPT_HOST: myservice3.myinstitute.org
 
               nginx-proxy:
                 image: nginxproxy/nginx-proxy
@@ -342,7 +347,9 @@ Below is an example implementation of a reverse proxy, using a custom Docker Com
 
           - Copy both files below into your `recipes` directory
           - In the `Caddyfile`, replace the placeholder domains with the custom domains your proxied services will use (see comments) 
-        
+          - If you prefer to host services on different subpaths instead of different subdomains: 
+              - Update your `Caddyfile` accordingly (see the [Caddy docs](https://caddyserver.com/docs/caddyfile/matchers#path))
+              - Additionally, update the `*_BASE_PATH` variables in the `.env` file for the relevant services, e.g., `NB_NAPI_BASE_PATH` for the node API (see the [`.env` docs](config.md#environment-variables) for more details)
         ??? abstract "`docker-compose.yml` with Caddy and corresponding `Caddyfile`"
             ```{ .yaml .annotate title="docker-compose.yml" }
             services:
@@ -388,6 +395,7 @@ Below is an example implementation of a reverse proxy, using a custom Docker Com
                   NB_GRAPH_USERNAME: ${NB_GRAPH_USERNAME}
                   NB_GRAPH_PORT: 7200
                   NB_GRAPH_DB: ${NB_GRAPH_DB:-repositories/my_db}
+                  NB_GRAPH_MEMORY: ${NB_GRAPH_MEMORY:-2G}
                 entrypoint:
                   - "/usr/src/neurobagel/scripts/setup.sh"
                 working_dir: "/usr/src/neurobagel/scripts"
