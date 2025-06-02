@@ -182,306 +182,117 @@ To add one or more local nodes to the list of nodes known to your f-API, simply 
 
 ## Behind a reverse proxy
 
-!!! warning "For advanced users"
+!!! warning "These steps are for advanced users and production deployments"
 
-To allow access to your Neurobagel node using a custom domain name, you will likely want to set up a reverse proxy (e.g., [NGINX](https://nginx.org/en/docs/beginners_guide.html), [Caddy](https://caddyserver.com/docs/quick-starts/reverse-proxy)) for your services. 
-This will route incoming requests from your custom domain(s) to your local Neurobagel node API, your local Neurobagel query tool, etc.
+In a production deployment, you likely want to serve the services of your Neurobagel node
+(e.g. the node API, the query interface, etc) from an easy to remember URL
+(e.g. `https://www.myfirstnode.org/query`) rather than the custom port on your server
+(e.g. `http://192.168.0.1:3000`) that the [getting started guide](getting_started.md) has helped you set up.
 
-Below is an example implementation of a reverse proxy, using a custom Docker Compose file that builds on [`docker-compose.yml`](https://github.com/neurobagel/recipes/blob/main/docker-compose.yml) in the default Neurobagel deployment recipe: 
+To do so, you need to set up a reverse proxy like [NGINX](https://nginx.org/en/docs/beginners_guide.html) or
+[Caddy](https://caddyserver.com/docs/quick-starts/reverse-proxy)
+that will handle the correct routing of incoming requests for specific URLs
+to the Neurobagel services you have deployed on your server. The [Neurobagel recipes repository on GitHub](https://github.com/neurobagel/recipes/)
+includes pre-configured Docker compose files for both NGINX and Caddy, allowing you to chose your preferred option.
+These custom files launche a reverse proxy server in addition to the regular Neurobagel services,
+automatically request and renew SSL certificates to provide secure HTTPS connections, and handle routing.
 
-1. If you haven't already, follow the [steps](getting_started.md#the-neurobagel-node-deployment-recipe) to clone and minimally configure the services in the [Neurobagel deployment recipe](https://github.com/neurobagel/recipes).
-2. Replace the default `docker-compose.yml` in the `recipes` directory with the appropriate file(s) below which contain an example reverse proxy configuration, based on the reverse proxy server you want to use:
-    - Ensure you have already registered your desired domain(s) with a DNS provider and configured the DNS settings to resolve correctly to your host machine.
+If you haven't already, follow the [steps](getting_started.md#the-neurobagel-node-deployment-recipe)
+to clone and minimally configure the services in the [Neurobagel deployment recipe](https://github.com/neurobagel/recipes)
+as you would for a basic deployment.
 
-    === "NGINX"
-        !!! info
-            This file adds:
+=== "NGINX"
 
-            - [nginx-proxy](https://github.com/nginx-proxy/nginx-proxy) to run NGINX in a container, and automatically generate/refresh NGINX reverse proxy configurations when Neurobagel service containers are started
-            - [acme-companion](https://github.com/nginx-proxy/acme-companion) to automatically create and renew SSL certificates for NGINX proxied service containers
+    The NGINX docker compose file is located at `/docker-compose-nginx.yml` in the root of the recipes repository.
+    Before you deploy your node for the first time,
+    you need to manually define a URL for each service by editing the `docker-compose-nginx.yml` file. 
+    The values you want to edit are all in the `environments` section of each service.
+    
+    For example, for the node API service, the section of the `docker-compose-nginx.yml` file 
+    that you need to change would look like this:
 
-        **Instructions:**
-
-        - In the file below, replace the values of the variables `VIRTUAL_HOST` and `LETSENCRYPT_HOST` in the `environment` section for the `api`, `federation`, and `query_federation` services to the custom domains your proxied services will use
-        - If you prefer to host services on different subpaths instead of different subdomains, 
-        you must also update the `*_BASE_PATH` variables in the `.env` file for the relevant services, e.g., `NB_NAPI_BASE_PATH` for the node API (see the [`.env` docs](config.md#environment-variables) for more details)
-        ??? abstract "`docker-compose.yml` with NGINX configuration"
-            ```{ .yaml .annotate title="docker-compose.yml" }
-            services:
-              api:
-                image: "neurobagel/api:${NB_NAPI_TAG:-latest}"
-                profiles:
-                  - "local_node"
-                  - "full_stack"
-                ports:
-                  - "${NB_NAPI_PORT_HOST:-8000}:8000"
-                environment:
-                  NB_GRAPH_USERNAME: ${NB_GRAPH_USERNAME}
-                  NB_GRAPH_ADDRESS: graph
-                  NB_GRAPH_PORT: 7200
-                  NB_GRAPH_DB: ${NB_GRAPH_DB:-repositories/my_db}
-                  NB_RETURN_AGG: ${NB_RETURN_AGG:-true}
-                  NB_MIN_CELL_SIZE: ${NB_MIN_CELL_SIZE:-0}
-                  NB_API_PORT: 8000
-                  NB_NAPI_BASE_PATH: ${NB_NAPI_BASE_PATH}
-                  NB_API_ALLOWED_ORIGINS: ${NB_NAPI_ALLOWED_ORIGINS:-"*"}
-                  NB_ENABLE_AUTH: ${NB_ENABLE_AUTH:-false}
-                  NB_QUERY_CLIENT_ID: ${NB_QUERY_CLIENT_ID}
-                  VIRTUAL_HOST: myservice1.myinstitute.org
-                  VIRTUAL_PATH: ${NB_NAPI_BASE_PATH:-/}
-                  VIRTUAL_PORT: 8000
-                  LETSENCRYPT_HOST: myservice1.myinstitute.org 
-                volumes:
-                  - "./scripts/api_entrypoint.sh:/usr/src/api_entrypoint.sh"
-                entrypoint:
-                  - "/usr/src/api_entrypoint.sh"
-                secrets:
-                  - db_user_password
-
-              graph:
-                image: "ontotext/graphdb:10.3.1"
-                profiles:
-                  - "local_node"
-                  - "full_stack"
-                volumes:
-                  - "graphdb_home:/opt/graphdb/home"
-                  - "./scripts:/usr/src/neurobagel/scripts"
-                  - "./vocab:/usr/src/neurobagel/vocab"
-                  - "${LOCAL_GRAPH_DATA:-./data}:/data"
-                ports:
-                  - "${NB_GRAPH_PORT_HOST:-7200}:7200"
-                environment:
-                  NB_GRAPH_USERNAME: ${NB_GRAPH_USERNAME}
-                  NB_GRAPH_PORT: 7200
-                  NB_GRAPH_DB: ${NB_GRAPH_DB:-repositories/my_db}
-                  NB_GRAPH_MEMORY: ${NB_GRAPH_MEMORY:-2G}
-                entrypoint:
-                  - "/usr/src/neurobagel/scripts/setup.sh"
-                working_dir: "/usr/src/neurobagel/scripts"
-                secrets:
-                  - db_admin_password
-                  - db_user_password
-
-              federation:
-                image: "neurobagel/federation_api:${NB_FAPI_TAG:-latest}"
-                profiles:
-                  - "local_federation"
-                  - "full_stack"
-                ports:
-                  - "${NB_FAPI_PORT_HOST:-8080}:8000"
-                volumes:
-                  - "./local_nb_nodes.json:/usr/src/local_nb_nodes.json:ro"
-                environment:
-                  NB_API_PORT: 8000
-                  NB_FAPI_BASE_PATH: ${NB_FAPI_BASE_PATH}
-                  NB_FEDERATE_REMOTE_PUBLIC_NODES: ${NB_FEDERATE_REMOTE_PUBLIC_NODES:-True}
-                  NB_ENABLE_AUTH: ${NB_ENABLE_AUTH:-false}
-                  NB_QUERY_CLIENT_ID: ${NB_QUERY_CLIENT_ID}
-                  VIRTUAL_HOST: myservice2.myinstitute.org
-                  VIRTUAL_PORT: 8000
-                  VIRTUAL_PATH: ${NB_FAPI_BASE_PATH:-/}
-                  LETSENCRYPT_HOST: myservice2.myinstitute.org
-
-              query_federation:
-                image: "neurobagel/query_tool:${NB_QUERY_TAG:-latest}"
-                profiles:
-                  - "local_federation"
-                  - "full_stack"
-                ports:
-                  - "${NB_QUERY_PORT_HOST:-3000}:5173"
-                environment:
-                  NB_API_QUERY_URL: ${NB_API_QUERY_URL}
-                  NB_QUERY_APP_BASE_PATH: ${NB_QUERY_APP_BASE_PATH:-/}
-                  NB_ENABLE_AUTH: ${NB_ENABLE_AUTH:-false}
-                  NB_QUERY_CLIENT_ID: ${NB_QUERY_CLIENT_ID}
-                  NB_QUERY_HEADER_SCRIPT: ${NB_QUERY_HEADER_SCRIPT}
-                  VIRTUAL_HOST: myservice3.myinstitute.org
-                  VIRTUAL_PORT: 5173
-                  VIRTUAL_PATH: ${NB_QUERY_APP_BASE_PATH:-/}
-                  LETSENCRYPT_HOST: myservice3.myinstitute.org
-
-              nginx-proxy:
-                image: nginxproxy/nginx-proxy
-                container_name: nginx-proxy
-                ports:
-                  - "80:80"
-                  - "443:443"
-                volumes:
-                  - ./config/nginx/reverse_proxy.conf:/etc/nginx/conf.d/reverse_proxy.conf
-                  - vhost:/etc/nginx/vhost.d
-                  - html:/usr/share/nginx/html
-                  - certs:/etc/nginx/certs:ro
-                  - /var/run/docker.sock:/tmp/docker.sock:ro
-
-              acme-companion:
-                image: nginxproxy/acme-companion
-                container_name: nginx-proxy-acme
-                volumes_from:
-                  - nginx-proxy
-                volumes:
-                  - certs:/etc/nginx/certs:rw
-                  - acme:/etc/acme.sh
-                  - /var/run/docker.sock:/var/run/docker.sock:ro
-
-            secrets:
-              db_admin_password:
-                file: ${NB_GRAPH_SECRETS_PATH:-./secrets}/NB_GRAPH_ADMIN_PASSWORD.txt
-              db_user_password:
-                file: ${NB_GRAPH_SECRETS_PATH:-./secrets}/NB_GRAPH_PASSWORD.txt
-
-            volumes:
-              graphdb_home:
-              vhost:
-              html:
-              certs:
-              acme:
-            ```
-
-    === "Caddy"
-        !!! warning "Community Contribution"
-            **Disclaimer:** This example `docker-compose.yml` is a community-contributed resource and is not officially maintained or supported by the Neurobagel team.
-            
-            **Compatibility Note:** This example has been tested with version `v0.5.0` of the [Neurobagel deployment recipes](https://github.com/neurobagel/recipes). Ensure you are using the same or a compatible version for optimal results.
-        
-        **Instructions:**
-
-          - Copy both files below into your `recipes` directory
-          - In the `Caddyfile`, replace the placeholder domains with the custom domains your proxied services will use (see comments) 
-          - If you prefer to host services on different subpaths instead of different subdomains: 
-              - Update your `Caddyfile` accordingly (see the [Caddy docs](https://caddyserver.com/docs/caddyfile/matchers#path))
-              - Additionally, update the `*_BASE_PATH` variables in the `.env` file for the relevant services, e.g., `NB_NAPI_BASE_PATH` for the node API (see the [`.env` docs](config.md#environment-variables) for more details)
-        ??? abstract "`docker-compose.yml` with Caddy and corresponding `Caddyfile`"
-            ```{ .yaml .annotate title="docker-compose.yml" }
-            services:
-              api:
-                image: "neurobagel/api:${NB_NAPI_TAG:-latest}"
-                profiles:
-                  - "local_node"
-                  - "full_stack"
-                ports:
-                  - "${NB_NAPI_PORT_HOST:-8000}:8000"
-                environment:
-                  NB_GRAPH_USERNAME: ${NB_GRAPH_USERNAME}
-                  NB_GRAPH_ADDRESS: graph
-                  NB_GRAPH_PORT: 7200
-                  NB_GRAPH_DB: ${NB_GRAPH_DB:-repositories/my_db}
-                  NB_RETURN_AGG: ${NB_RETURN_AGG:-true}
-                  NB_MIN_CELL_SIZE: ${NB_MIN_CELL_SIZE:-0}
-                  NB_API_PORT: 8000
-                  NB_NAPI_BASE_PATH: ${NB_NAPI_BASE_PATH}
-                  NB_API_ALLOWED_ORIGINS: ${NB_NAPI_ALLOWED_ORIGINS:-"*"}
-                  NB_ENABLE_AUTH: ${NB_ENABLE_AUTH:-false}
-                  NB_QUERY_CLIENT_ID: ${NB_QUERY_CLIENT_ID}
-                volumes:
-                  - "./scripts/api_entrypoint.sh:/usr/src/api_entrypoint.sh"
-                entrypoint:
-                  - "/usr/src/api_entrypoint.sh"
-                secrets:
-                  - db_user_password
-
-              graph:
-                image: "ontotext/graphdb:10.3.1"
-                profiles:
-                  - "local_node"
-                  - "full_stack"
-                volumes:
-                  - "graphdb_home:/opt/graphdb/home"
-                  - "./scripts:/usr/src/neurobagel/scripts"
-                  - "./vocab:/usr/src/neurobagel/vocab"
-                  - "${LOCAL_GRAPH_DATA:-./data}:/data"
-                ports:
-                  - "${NB_GRAPH_PORT_HOST:-7200}:7200"
-                environment:
-                  NB_GRAPH_USERNAME: ${NB_GRAPH_USERNAME}
-                  NB_GRAPH_PORT: 7200
-                  NB_GRAPH_DB: ${NB_GRAPH_DB:-repositories/my_db}
-                  NB_GRAPH_MEMORY: ${NB_GRAPH_MEMORY:-2G}
-                entrypoint:
-                  - "/usr/src/neurobagel/scripts/setup.sh"
-                working_dir: "/usr/src/neurobagel/scripts"
-                secrets:
-                  - db_admin_password
-                  - db_user_password
-
-              federation:
-                image: "neurobagel/federation_api:${NB_FAPI_TAG:-latest}"
-                profiles:
-                  - "local_federation"
-                  - "full_stack"
-                ports:
-                  - "${NB_FAPI_PORT_HOST:-8080}:8000"
-                volumes:
-                  - "./local_nb_nodes.json:/usr/src/local_nb_nodes.json:ro"
-                environment:
-                  NB_API_PORT: 8000
-                  NB_FAPI_BASE_PATH: ${NB_FAPI_BASE_PATH}
-                  NB_FEDERATE_REMOTE_PUBLIC_NODES: ${NB_FEDERATE_REMOTE_PUBLIC_NODES:-True}
-                  NB_ENABLE_AUTH: ${NB_ENABLE_AUTH:-false}
-                  NB_QUERY_CLIENT_ID: ${NB_QUERY_CLIENT_ID}
-
-              query_federation:
-                image: "neurobagel/query_tool:${NB_QUERY_TAG:-latest}"
-                profiles:
-                  - "local_federation"
-                  - "full_stack"
-                ports:
-                  - "${NB_QUERY_PORT_HOST:-3000}:5173"
-                environment:
-                  NB_API_QUERY_URL: ${NB_API_QUERY_URL}
-                  NB_QUERY_APP_BASE_PATH: ${NB_QUERY_APP_BASE_PATH:-/}
-                  NB_ENABLE_AUTH: ${NB_ENABLE_AUTH:-false}
-                  NB_QUERY_CLIENT_ID: ${NB_QUERY_CLIENT_ID}
-                  NB_QUERY_HEADER_SCRIPT: ${NB_QUERY_HEADER_SCRIPT}
-
-              caddy:
-                image: caddy:latest
-                container_name: caddy
-                ports:
-                  - "80:80"
-                  - "443:443"
-                volumes:
-                  - ./Caddyfile:/etc/caddy/Caddyfile
-                  - caddy_data:/data
-                  - caddy_config:/config
-
-            secrets:
-              db_admin_password:
-                file: ${NB_GRAPH_SECRETS_PATH:-./secrets}/NB_GRAPH_ADMIN_PASSWORD.txt
-              db_user_password:
-                file: ${NB_GRAPH_SECRETS_PATH:-./secrets}/NB_GRAPH_PASSWORD.txt
-
-            volumes:
-              graphdb_home:
-              caddy_data:
-              caddy_config:
-            ```
-        
-            ```{ .annotate title="Caddyfile" }
-            # Replace myservice1.myinstitute.org with the custom domain of your node API
-            myservice1.myinstitute.org {
-                reverse_proxy api:8000
-            }
-            
-            # Replace myservice2.myinstitute.org with the custom domain of your federation API
-            myservice2.myinstitute.org {
-                reverse_proxy federation:8000
-            }
-            
-            # Replace myservice3.myinstitute.org with the custom domain of your query tool
-            myservice3.myinstitute.org {
-                reverse_proxy query_federation:5173
-            }
-            ```
-
-3. Running the Stack
-
-- After selecting your reverse proxy configuration and updating the required values, start the services by running:
-
-    ```bash
-    docker compose up -d
+    ``` yaml title="/docker-compose-nginx.yml"
+    api:
+    extends:
+        file: docker-compose.yml
+        service: api
+    # For a production deployment, we want to avoid binding ports to the host to avoid conflicts with
+    # already running services. So here we override the ports exposed in the recipe we expand from and
+    # set the ports to an empty list
+    ports: !override []
+    environment:
+        # Replace the below domain with the domain you want to serve the node API from
+        VIRTUAL_HOST: myservice1.myinstitute.org # (1)!
+        VIRTUAL_PATH: ${NB_NAPI_BASE_PATH:-/}
+        VIRTUAL_PORT: 8000
+        # Set the below to the same domain as VIRTUAL_HOST to enable HTTPS
+        LETSENCRYPT_HOST: myservice1.myinstitute.org # (2)!
     ```
 
-4. Make sure that ports 80 and 443 are open on the host machine where your Docker Compose stack is running.
+    1. Replace this with the origin / domain name where the service should be hosted. If you host services on sub-paths (e.g. `https://www.mydomain.org/service1`), then do not include the subdirectory part (e.g. `service1`) here - and instead define it in the appropriate section of the `.env` file.
+    2. Put the same value you used for `VIRTUAL_HOST`
+
+    ??? warning "Do not change `VIRTUAL_PATH` and `VIRTUAL_PORT`"
+    
+        You can look at the [NGINX-Proxy documentation](https://github.com/nginx-proxy/nginx-proxy/tree/main/docs#virtual-hosts-and-ports) 
+        to learn more about how these variables work.
+
+    Make these edits for all the Neurobagel services. 
+    When you are finished, you must then make the corresponding changes in the `.env` file.
+    Make sure to:
+
+    - Update the `NB_API_QUERY_URL` variable in the query tool section to the new URL of the federation API
+    - If you want to host services on subpaths of the same domain (e.g. `https://mynode.org/service1` and `https://mynode.org/service2`), 
+    make sure to uncomment and edit the respective `XYZ_BASE_PATH` variables in the `.env` file.
+
+    Finally, launch your node by explicitly referencing the `docker-compose-nginx.yml` file:
+
+    ```bash
+    docker compose -f docker-compose-nginx.yml up -d
+    ```
+
+=== "Caddy"
+
+    The Caddy docker compose file is located at `/docker-compose-caddy.yml` in the root of the recipes repository.
+    
+    !!! note "You do not need to edit the `docker-compose-caddy.yml` file directly."
+
+    Caddy relies on a separate config file to handle the routes for different services. 
+    This config file is located in `/config/caddy/Caddyfile`.
+
+    !!! warning "You need to edit the `/config/caddy/Caddyfile` file"
+
+    ```bash title="/config/caddy/Caddyfile"
+    # Replace myservice1.myinstitute.org with the custom domain of your node API
+    myservice1.myinstitute.org { # (1)!
+        reverse_proxy api:8000
+    }
+
+    # Replace myservice2.myinstitute.org with the custom domain of your federation API
+    myservice2.myinstitute.org { # (2)!
+        reverse_proxy federation:8000
+    }
+
+    # Replace myservice3.myinstitute.org with the custom domain of your query tool
+    myservice3.myinstitute.org { # (3)!
+        reverse_proxy query_federation:5173
+    }
+    ```
+
+    1. Replace myservice1.myinstitute.org with the custom domain of your node API
+    2. Replace myservice2.myinstitute.org with the custom domain of your federation API
+    3. Replace myservice3.myinstitute.org with the custom domain of your query tool
+
+    Make sure to update the domains in the `Caddyfile` to match the domains you want to use for your services
+    as described by the comments in the file.
+    
+    ??? note "Look at the Caddy documentation for more complex setups"
+
+        The [Caddy documentation](https://caddyserver.com/docs/caddyfile) has more detailed information
+        for scenarios such as subdirectory routing and so on.
+
+Finally, make sure that ports 80 and 443 are open on the host machine where your Docker Compose stack is running
+because these are the ports your reverse proxy will listen on for incoming HTTP and HTTPS traffic.
 
 ## Manually setting up a Neurobagel graph backend
 
