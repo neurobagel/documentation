@@ -10,6 +10,7 @@ theme:
   - navigation.expand
   - content.tabs.link
   - content.code.copy  # allow user to copy a code block's contents to the clipboard
+  - content.code.annotate
   logo: "imgs/logo/neurobagel_logo.png"
   favicon: "imgs/logo/neurobagel_favicon.png"
   palette:
