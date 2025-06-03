@@ -47,7 +47,7 @@ The Neurobagel CLI can compile information from several different data sources t
 
 1. The CLI will use a valid BIDS dataset to generate harmonized raw imaging metadata for subjects.
 2. This file will be used by the CLI to generate harmonized processing pipeline and derivative metadata for subjects.
-It has compatibility with the [Nipoppy](https://nipoppy.readthedocs.io/en/latest/index.html) workflow, and can be automatically generated using the [Nipoppy pipeline trackers](https://nipoppy.readthedocs.io/en/latest/user_guide/tracking.html).
+It has compatibility with the [Nipoppy](https://nipoppy.readthedocs.io/en/latest/index.html) workflow, and can be automatically generated using the [Nipoppy pipeline trackers](https://nipoppy.readthedocs.io/en/latest/how_to_guides/user_guide/tracking.html).
 
 ### Viewing CLI commands and options
 
