@@ -203,7 +203,7 @@ as you would for a basic deployment.
 
 === "NGINX"
 
-    The NGINX docker compose file is located at `/docker-compose-nginx.yml` in the root of the recipes repository.
+    The NGINX Docker Compose file is located in [`recipes/docker-compose-nginx.yml`](https://github.com/neurobagel/recipes/blob/main/docker-compose-nginx.yml).
     Before you deploy your node for the first time,
     you need to manually define a URL for each service by editing the `docker-compose-nginx.yml` file. 
     The values you want to edit are all in the `environments` section of each service.
@@ -232,7 +232,7 @@ as you would for a basic deployment.
     1. Replace this with the origin / domain name where the service should be hosted. If you host services on sub-paths (e.g. `https://www.mydomain.org/service1`), then do not include the subdirectory part (e.g. `service1`) here - and instead define it in the appropriate section of the `.env` file.
     2. Put the same value you used for `VIRTUAL_HOST`
 
-    ??? warning "Do not change `VIRTUAL_PATH` and `VIRTUAL_PORT`"
+    ??? warning "Do not change the `VIRTUAL_PATH` and `VIRTUAL_PORT`" variables
     
         You can look at the [NGINX-Proxy documentation](https://github.com/nginx-proxy/nginx-proxy/tree/main/docs#virtual-hosts-and-ports) 
         to learn more about how these variables work.
@@ -253,12 +253,12 @@ as you would for a basic deployment.
 
 === "Caddy"
 
-    The Caddy docker compose file is located at `/docker-compose-caddy.yml` in the root of the recipes repository.
+    The Caddy Docker Compose file is located in [`recipes/docker-compose-caddy.yml`](https://github.com/neurobagel/recipes/blob/main/docker-compose-caddy.yml).
     
     !!! note "You do not need to edit the `docker-compose-caddy.yml` file directly."
 
     Caddy relies on a separate config file to handle the routes for different services. 
-    This config file is located in `/config/caddy/Caddyfile`.
+    This config file is located in [`recipes/config/caddy/Caddyfile`](https://github.com/neurobagel/recipes/blob/main/config/caddy/Caddyfile).
 
     !!! warning "You need to edit the `/config/caddy/Caddyfile` file"
 
@@ -286,10 +286,10 @@ as you would for a basic deployment.
     Make sure to update the domains in the `Caddyfile` to match the domains you want to use for your services
     as described by the comments in the file.
     
-    ??? note "Look at the Caddy documentation for more complex setups"
+    ??? note "For more complex reverse proxy setups, refer to the Caddy documentation"
 
         The [Caddy documentation](https://caddyserver.com/docs/caddyfile) has more detailed information
-        for scenarios such as subdirectory routing and so on.
+        on subdirectory routing and other configuration options.
 
 Finally, make sure that ports 80 and 443 are open on the host machine where your Docker Compose stack is running
 because these are the ports your reverse proxy will listen on for incoming HTTP and HTTPS traffic.
