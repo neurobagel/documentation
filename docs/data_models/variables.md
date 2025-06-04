@@ -20,4 +20,4 @@ For details on how phenotypic attributes are modeled, see the page on [Neurobage
 - Available MRI acquisition sequences, following the [BIDS specification](https://bids-specification.readthedocs.io/en/stable/modality-specific-files/magnetic-resonance-imaging-data.html#magnetic-resonance-imaging)
 
 ### Derived data
-- Completed processing pipelines, following the [Nipoppy specification](https://nipoppy.readthedocs.io/en/latest/user_guide/tracking.html)
+- Completed processing pipelines, following the [Nipoppy specification](https://nipoppy.readthedocs.io/en/latest/how_to_guides/user_guide/tracking.html)
