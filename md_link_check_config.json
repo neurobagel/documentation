@@ -11,5 +11,7 @@
         {"pattern": "http://purl.bioontology.org/ontology/SNOMEDCT/"},
         {"pattern": "https://www.ontotext.com/knowledgehub/fundamentals/"}
     ],
-    "timeout": "60s"
+    "timeout": "60s",
+    "retryOn429": true,
+    "retryCount": 3
 }

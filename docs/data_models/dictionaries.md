@@ -54,7 +54,7 @@ And here is the same data dictionary augmented with Neurobagel annotations:
         "TermURL": "http://neurobagel.org/vocab/Age",
         "Label": "Age"
       },
-      "Transformation": {
+      "Format": {
         "TermURL": "http://neurobagel.org/vocab/int",
         "Label": "Integer"
       }
@@ -271,10 +271,10 @@ this is a Neurobagel common data element.
 ### Age
 Neurobagel has a common data element for `"Age"` describing a continuous column. 
 To ensure age values are represented as floats in Neurobagel graphs, 
-Neurobagel encodes the relevant "transformation" based on the format of values in a given age column. 
-This is stored in the `Transformation` annotation (required for continuous columns describing age) and maps internally to a specific transformation that is used to convert the values to floats.
+Neurobagel encodes the format of the raw numerical values in a given age column. 
+This is stored in the `Format` annotation (required for continuous columns describing age) and maps internally to a specific transformation that is then used to convert the raw values to floats.
 
-Possible transformations: 
+Possible formats: 
 
 | TermURL | Label | Example |
 | ----- | ----- | ----- |
@@ -295,7 +295,7 @@ Possible transformations:
         "TermURL": "nb:Age",
         "Label": "Chronological age"
       },
-      "Transformation": {
+      "Format": {
         "TermURL": "nb:FromEuro",
         "Label": "European value decimals"
       }
