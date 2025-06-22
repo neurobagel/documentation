@@ -72,7 +72,7 @@ Below are all the possible Neurobagel environment variables that can be set in `
 {{ read_table('./repos/recipes/docs/neurobagel_environment_variables.tsv') }}
 
 ??? warning "Ensure that shell variables do not clash with `.env` file"
-    
+
     If the shell you run `docker compose` from already has any 
     shell variable of the same name set, 
     the shell variable will take precedence over the configuration
@@ -184,72 +184,51 @@ To add one or more local nodes to the list of nodes known to your f-API, simply 
 
 !!! warning "These steps are for advanced users and production deployments"
 
-In a production deployment, you likely want to serve the services of your Neurobagel node
-(e.g. the node API, the query interface, etc) from an easy to remember URL
-(e.g. `https://www.myfirstnode.org/query`) rather than the custom port on your server
-(e.g. `http://192.168.0.1:3000`) that the [getting started guide](getting_started.md) has helped you set up.
+To make your Neurobagel node services (node API, query tool, etc.) accessible via custom URLs
+(e.g. `https://www.myfirstnode.org/query`) rather than a server IP address and port
+(e.g. `http://192.168.0.1:3000`) as shown in in the [getting started guide](getting_started.md), 
+you will need to set up a reverse proxy such as [NGINX](https://nginx.org/en/docs/beginners_guide.html) or
+[Caddy](https://caddyserver.com/docs/quick-starts/reverse-proxy). 
+This will route incoming requests for custom URLs to the Neurobagel services deployed on your server. 
 
-To do so, you need to set up a reverse proxy like [NGINX](https://nginx.org/en/docs/beginners_guide.html) or
-[Caddy](https://caddyserver.com/docs/quick-starts/reverse-proxy)
-that will handle the correct routing of incoming requests for specific URLs
-to the Neurobagel services you have deployed on your server. The [Neurobagel recipes repository on GitHub](https://github.com/neurobagel/recipes/)
-includes pre-configured Docker compose files for both NGINX and Caddy, allowing you to chose your preferred option.
-These custom files launche a reverse proxy server in addition to the regular Neurobagel services,
-automatically request and renew SSL certificates to provide secure HTTPS connections, and handle routing.
+The [Neurobagel `recipes` repository](https://github.com/neurobagel/recipes/)
+includes pre-configured Docker Compose files for both NGINX and Caddy,
+each of which can be used to launch a reverse proxy server alongside the services in your Neurobagel node.
+The reverse proxy setup will then automatically handle routing 
+and also manage and renew SSL certificates (providing secure HTTPS connections) for node services.
 
-If you haven't already, follow the [steps](getting_started.md#the-neurobagel-node-deployment-recipe)
-to clone and minimally configure the services in the [Neurobagel deployment recipe](https://github.com/neurobagel/recipes)
-as you would for a basic deployment.
+1. If you haven't already, follow the [steps](getting_started.md#the-neurobagel-node-deployment-recipe)
+to clone and minimally configure the services in the [Neurobagel deployment recipe](https://github.com/neurobagel/recipes).
+
+2. Ensure you have already registered your desired domain(s) with a DNS provider and configured the DNS settings to resolve correctly to your host machine.
 
 === "NGINX"
 
-    The NGINX Docker Compose file is located in [`recipes/docker-compose-nginx.yml`](https://github.com/neurobagel/recipes/blob/main/docker-compose-nginx.yml).
-    Before you deploy your node for the first time,
-    you need to manually define a URL for each service by editing the `docker-compose-nginx.yml` file. 
-    The values you want to edit are all in the `environments` section of each service.
-    
-    For example, for the node API service, the section of the `docker-compose-nginx.yml` file 
-    that you need to change would look like this:
+    3. In your local `docker-compose-nginx.yml` file, 
+    change the default value for following variables in the `environment` section of each `service` 
+    (i.e. `api`, `federation`, and `query_federation`) 
+    to the custom domain that that service will use:
 
-    ``` yaml title="/docker-compose-nginx.yml"
-    api:
-    extends:
-        file: docker-compose.yml
-        service: api
-    # For a production deployment, we want to avoid binding ports to the host to avoid conflicts with
-    # already running services. So here we override the ports exposed in the recipe we expand from and
-    # set the ports to an empty list
-    ports: !override []
-    environment:
-        # Replace the below domain with the domain you want to serve the node API from
-        VIRTUAL_HOST: myservice1.myinstitute.org # (1)!
-        VIRTUAL_PATH: ${NB_NAPI_BASE_PATH:-/}
-        VIRTUAL_PORT: 8000
-        # Set the below to the same domain as VIRTUAL_HOST to enable HTTPS
-        LETSENCRYPT_HOST: myservice1.myinstitute.org # (2)!
-    ```
+        - `VIRTUAL_HOST`
+        - `LETSENCRYPT_HOST` (both variables should have the same value)
 
-    1. Replace this with the origin / domain name where the service should be hosted. If you host services on sub-paths (e.g. `https://www.mydomain.org/service1`), then do not include the subdirectory part (e.g. `service1`) here - and instead define it in the appropriate section of the `.env` file.
-    2. Put the same value you used for `VIRTUAL_HOST`
+        ??? warning "Do not include subpaths in the `_HOST` variables"
+            If you intend to host services on different subpaths 
+            (e.g., `myinstitute.org/service1`) instead of different subdomains (e.g., `service1.myinstitute.org`), 
+            **do not include the subpath in the `VIRTUAL_HOST` or `LETSENCRYPT_HOST` value**. 
+            Instead, update the `*_BASE_PATH` variables in the `.env` file for the respective services, e.g., `NB_NAPI_BASE_PATH` for the node API (see the [`.env` docs](config.md#environment-variables) for more details)
 
-    ??? warning "Do not change the `VIRTUAL_PATH` and `VIRTUAL_PORT`" variables
-    
-        You can look at the [NGINX-Proxy documentation](https://github.com/nginx-proxy/nginx-proxy/tree/main/docs#virtual-hosts-and-ports) 
-        to learn more about how these variables work.
+        ??? warning "Do not change the `VIRTUAL_PATH` and `VIRTUAL_PORT` variables"
+            You can look at the [NGINX-Proxy documentation](https://github.com/nginx-proxy/nginx-proxy/tree/main/docs#virtual-hosts-and-ports) to learn more about how these variables work.
 
-    Make these edits for all the Neurobagel services. 
-    When you are finished, you must then make the corresponding changes in the `.env` file.
-    Make sure to:
+    4. In your `.env` file, set the value of `NB_API_QUERY_URL` to the new URL of the federation API 
+    including subpath if applicable (e.g. `myinstitute.org/federate`)
 
-    - Update the `NB_API_QUERY_URL` variable in the query tool section to the new URL of the federation API
-    - If you want to host services on subpaths of the same domain (e.g. `https://mynode.org/service1` and `https://mynode.org/service2`), 
-    make sure to uncomment and edit the respective `XYZ_BASE_PATH` variables in the `.env` file.
+    5. Finally, launch your node by explicitly referencing the custom Docker Compose file:
 
-    Finally, launch your node by explicitly referencing the `docker-compose-nginx.yml` file:
-
-    ```bash
-    docker compose -f docker-compose-nginx.yml up -d
-    ```
+        ```bash
+        docker compose -f docker-compose-nginx.yml up -d
+        ```
 
 === "Caddy"
 
