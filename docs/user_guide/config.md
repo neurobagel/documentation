@@ -208,7 +208,7 @@ because these are the ports your reverse proxy will listen on for incoming HTTP 
 === "NGINX"
 
     4. In your local `docker-compose-nginx.yml` file, 
-    change the default value for following variables in the `environment` section of each `service` 
+    change the default value for the following variables in the `environment` section of each `service` 
     (i.e. `api`, `federation`, and `query_federation`) 
     to the custom domain that that service will use:
 
