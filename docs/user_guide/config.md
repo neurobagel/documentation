@@ -202,9 +202,12 @@ to clone and minimally configure the services in the [Neurobagel deployment reci
 
 2. Ensure you have already registered your desired domain(s) with a DNS provider and configured the DNS settings to resolve correctly to your host machine.
 
+3. Make sure that ports 80 and 443 are open on the host machine where your Docker Compose stack is running
+because these are the ports your reverse proxy will listen on for incoming HTTP and HTTPS traffic.
+
 === "NGINX"
 
-    3. In your local `docker-compose-nginx.yml` file, 
+    4. In your local `docker-compose-nginx.yml` file, 
     change the default value for following variables in the `environment` section of each `service` 
     (i.e. `api`, `federation`, and `query_federation`) 
     to the custom domain that that service will use:
@@ -221,10 +224,10 @@ to clone and minimally configure the services in the [Neurobagel deployment reci
         ??? warning "Do not change the `VIRTUAL_PATH` and `VIRTUAL_PORT` variables"
             You can look at the [NGINX-Proxy documentation](https://github.com/nginx-proxy/nginx-proxy/tree/main/docs#virtual-hosts-and-ports) to learn more about how these variables work.
 
-    4. In your `.env` file, set the value of `NB_API_QUERY_URL` to the new URL of the federation API 
+    5. In your `.env` file, set the value of `NB_API_QUERY_URL` to the new URL of the federation API 
     including subpath if applicable (e.g. `myinstitute.org/federate`)
 
-    5. Finally, launch your node by explicitly referencing the custom Docker Compose file:
+    6. Finally, launch your node by explicitly referencing the custom Docker Compose file:
 
         ```bash
         docker compose -f docker-compose-nginx.yml up -d
@@ -232,46 +235,22 @@ to clone and minimally configure the services in the [Neurobagel deployment reci
 
 === "Caddy"
 
-    The Caddy Docker Compose file is located in [`recipes/docker-compose-caddy.yml`](https://github.com/neurobagel/recipes/blob/main/docker-compose-caddy.yml).
-    
     !!! note "You do not need to edit the `docker-compose-caddy.yml` file directly."
 
-    Caddy relies on a separate config file to handle the routes for different services. 
-    This config file is located in [`recipes/config/caddy/Caddyfile`](https://github.com/neurobagel/recipes/blob/main/config/caddy/Caddyfile).
-
-    !!! warning "You need to edit the `/config/caddy/Caddyfile` file"
-
-    ```bash title="/config/caddy/Caddyfile"
-    # Replace myservice1.myinstitute.org with the custom domain of your node API
-    myservice1.myinstitute.org { # (1)!
-        reverse_proxy api:8000
-    }
-
-    # Replace myservice2.myinstitute.org with the custom domain of your federation API
-    myservice2.myinstitute.org { # (2)!
-        reverse_proxy federation:8000
-    }
-
-    # Replace myservice3.myinstitute.org with the custom domain of your query tool
-    myservice3.myinstitute.org { # (3)!
-        reverse_proxy query_federation:5173
-    }
-    ```
-
-    1. Replace myservice1.myinstitute.org with the custom domain of your node API
-    2. Replace myservice2.myinstitute.org with the custom domain of your federation API
-    3. Replace myservice3.myinstitute.org with the custom domain of your query tool
-
-    Make sure to update the domains in the `Caddyfile` to match the domains you want to use for your services
-    as described by the comments in the file.
+    4. In your local `recipes/config/caddy/Caddyfile`,
+    change the default URL for each service to the URL you want to use for that service.
+    Follow the comments in the file for guidance.
     
     ??? note "For more complex reverse proxy setups, refer to the Caddy documentation"
 
         The [Caddy documentation](https://caddyserver.com/docs/caddyfile) has more detailed information
         on subdirectory routing and other configuration options.
 
-Finally, make sure that ports 80 and 443 are open on the host machine where your Docker Compose stack is running
-because these are the ports your reverse proxy will listen on for incoming HTTP and HTTPS traffic.
+    5. Finally, launch your node by explicitly referencing the custom Docker Compose file:
+
+        ```bash
+        docker compose -f docker-compose-caddy.yml up -d
+        ```
 
 ## Manually setting up a Neurobagel graph backend
 
