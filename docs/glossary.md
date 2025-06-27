@@ -156,3 +156,20 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
     cognitive or clinical assessments they have completed. 
     We often refer to this information as phenotypic data
     because they describe observable characteristics of the participant.
+
+### TSV
+
+:   A Tab-Separated Values (TSV) file has the `.tsv` extension and is a [plain text](https://www.howtogeek.com/465420/what-is-plain-text/) file structured as a table,
+    where values belonging to different columns are separated by a single tab character (`\t`). 
+    Each column represents a field of interest, and each row represents a single datapoint. 
+    The first line of the file (the header) contains the names of each column. 
+
+    A valid TSV should also follow some common formatting guidelines:
+
+    - Each line must contain the same number of tab-separated fields (columns), even if some are empty
+    - Column names must be unique (no duplicates)
+    - Do not include completely blank rows or columns
+    - Avoid leading or trailing spaces in column names and values
+
+    Most spreadsheet software (e.g., Microsoft Excel, Google Sheets) will allow you to save a file as TSV ([this webpage](https://www.geeksforgeeks.org/techtips/what-is-a-tsv-file/) has guides on creating TSVs in common applications), 
+    but it is your responsibility to ensure that the file is well-structured according to TSV formatting conventions.
