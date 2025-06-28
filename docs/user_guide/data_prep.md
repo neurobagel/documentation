@@ -14,7 +14,7 @@ which are typically stored in a tabular format.
 ## Requirements for the phenotypic TSV
 
 !!! warning "If you're unfamiliar with TSV files or unsure how to format them correctly"
-    Please first consult our [TSV](../glossary.md#tsv) glossary section for information on creating valid TSV files.
+    Please first consult our [TSV glossary section](../glossary.md#tsv) for information on creating valid TSV files.
 
 In a valid phenotypic TSV file for Neurobagel, rows identify each participant (or participant-session in a longitudinal dataset), and columns describe properties of participants (age, sex, diagnosis, etc.). 
 
