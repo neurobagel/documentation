@@ -10,7 +10,8 @@
         {"pattern": "https://www.cognitiveatlas.org/task/id/"},
         {"pattern": "http://purl.bioontology.org/ontology/SNOMEDCT/"},
         {"pattern": "https://www.ontotext.com/knowledgehub/fundamentals/"},
-        {"pattern": "overrides/assets/img/"}
+        {"pattern": "overrides/assets/img/"},
+        {"pattern": "https://www.w3.org/RDF/"}
     ],
     "timeout": "60s",
     "retryOn429": true,

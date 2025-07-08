@@ -4,7 +4,7 @@ repos:
     hooks:
       - id: markdown-link-check
         args:
-          - --verbose
+          - --quiet
           - --config=md_link_check_config.json
   - repo: https://github.com/codespell-project/codespell
     rev: v2.3.0
