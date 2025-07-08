@@ -74,6 +74,22 @@ plugins:
   - include-markdown
   - open-in-new-tab
   - awesome-nav
+  - redirects:
+      redirect_maps:
+        "annotation_tool.md": "user_guide/annotation_tool.md"
+        "api.md": "user_guide/api.md"
+        "cli.md": "user_guide/cli.md"
+        "config.md": "user_guide/config.md"
+        "data_prep.md": "user_guide/data_prep.md"
+        "getting_started.md": "user_guide/getting_started.md"
+        "maintaining.md": "user_guide/maintaining.md"
+        "overview.md": "user_guide/index.md"
+        "public_nodes.md": "user_guide/public_nodes.md"
+        "query_tool.md": "user_guide/query_tool.md"
+        "dictionaries.md": "data_models/dictionaries.md"
+        "graph_data.md": "data_models/graph_data.md"
+        "term_naming_standards.md": "data_models/term_naming_standards.md"
+        "variables.md": "data_models/variables.md"
 
 extra:
   analytics:
