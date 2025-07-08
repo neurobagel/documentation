@@ -2,6 +2,7 @@ mkdocs-awesome-nav
 mkdocs-include-markdown-plugin[cache]
 mkdocs-material>=9.5.0
 mkdocs-open-in-new-tab
+mkdocs-redirects
 mkdocs-table-reader-plugin>=3.0.0
 mkdocs-yamp
 pre-commit
