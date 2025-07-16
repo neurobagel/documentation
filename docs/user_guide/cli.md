@@ -145,7 +145,7 @@ you could run the CLI as follows:
 
 === "Docker"
 
-    ``` { .bash .annotate}
+    ``` bash
     cd /home/data/Dataset1
 
     # 1. Generate harmonized phenotypic data at the subject level
@@ -179,7 +179,7 @@ you could run the CLI as follows:
 
 === "Singularity"
 
-    ``` { .bash .annotate }
+    ``` .bash 
     cd /home/data/Dataset1
 
     # 1. Generate harmonized phenotypic data at the subject level
