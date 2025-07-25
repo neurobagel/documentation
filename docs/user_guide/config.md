@@ -86,45 +86,45 @@ Below are all the possible Neurobagel environment variables that can be set in `
 
 ### Change security relevant variables
 
-For security and best practice purposes, follow the below additional steps to configure your node if you are using a deployment profile that includes a graph store:
+The graph store (GraphDB instance) in a Neurobagel node is secured with password-based access and includes two users: an `admin` superuser and a regular database user, both of which are automatically configured by the Neurobagel deployment recipe.
+Passwords for both users are defined via files in the `./secrets` directory of the recipes repository, while the regular database username is set through an environment variable in `.env` file.
 
-1. **Change the values** of the following variables in `.env` from their defaults:
+For security and best practice purposes, we recommend changing the following values from their defaults if you are using a deployment profile that includes a graph store:
+
+1. In your `.env`, **set a custom username and database name for your graph store** by editing the following variables:
     - `NB_GRAPH_USERNAME`
     - `NB_GRAPH_DB`
 
-2. **Replace the default passwords** for the `admin` superuser and the newly created graph database user (`NB_GRAPH_USERNAME`) for your graph store with your own secure passwords. 
-
-    ??? warning "Already launched a Neurobagel node?"
-        If you have already completed the [Getting started](getting_started.md#the-neurobagel-node-deployment-recipe) instructions and launched a Neurobagel Docker Compose stack for the first time,
-        you will have to [reset your graph store](maintaining.md#resetting-your-graphdb-instance) before proceeding with this step. Don't worry, any other configuration changes you've made will be applied when you re-launch your node.
-
-    - These passwords are stored in the directory defined under `NB_GRAPH_SECRETS_PATH` in `.env` ([`./secrets`](https://github.com/neurobagel/recipes/tree/main/secrets) by default), as the file contents of `NB_GRAPH_ADMIN_PASSWORD.txt` and `NB_GRAPH_PASSWORD.txt`, respectively.
+2. In the ([`./secrets`](https://github.com/neurobagel/recipes/tree/main/secrets) directory, **change the default passwords** by replacing the contents of the file `NB_GRAPH_ADMIN_PASSWORD.txt` for the `admin` superuser, and the file `NB_GRAPH_PASSWORD.txt` for the graph database user (corresponding to `NB_GRAPH_USERNAME`).
     - To generate a random password in the terminal, you can use:
       ```bash
       openssl rand -hex 16
       ```
+    - (Optional) You can change the directory where your password files are stored by editing the `NB_GRAPH_SECRETS_PATH` variable in `.env`.
 
-    - (Optional) Change the directory where your password files are stored by editing the variable `NB_GRAPH_SECRETS_PATH` in `.env`.
-
-    ??? info "Graph store passwords are not meant for use by node query users"
-        The passwords specified in the deployment recipe are only used internally by the scripts that (automatically) set up and update the graph store, 
-        or to interact directly with the graph store (e.g., to modify database configuration or data).
-        The passwords are also used to secure internal communication between your graph and its node API,
-        such that an external user cannot query your graph directly.
+    ??? info "Graph store passwords are not meant for node users!"
+        The `admin` user and graph database user credentials are intended solely for internal use by the deployment recipe scripts that automatically set up and update the graph store, 
+        or for a node administrator to interact directly with the graph store.
+        These credentials also secure internal communication between your graph store and its node API,
+        ensuring that node users cannot query your graph directly.
+        GraphDB user credentials are not intended for use by a general node query user.
 
     ??? info "Passwords are handled as Docker secrets"
 
         The contents of `NB_GRAPH_ADMIN_PASSWORD.txt` and `NB_GRAPH_PASSWORD.txt` are passed to Neurobagel containers as [Docker secrets](https://docs.docker.com/reference/compose-file/secrets/).
         This ensures that your passwords are not exposed in the container logs or in the `docker-compose.yml` file.
         
-        Make sure to not share your password files with others.
+        Do not share your password files with others.
   
-2. **Review and change as necessary** values of the following variables in `.env` from their defaults, based on your data sharing requirements:
+3. **Review and change as needed** the following variables in `.env` based on your data sharing requirements:
     - `NB_RETURN_AGG`
     - `NB_MIN_CELL_SIZE`
     !!! info
         These variables are modifiable after node initialization; you can [change their values at any time](maintaining.md#restarting-services-after-an-update).
 
+4. If you've previously launched a Neurobagel Docker Compose stack following the [Getting started](getting_started.md#the-neurobagel-node-deployment-recipe) instructions,
+    you'll need to [reset your graph store](maintaining.md#resetting-your-graphdb-instance) for any changes you have made to user credentials to take effect (steps 1-2 above). 
+    Don't worry, any other configuration changes you've already made will be applied when you re-launch your node.
 
 ## Configuring local node names and URLs for federation
 
@@ -251,170 +251,3 @@ because these are the ports your reverse proxy will listen on for incoming HTTP 
         ```bash
         docker compose -f docker-compose-caddy.yml up -d
         ```
-
-## Manually setting up a Neurobagel graph backend
-
-The Neurobagel Docker Compose recipe will automatically set up and configure 
-all services for you after deployment.
-The automated setup steps are explained in more detail below.
-
-!!! warning "For advanced users / debugging purposes only"
-
-    The following steps are only documented as a reference and for advanced users.
-    You should not need to do this in most cases.
-
-### Configuring the graph store
-
-These are manual steps for configuring the GraphDB backend after launching the Neurobagel stack.
-
-1: Set the password of the default `admin` superuser and enable password-based access to databases
-
-??? info "Details"
-
-    When you first launch the graph server, a default `admin` user with superuser privilege will automatically be created for you. 
-    This `admin` user is meant to create other database users and modify their permissions.
-    (For more information, see the [official GraphDB documentation](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/curl-commands.html#security-management).)
-
-??? example "Doing this manually with `curl`"
-
-    First, change the password for the admin user that has been automatically
-    created by GraphDB:
-
-    ```bash
-    curl -X PATCH --header 'Content-Type: application/json' http://localhost:7200/rest/security/users/admin -d '
-    {"password": "NewAdminPassword"}'
-    ```
-    (make sure to replace `"NewAdminPassword"` with your own, secure password).
-
-    Next, enable GraphDB security to only allow authenticated users access:
-    ```bash
-    curl -X POST --header 'Content-Type: application/json' -d true http://localhost:7200/rest/security
-    ```
-
-    and confirm that this was successful:
-    ```bash
-    ➜ curl -X GET http://localhost:7200/rest/security                                                  
-    true
-    ```
-
-2: Create a new graph database user based on credentials defined in your `.env` file
-
-??? info "Details"
-    
-    We do not recommend using `admin` for normal read and write operations, instead we can create a regular database user.
-
-    The `.env` file created as part of the `docker compose` setup instructions
-    declares the `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` for the database user.
-    The Neurobagel API will send requests to the graph using these credentials.
-
-??? example "Doing this manually with `curl`"
-
-    When you launch the RDF store for the first time, 
-    we have to create a new database user:
-
-    ```bash
-    curl -X POST --header 'Content-Type: application/json' -u "admin:NewAdminPassword" -d '
-    {
-    "username": "DBUSER",
-    "password": "DBPASSWORD"
-    }' http://localhost:7200/rest/security/users/DBUSER
-    ```
-
-    Make sure to use the exact `NB_GRAPH_USERNAME` and `NB_GRAPH_PASSWORD` you defined in the `.env` file when creating the new database user.
-    Otherwise the Neurobagel API will not have the correct permission to query the graph.
-
-3: Create a new graph database with the name defined in your `.env`
-
-??? info "Details"
-
-    When you first launch the graph store, there are no graph databases.
-    You have to create a new one to store your metadata.
-
-    By default the Neurobagel API will query a graph database named `my_db`. 
-    If you have defined a custom `NB_GRAPH_DB` name in the `.env` file, you will first need to create a database with a matching name.
-
-??? example "Doing this manually with `curl`"
-
-    In GraphDB, graph databases are called resources.
-    To create a new one, you will also have to prepare a `data-config.ttl` file
-    that contains the settings for the resource you will create 
-    (for more information, see the [GraphDB docs](https://graphdb.ontotext.com/documentation/10.0/devhub/rest-api/location-and-repository-tutorial.html#create-a-repository)).
-
-    You can edit [this example file](https://github.com/neurobagel/recipes/blob/main/scripts/data-config_template.ttl) and save
-    it as `data-config.ttl` locally.
-    **Ensure the value for `rep:repositoryID`
-    in `data-config.ttl` matches the value in
-    `NB_GRAPH_DB` in your `.env` file**. 
-    For example, if `NB_GRAPH_DB=repositories/my_db`, then
-    `rep:repositoryID "my_db" ;`.
-
-    Then, create a new graph database with the following command (replace "my_db" as needed). 
-    If your `data-config.ttl` is not in the current directory, replace `"@data-config.ttl"` in the command with `"@PATH/TO/data-config.ttl"`.
-
-    ```bash
-    curl -X PUT -u "admin:NewAdminPassword" http://localhost:7200/repositories/my_db --data-binary "@data-config.ttl" -H "Content-Type: application/x-turtle"
-    ```
-
-4: Grant the newly created user from step 2 permissions to access the database
-
-??? example "Doing this manually with `curl`"
-
-    ```bash
-    curl -X PUT --header 'Content-Type: application/json' -d '
-    {"grantedAuthorities": ["WRITE_REPO_my_db","READ_REPO_my_db"]}' http://localhost:7200/rest/security/users/DBUSER -u "admin:NewAdminPassword"
-    ```
-
-    - `"WRITE_REPO_my_db"`: Grants write permission.
-    - `"READ_REPO_my_db"`: Grants read permission.
-
-    Make sure you replace `my_db` with the name of the graph db you have just created.
-
-
-??? info "Non-automated options for interacting with the GraphDB backend"
-
-    1. Directly send HTTP requests to the HTTP REST endpoints of the GraphDB backend 
-    e.g. using `curl`. GraphDB uses the [RDF4J API](https://rdf4j.org/documentation/reference/rest-api/) specification.
-    2. Use the GraphDB web interface (called [the Workbench](https://graphdb.ontotext.com/documentation/10.0/architecture-components.html)), which offers a more accessible way to manage the GraphDB instance. 
-    Once your local GraphDB backend is running
-    you can connect to the Workbench at [http://localhost:7200](http://localhost:7200).
-    The Workbench is well documented on the [GraphDB website](https://graphdb.ontotext.com/documentation/10.0/workbench-user-interface.html).
-
-### Uploading data to the graph store
-
-Data are automatically uploaded to the graph from the path specified with
-the `LOCAL_GRAPH_DATA` in the `.env` configuration file when the Neurobagel stack is (re-)started.
-
-If you instead prefer to upload data manually,
-you can use the
-[`add_data_to_graph.sh`](https://github.com/neurobagel/recipes/blob/main/scripts/add_data_to_graph.sh) script:
-
-``` bash
-./add_data_to_graph.sh PATH/TO/YOUR/GRAPH-DATA \
-  localhost:7200 repositories/my_db DBUSER DBPASSWORD \
-```
-!!! warning
-    To update any _existing_ datasets in your graph database, you can clear the database and reupload all datasets using `add_data_to_graph.sh` following the command above and including the `--clear-data` flag. 
-
-    Ensure that you also re-upload the Neurobagel vocabulary file `nb_vocab.ttl` following the section below.
-
-### Adding vocabulary files to the graph database
-
-??? "Why we need vocabulary files in the graph"
-    In the context of an RDF store, in addition to information about specific observations of given standardized concepts such as "subject", "age", and "diagnosis" (represented in the subject-level JSONLDs generated by Neurobagel tools),
-    hierarchical relationships between concepts themselves can also be represented.
-    Including these relationships in a graph is important to be able to answer questions such as how many different diagnoses are represented in a graph database, to query for higher-order concepts for a given variable, and more.
-
-The participant variables modeled by Neurobagel are named using Neurobagel's own vocabulary (for more information, see this page on [controlled terms](../data_models/term_naming_standards.md)).
-This vocabulary, which defines internal relationships between vocabulary terms, 
-is serialized in the file [`nb_vocab.ttl`](https://github.com/neurobagel/recipes/blob/main/vocab/nb_vocab.ttl) available from the `neurobagel/recipes` repository.
-If you have cloned this repository, you will already have downloaded the vocabulary file.
-
-**The `nb_vocab.ttl` file should be added to every created Neurobagel graph database.**
-Below is an example of how you would do this using the same script we used to upload the dataset JSONLD files, [`add_data_to_graph.sh`](https://github.com/neurobagel/recipes/blob/main/scripts/add_data_to_graph.sh).
-
-(assumes you are in the `scripts` subdirectory inside the `recipes` repository):
-
-``` bash
-./add_data_to_graph.sh ../vocab \
-  localhost:7200 repositories/my_db DBUSER DBPASSWORD
-```
