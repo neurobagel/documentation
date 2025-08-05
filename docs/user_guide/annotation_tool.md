@@ -27,6 +27,9 @@ look at each column from your table and then you can:
    - Neurobagel understands a set of predefined variables (e.g., "Age", "Sex", "Diagnosis", "Assessment tool")
    - Your task is to look through the columns in your table and identify those that contain information about these variables
    - Once a standardized variable is selected the tool will automatically infer the data type
+
+!!! tip "When to manually select data type"
+    You need to manually select the data type (Categorical or Continuous) in two cases: when your column doesn't match any standardized variable, and when you map to a multi-column measure standardized variable like "Assessment tool".
    
 ![Annotation tool multi-column measures step screenshot](../imgs/annotate/multi_column_measures.png)
 
@@ -38,9 +41,15 @@ look at each column from your table and then you can:
 
 Use the sidebar to navigate between your columns and annotate their values:
 
+!!! note "Understanding sidebar sections"
+    The sidebar groups your columns by annotation progress: **Annotated** contains columns mapped to standardized variables, **Unannotated** contains columns only with assigned data types, and **Other** contains columns that still need data type assignment.
+
 **For continuous columns** (Age, scores):
 - Select format (float, int, etc.)
 - Add units description ("years", "points")
+
+!!! info "Units vs. Format"
+    **Format** refers to how the numbers in your data are structured (e.g., "float" for decimal numbers like 25.5, "int" for whole numbers like 25) whereas **Units** describe what the numbers represent (e.g., "years" for age, "points" for test scores, "mg/dL" for measurements).
 
 **For categorical columns** (Sex, Diagnosis):
 - Map each value to standardized terms
