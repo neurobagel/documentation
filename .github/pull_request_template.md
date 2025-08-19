@@ -23,3 +23,4 @@ _Please leave checkboxes empty for PR reviewers_
 - [ ] PR has an interpretable title with a prefix (`[ENH]`, `[FIX]`, `[REF]`, `[TST]`, `[CI]`, `[MNT]`, `[INF]`) _see our [Contributing Guidelines](https://neurobagel.org/contributing/CONTRIBUTING/#pull-request-guidelines) for more info)_
 - [ ] PR links to GitHub issue with mention `Closes #XXXX`
 - [ ] Checks pass
+- [ ] If an existing page was renamed or deleted, redirects have been added to [the `mkdocs.yml` config](https://github.com/neurobagel/documentation/blob/main/mkdocs.yml)
