@@ -1,8 +1,7 @@
 # The Neurobagel CLI
 
-The `bagel-cli` is a simple Python command-line tool to automatically parse and describe 
-subject-level phenotypic and imaging attributes in an annotated dataset 
-for integration into the Neurobagel graph.
+The Neurobagel CLI is a command-line tool that processes a Neurobagel-annotated dataset and produces harmonized subject-level phenotypic and imaging attributes. 
+The resulting harmonized data can be directly integrated into a Neurobagel graph store.
 
 ## Installation
 
