@@ -30,10 +30,8 @@ The resulting harmonized data can be directly integrated into a Neurobagel graph
     singularity pull bagel.sif docker://neurobagel/bagelcli
     ```
 
-## Running the CLI
-CLI commands can be accessed using the Docker/Singularity image.
+## Input files
 
-### Input files
 The Neurobagel CLI can compile information from several different data sources to create a single harmonized representation of subject data. To run the CLI on a dataset, you will need:
 
 <div class="annotate" markdown>
@@ -41,6 +39,9 @@ The Neurobagel CLI can compile information from several different data sources t
 - [A Neurobagel JSON data dictionary](../data_models/dictionaries.md) for the TSV
 - (Optional) The imaging dataset in [BIDS](https://bids-specification.readthedocs.io/en/stable/) format, if subjects have imaging data available (1)
 - (Optional) A TSV containing subject statuses for any image processing pipelines that have been run, following the [Nipoppy processing status file schema](https://nipoppy.readthedocs.io/en/latest/schemas/index.html#bagel-file) (2)
+
+## Running the CLI
+CLI commands can be accessed using the Docker/Singularity image.
 
 </div>
 
@@ -50,32 +51,43 @@ It has compatibility with the [Nipoppy](https://nipoppy.readthedocs.io/en/latest
 
 ### Viewing CLI commands and options
 
-The `bagel-cli` has different commands, each generating a different type of subject (meta)data:
+The Neurobagel CLI provides different commands for generating different types of subject (meta)data:
 
 - `pheno`
 - `bids`
 - `derivatives`
 
-The `pheno` command must be run first on a dataset (each subject in a Neurobagel graph must have at least phenotypic information); 
-other metadata are optional and can be added in an arbitrary order.
+!!! info "Important"
+    The `pheno` command must be run first on a dataset, since each subject in a Neurobagel graph requires at least phenotypic data. 
+    The other metadata are optional and can be added afterward in any order.
 
-To view the general CLI help and information about the commands:
+To view the general CLI help and information about the available commands:
+
+=== "Python"
+    ```bash
+    bagel -h
+    ```
 
 === "Docker"
 
     ```bash
-    # This is a shorthand for `docker run --rm neurobagel/bagelcli --help`
+    # This is a shorthand for: docker run --rm neurobagel/bagelcli --help
     docker run --rm neurobagel/bagelcli
     ```
 
 === "Singularity"
 
     ```bash
-    # This is a shorthand for `singularity run bagel.sif --help`
+    # This is a shorthand for: singularity run bagel.sif --help
     singularity run bagel.sif
     ```
 
-To view the command-line arguments for a specific command (e.g., `pheno`):
+To view the command-line options for a specific command, such as `pheno`:
+
+=== "Python"
+    ```bash
+    bagel pheno -h
+    ```
 
 === "Docker"
 
@@ -93,6 +105,11 @@ To view the command-line arguments for a specific command (e.g., `pheno`):
 1. `cd` into your local directory containing your [CLI input files](#input-files) 
 (at minimum, a phenotypic TSV and corresponding Neurobagel annotated JSON data dictionary).
 2. Run a `bagel-cli` container and include your CLI command and arguments at the end in the following format:
+
+=== "Python"
+    ```bash
+    bagel <CLI command here>
+    ```
 
 === "Docker"
     ```bash
@@ -210,15 +227,15 @@ you could run the CLI as follows:
         `singularity run bagel.sif pheno --help`
 
 !!! note "Speed of the `bids` command"
-    The `bids` command of the `bagel-cli` (step 2) currently can take upwards of several minutes for datasets greater than a few hundred subjects, due to the time needed for pyBIDS to read the dataset structure.
+    The `bids` command of the CLI currently can take upwards of several minutes for datasets with more than a few hundred subjects, due to the time needed for pyBIDS to read the dataset structure.
     Once the slow initial dataset reading step is complete, you should see the message:
     ```bash
     BIDS parsing completed.
     ...
     ```
 
-## Upgrading to a newer version of the CLI
-Neurobagel is under active, early development and future releases of the CLI may introduce breaking changes to the data model for subject-level information in a `.jsonld` graph file. Breaking changes will be highlighted in the release notes!
+## Upgrading data to a newer version of the CLI
+Neurobagel is under active development and future releases of the CLI may introduce breaking changes to the data model for subject-level information in the output `.jsonld` graph file. 
+Breaking changes are highlighted in the [release notes](https://github.com/neurobagel/bagel-cli/releases).
 
-_If you have already created `.jsonld` files for your Neurobagel graph database using the CLI_, 
-they can be quickly re-generated under the new data model by following the instructions [here](maintaining.md#following-a-change-in-the-neurobagel-data-model) so that they will not conflict with dataset `.jsonld` files generated using the latest CLI version.
+To keep an existing Neurobagel graph database up to date (and prevent conflicts with dataset `.jsonld` files generated using the latest CLI version), you can [regenerate and reupload existing `.jsonld` files for your database](maintaining.md#following-a-change-in-the-neurobagel-data-model) at any time under the latest data model.
