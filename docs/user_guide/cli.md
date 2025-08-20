@@ -223,10 +223,3 @@ Neurobagel is under active, early development and future releases of the CLI may
 
 _If you have already created `.jsonld` files for your Neurobagel graph database using the CLI_, 
 they can be quickly re-generated under the new data model by following the instructions [here](maintaining.md#following-a-change-in-the-neurobagel-data-model) so that they will not conflict with dataset `.jsonld` files generated using the latest CLI version.
-
-## Development environment
-{%
-   include-markdown "https://raw.githubusercontent.com/neurobagel/bagel-cli/main/README.md"
-   start="## Development environment"
-   end="## Regenerating the Neurobagel vocabulary file"
-%}
