@@ -7,7 +7,7 @@ there are some recurring tasks you may have to do to keep it operating correctly
 
 We are continuously improving Neurobagel tools and services,
 so you may want to update your Neurobagel node to the latest version to benefit from new features and bug fixes.
-We always publish our tools as [Docker images on DockerHub](https://hub.docker.com/u/neurobagel).
+We always publish our tools as [Docker images on Docker Hub](https://hub.docker.com/u/neurobagel).
 
 Each Docker image has a [semantic version](https://semver.org/) tag (vX.Y.Z), and also two rolling tags:
 

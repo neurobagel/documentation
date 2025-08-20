@@ -6,33 +6,33 @@ for integration into the Neurobagel graph.
 
 ## Installation
 
+=== "Python"
+
+    The Neurobagel CLI can be installed from [PyPI](https://pypi.org/project/bagel/) using `pip`.
+
+    1. Before installing the Python package, we recommend first creating and activating a Python virtual environment (such as [venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#create-and-use-virtual-environments)).
+
+    2. Install the `bagel` package into your virtual environment:
+    ```bash
+    pip install bagel
+    ```
+
 === "Docker"
 
-    Option 1 (RECOMMENDED): Pull the Docker image for the CLI from DockerHub:
+    Pull the Docker image for the Neurobagel CLI from Docker Hub:
     ```bash
     docker pull neurobagel/bagelcli
     ```
 
-    Option 2: Clone the repository and build the Docker image locally:
-    ```bash
-    git clone https://github.com/neurobagel/bagel-cli.git
-    cd bagel-cli
-    docker build -t bagel .
-    ```
-
 === "Singularity"
 
-    Build a Singularity image for `bagel-cli` using the DockerHub image:  
+    Build a Singularity image for the Neurobagel CLI using the Docker Hub image:  
     ```bash
     singularity pull bagel.sif docker://neurobagel/bagelcli
     ```
 
 ## Running the CLI
 CLI commands can be accessed using the Docker/Singularity image.
-
-!!! note 
-    The Docker examples below assume that you are using the official Neurobagel Docker Hub image for the CLI. 
-    If you have instead locally built an image, replace `neurobagel/bagelcli` in commands with your built image tag.
 
 ### Input files
 The Neurobagel CLI can compile information from several different data sources to create a single harmonized representation of subject data. To run the CLI on a dataset, you will need:
