@@ -57,7 +57,7 @@ To include subjects' BIDS imaging data as part of their representation in Neurob
 your phenotypic TSV **MUST** meet the following requirements **in addition** to the ones listed above:
 
 - At least 1 column in the TSV contains subject IDs that 
-  match the names of the [BIDS subject subdirectories](https://bids-specification.readthedocs.io/en/stable/02-common-principles.html#filesystem-structure), 
+  match the [BIDS subject IDs](https://bids-specification.readthedocs.io/en/stable/02-common-principles.html#filesystem-structure) (in the form `sub-<label>`), 
   **AND** this must be the column you annotate as the primary subject ID
 
     !!! note "Subject IDs are case-sensitive"
