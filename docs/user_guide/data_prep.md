@@ -6,7 +6,7 @@
     Neurobagel tools are designed to be compatible with data organized according to the Nipoppy specification, although you do not need to use Nipoppy in order to use Neurobagel.
 
 To use the Neurobagel annotation tool,
-you must prepare the tabular data for your dataset as a single, tab-separated values file (`.tsv`).
+you must prepare the tabular data for your dataset as a single tab-separated values (`.tsv`) file.
 
 Within Neurobagel, tabular (or phenotypic) data  refers to any demographic, clinical/behavioural, cognitive, or other non-imaging-derived data of participants
 which are typically stored in a tabular format.

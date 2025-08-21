@@ -41,25 +41,6 @@ The Neurobagel CLI can compile information from several different data sources t
 - (Optional) A TSV containing subject statuses for any image processing pipelines that have been run, following the [Nipoppy processing status file schema](https://nipoppy.readthedocs.io/en/latest/schemas/index.html#bagel-file) (2)
 
 ## Running the CLI
-CLI commands can be accessed using the Docker/Singularity image.
-
-</div>
-
-1. The CLI will use a valid BIDS dataset to generate harmonized raw imaging metadata for subjects.
-2. This file will be used by the CLI to generate harmonized processing pipeline and derivative metadata for subjects.
-It has compatibility with the [Nipoppy](https://nipoppy.readthedocs.io/en/latest/index.html) workflow, and can be automatically generated using the [Nipoppy pipeline trackers](https://nipoppy.readthedocs.io/en/latest/how_to_guides/user_guide/tracking.html).
-
-### Viewing CLI commands and options
-
-The Neurobagel CLI provides different commands for generating different types of subject (meta)data:
-
-- `pheno`
-- `bids`
-- `derivatives`
-
-!!! info "Important"
-    The `pheno` command must be run first on a dataset, since each subject in a Neurobagel graph requires at least phenotypic data. 
-    The other metadata are optional and can be added afterward in any order.
 
 To view the general CLI help and information about the available commands:
 
@@ -81,6 +62,74 @@ To view the general CLI help and information about the available commands:
     # This is a shorthand for: singularity run bagel.sif --help
     singularity run bagel.sif
     ```
+
+### 0. (If you have a BIDS dataset) Generate a BIDS metadata table
+
+To include BIDS imaging data as part of the harmonized subject data, you must first convert the BIDS metadata into a tabular format. 
+
+You can do this automatically using the CLI's `bids2tsv` command.
+
+**Example**
+
+If your BIDS dataset directory is located at `/data/public/MY_BIDS_DATASET`, and you want outputs to be stored in `/data/personal/Neurobagel`:
+
+=== "Python"
+    ```bash
+    bagel bids2tsv \
+        --bids-dir "/data/public/MY_BIDS_DATASET"
+        --output "/data/personal/Neurobagel/MY_BIDS_DATASET.tsv"
+    ``` 
+
+=== "Docker"
+    ```bash
+    docker run --rm \
+        -v "/data/public:/data/public" \
+        -v "/data/personal/Neurobagel:/data/personal/Neurobagel" \ 
+        neurobagel/bagelcli bids2tsv \
+        --bids-dir "/data/public/MY_BIDS_DATASET" \
+        --output "/data/personal/Neurobagel/MY_BIDS_DATASET.tsv"
+    ```
+ 
+    ??? info "Mounting input paths using `-v`/`--volume`"
+        When running the CLI in a container, you must [mount](https://docs.docker.com/engine/storage/bind-mounts/) any input or output directories to directory paths within the container so that the app can access them. In your CLI options, always refer to the **container paths**. 
+        In the example above, container paths are set to match the host paths for simplicity.
+
+=== "Singularity"
+    ```bash
+    singularity run --no-home \
+        -B "/data/public,/data/personal/Neurobagel" \
+        bagel.sif bids2tsv \
+        --bids-dir "/data/public/MY_BIDS_DATASET" \
+        --output "/data/personal/Neurobagel/MY_BIDS_DATASET.tsv"
+    ```
+
+    ??? info "Mounting input paths using `-B`/`--bind`"
+        When running the CLI in a container, you must [mount](https://docs.sylabs.io/guides/3.0/user-guide/bind_paths_and_mounts.html) any input or output directories to directory paths within the container so that the app can access them. In your CLI options, always refer to the **container paths**. 
+        In the example above, the container paths are set to match the host paths for simplicity.
+
+This command will produce a TSV file named `MY_BIDS_DATASET.tsv`. 
+This file can then be provided to the `bids` command to integrate subjects' BIDS metadata into a graph-ready data format.
+
+!!! info
+    `bids2tsv` internally uses [bids2table](https://childmindresearch.github.io/bids2table/bids2table.html).
+
+</div>
+
+1. The CLI will use a valid BIDS dataset to generate harmonized raw imaging metadata for subjects.
+2. This file will be used by the CLI to generate harmonized processing pipeline and derivative metadata for subjects.
+It has compatibility with the [Nipoppy](https://nipoppy.readthedocs.io/en/latest/index.html) workflow, and can be automatically generated using the [Nipoppy pipeline trackers](https://nipoppy.readthedocs.io/en/latest/how_to_guides/user_guide/tracking.html).
+
+### 1. Generate graph-ready data (JSONLD files)
+
+The Neurobagel CLI provides different commands for generating different types of harmonized subject (meta)data:
+
+- `pheno`
+- `bids`
+- `derivatives`
+
+!!! info "Important"
+    The `pheno` command must be run first on a dataset, since each subject in a Neurobagel graph requires at least phenotypic data. 
+    The other metadata are optional and can be added afterward in any order.
 
 To view the command-line options for a specific command, such as `pheno`:
 

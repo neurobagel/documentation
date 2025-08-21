@@ -15,7 +15,7 @@ sub-02 | ses-01 | bold | /data/bids-examples/synthetic/sub-02/ses-01/func/sub-02
 
 ### Automatically generating a BIDS metadata table
 
-If your dataset is already in BIDS, simply run the `bids2tsv` command provided by the [Neurobagel CLI](cli.md) to automatically generate a metadata table in the format above from your BIDS dataset directory.
+If your dataset is already in BIDS, run the `bids2tsv` command provided by the [Neurobagel CLI](cli.md) to automatically generate a metadata table in the format above from your BIDS dataset directory.
 
 ### About the BIDS metadata table
 The table must include at least four columns named exactly `sub`, `ses`, `suffix`, and `path` (adapted from [BIDS](https://bids-specification.readthedocs.io/en/stable/) entities). 
