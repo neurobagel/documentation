@@ -11,4 +11,5 @@ nav:
   - Annotating your data:
     - Preparing data for annotation: "data_prep.md"
     - Annotation tool guide: "annotation_tool.md"
+    - Preparing the imaging data: "preparing_imaging_data.md"
     - Generating harmonized subject-level metadata: "cli.md"
