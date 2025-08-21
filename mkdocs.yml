@@ -42,7 +42,9 @@ markdown_extensions:
           case: lower
   - sane_lists  # for continuing numbered lists as specified after a paragraph
   - tables
-  
+  - pymdownx.tasklist:
+      custom_checkbox: true
+      clickable_checkbox: true
 
 plugins:
   - search
