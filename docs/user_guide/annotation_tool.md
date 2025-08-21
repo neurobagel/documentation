@@ -9,7 +9,7 @@ The Neurobagel annotation tool creates standardized, machine-readable data dicti
 3. Value annotation
 4. Download data dictionary
 
-### 1. Upload tabular data
+## 1. Upload tabular data
 
 ![Annotation tool upload step screenshot](../imgs/annotate/upload.png)
 
@@ -21,7 +21,7 @@ The Neurobagel annotation tool creates standardized, machine-readable data dicti
 
 In the following steps, you will annotate your table by first describing the columns and then the values within the columns.
 
-### 2. Column Annotation
+## 2. Column Annotation
 
 ![Annotation tool column annotation step screenshot](../imgs/annotate/column_annotation.png)
 
@@ -39,7 +39,7 @@ Each column in your uploaded table is represented as a card on this page. For ea
     1. When your column doesn't match any standardized variable
     2. When your column matches the "Assessment tool" standardized variable (which does not have a predefined data type since it can represent multi-column measures)
 
-#### 2.1 Multi-column measure annotation
+### 2.1 Multi-column measure annotation
 
 !!! info
     This step is only available if you have mapped columns in your data table to the "Assessment tool" standardized variable.
@@ -50,12 +50,12 @@ The card on the right lists all columns from your data table that you have mappe
 
 1. Create a card for each assessment or instrument represented in your data by clicking :fontawesome-solid-circle-plus: and then selecting the name of the assessment from the dropdown list.
     - If no suitable match exists, the available standardized vocabulary likely cannot currently represent your assessment. 
-        - To avoid incomplete annotations, un-map the column(s) corresponding to the missing assessment from the "Assessment tool" standardized variable using the :octicons-x-circle-fill-16: button in the overview card.
+    - To avoid incomplete annotations, un-map any column(s) corresponding to missing assessments from the "Assessment tool" standardized variable using the :octicons-x-circle-fill-16: button in the overview card.
 2. Select the column(s) that describe each assessment, grouping together related columns as needed, using the dropdown on the respective assessment card.
     - You can check remaining, ungrouped columns in the overview on the right.
 
 
-### 3. Value Annotation
+## 3. Value Annotation
 ![Annotation tool value annotation step screenshot](../imgs/annotate/value_annotation.png)
 
 The left sidebar displays the standardized variables that are represented in your tabular data, along with the column names that have been mapped to those variables.
@@ -63,7 +63,7 @@ The left sidebar displays the standardized variables that are represented in you
 Click on a standardized variable (or data type, for unannotated columns) subheading in the sidebar to display the columns corresponding to that variable (or data type). 
 Then, in the column-level view on the right, navigate between the column tabs to annotate the values within each column.
 
-!!! note "Understanding sidebar sections"
+??? note "Understanding sidebar sections"
     The sidebar organizes your columns by their annotation status: 
 
     - **Annotated** contains columns you have mapped to standardized variables
@@ -72,7 +72,7 @@ Then, in the column-level view on the right, navigate between the column tabs to
 
 [^1]: Attribute can only be annotated if the column has been mapped to a standardized variable.
 
-#### Columns with continuous data
+### Columns with continuous data
 
 For a column containing continuous data, you can:
 
@@ -84,7 +84,7 @@ For a column containing continuous data, you can:
 ??? info "Units vs. Format"
     **Format** refers to how the numbers in your data are structured (e.g., `float` for decimal numbers like 25.5, `int` for whole numbers like 25) whereas **Units** describe what the numbers represent (e.g., "years" for age, "points" for test scores, "mg/dL" for measurements).
 
-#### Columns with categorical data
+### Columns with categorical data
 
 For a column containing categorical data, you will be prompted to annotate the unique values detected in the column.
 This includes any values that are blank (empty strings) or contain only whitespace.
@@ -100,7 +100,7 @@ For each unique column value, you can:
 !!! warning
     For the value annotation to be considered complete by Neurobagel, all unique values must either be mapped to a standardized term or marked as missing.
 
-### 4. Download data dictionary
+## 4. Download data dictionary
 ![Annotation tool download step screenshot](../imgs/annotate/download.png)
 
 - **Preview** your annotated data dictionary
