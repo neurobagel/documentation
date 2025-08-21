@@ -27,7 +27,7 @@ In the following steps, you will annotate your table by first describing the col
 
 Each column in your uploaded table is represented as a card on this page. For each column, you can:
 
-- **Add a description** - Click "Edit" to describe what the column contains
+- **Add a description**
 - **Select the [standardized variable](../data_models/variables.md) that best describes the column from the dropdown** (if a suitable match exists)
 - **Select the data type** 
     - Choose "Categorical" if the column contains discrete values, "Continuous" if it contains numerical measurements, or leave it empty if neither applies
@@ -94,12 +94,17 @@ For each unique column value, you can:
      - indicates missing, unavailable, or invalid data
      - OR, does not have a suitable match among the standardized term options
 
+!!! warning
+    For the value annotation to be considered complete by Neurobagel, all unique values must either be mapped to a standardized term or marked as missing.
 
 ### 4. Download data dictionary
 ![Annotation tool download step screenshot](../imgs/annotate/download.png)
 
 - **Preview** your annotated data dictionary
-- **Download** your completed file
-- **Start over** with "Annotate New Dataset" if needed
+- **Download** the data dictionary `.json` file
+- **Annotate a new dataset** if desired
+
+!!! tip
+    If you see a warning about "Incomplete Annotations", you will need to return to the Value Annotation page to complete any missing annotations before your data dictionary is valid for downstream Neurobagel tools.
 
 Your downloaded data dictionary is BIDS-compatible and, if you see the confirmation that you have successfully created a Neurobagel data dictionary, it is ready to be used to [generate data for a Neurobagel graph database](https://neurobagel.org/user_guide/cli/).
