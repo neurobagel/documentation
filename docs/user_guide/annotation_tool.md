@@ -70,13 +70,16 @@ Then, in the column-level view on the right, navigate between the column tabs to
     - **Unannotated** contains columns you have not mapped to a standardized variable
         - Within this section, unannotated columns are organized based on whether you have assigned them a data type
 
+[^1]: Attribute can only be annotated if the column has been mapped to a standardized variable.
+
 #### Columns with continuous data
 
 For a column containing continuous data, you can:
 
 - Add a description of the units of measurement
-- Select the format of the numerical values 
-- Select "Mark as missing" for any values that represent missing, unavailable, or invalid data (the column-level view will only display unique values in the column)
+- Select the format of the numerical values[^1] 
+- Select "Mark as missing" for any values that represent missing, unavailable, or invalid data[^1]
+    - Note: the column-level view will only display unique values in the column
 
 ??? info "Units vs. Format"
     **Format** refers to how the numbers in your data are structured (e.g., `float` for decimal numbers like 25.5, `int` for whole numbers like 25) whereas **Units** describe what the numbers represent (e.g., "years" for age, "points" for test scores, "mg/dL" for measurements).
@@ -89,8 +92,8 @@ This includes any values that are blank (empty strings) or contain only whitespa
 For each unique column value, you can:
 
 - Add a free-form description of the value
-- Select a standardized term that best captures the meaning of the value
-- Select "Mark as missing" if the value:
+- Select a standardized term that best captures the meaning of the value[^1]
+- Select "Mark as missing" if the value:[^1]
      - indicates missing, unavailable, or invalid data
      - OR, does not have a suitable match among the standardized term options
 
