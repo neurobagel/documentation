@@ -225,7 +225,7 @@ Below is an example CLI workflow for generating a graph-ready JSONLD file for Da
 
 === "Docker"
 
-    0. Navigate to the directory where the input files are located, e.g.:
+    0. Navigate to the directory containing the input files, e.g.:
 
         ```bash
         cd /home/Dataset1/Neurobagel
@@ -263,7 +263,7 @@ Below is an example CLI workflow for generating a graph-ready JSONLD file for Da
 
 === "Singularity"
 
-    0. Navigate to the directory where the input files are located, e.g.:
+    0. Navigate to the directory containing the input files, e.g.:
 
         ```bash
         cd /home/Dataset1/Neurobagel
@@ -360,5 +360,5 @@ To upgrade to the latest version of the data model:
         singularity pull bagel.sif docker://neurobagel/bagelcli
         ```
 
-2. If you have an existing Neurobagel graph database, we recommend regenerating and [reuploading](maintaining.md/#updating-the-data-in-your-graph) all existing `.jsonld` files in your database using the latest CLI version.
+2. If you have an existing Neurobagel graph database, we recommend regenerating and [reuploading](maintaining.md#updating-the-data-in-your-graph) all existing `.jsonld` files in your database using the latest CLI version.
 This keeps the database internally consistent and avoids conflicts with dataset `.jsonld` files generated using older CLI versions.
