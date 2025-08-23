@@ -32,13 +32,20 @@ The resulting harmonized data can be directly integrated into a Neurobagel graph
 
 ## Input files
 
-The Neurobagel CLI can compile information from several different data sources to create a single harmonized representation of subject data. To run the CLI on a dataset, you will need:
+The Neurobagel CLI creates a single harmonized view of each subject's data in a dataset, and can integrate information from several data sources (phenotypic, raw neuroimaging, processed neuroimaging).
+
+To run the CLI on a dataset, you will need the following files:
 
 <div class="annotate" markdown>
-- [A phenotypic TSV](./data_prep.md)
-- [A Neurobagel JSON data dictionary](../data_models/dictionaries.md) for the TSV
-- (Optional) The imaging dataset in [BIDS](https://bids-specification.readthedocs.io/en/stable/) format, if subjects have imaging data available (1)
-- (Optional) A TSV containing subject statuses for any image processing pipelines that have been run, following the [Nipoppy processing status file schema](https://nipoppy.readthedocs.io/en/latest/schemas/index.html#bagel-file) (2)
+- [ ] [A phenotypic TSV](./data_prep.md)
+- [ ] [A Neurobagel JSON data dictionary](../data_models/dictionaries.md) for the TSV
+- [ ] (Optional) A valid [BIDS metadata table](preparing_imaging_data.md), if subjects have neuroimaging data available (1)
+- [ ] (Optional) A TSV of subject statuses for any image processing pipelines that have been run, following the [Nipoppy processing status file schema](https://nipoppy.readthedocs.io/en/latest/schemas/index.html#bagel-file) (2)
+
+</div>
+
+1. This table can be generated automatically using the CLI's [`bids2tsv`](#0-generate-a-bids-metadata-table) command, and will be used to generate harmonized raw imaging metadata for subjects.
+2. This file is adapted from the [Nipoppy](https://nipoppy.readthedocs.io/en/latest/index.html) workflow and can be automatically generated using [Nipoppy pipeline trackers](https://nipoppy.readthedocs.io/en/latest/how_to_guides/user_guide/tracking.html). It will be used to generate harmonized processing pipeline and derivative metadata for subjects.
 
 ## Running the CLI
 
@@ -63,31 +70,36 @@ To view the general CLI help and information about the available commands:
     singularity run bagel.sif
     ```
 
-### 0. (If you have a BIDS dataset) Generate a BIDS metadata table
+### 0. Generate a BIDS metadata table
+!!! info
+    - If your dataset does not have imaging data, skip this step. 
+    - If your dataset's imaging data are **not** in BIDS format, you must manually create a [BIDS metadata table](preparing_imaging_data.md).
 
-To include BIDS imaging data as part of the harmonized subject data, you must first convert the BIDS metadata into a tabular format. 
+To include BIDS imaging data as part of the harmonized subject data, you must first convert the BIDS metadata into a [table](preparing_imaging_data.md). 
 
-You can do this automatically using the CLI's `bids2tsv` command.
+You can do this automatically using the CLI's `bids2tsv` command.[^1]
 
-**Example**
+[^1]: `bids2tsv` internally uses [bids2table](https://childmindresearch.github.io/bids2table/bids2table.html).
 
-If your BIDS dataset directory is located at `/data/public/MY_BIDS_DATASET`, and you want outputs to be stored in `/data/personal/Neurobagel`:
+#### Example
+
+If your BIDS directory is located at `/data/public/Dataset1_bids` and you want the table output to be saved to `/home/Neurobagel`:
 
 === "Python"
     ```bash
     bagel bids2tsv \
-        --bids-dir "/data/public/MY_BIDS_DATASET"
-        --output "/data/personal/Neurobagel/MY_BIDS_DATASET.tsv"
+        --bids-dir "/data/public/Dataset1_bids"
+        --output "/home/Neurobagel/Dataset1_bids.tsv"
     ``` 
 
 === "Docker"
     ```bash
     docker run --rm \
         -v "/data/public:/data/public" \
-        -v "/data/personal/Neurobagel:/data/personal/Neurobagel" \ 
+        -v "/home/Neurobagel:/home/Neurobagel" \ 
         neurobagel/bagelcli bids2tsv \
-        --bids-dir "/data/public/MY_BIDS_DATASET" \
-        --output "/data/personal/Neurobagel/MY_BIDS_DATASET.tsv"
+        --bids-dir "/data/public/Dataset1_bids" \
+        --output "/home/Neurobagel/Dataset1_bids.tsv"
     ```
  
     ??? info "Mounting input paths using `-v`/`--volume`"
@@ -97,27 +109,21 @@ If your BIDS dataset directory is located at `/data/public/MY_BIDS_DATASET`, and
 === "Singularity"
     ```bash
     singularity run --no-home \
-        -B "/data/public,/data/personal/Neurobagel" \
+        -B "/data/public,/home/Neurobagel" \
         bagel.sif bids2tsv \
-        --bids-dir "/data/public/MY_BIDS_DATASET" \
-        --output "/data/personal/Neurobagel/MY_BIDS_DATASET.tsv"
+        --bids-dir "/data/public/Dataset1_bids" \
+        --output "/home/Neurobagel/Dataset1_bids.tsv"
     ```
 
     ??? info "Mounting input paths using `-B`/`--bind`"
         When running the CLI in a container, you must [mount](https://docs.sylabs.io/guides/3.0/user-guide/bind_paths_and_mounts.html) any input or output directories to directory paths within the container so that the app can access them. In your CLI options, always refer to the **container paths**. 
         In the example above, the container paths are set to match the host paths for simplicity.
 
-This command will produce a TSV file named `MY_BIDS_DATASET.tsv`. 
-This file can then be provided to the `bids` command to integrate subjects' BIDS metadata into a graph-ready data format.
+??? tip "This command may be slow on large datasets"
+    On datasets with more than a few hundred subjects, `bids2tsv` can take upwards of several minutes 
+    due to the time needed for [`PyBIDS`](https://github.com/bids-standard/pybids) to read the dataset structure.
 
-!!! info
-    `bids2tsv` internally uses [bids2table](https://childmindresearch.github.io/bids2table/bids2table.html).
-
-</div>
-
-1. The CLI will use a valid BIDS dataset to generate harmonized raw imaging metadata for subjects.
-2. This file will be used by the CLI to generate harmonized processing pipeline and derivative metadata for subjects.
-It has compatibility with the [Nipoppy](https://nipoppy.readthedocs.io/en/latest/index.html) workflow, and can be automatically generated using the [Nipoppy pipeline trackers](https://nipoppy.readthedocs.io/en/latest/how_to_guides/user_guide/tracking.html).
+This will produce a BIDS metadata table named `Dataset1_bids.tsv`, which can then be provided as input to the `bids` command below.
 
 ### 1. Generate graph-ready data (JSONLD files)
 
@@ -127,10 +133,7 @@ The Neurobagel CLI provides different commands for generating different types of
 - `bids`
 - `derivatives`
 
-!!! info "Important"
-    The `pheno` command must be run first on a dataset, since each subject in a Neurobagel graph requires at least phenotypic data. 
-    The other metadata are optional and can be added afterward in any order.
-
+#### Viewing help for a command
 To view the command-line options for a specific command, such as `pheno`:
 
 === "Python"
@@ -150,141 +153,212 @@ To view the command-line options for a specific command, such as `pheno`:
     singularity run bagel.sif pheno -h
     ```
 
-### Running the CLI on your data
-1. `cd` into your local directory containing your [CLI input files](#input-files) 
-(at minimum, a phenotypic TSV and corresponding Neurobagel annotated JSON data dictionary).
-2. Run a `bagel-cli` container and include your CLI command and arguments at the end in the following format:
+!!! info "Important"
+    The `pheno` command must be run first on a dataset, since each subject in a Neurobagel graph requires at least phenotypic data. 
+    The other metadata are optional and can be added afterward in any order.
+
+#### (Recommended) Create a directory for all input files
+If you are using Docker or Singularity, we strongly recommend placing all [input files](#input-files) for a dataset into a single directory, to avoid needing to mount multiple different paths into the container.
+
+#### Example
+
+The following example assumes that the input files for your dataset are located in `/home/Dataset1/Neurobagel`:
+
+``` { .bash .no-copy hl_lines="4-7" }
+home/
+└── Dataset1/
+    ├── Neurobagel/
+    │   ├── Dataset1_pheno.tsv # (1)!
+    │   ├── Dataset1_pheno.json # (2)!
+    │   ├── Dataset1_bids.tsv # (3)!
+    │   ├── Dataset1_proc_status.tsv # (4)!
+    │   └── ...
+    └── ...
+```
+
+1. The phenotypic TSV
+2. The phenotypic data dictionary
+3. The BIDS metadata table
+4. The processing status file
+
+Below is an example CLI workflow for generating a graph-ready JSONLD file for Dataset1 (`Dataset1.jsonld`) that incorporates all the available subject data sources:
+
+!!! Tip
+    To see all CLI options for a command, including short forms and optional parameters, refer to the [command's help](#viewing-help-for-a-command).
 
 === "Python"
-    ```bash
-    bagel <CLI command here>
-    ```
 
-=== "Docker"
-    ```bash
-    docker run --rm --volume=$PWD:$PWD -w $PWD neurobagel/bagelcli <CLI command here>
-    ```
+    0. Navigate to the directory containing the input files, e.g.:
+        ```bash
+        cd /home/Dataset1/Neurobagel
+        ```
 
-    ??? info "What is this command doing?"
+    1. Run the `pheno` command to generate harmonized subject-level phenotypic data as a JSONLD file
 
-        The combination of options `--volume=$PWD:$PWD -w $PWD` mounts your current working directory (containing all inputs for the CLI) at the same path inside the container, and also sets the _container's_ working directory to the mounted path (so it matches your location on your host machine). 
-        This allows you to pass paths to the containerized CLI which are composed the same way as on your local machine. (And both absolute paths and relative top-down paths from your working directory will work!)
+        ```bash
+        bagel pheno \
+            --pheno "Dataset1_pheno.tsv" \
+            --dictionary "Dataset1_pheno.json" \
+            --name "Dataset 1" \
+            --output "Dataset1.jsonld"
+        ```
 
-=== "Singularity"
-    ```bash
-    singularity run --no-home --bind $PWD --pwd $PWD /path/to/bagel.sif <CLI command here>
-    ```
+    2. Run the `bids` command to add subjects' BIDS metadata to the dataset JSONLD file
 
-    ??? info "What is this command doing?"
+        ```bash
+        bagel bids \
+            --jsonld-path "Dataset1.jsonld" \
+            --bids-table "Dataset1_bids.tsv" \
+            --output "Dataset1.jsonld" \
+            --overwrite
+        ```
 
-        The combination of options `--bind $PWD --pwd $PWD` mounts your current working directory (containing all inputs for the CLI) at the same path inside the container, and also sets the _container's_ working directory to the mounted path (so it matches your location on your host machine). 
-        This allows you to pass paths to the containerized CLI which are composed the same way as on your local machine. (And both absolute paths and relative top-down paths from your working directory will work!)
+    3. Add subjects' processing pipeline metadata to the dataset JSONLD
 
-
-### Example  
-If your dataset lives in `/home/data/Dataset1`:
-
-``` { .bash .no-copy hl_lines="5 6 8 13" }
-home/
-└── data/
-    └── Dataset1/
-        ├── tabular/
-        │   ├── Dataset1_pheno.tsv
-        │   ├── Dataset1_pheno.json
-        │   └── ...
-        ├── bids/
-        │   ├── sub-01/
-        │   ├── sub-02/
-        │   └── ...
-        ├── derivatives/
-        │   ├── Dataset1_proc_status.tsv
-        │   └── ...
-        └── ...
-```
-!!! note
-    This is an example directory structure following the [Nipoppy specification](https://nipoppy.readthedocs.io/en/latest/index.html) for dataset organization. Your input data may be organized differently.
-
-
-To generate a single, graph-ready JSONLD file incorporating all subject data sources recognized by Neurobagel (`Dataset1.jsonld`), 
-you could run the CLI as follows:
+        ```bash
+        bagel derivatives \
+            --jsonld-path "Dataset1.jsonld" \
+            --tabular "Dataset1_proc_status.tsv" \
+            --output "Dataset1.jsonld" \
+            --overwrite
+        ```
 
 === "Docker"
 
-    ``` bash
-    cd /home/data/Dataset1
+    0. Navigate to the directory where the input files are located, e.g.:
 
-    # 1. Generate harmonized phenotypic data at the subject level
-    docker run --rm --volume=$PWD:$PWD -w $PWD neurobagel/bagelcli pheno \
-        --pheno "tabular/Dataset1_pheno.tsv" \
-        --dictionary "tabular/Dataset1_pheno.json" \
-        --name "My dataset 1" \
-        --output "Dataset1.jsonld"
+        ```bash
+        cd /home/Dataset1/Neurobagel
+        ```
 
-    # 2. Add subjects' BIDS data to the existing .jsonld
-    docker run --rm --volume=$PWD:$PWD -w $PWD neurobagel/bagelcli bids \
-        --jsonld-path "Dataset1.jsonld" \
-        --bids-dir "bids" \
-        --output "Dataset1.jsonld" \
-        --overwrite  # (1)!
+    1. Run the `pheno` command to generate harmonized subject-level phenotypic data as a JSONLD file
 
-    # 3. Add subjects' processing pipeline metadata to the existing .jsonld
-    docker run --rm --volume=$PWD:$PWD -w $PWD neurobagel/bagelcli derivatives \
-        --tabular "derivatives/Dataset1_proc_status.tsv" \
-        --jsonld-path "Dataset1.jsonld" \
-        --output "Dataset1.jsonld" \
-        --overwrite
-    ```
+        ```bash
+        docker run --rm -v $PWD:$PWD neurobagel/bagelcli pheno \
+            --pheno "$PWD/Dataset1_pheno.tsv" \
+            --dictionary "$PWD/Dataset1_pheno.json" \
+            --name "Dataset 1" \
+            --output "$PWD/Dataset1.jsonld"
+        ```
 
-    1. To keep outputs of different CLI commands as separate files, omit the `--overwrite` flag.
+    2. Run the `bids` command to add subjects' BIDS metadata to the dataset JSONLD file
 
-    !!! tip
-        Short forms for a CLI command's options can be found by running:  
-        `docker run --rm neurobagel/bagelcli pheno --help`
+        ```bash
+        docker run --rm -v $PWD:$PWD neurobagel/bagelcli bids \
+            --jsonld-path "$PWD/Dataset1.jsonld" \
+            --bids-table "$PWD/Dataset1_bids.tsv" \
+            --output "$PWD/Dataset1.jsonld" \
+            --overwrite
+        ```
 
+    3. Add subjects' processing pipeline metadata to the dataset JSONLD
+
+        ```bash
+        docker run --rm --v $PWD:$PWD neurobagel/bagelcli derivatives \
+            --jsonld-path "$PWD/Dataset1.jsonld" \
+            --tabular "$PWD/Dataset1_proc_status.tsv" \
+            --output "$PWD/Dataset1.jsonld" \
+            --overwrite
+        ```
 
 === "Singularity"
 
-    ``` .bash 
-    cd /home/data/Dataset1
+    0. Navigate to the directory where the input files are located, e.g.:
 
-    # 1. Generate harmonized phenotypic data at the subject level
-    singularity run --no-home --bind $PWD --pwd $PWD bagel.sif pheno \
-        --pheno "tabular/Dataset1_pheno.tsv" \
-        --dictionary "tabular/Dataset1_pheno.json" \
-        --name "My dataset 1" \
-        --output "Dataset1.jsonld"
+        ```bash
+        cd /home/Dataset1/Neurobagel
+        ```
+    1. Run the `pheno` command to generate harmonized subject-level phenotypic data as a JSONLD file
 
-    # 2. Add subjects' BIDS data to the existing .jsonld
-    singularity run --no-home --bind $PWD --pwd $PWD bagel.sif bids \
-        --jsonld-path "Dataset1.jsonld" \
-        --bids-dir "bids" \
-        --output "Dataset1.jsonld" \
-        --overwrite  # (1)!
+        ```bash
+        singularity run --no-home -B $PWD bagel.sif pheno \
+            --pheno "$PWD/Dataset1_pheno.tsv" \
+            --dictionary "$PWD/Dataset1_pheno.json" \
+            --name "Dataset 1" \
+            --output "$PWD/Dataset1.jsonld"
+        ```
 
-    # 3. Add subjects' processing pipeline metadata to the existing .jsonld
-    singularity run --no-home --bind $PWD --pwd $PWD bagel.sif derivatives \
-        --tabular "derivatives/Dataset1_proc_status.tsv" \
-        --jsonld-path "Dataset1.jsonld" \
-        --output "Dataset1.jsonld" \
-        --overwrite
-    ```
+    2. Run the `bids` command to add subjects' BIDS metadata to the dataset JSONLD file
 
-    1. To keep outputs of different CLI commands as separate files, omit the `--overwrite` flag.
+        ```bash
+        singularity run --no-home -B $PWD bagel.sif bids \
+            --jsonld-path "$PWD/Dataset1.jsonld" \
+            --bids-table "$PWD/Dataset1_bids.tsv" \
+            --output "$PWD/Dataset1.jsonld" \
+            --overwrite
+        ```
 
-    !!! tip
-        Short forms for a CLI command's options can be found by running:  
-        `singularity run bagel.sif pheno --help`
+    3. Add subjects' processing pipeline metadata to the dataset JSONLD
 
-!!! note "Speed of the `bids` command"
-    The `bids` command of the CLI currently can take upwards of several minutes for datasets with more than a few hundred subjects, due to the time needed for pyBIDS to read the dataset structure.
-    Once the slow initial dataset reading step is complete, you should see the message:
+        ```bash
+        singularity run --no-home -B $PWD bagel.sif derivatives \
+            --jsonld-path "$PWD/Dataset1.jsonld" \
+            --tabular "$PWD/Dataset1_proc_status.tsv" \
+            --output "$PWD/Dataset1.jsonld" \
+            --overwrite
+        ```
+
+!!! Info
+    Replace the Dataset1 files with the input files for your dataset.
+
+??? tip "When to use `-f`/`--overwrite`"
+    If you're only interested in the final JSONLD with all metadata added (i.e., after all relevant commands have been run), you can safely overwrite intermediate output files by specifying the same output file path each time.
+
+The resulting JSONLD is ready to upload to a Neurobagel graph database.
+
+### Troubleshooting
+
+#### `File or directory does not exist` error when using Docker/Singularity
+
+This error usually means the container cannot access your input files because the directories were not mounted correctly.
+
+The examples assume you are running the CLI from inside the directory containing your inputs. Thus, they mount the current working directory `$PWD` to the same path inside the container for convenience using the syntax:
+
+=== "Docker"
+
     ```bash
-    BIDS parsing completed.
-    ...
+    docker run --rm -v $PWD:$PWD neurobagel/bagelcli ...
     ```
+
+    However, if your inputs are located in a different directory or spread across multiple directories, you must [mount](https://docs.sylabs.io/guides/3.0/user-guide/bind_paths_and_mounts.html) each directory explicitly using the Docker option `-v /path/on/host:/path/in/container`.
+
+    When passing file paths to the CLI, always use the **absolute path inside the container** to avoid confusion.
+
+=== "Singularity"
+
+    ```bash
+    singularity run --no-home -B $PWD bagel.sif ...
+    ```
+
+    However, if your inputs are located in a different directory or spread across multiple directories, you must [mount](https://docs.docker.com/engine/storage/bind-mounts/) each directory explicitly using the Singularity option `-B /path/on/host:/path/in/container`.
+
+    When passing file paths to the CLI, always use the **absolute path inside the container** to avoid confusion.
 
 ## Upgrading data to a newer version of the CLI
-Neurobagel is under active development and future releases of the CLI may introduce breaking changes to the data model for subject-level information in the output `.jsonld` graph file. 
+Neurobagel is under active development and future CLI releases may introduce breaking changes to the data model used in subject-level `.jsonld` graph files. 
 Breaking changes are highlighted in the [release notes](https://github.com/neurobagel/bagel-cli/releases).
 
-To keep an existing Neurobagel graph database up to date (and prevent conflicts with dataset `.jsonld` files generated using the latest CLI version), you can [regenerate and reupload existing `.jsonld` files for your database](maintaining.md#following-a-change-in-the-neurobagel-data-model) at any time under the latest data model.
+To upgrade to the latest version of the data model:
+
+1. Upgrade to the latest CLI version:
+
+    === "Python"
+
+        ```bash
+        pip install --upgrade bagel
+        ```
+
+    === "Docker"
+
+        ```bash
+        docker pull neurobagel/bagelcli
+        ```
+
+    === "Singularity"
+
+        ```bash
+        singularity pull bagel.sif docker://neurobagel/bagelcli
+        ```
+
+2. If you have an existing Neurobagel graph database, we recommend regenerating and [reuploading](maintaining.md/#updating-the-data-in-your-graph) all existing `.jsonld` files in your database using the latest CLI version.
+This keeps the database internally consistent and avoids conflicts with dataset `.jsonld` files generated using older CLI versions.
