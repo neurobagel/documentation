@@ -9,7 +9,7 @@ The resulting harmonized data can be directly integrated into a Neurobagel graph
 
     The Neurobagel CLI can be installed from [PyPI](https://pypi.org/project/bagel/) using `pip`.
 
-    1. Before installing the Python package, we recommend first creating and activating a Python virtual environment (such as [venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#create-and-use-virtual-environments)).
+    1. Before installing the Python package, we recommend first creating and activating a Python virtual environment (using a tool such as [venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#create-and-use-virtual-environments)).
 
     2. Install the `bagel` package into your virtual environment:
     ```bash
@@ -44,7 +44,7 @@ To run the CLI on a dataset, you will need the following files:
 
 </div>
 
-1. This table can be generated automatically using the CLI's [`bids2tsv`](#0-generate-a-bids-metadata-table) command, and will be used to generate harmonized raw imaging metadata for subjects.
+1. This table can be generated automatically using the CLI's [`bids2tsv`](#generate-a-bids-metadata-table) command, and will be used to generate harmonized raw imaging metadata for subjects.
 2. This file is adapted from the [Nipoppy](https://nipoppy.readthedocs.io/en/latest/index.html) workflow and can be automatically generated using [Nipoppy pipeline trackers](https://nipoppy.readthedocs.io/en/latest/how_to_guides/user_guide/tracking.html). It will be used to generate harmonized processing pipeline and derivative metadata for subjects.
 
 ## Running the CLI
@@ -70,7 +70,7 @@ To view the general CLI help and information about the available commands:
     singularity run bagel.sif
     ```
 
-### 0. Generate a BIDS metadata table
+### Generate a BIDS metadata table
 !!! info
     - If your dataset does not have imaging data, skip this step. 
     - If your dataset's imaging data are **not** in BIDS format, you must manually create a [BIDS metadata table](preparing_imaging_data.md).
@@ -125,13 +125,21 @@ If your BIDS directory is located at `/data/public/Dataset1_bids` and you want t
 
 This will produce a BIDS metadata table named `Dataset1_bids.tsv`, which can then be provided as input to the `bids` command below.
 
-### 1. Generate graph-ready data (JSONLD files)
+### Generate graph-ready data (JSONLD files)
 
 The Neurobagel CLI provides different commands for generating different types of harmonized subject (meta)data:
 
 - `pheno`
+
+    !!! info "Must be run first"
+        Each subject in a Neurobagel graph requires at least phenotypic data. 
+        The other metadata are optional and can be added afterward via their respective commands in any order.
+
 - `bids`
 - `derivatives`
+
+If you are using Docker or Singularity, we strongly recommend placing all the [input files](#input-files) for your dataset into a single directory.
+This avoids the need to mount multiple paths into the container when running CLI commands.
 
 #### Viewing help for a command
 To view the command-line options for a specific command, such as `pheno`:
@@ -152,13 +160,6 @@ To view the command-line options for a specific command, such as `pheno`:
     ```bash
     singularity run bagel.sif pheno -h
     ```
-
-!!! info "Important"
-    The `pheno` command must be run first on a dataset, since each subject in a Neurobagel graph requires at least phenotypic data. 
-    The other metadata are optional and can be added afterward in any order.
-
-#### (Recommended) Create a directory for all input files
-If you are using Docker or Singularity, we strongly recommend placing all [input files](#input-files) for a dataset into a single directory, to avoid needing to mount multiple different paths into the container.
 
 #### Example
 
@@ -188,10 +189,11 @@ Below is an example CLI workflow for generating a graph-ready JSONLD file for Da
 
 === "Python"
 
-    0. Navigate to the directory containing the input files, e.g.:
-        ```bash
-        cd /home/Dataset1/Neurobagel
-        ```
+    Navigate to the directory containing the input files, e.g.:
+
+    ```bash
+    cd /home/Dataset1/Neurobagel
+    ```
 
     1. Run the `pheno` command to generate harmonized subject-level phenotypic data as a JSONLD file
 
@@ -225,11 +227,11 @@ Below is an example CLI workflow for generating a graph-ready JSONLD file for Da
 
 === "Docker"
 
-    0. Navigate to the directory containing the input files, e.g.:
+    Navigate to the directory containing the input files, e.g.:
 
-        ```bash
-        cd /home/Dataset1/Neurobagel
-        ```
+    ```bash
+    cd /home/Dataset1/Neurobagel
+    ```
 
     1. Run the `pheno` command to generate harmonized subject-level phenotypic data as a JSONLD file
 
@@ -263,11 +265,12 @@ Below is an example CLI workflow for generating a graph-ready JSONLD file for Da
 
 === "Singularity"
 
-    0. Navigate to the directory containing the input files, e.g.:
+    Navigate to the directory containing the input files, e.g.:
 
-        ```bash
-        cd /home/Dataset1/Neurobagel
-        ```
+    ```bash
+    cd /home/Dataset1/Neurobagel
+    ```
+
     1. Run the `pheno` command to generate harmonized subject-level phenotypic data as a JSONLD file
 
         ```bash
