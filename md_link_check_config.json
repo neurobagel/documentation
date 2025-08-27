@@ -15,5 +15,5 @@
     ],
     "timeout": "60s",
     "retryOn429": true,
-    "retryCount": 3
+    "retryCount": 5
 }
