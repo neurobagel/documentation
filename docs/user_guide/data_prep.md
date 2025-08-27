@@ -23,7 +23,7 @@ Each row **MUST** describe only one participant/session, and each participant/se
 The TSV **MUST** contain:
 
 - A minimum of 2 columns
-- At least 1 column containing subject identifiers. Subject IDs must be unique per row.
+- At least 1 column containing subject identifiers (IDs). Subject IDs must be unique per row.
     - If both subject and session ID columns are present, then the combinations of IDs must be unique per row.
 
     !!! note "Only one subject ID column can be annotated"
@@ -51,7 +51,7 @@ For all phenotypic variables currently modeled by Neurobagel, see [here](../data
 
 ### If your dataset has imaging (BIDS) data
 
-In addition to phenotypic characteristics of subjects, Neurobagel can also harmonize information about subjects' imaging data from a corresponding [BIDS](https://bids-specification.readthedocs.io/en/stable/) dataset.
+In addition to phenotypic characteristics of subjects, Neurobagel can also harmonize information about subjects' imaging data from a corresponding [BIDS](https://bids-specification.readthedocs.io/en/stable/) dataset (see also [Preparing imaging data](preparing_imaging_data.md)).
 
 To include subjects' BIDS imaging data as part of their representation in Neurobagel,
 your phenotypic TSV **MUST** meet the following requirements **in addition** to the ones listed above:

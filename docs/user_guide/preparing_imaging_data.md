@@ -1,10 +1,13 @@
 # Preparing the imaging metadata as a table
 
-To make your dataset's neuroimaging metadata queryable using Neurobagel, you must provide a `.tsv` file that lists each subject's available NIfTI imaging files and modality information following [BIDS](https://bids-specification.readthedocs.io/en/stable/) naming conventions. 
+To be able to query information about available neuroimaging data in your dataset, you must provide Neurobagel with a `.tsv` file containing your dataset's neuroimaging metadata.
 We refer to this as a BIDS metadata table.
 
-The expected format of the table is illustrated in the example below:
+If your dataset is already in [BIDS](https://bids-specification.readthedocs.io/en/stable/), the Neurobagel CLI provides a [`bids2tsv`](cli.md#0-generate-a-bids-metadata-table) command that will automatically generate this table for you.
 
+The BIDS metadata table lists each subject's available NIfTI imaging files and modality information, using [BIDS](https://bids-specification.readthedocs.io/en/stable/) naming conventions, in the format shown below.
+
+## Example BIDS metadata table
 sub | ses | suffix | path
 ---- | ---- | ---- | ----
 sub-01 | ses-01 | T1w | /data/bids-examples/synthetic/sub-01/ses-01/anat/sub-01_ses-01_T1w.nii
@@ -13,11 +16,8 @@ sub-02 | ses-01 | T1w | /data/bids-examples/synthetic/sub-02/ses-01/anat/sub-02_
 sub-02 | ses-01 | bold | /data/bids-examples/synthetic/sub-02/ses-01/func/sub-02_ses-01_task-rest_bold.nii
 ... | ... | ... | ... | ...
 
-### Automatically generating a BIDS metadata table
 
-If your dataset is already in [BIDS](https://bids-specification.readthedocs.io/en/stable/), run the Neurobagel CLI's [`bids2tsv`](cli.md#0-generate-a-bids-metadata-table) command to automatically generate a metadata table in the format above from your BIDS dataset directory.
-
-### About the BIDS metadata table
+## About the BIDS metadata table
 The table must include at least four columns named exactly `sub`, `ses`, `suffix`, and `path` (adapted from [BIDS](https://bids-specification.readthedocs.io/en/stable/) entities). 
 Additional columns are allowed but will be ignored by Neurobagel.
 
@@ -34,5 +34,5 @@ Each row of the table indexes a single NIfTI (`.nii` or `.nii.gz`) file with the
     - For more information, see the "Modality specific files" section of the [BIDS specification](https://bids-specification.readthedocs.io/en/stable/) or consult this [master list](https://github.com/bids-standard/bids-specification/blob/master/src/schema/objects/suffixes.yaml) of recognized BIDS image suffixes
     - Example: `T1w`
 - `path` (required)
-    - Absolute path to the NIfTI file, ending with the extension `.nii` or `.nii.gz`
+    - Path to the NIfTI file, ending with the extension `.nii` or `.nii.gz`
     - Example: `/data/pd/qpn/sub-PD123/ses-01/anat/sub-PD123_ses-01_T1w.nii.gz`
