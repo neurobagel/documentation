@@ -43,7 +43,9 @@ markdown_extensions:
   - sane_lists  # for continuing numbered lists as specified after a paragraph
   - tables
   - footnotes
-  
+  - pymdownx.tasklist:
+      custom_checkbox: true
+      clickable_checkbox: true
 
 plugins:
   - search

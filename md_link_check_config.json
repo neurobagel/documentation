@@ -13,7 +13,7 @@
         {"pattern": "overrides/assets/img/"},
         {"pattern": "https://www.w3.org/RDF/"}
     ],
-    "timeout": "60s",
+    "timeout": "120s",
     "retryOn429": true,
-    "retryCount": 3
+    "retryCount": 5
 }
