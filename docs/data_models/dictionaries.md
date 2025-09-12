@@ -44,20 +44,21 @@ Here is an example BIDS data dictionary (`participants.json`):
 
 And here is the same data dictionary augmented with Neurobagel annotations:
 
-```json hl_lines="5-14 22-41"
+```json hl_lines="5-14 23-42"
 {
   "age": {
     "Description": "age of the participant",
     "Units": "years",
     "Annotations": {
       "IsAbout": {
-        "TermURL": "http://neurobagel.org/vocab/Age",
+        "TermURL": "nb:Age",
         "Label": "Age"
       },
       "Format": {
-        "TermURL": "http://neurobagel.org/vocab/int",
-        "Label": "Integer"
-      }
+        "TermURL": "nb:FromFloat",
+        "Label": "Float"
+      },
+      "VariableType": "Continuous"
     }
   },
   "sex": {
@@ -68,29 +69,35 @@ And here is the same data dictionary augmented with Neurobagel annotations:
     },
     "Annotations": {
       "IsAbout": {
-        "TermURL": "http://neurobagel.org/vocab/Sex",
+        "TermURL": "nb:Sex",
         "Label": "Sex"
       },
       "Levels": {
         "M": {
-          "TermURL": "http://purl.bioontology.org/ontology/SNOMEDCT/248153007",
+          "TermURL": "snomed:248153007",
           "Label": "Male"
         },
         "F": {
-          "TermURL": "http://purl.bioontology.org/ontology/SNOMEDCT/248152002",
+          "TermURL": "snomed:248152002",
           "Label": "Female"
         }
       },
       "MissingValues": [
         "",
         " "
-      ]
+      ],
+      "VariableType": "Categorical"
     }
   }
 }
 ```
 
-A custom Neurobagel namespace (URI: `http://neurobagel.org/vocab/`) is currently used for controlled terms that represent attribute classes modelled by Neurobagel, such as `"Age"` and `"Sex"`, even though these terms may have equivalents in other vocabularies used for annotation. For example, the following terms from the Neurobagel annotations above are conceptually equivalent to terms from the SNOMED CT namespace:
+!!! info
+    `TermURL` values in Neurobagel data dictionaries are [compact URIs](https://en.wikipedia.org/wiki/CURIE).
+
+A custom Neurobagel namespace, defined by the prefix `nb` (full URI: `http://neurobagel.org/vocab/`), is used for controlled terms that represent attribute classes modelled by Neurobagel, such as `"Age"` and `"Sex"`, even though these terms may have equivalents in other vocabularies used for annotation. 
+
+For example, the following terms from the Neurobagel annotations above are conceptually equivalent to terms from the SNOMED CT namespace:
 
 | Neurobagel namespace term       | Equivalent external controlled vocabulary term                     |
 |---------------------------------|---------------------------------------------------------|
@@ -129,7 +136,7 @@ syntax for [json-ld](https://w3c.github.io/json-ld-syntax/#the-context):
 
 Term from the Neurobagel vocabulary.
 
-```json hl_lines="6-7 9"
+```json hl_lines="5-9"
 {
   "participant_id": {
     "Description": "A participant ID",
@@ -138,33 +145,22 @@ Term from the Neurobagel vocabulary.
         "TermURL": "nb:ParticipantID",
         "Label": "Subject Unique Identifier"
       },
-      "Identifies": "participant"
+      "VariableType": "Identifier"
     }
   }
 }
 
 ```
 
-!!! note
-    `participant_id` is a reserved name in BIDS and BIDS data dictionaries
-    therefore typically don't annotate this column. Neurobagel supports
-    multiple subject ID columns for situations where a study is using more than
-    one ID scheme.
-
-!!! note
-    The `Identifies` annotation key is currently required to validate annotations for columns about unique 
-    observation identifiers  (e.g., participant or session IDs). The `"Identifies"` key should only be used for these
-    columns and its value should be an informative string value describing the type/level of observation 
-    identified. This required key is currently only used for validation and its value will not be processed by
-    Neurobagel.
-    (e.g., participant or session IDs), and should have an informative string value 
-    describing the type/level of observation identified.
+!!! info
+    `participant_id` is a reserved name in BIDS and BIDS data dictionaries therefore typically don't annotate this column. 
+    Neurobagel supports tables containing multiple subject ID columns for studies that employ more than one ID scheme.
 
 ### Session identifier
 
 Term from the Neurobagel vocabulary.
 
-```json hl_lines="6-7 9"
+```json hl_lines="5-9"
 {
   "session_id": {
     "Description": "A session ID",
@@ -173,14 +169,14 @@ Term from the Neurobagel vocabulary.
         "TermURL": "nb:SessionID",
         "Label": "Run Identifier"
       },
-      "Identifies": "session"
+      "VariableType": "Identifier"
     }
   }
 }
 
 ```
 
-!!! note
+!!! info
     Unlike the BIDS specification, Neurobagel supports a `participants.tsv`
     file with a `session_id` field.
 
@@ -189,7 +185,7 @@ Term from the Neurobagel vocabulary.
 Terms for clinical diagnosis are from the [SNOMED-CT ontology](https://browser.ihtsdotools.org/).
 Terms for healthy control status are from the National Cancer Institute Thesaurus.
 
-```json hl_lines="10-11 13 15-16 19-20"
+```json hl_lines="9-23"
 {
   "group": {
     "Description": "Group variable",
@@ -211,7 +207,8 @@ Terms for healthy control status are from the National Cancer Institute Thesauru
           "TermURL": "ncit:C94342",
           "Label": "Healthy Control"
         }
-      }
+      },
+      "VariableType": "Categorical"
     }
   }
 }
@@ -220,7 +217,7 @@ Terms for healthy control status are from the National Cancer Institute Thesauru
 The `IsAbout` relation uses a term from the Neurobagel namespace because
 `"Diagnosis"` is a standardized term.
 
-!!! note
+!!! info
     Columns with categorical values (e.g., study groups, diagnoses, sex)
     require a `Levels` key in their Neurobagel annotation. 
     The Neurobagel "Levels" key is modeled after the BIDS "Levels" key for human readable descriptions.
@@ -237,7 +234,7 @@ Terms are from the SNOMED-CT ontology, which has controlled terms aligning with 
 
 Here is what a sex annotation looks like in practice:
 
-```json
+```json hl_lines="9-23"
 {
   "sex": {
     "Description": "Sex variable",
@@ -259,7 +256,8 @@ Here is what a sex annotation looks like in practice:
           "TermURL": "snomed:248152002",
           "Label": "Female"
         }
-      }
+      },
+      "VariableType": "Categorical"
     }
   }
 }
@@ -272,21 +270,20 @@ this is a Neurobagel common data element.
 Neurobagel has a common data element for `"Age"` describing a continuous column. 
 To ensure age values are represented as floats in Neurobagel graphs, 
 Neurobagel encodes the format of the raw numerical values in a given age column. 
-This is stored in the `Format` annotation (required for continuous columns describing age) and maps internally to a specific transformation that is then used to convert the raw values to floats.
+This is stored in the `Format` annotation (required for continuous columns) and maps internally to a specific transformation that is then used to convert the raw values to floats.
 
 Possible formats: 
 
-| TermURL | Label | Example |
+| TermURL | Label | Examples |
 | ----- | ----- | ----- |
-| `nb:FromFloat` | float value | `31.5` |
-| `nb:FromInt` | integer value | `31` |
+| `nb:FromFloat` | float value | `31.5`, `31` |
 | `nb:FromEuro` | european decimal value | `31,5` |
 | `nb:FromBounded` | bounded value | `30+` |
 | `nb:FromRange` | a range between a minimum and maximum value | `30-35` |
 | `nb:FromISO8061` | period of time defined according to the ISO8601 standard | `31Y6M` |
 
 
-```json hl_lines="9-12"
+```json hl_lines="5-13"
 {
   "age": {
     "Description": "Participant age",
@@ -298,7 +295,8 @@ Possible formats:
       "Format": {
         "TermURL": "nb:FromEuro",
         "Label": "European value decimals"
-      }
+      },
+      "VariableType": "Continuous"
     }
   }
 }
@@ -321,7 +319,7 @@ An optional additional annotation `MissingValues` can be used to specify value(s
 in an assessment tool column which represent that the participant is missing a value/response for that subscale,
 when instances of missing values are present (see also section [Missing values](#missing-values)).
 
-```json hl_lines="5 9 26"
+```json hl_lines="5-28"
 {
   "updrs_1": {
     "Description": "item 1 scores for UPDRS",
@@ -333,7 +331,8 @@ when instances of missing values are present (see also section [Missing values](
       "IsPartOf": {
         "TermURL": "snomed:342061000000106",
         "Label": "Unified Parkinsons disease rating scale score"
-      }
+      },
+      "VariableType": "Collection"
     }
   },
   "updrs_2": {
@@ -347,7 +346,8 @@ when instances of missing values are present (see also section [Missing values](
         "TermURL": "snomed:342061000000106",
         "Label": "Unified Parkinsons disease rating scale score"
       },
-      "MissingValues": [""]
+      "MissingValues": [""],
+      "VariableType": "Collection"
     }
   }
 }
