@@ -56,7 +56,7 @@ And here is the same data dictionary augmented with Neurobagel annotations:
       },
       "Format": {
         "TermURL": "nb:FromFloat",
-        "Label": "Integer"
+        "Label": "Float"
       },
       "VariableType": "Continuous"
     }
