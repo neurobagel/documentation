@@ -100,19 +100,20 @@ cp local_nb_nodes.template.json local_nb_nodes.json
    you can use `NB_API_QUERY_URL=http://localhost:8080`, where `8080` is the [default host port for the federation API](./config.md#environment-variables).
     - If you are deploying Neurobagel **on a server for other users**, 
     you must use the IP (and port) or URL intended for your users to access the federation API on the server with.
-    ??? info "On a machine with an ARM-based processor?"
-        The default Docker Compose recipe assumes that you are launching Neurobagel on a machine with x86_64 (AMD/Intel) architecture (most Linux or Windows machines). 
-        If your machine instead uses ARM-based architecture (e.g., certain Macs), **additionally change the following line in your `docker-compose.yml` file:**
-        ```yml
-            graph:
-                image: "ontotext/graphdb:10.3.1"     
-        ```
-        to
-        ```yml
-            graph:
-                image: "ontotext/graphdb:10.3.1-arm64"        
-        ```
-        You can double check the architecture of your machine in the system settings or using the command `lscpu`.
+
+??? info "On a machine with an ARM-based processor?"
+    The default Docker Compose recipe assumes that you are launching Neurobagel on a machine with x86_64 (AMD/Intel) architecture (most Linux or Windows machines). 
+    If your machine instead uses ARM-based architecture (e.g., certain Macs), **additionally change the following line in your `docker-compose.yml` file:**
+    ```yml
+        graph:
+            image: "ontotext/graphdb:10.3.1"     
+    ```
+    to
+    ```yml
+        graph:
+            image: "ontotext/graphdb:10.3.1-arm64"        
+    ```
+    You can double check the architecture of your machine in the system settings or using the command `lscpu`.
 
 #### If you have already have graph-ready data
 At this point, if you have already [generated Neurobagel JSONLD data files](cli.md), you can proceed with the below additional steps before launching Neurobagel:
