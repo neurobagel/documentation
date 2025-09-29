@@ -129,18 +129,22 @@ For security and best practice purposes, we recommend changing the following val
 ## Configuring local node names and URLs for federation
 
 When using a deployment profile that provides federation (i.e., includes the federation API), you can define
-the URLs and display names of the **node APIs** of any local nodes you wish to federate over in a file called `local_nb_nodes.json`. 
-This file is used by the f-API.
+the URLs and display names of the **node APIs** of any local nodes you wish to federate over in the file `local_nb_nodes.json`. 
+This file is read by the f-API.
 
 Each node to be federated over is defined using a dictionary with two key-value pairs:
 ```json
 {
-  "NodeName": "<display name for the node>",
-  "ApiURL": "<URL of the node API exposed for that node>"
+  "NodeName": "<DISPLAY NAME OF NODE>",
+  "ApiURL": "<URL OF NODE API>"
 }
 ```
 
-Values of `NodeName` are arbitrary. Multiple nodes must be wrapped in a list `[]`.  
+Notes:
+
+- `NodeName` can be any string, and determines how the node appears in the node selection dropdown in the query tool
+- `ApiURL` must include the protocol (`http://` or `https://`)
+- To specify multiple nodes, wrap the dictionaries in a list `[]`
 
 !!! Info "Nodes that do not need to be manually configured"
     We maintain a list of publicly accessible Neurobagel nodes 
@@ -148,14 +152,14 @@ Values of `NodeName` are arbitrary. Multiple nodes must be wrapped in a list `[]
     By default, every new f-API will look up this list
     on startup and include it in its internal list of nodes to
     federate over (this can be disabled using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables)).
-    This also means that **you do not have to explicitly add these public nodes** to your `local_nb_nodes.json` file.
+    This means that **you do not have to manually add these public nodes** to your `local_nb_nodes.json` file.
 
-Example: Assume there are two local nodes already running on different servers of your institutional network, and you want to set up federation across both nodes:
+**Example:** Assume there are two local nodes already running on different servers of your institutional network:
 
-- a node named `"My Institute"` running on your local computer (localhost), on port `8000` and 
-- a node named `"Node Recruitment"` running on a different computer with the local IP `192.168.0.1`, listening on the default http port `80`. 
+- a node named `"My Institute"` running on your local computer (`localhost`), on port `8000` 
+- a node named `"Node Recruitment"` running on a different computer with the local IP `192.168.0.1`, listening on the default HTTP port `80` 
 
-You would configure your `local_nb_nodes.json` as follows:
+To set up federation across both nodes, you would configure `local_nb_nodes.json` as follows:
 ``` {.json title="local_nb_nodes.json"}
 [
   {
@@ -169,14 +173,16 @@ You would configure your `local_nb_nodes.json` as follows:
 ]
 ```
 
-!!! warning "Do not use `localhost`/`127.0.0.1` in `local_nb_nodes.json`"
+??? warning "Do not use `localhost`/`127.0.0.1` in `local_nb_nodes.json`"
 
     Even if the local node API(s) you are federating over are running 
     on the same host machine as your federation API, 
-    you cannot use `localhost` for the `"ApiURL"` and must instead provide a network-accessible URL, IP address, or container name.
+    you cannot use `localhost` for the `ApiURL` and must instead provide a network-accessible URL, IP address, or container name.
     For an example, see the configuration for the node called `"My Institute"` above.
 
-**Ensure that you not accidentally provide the address of your actual federation API for `"ApiURL"`!** This will cause an infinite request loop that will likely overload your service (as an f-API will be repeatedly making requests to itself).
+??? warning "Be careful to not use your federation API's own address for `ApiURL`!"
+    
+    This will cause an infinite request loop that will likely overload your service, as an f-API will be repeatedly making requests to itself.
 
 To add one or more local nodes to the list of nodes known to your f-API, simply add more dictionaries to `local_nb_nodes.json`.
 
