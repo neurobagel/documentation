@@ -6,9 +6,9 @@ There are several ways you can interact with the Neurobagel team:
 - Our tag on the [Neurostars forum](https://neurostars.org/tag/neurobagel)
 - Join our [Discord server](https://discord.gg/BEXXgt3hXk) to chat with us
 
-## Usage or general questions
+## General usage questions
 
-If you have a _usage question_ about Neurobagel (e.g., troubleshooting setup, feedback on a specific use case), 
+If you have a _usage question_ about Neurobagel (feedback on a specific use case),
 or want to _discuss the Neurobagel project in general_ with the development team or other users,
 please either:
 
