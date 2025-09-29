@@ -94,12 +94,13 @@ cp local_nb_nodes.template.json local_nb_nodes.json
     ```bash
     NB_API_QUERY_URL=http://XX.XX.XX.XX
     ```
-   `http://XX.XX.XX.XX` must be replaced with the URL address where the Neurobagel federation API will be accessed:
+   Replace `http://XX.XX.XX.XX` with the full URL where the Neurobagel federation API will be accessed, including the protocol (`http://` or `https://`):
 
-    - If you are deploying Neurobagel for yourself or deploying and trying the services **on your local machine only**, 
-   you can use `NB_API_QUERY_URL=http://localhost:8080`, where `8080` is the [default host port for the federation API](./config.md#environment-variables).
-    - If you are deploying Neurobagel **on a server for other users**, 
-    you must use the IP (and port) or URL intended for your users to access the federation API on the server with.
+    - For local use or testing of the services **on your machine only**: 
+   you can use `NB_API_QUERY_URL=http://localhost:8080` (`8080` is the [default host port for the federation API](./config.md#environment-variables))
+    - For deployment **on a server for other users**: 
+    you must use the IP address with port (e.g., `http://123.45.67.89:8080`) or a domain-based address (e.g., `https://mysite.com/federation`) of the federation API that is reachable from other users' computers
+
 
 ??? info "On a machine with an ARM-based processor?"
     The default Docker Compose recipe assumes that you are launching Neurobagel on a machine with x86_64 (AMD/Intel) architecture (most Linux or Windows machines). 
