@@ -208,30 +208,55 @@ to clone and minimally configure the services in the [Neurobagel deployment reci
 
 2. Ensure you have already registered your desired domain(s) with a DNS provider and configured the DNS settings to resolve correctly to your host machine.
 
-3. Make sure that ports 80 and 443 are open on the host machine where your Docker Compose stack is running
-because these are the ports your reverse proxy will listen on for incoming HTTP and HTTPS traffic.
+3. Ensure ports 80 and 443 are open on the host machine where your Docker Compose stack is running.
+These are the ports your reverse proxy will listen on for incoming HTTP and HTTPS traffic.
 
 === "NGINX"
 
-    4. In your local `docker-compose-nginx.yml` file, 
-    change the default value for the following variables in the `environment` section of each `service` 
-    (i.e. `api`, `federation`, and `query_federation`) 
-    to the custom domain that that service will use:
+    4. In your local `docker-compose-nginx.yml` file, for **each** service
+    (i.e. `api`, `federation`, and `query_federation`),
 
-        - `VIRTUAL_HOST`
-        - `LETSENCRYPT_HOST` (both variables should have the same value)
+        1. Locate the `environment` section for that service 
+        2. Update the value of the following variables to the custom domain that specific service will use:
 
-        ??? warning "Do not include subpaths in the `_HOST` variables"
-            If you intend to host services on different subpaths 
-            (e.g., `myinstitute.org/service1`) instead of different subdomains (e.g., `service1.myinstitute.org`), 
-            **do not include the subpath in the `VIRTUAL_HOST` or `LETSENCRYPT_HOST` value**. 
-            Instead, update the `*_BASE_PATH` variables in the `.env` file for the respective services, e.g., `NB_NAPI_BASE_PATH` for the node API (see the [`.env` docs](config.md#environment-variables) for more details)
+            - `VIRTUAL_HOST`
+            - `LETSENCRYPT_HOST`
+
+            Both variables must have the same value for a given service, and must not include a protocol (`http://` or `https://`).
+        3. (Optional) To host services on different subpaths instead of different subdomains (e.g., `myinstitute.org/service1` instead of `service1.myinstitute.org`), 
+        **do not include the subpath in the `VIRTUAL_HOST` or `LETSENCRYPT_HOST` values**. 
+        Instead, update the corresponding `XXX_BASE_PATH` variables for the services in the `.env` file.
+        The full list of service-specific base path variables can be found [here](config.md#environment-variables).
+
+            For example, to host your node API at `myinstitute.org/node`:
+
+            ``` { .yaml title="docker-compose-nginx.yml" }
+            ...
+            api:
+              environment: 
+                VIRTUAL_HOST: myinstitute.org
+                LETSENCRYPT_HOST: myinstitute.org
+            ...
+            ```
+            
+            ``` { .bash title=".env" }
+            ...
+            NB_NAPI_BASE_PATH="/node"
+            ...
+            ```
 
         ??? warning "Do not change the `VIRTUAL_PATH` and `VIRTUAL_PORT` variables"
             You can look at the [NGINX-Proxy documentation](https://github.com/nginx-proxy/nginx-proxy/tree/main/docs#virtual-hosts-and-ports) to learn more about how these variables work.
 
-    5. In your `.env` file, set the value of `NB_API_QUERY_URL` to the new URL of the federation API 
-    including subpath if applicable (e.g. `myinstitute.org/federate`)
+    5. In your `.env` file, set `NB_API_QUERY_URL` to your custom URL for the **federation API**, including any subpath if used. 
+    This URL must always begin with `https://`.
+
+        Example:
+        ``` { .bash title=".env" }
+        ...
+        NB_API_QUERY_URL="https://myinstitute.org/federate"
+        ...
+        ```
 
     6. Finally, launch your node by explicitly referencing the custom Docker Compose file:
 
