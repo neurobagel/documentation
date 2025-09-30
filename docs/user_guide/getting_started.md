@@ -83,36 +83,42 @@ Docker Compose recipe and template configuration files for setting up a local Ne
 git clone https://github.com/neurobagel/recipes.git
 cd recipes
 ```
-2. Make copies of the template configuration files to edit for your deployment (do not edit the templates themselves)
+2. Make copies of the template configuration files to edit for your deployment (do not edit the `template` files themselves)
 ```bash
 cp template.env .env
 cp local_nb_nodes.template.json local_nb_nodes.json
 ```
+
+    !!! info "Configuring local nodes to federate over"
+        To customize the name for your node as it will appear in the Neurobagel query tool (default: "Local graph 1"),
+        or to federate over more than one local node, see the section on [configuring local nodes for federation](config.md#configuring-local-node-names-and-urls-for-federation).
 
 3. Change the placeholder value of `NB_API_QUERY_URL` in the `.env` file
     
     ```bash
     NB_API_QUERY_URL=http://XX.XX.XX.XX
     ```
-   `http://XX.XX.XX.XX` must be replaced with the URL address where the Neurobagel federation API will be accessed:
+   Replace `http://XX.XX.XX.XX` with the full URL where the Neurobagel federation API will be accessed, including the protocol (`http://` or `https://`):
 
-    - If you are deploying Neurobagel for yourself or deploying and trying the services **on your local machine only**, 
-   you can use `NB_API_QUERY_URL=http://localhost:8080`, where `8080` is the [default host port for the federation API](./config.md#environment-variables).
-    - If you are deploying Neurobagel **on a server for other users**, 
-    you must use the IP (and port) or URL intended for your users to access the federation API on the server with.
-    ??? info "On a machine with an ARM-based processor?"
-        The default Docker Compose recipe assumes that you are launching Neurobagel on a machine with x86_64 (AMD/Intel) architecture (most Linux or Windows machines). 
-        If your machine instead uses ARM-based architecture (e.g., certain Macs), **additionally change the following line in your `docker-compose.yml` file:**
-        ```yml
-            graph:
-                image: "ontotext/graphdb:10.3.1"     
-        ```
-        to
-        ```yml
-            graph:
-                image: "ontotext/graphdb:10.3.1-arm64"        
-        ```
-        You can double check the architecture of your machine in the system settings or using the command `lscpu`.
+    - For local use or testing of the services **on your machine only**: 
+   you can use `NB_API_QUERY_URL=http://localhost:8080` (`8080` is the [default host port for the federation API](./config.md#environment-variables))
+    - For deployment **on a server for other users**: 
+    you must use the IP address with port (e.g., `http://123.45.67.89:8080`) or a domain-based address (e.g., `https://mysite.com/federation`) of the federation API that is reachable from other users' computers
+
+
+??? info "On a machine with an ARM-based processor?"
+    The default Docker Compose recipe assumes that you are launching Neurobagel on a machine with x86_64 (AMD/Intel) architecture (most Linux or Windows machines). 
+    If your machine instead uses ARM-based architecture (e.g., certain Macs), **additionally change the following line in your `docker-compose.yml` file:**
+    ```yml
+        graph:
+            image: "ontotext/graphdb:10.3.1"     
+    ```
+    to
+    ```yml
+        graph:
+            image: "ontotext/graphdb:10.3.1-arm64"        
+    ```
+    You can double check the architecture of your machine in the system settings or using the command `lscpu`.
 
 #### If you have already have graph-ready data
 At this point, if you have already [generated Neurobagel JSONLD data files](cli.md), you can proceed with the below additional steps before launching Neurobagel:

@@ -128,19 +128,28 @@ For security and best practice purposes, we recommend changing the following val
 
 ## Configuring local node names and URLs for federation
 
-When using a deployment profile that provides federation (i.e., includes the federation API), you can define
-the URLs and display names of the **node APIs** of any local nodes you wish to federate over in a file called `local_nb_nodes.json`. 
-This file is used by the f-API.
+When using a deployment profile that provides federation (i.e., includes the federation API), 
+you can configure the URLs and display names of the **node APIs** of any local nodes you wish to federate over in the file `local_nb_nodes.json`. 
+This file is read by the f-API.
 
 Each node to be federated over is defined using a dictionary with two key-value pairs:
 ```json
 {
-  "NodeName": "<display name for the node>",
-  "ApiURL": "<URL of the node API exposed for that node>"
+  "NodeName": "<DISPLAY NAME OF NODE>",
+  "ApiURL": "<URL OF NODE API>"
 }
 ```
 
-Values of `NodeName` are arbitrary. Multiple nodes must be wrapped in a list `[]`.  
+!!! warning "`ApiURL` must include the protocol (`http://` or `https://`)"
+
+If you are only running a single node, or only want to federate across your local node and the public Neurobagel nodes, 
+you **do not need** to modify the default `ApiURL` in `local_nb_nodes.json`.
+However, you may want to customize your node's `NodeName`.
+
+Notes:
+
+- `NodeName` can be any string, and determines how the node appears in the node selection dropdown in the query tool
+- To add more local nodes to federate over, simply add more dictionaries to `local_nb_nodes.json`, and ensure the dictionaries are wrapped in a list `[]` (see example below)
 
 !!! Info "Nodes that do not need to be manually configured"
     We maintain a list of publicly accessible Neurobagel nodes 
@@ -148,14 +157,14 @@ Values of `NodeName` are arbitrary. Multiple nodes must be wrapped in a list `[]
     By default, every new f-API will look up this list
     on startup and include it in its internal list of nodes to
     federate over (this can be disabled using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables)).
-    This also means that **you do not have to explicitly add these public nodes** to your `local_nb_nodes.json` file.
+    This means that **you do not have to manually add these public nodes** to your `local_nb_nodes.json` file.
 
-Example: Assume there are two local nodes already running on different servers of your institutional network, and you want to set up federation across both nodes:
+**Example:** Assume there are two local nodes already running on different servers of your institutional network:
 
-- a node named `"My Institute"` running on your local computer (localhost), on port `8000` and 
-- a node named `"Node Recruitment"` running on a different computer with the local IP `192.168.0.1`, listening on the default http port `80`. 
+- a node named `"My Institute"` running on your local computer (`localhost`), on port `8000` 
+- a node named `"Node Recruitment"` running on a different computer with the local IP `192.168.0.1`, listening on the default HTTP port `80` 
 
-You would configure your `local_nb_nodes.json` as follows:
+To set up federation across both nodes, you would configure `local_nb_nodes.json` as follows:
 ``` {.json title="local_nb_nodes.json"}
 [
   {
@@ -169,16 +178,16 @@ You would configure your `local_nb_nodes.json` as follows:
 ]
 ```
 
-!!! warning "Do not use `localhost`/`127.0.0.1` in `local_nb_nodes.json`"
+??? warning "Do not use `localhost`/`127.0.0.1` in `local_nb_nodes.json`"
 
     Even if the local node API(s) you are federating over are running 
     on the same host machine as your federation API, 
-    you cannot use `localhost` for the `"ApiURL"` and must instead provide a network-accessible URL, IP address, or container name.
+    you cannot use `localhost` for the `ApiURL` and must instead provide a network-accessible URL, IP address, or container name.
     For an example, see the configuration for the node called `"My Institute"` above.
 
-**Ensure that you not accidentally provide the address of your actual federation API for `"ApiURL"`!** This will cause an infinite request loop that will likely overload your service (as an f-API will be repeatedly making requests to itself).
-
-To add one or more local nodes to the list of nodes known to your f-API, simply add more dictionaries to `local_nb_nodes.json`.
+??? warning "Be careful to not use your federation API's own address for `ApiURL`!"
+    
+    This will cause an infinite request loop that will likely overload your service, as an f-API will be repeatedly making requests to itself.
 
 ## Behind a reverse proxy
 
@@ -202,30 +211,55 @@ to clone and minimally configure the services in the [Neurobagel deployment reci
 
 2. Ensure you have already registered your desired domain(s) with a DNS provider and configured the DNS settings to resolve correctly to your host machine.
 
-3. Make sure that ports 80 and 443 are open on the host machine where your Docker Compose stack is running
-because these are the ports your reverse proxy will listen on for incoming HTTP and HTTPS traffic.
+3. Ensure ports 80 and 443 are open on the host machine where your Docker Compose stack is running.
+These are the ports your reverse proxy will listen on for incoming HTTP and HTTPS traffic.
 
 === "NGINX"
 
-    4. In your local `docker-compose-nginx.yml` file, 
-    change the default value for the following variables in the `environment` section of each `service` 
-    (i.e. `api`, `federation`, and `query_federation`) 
-    to the custom domain that that service will use:
+    4. In your local `docker-compose-nginx.yml` file, for **each** service
+    (i.e. `api`, `federation`, and `query_federation`),
 
-        - `VIRTUAL_HOST`
-        - `LETSENCRYPT_HOST` (both variables should have the same value)
+        1. Locate the `environment` section for that service 
+        2. Update the value of the following variables to the custom domain that specific service will use:
 
-        ??? warning "Do not include subpaths in the `_HOST` variables"
-            If you intend to host services on different subpaths 
-            (e.g., `myinstitute.org/service1`) instead of different subdomains (e.g., `service1.myinstitute.org`), 
-            **do not include the subpath in the `VIRTUAL_HOST` or `LETSENCRYPT_HOST` value**. 
-            Instead, update the `*_BASE_PATH` variables in the `.env` file for the respective services, e.g., `NB_NAPI_BASE_PATH` for the node API (see the [`.env` docs](config.md#environment-variables) for more details)
+            - `VIRTUAL_HOST`
+            - `LETSENCRYPT_HOST`
+
+            Both variables must have the same value for a given service, and must not include a protocol (`http://` or `https://`).
+        3. (Optional) To host services on different subpaths instead of different subdomains (e.g., `myinstitute.org/service1` instead of `service1.myinstitute.org`), 
+        **do not include the subpath in the `VIRTUAL_HOST` or `LETSENCRYPT_HOST` values**. 
+        Instead, update the corresponding `XXX_BASE_PATH` variables for the services in the `.env` file.
+        The full list of service-specific base path variables can be found [here](config.md#environment-variables).
+
+            For example, to host your node API at `myinstitute.org/node`:
+
+            ``` { .yaml title="docker-compose-nginx.yml" }
+            ...
+            api:
+              environment: 
+                VIRTUAL_HOST: myinstitute.org
+                LETSENCRYPT_HOST: myinstitute.org
+            ...
+            ```
+            
+            ``` { .bash title=".env" }
+            ...
+            NB_NAPI_BASE_PATH="/node"
+            ...
+            ```
 
         ??? warning "Do not change the `VIRTUAL_PATH` and `VIRTUAL_PORT` variables"
             You can look at the [NGINX-Proxy documentation](https://github.com/nginx-proxy/nginx-proxy/tree/main/docs#virtual-hosts-and-ports) to learn more about how these variables work.
 
-    5. In your `.env` file, set the value of `NB_API_QUERY_URL` to the new URL of the federation API 
-    including subpath if applicable (e.g. `myinstitute.org/federate`)
+    5. In your `.env` file, set `NB_API_QUERY_URL` to your custom URL for the **federation API**, including any subpath if used. 
+    This URL must always begin with `https://`.
+
+        Example:
+        ``` { .bash title=".env" }
+        ...
+        NB_API_QUERY_URL="https://myinstitute.org/federate"
+        ...
+        ```
 
     6. Finally, launch your node by explicitly referencing the custom Docker Compose file:
 
