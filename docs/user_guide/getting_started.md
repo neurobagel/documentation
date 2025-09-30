@@ -83,7 +83,7 @@ Docker Compose recipe and template configuration files for setting up a local Ne
 git clone https://github.com/neurobagel/recipes.git
 cd recipes
 ```
-2. Make copies of the template configuration files to edit for your deployment (do not edit the actual template files!)
+2. Make copies of the template configuration files to edit for your deployment (do not edit the `template` files themselves)
 ```bash
 cp template.env .env
 cp local_nb_nodes.template.json local_nb_nodes.json

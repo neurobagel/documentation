@@ -139,14 +139,15 @@ Each node to be federated over is defined using a dictionary with two key-value 
 }
 ```
 
+!!! warning "`ApiURL` must include the protocol (`http://` or `https://`)"
+
 If you are only running a single node, or only want to federate across your local node and the public Neurobagel nodes, you **do not need** to modify the default `ApiURL` in `local_nb_nodes.json`.
 However, you may want to customize your node's `NodeName`.
 
 Notes:
 
 - `NodeName` can be any string, and determines how the node appears in the node selection dropdown in the query tool
-- `ApiURL` must include the protocol (`http://` or `https://`)
-- To specify multiple nodes, wrap the dictionaries in a list `[]`
+- To add more local nodes to federate over, simply add more dictionaries to `local_nb_nodes.json`, and ensure the dictionaries are wrapped in a list `[]` (see example below)
 
 !!! Info "Nodes that do not need to be manually configured"
     We maintain a list of publicly accessible Neurobagel nodes 
@@ -185,8 +186,6 @@ To set up federation across both nodes, you would configure `local_nb_nodes.json
 ??? warning "Be careful to not use your federation API's own address for `ApiURL`!"
     
     This will cause an infinite request loop that will likely overload your service, as an f-API will be repeatedly making requests to itself.
-
-To add one or more local nodes to the list of nodes known to your f-API, simply add more dictionaries to `local_nb_nodes.json`.
 
 ## Behind a reverse proxy
 
