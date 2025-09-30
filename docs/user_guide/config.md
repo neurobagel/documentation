@@ -128,7 +128,8 @@ For security and best practice purposes, we recommend changing the following val
 
 ## Configuring local node names and URLs for federation
 
-When using a deployment profile that provides federation (i.e., includes the federation API), you can configure the URLs and display names of the **node APIs** of any local nodes you wish to federate over in the file `local_nb_nodes.json`. 
+When using a deployment profile that provides federation (i.e., includes the federation API), 
+you can configure the URLs and display names of the **node APIs** of any local nodes you wish to federate over in the file `local_nb_nodes.json`. 
 This file is read by the f-API.
 
 Each node to be federated over is defined using a dictionary with two key-value pairs:
@@ -141,7 +142,8 @@ Each node to be federated over is defined using a dictionary with two key-value 
 
 !!! warning "`ApiURL` must include the protocol (`http://` or `https://`)"
 
-If you are only running a single node, or only want to federate across your local node and the public Neurobagel nodes, you **do not need** to modify the default `ApiURL` in `local_nb_nodes.json`.
+If you are only running a single node, or only want to federate across your local node and the public Neurobagel nodes, 
+you **do not need** to modify the default `ApiURL` in `local_nb_nodes.json`.
 However, you may want to customize your node's `NodeName`.
 
 Notes:
