@@ -83,11 +83,15 @@ Docker Compose recipe and template configuration files for setting up a local Ne
 git clone https://github.com/neurobagel/recipes.git
 cd recipes
 ```
-2. Make copies of the template configuration files to edit for your deployment (do not edit the templates themselves)
+2. Make copies of the template configuration files to edit for your deployment (do not edit the actual template files!)
 ```bash
 cp template.env .env
 cp local_nb_nodes.template.json local_nb_nodes.json
 ```
+
+    !!! info "Configuring local nodes to federate over"
+        To customize the name for your node as it will appear in the Neurobagel query tool (default: "Local graph 1"),
+        or to federate over more than one local node, see the section on [configuring local nodes for federation](config.md#configuring-local-node-names-and-urls-for-federation).
 
 3. Change the placeholder value of `NB_API_QUERY_URL` in the `.env` file
     
