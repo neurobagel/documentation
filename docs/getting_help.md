@@ -19,7 +19,7 @@ please either:
 
 If you encounter a problem while deploying a Neurobagel node,
 first make sure you are following our [getting started guide](user_guide/getting_started.md) correctly.
-If your problem persists, please create a deployment issue on our [recipe repository](https://github.com/neurobagel/recipes/issues/new?template=deployment_issue.yml)
+If your problem persists, please open a [node deployment issue](https://github.com/neurobagel/recipes/issues/new?template=deployment_issue.yml) on GitHub.
 
 ## Report a bug or request a feature
 
