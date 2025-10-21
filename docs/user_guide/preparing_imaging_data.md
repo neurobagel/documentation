@@ -5,7 +5,7 @@ We refer to this as a BIDS metadata table.
 
 If your dataset is already in [BIDS](https://bids-specification.readthedocs.io/en/stable/), the Neurobagel CLI provides a [`bids2tsv`](cli.md#generate-a-bids-metadata-table) command that will automatically generate this table for you.
 
-The BIDS metadata table lists each subject's available NIfTI imaging files and modality information, using [BIDS](https://bids-specification.readthedocs.io/en/stable/) naming conventions, in the format shown below.
+The BIDS metadata table lists each subject's available imaging files and modality information, using [BIDS](https://bids-specification.readthedocs.io/en/stable/) naming conventions, in the format shown below.
 
 ## Example BIDS metadata table
 sub | ses | suffix | path
@@ -21,7 +21,7 @@ sub-02 | ses-01 | bold | /data/bids-examples/synthetic/sub-02/ses-01/func/sub-02
 The table must include at least four columns named exactly `sub`, `ses`, `suffix`, and `path` (adapted from [BIDS](https://bids-specification.readthedocs.io/en/stable/) entities). 
 Additional columns are allowed but will be ignored by Neurobagel.
 
-Each row of the table indexes a single NIfTI (`.nii` or `.nii.gz`) file with the following metadata:
+Each row of the table indexes a single image file with the following metadata:
 
 - `sub` (required)
     - Subject ID in the format `sub-<label>`
@@ -30,9 +30,30 @@ Each row of the table indexes a single NIfTI (`.nii` or `.nii.gz`) file with the
     - Session ID in the format `ses-<label>`, if applicable
     - Example: `ses-01`
 - `suffix` (required)
-    - BIDS suffix corresponding to the image modality (or sequence) of the NIfTI file 
-    - For more information, see the "Modality specific files" section of the [BIDS specification](https://bids-specification.readthedocs.io/en/stable/) or consult this [master list](https://github.com/bids-standard/bids-specification/blob/master/src/schema/objects/suffixes.yaml) of recognized BIDS image suffixes
+    - BIDS suffix corresponding to the modality (or sequence) of the image file 
+    - See also [Supported BIDS imaging modalities](#supported-bids-imaging-modalities)
     - Example: `T1w`
 - `path` (required)
-    - Path to the NIfTI file, ending with the extension `.nii` or `.nii.gz`
+    - Path to the image file
     - Example: `/data/pd/qpn/sub-PD123/ses-01/anat/sub-PD123_ses-01_T1w.nii.gz`
+
+
+## Supported BIDS imaging modalities
+
+Neurobagel currently supports a subset of MRI modalities included in the [BIDS specification](https://bids-specification.readthedocs.io/en/stable/),
+but we plan to expand this list for closer alignment with BIDS in the future.
+
+Supported modalities are listed below using their BIDS suffixes:
+
+- `dwi`
+- `T1w`
+- `T2w`
+- `bold`
+- `asl`
+- `eeg`
+- `meg`
+- `pet`
+
+!!! info
+    For more information, see also the "Modality specific files" section of the [BIDS specification](https://bids-specification.readthedocs.io/en/stable/) 
+    or consult this [master list](https://github.com/bids-standard/bids-specification/blob/master/src/schema/objects/suffixes.yaml) of image suffixes supported by BIDS.
