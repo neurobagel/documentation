@@ -65,6 +65,36 @@ If no profile is specified, `docker compose up -d` will start the services for t
 
 Take a look at the [getting started guide](getting_started.md) for more information setting up for a first launch.
 
+### Default ports for services
+
+!!! warning "Don't expose service ports directly on a production server"
+
+    We're providing the default ports as a reference for local deployment, testing, and for scenarios
+    where you do not want to use the provided deployment reverse-proxy deployment recipes.
+    
+    In all other scenarios, we **strongly recommend** that you do not publily expose service ports
+    directly on your server and instead use our reverse-proxy deployment recipe.
+
+Our services run inside Docker containers and therefore have both an *internal port* that they listen
+to *inside their Docker container* and optionally an external or *host port* that they listen to
+*on the host machine*. Here we list the default *host ports* for all services as they would be
+configured in a fresh following our [getting started guide](getting_started.md). The *host ports*
+for all services can be configured with [environment variables](#environment-variables)
+in the `.env` file:
+
+- `api` (the node API)
+    - environment variable: `NB_NAPI_PORT_HOST`
+    - default: `8000`
+- `federation` (the federation API)
+    - environment variable: `NB_FAPI_PORT_HOST`
+    - default: `8080`
+- `query_tool` (the graphical query web interface)
+    - environment variable: `NB_QUERY_PORT_HOST`
+    - default: `3000`
+- `graph` (the internal graph database)
+    - environment variable: `NB_GRAPH_PORT_HOST`
+    - default: `7200`
+
 ## Environment variables
 
 Below are all the possible Neurobagel environment variables that can be set in `.env`.
