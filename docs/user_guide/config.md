@@ -67,13 +67,15 @@ Take a look at the [getting started guide](getting_started.md) for more informat
 
 ### Default ports for services
 
-!!! warning "Don't expose service ports directly on a production server"
+??? warning "Don't publicly expose service ports on a production server"
 
     We're providing the default ports as a reference for local deployment, testing, and for scenarios
-    where you do not want to use the provided deployment reverse-proxy deployment recipes.
+    where you do not want to use the
+    [provided deployment reverse-proxy deployment recipes](#behind-a-reverse-proxy).
     
     In all other scenarios, we **strongly recommend** that you do not publily expose service ports
-    directly on your server and instead use our reverse-proxy deployment recipe.
+    directly on your server and instead use our
+    [reverse-proxy deployment recipe](#behind-a-reverse-proxy).
 
 Our services run inside Docker containers and therefore have both an *internal port* that they listen
 to *inside their Docker container* and optionally an external or *host port* that they listen to
