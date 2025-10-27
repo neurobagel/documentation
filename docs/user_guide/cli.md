@@ -202,8 +202,12 @@ Run the command below to generate harmonized subject-level phenotypic data for y
         --pheno "Dataset1_pheno.tsv" \
         --dictionary "Dataset1_pheno.json" \
         --name "Dataset 1" \
+        --portal "https://www.mydatasetportal.org/dataset1" \ # (1)!
         --output "Dataset1.jsonld"
     ```
+    
+    1. The website/URL you enter here will be shown as a clickable link when this 
+    dataset is discovered in the query tool
 
 === "Docker"
 
@@ -212,8 +216,12 @@ Run the command below to generate harmonized subject-level phenotypic data for y
         --pheno "$PWD/Dataset1_pheno.tsv" \
         --dictionary "$PWD/Dataset1_pheno.json" \
         --name "Dataset 1" \
+        --portal "https://www.mydatasetportal.org/dataset1" \ # (1)!
         --output "$PWD/Dataset1.jsonld"
     ```
+
+    1. The website/URL you enter here will be shown as a clickable link when this 
+    dataset is discovered in the query tool
 
 === "Singularity"
 
@@ -222,8 +230,12 @@ Run the command below to generate harmonized subject-level phenotypic data for y
         --pheno "$PWD/Dataset1_pheno.tsv" \
         --dictionary "$PWD/Dataset1_pheno.json" \
         --name "Dataset 1" \
+        --portal "https://www.mydatasetportal.org/dataset1" \ # (1)!
         --output "$PWD/Dataset1.jsonld"
     ```
+
+     1. The website/URL you enter here will be shown as a clickable link when this 
+    dataset is discovered in the query tool
 
 #### 2. Process raw imaging metadata using the `bids` command (optional)
 
