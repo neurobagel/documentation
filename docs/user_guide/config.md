@@ -67,6 +67,9 @@ Take a look at the [getting started guide](getting_started.md) for more informat
 
 ### Default ports for services
 
+In some scenarios, you may want to know what port each service is listening on by default
+or how to change these ports.
+
 ??? warning "Don't publicly expose service ports on a production server"
 
     We're providing the default ports as a reference for local deployment, testing, and for scenarios
