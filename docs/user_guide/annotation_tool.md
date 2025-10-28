@@ -88,7 +88,7 @@ For a column containing continuous data, you can:
     - Note: the column-level view will only display unique values in the column
 
 ??? info "Units vs. Format"
-    **Format** refers to how the numbers in your data are structured (e.g., `float` for decimal numbers like 25.5, `int` for whole numbers like 25) whereas **Units** describe what the numbers represent (e.g., "years" for age, "points" for test scores, "mg/dL" for measurements).
+    **Format** refers to how the numeric values in your data are expressed (e.g., `float` for decimal numbers like 25.5, `range` for numeric ranges like 30-35) whereas **Units** describe what the numbers represent (e.g., "years" for age, "points" for test scores, "mg/dL" for measurements).
 
 ### Columns with categorical data
 
