@@ -67,9 +67,6 @@ Take a look at the [getting started guide](getting_started.md) for more informat
 
 ### Default host ports for services
 
-In some scenarios, you may want to know what port each service is listening on by default
-or how to change these ports.
-
 ??? warning "Don't publicly expose service ports on a production server"
 
     We're providing the default ports as a reference for local deployment, testing, and for scenarios
@@ -87,16 +84,16 @@ along with the [environment variables](#environment-variables) that can be used 
 
 - `api` (the node API)
     - environment variable: `NB_NAPI_PORT_HOST`
-    - default: `8000`
+    - default host port: `8000`
 - `federation` (the federation API)
     - environment variable: `NB_FAPI_PORT_HOST`
-    - default: `8080`
+    - default host port: `8080`
 - `query_tool` (the graphical query web interface)
     - environment variable: `NB_QUERY_PORT_HOST`
-    - default: `3000`
+    - default host port: `3000`
 - `graph` (the internal graph database)
     - environment variable: `NB_GRAPH_PORT_HOST`
-    - default: `7200`
+    - default host port: `7200`
 
 ## Environment variables
 
