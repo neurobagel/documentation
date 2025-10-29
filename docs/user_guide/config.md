@@ -65,7 +65,7 @@ If no profile is specified, `docker compose up -d` will start the services for t
 
 Take a look at the [getting started guide](getting_started.md) for more information setting up for a first launch.
 
-### Default ports for services
+### Default host ports for services
 
 In some scenarios, you may want to know what port each service is listening on by default
 or how to change these ports.
@@ -74,18 +74,16 @@ or how to change these ports.
 
     We're providing the default ports as a reference for local deployment, testing, and for scenarios
     where you do not want to use the
-    [provided deployment reverse-proxy deployment recipes](#behind-a-reverse-proxy).
+    [provided reverse proxy deployment recipes](#behind-a-reverse-proxy).
     
-    In all other scenarios, we **strongly recommend** that you do not publily expose service ports
-    directly on your server and instead use our
-    [reverse-proxy deployment recipe](#behind-a-reverse-proxy).
+    Where possible, we **strongly recommend** that you avoid opening service ports to a public network
+    and instead use our
+    [reverse proxy deployment recipe](#behind-a-reverse-proxy).
 
-Our services run inside Docker containers and therefore have both an *internal port* that they listen
-to *inside their Docker container* and optionally an external or *host port* that they listen to
-*on the host machine*. Here we list the default *host ports* for all services as they would be
-configured in a fresh following our [getting started guide](getting_started.md). The *host ports*
-for all services can be configured with [environment variables](#environment-variables)
-in the `.env` file:
+Neurobagel node services run inside Docker containers. Each service listens on an *internal port* within its container and 
+exposes a *host port* that makes it accessible from the host machine. Below, we list the default *host ports* for each service
+when running in a fresh deployment following our [getting started guide](getting_started.md), 
+along with the [environment variables](#environment-variables) that can be used to configure them.
 
 - `api` (the node API)
     - environment variable: `NB_NAPI_PORT_HOST`
