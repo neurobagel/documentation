@@ -39,6 +39,12 @@ Each column in your uploaded table is represented as a card on this page. For ea
     1. When your column doesn't match any standardized variable
     2. When your column matches the "Assessment tool" standardized variable (which does not have a predefined data type since it can represent multi-column measures)
 
+#### If your dataset has imaging (BIDS) data
+
+The "Participant ID" standardized variable **must** be mapped to a column that contains the BIDS IDs for subjects, following the BIDS naming scheme `sub-<label>`.
+
+For more information, see [this section](data_prep.md#if-your-dataset-has-imaging-bids-data) on preparing the phenotypic data table for a BIDS dataset.
+
 ### 2.1 Multi-column measure annotation
 
 !!! info
@@ -82,7 +88,7 @@ For a column containing continuous data, you can:
     - Note: the column-level view will only display unique values in the column
 
 ??? info "Units vs. Format"
-    **Format** refers to how the numbers in your data are structured (e.g., `float` for decimal numbers like 25.5, `int` for whole numbers like 25) whereas **Units** describe what the numbers represent (e.g., "years" for age, "points" for test scores, "mg/dL" for measurements).
+    **Format** refers to how the numeric values in your data are expressed (e.g., `float` for decimal numbers like 25.5, `range` for numeric ranges like 30-35) whereas **Units** describe what the numbers represent (e.g., "years" for age, "points" for test scores, "mg/dL" for measurements).
 
 ### Columns with categorical data
 
