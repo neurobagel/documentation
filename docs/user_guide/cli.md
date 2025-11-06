@@ -23,11 +23,11 @@ The resulting harmonized data can be directly integrated into a Neurobagel graph
     docker pull neurobagel/bagelcli
     ```
 
-=== "Singularity"
+=== "Apptainer"
 
-    Build a Singularity image for the Neurobagel CLI using the Docker Hub image:  
+    Build a Apptainer image for the Neurobagel CLI using the Docker Hub image:  
     ```bash
-    singularity pull bagel.sif docker://neurobagel/bagelcli
+    apptainer pull bagel.sif docker://neurobagel/bagelcli
     ```
 
 ## Input files
@@ -63,11 +63,11 @@ To view the general CLI help and information about the available commands:
     docker run --rm neurobagel/bagelcli
     ```
 
-=== "Singularity"
+=== "Apptainer"
 
     ```bash
-    # This is a shorthand for: singularity run bagel.sif --help
-    singularity run bagel.sif
+    # This is a shorthand for: apptainer run bagel.sif --help
+    apptainer run bagel.sif
     ```
 
 ### Generate a BIDS metadata table
@@ -106,9 +106,9 @@ If your BIDS directory is located at `/data/public/Dataset1_bids` and you want t
         When running the CLI in a container, you must [mount](https://docs.docker.com/engine/storage/bind-mounts/) any input or output directories to directory paths within the container so that the app can access them. In your CLI options, always refer to the **container paths**. 
         In the example above, container paths are set to match the host paths for simplicity.
 
-=== "Singularity"
+=== "Apptainer"
     ```bash
-    singularity run --no-home \
+    apptainer run --no-home \
         -B "/data/public,/home/Neurobagel" \
         bagel.sif bids2tsv \
         --bids-dir "/data/public/Dataset1_bids" \
@@ -138,7 +138,7 @@ The Neurobagel CLI provides different commands for generating different types of
 - `bids`
 - `derivatives`
 
-If you are using Docker or Singularity, we strongly recommend placing all the [input files](#input-files) for your dataset into a single directory.
+If you are using Docker or Apptainer, we strongly recommend placing all the [input files](#input-files) for your dataset into a single directory.
 This avoids the need to mount multiple paths into the container when running CLI commands.
 
 #### Viewing help for a command
@@ -155,10 +155,10 @@ To view the command-line options for a specific command, such as `pheno`:
     docker run --rm neurobagel/bagelcli pheno -h
     ```
 
-=== "Singularity"
+=== "Apptainer"
 
     ```bash
-    singularity run bagel.sif pheno -h
+    apptainer run bagel.sif pheno -h
     ```
 
 **Example:**
@@ -223,10 +223,10 @@ Run the command below to generate harmonized subject-level phenotypic data for y
     1. The website/URL you enter here will be shown as a clickable link when this 
     dataset is discovered in the query tool
 
-=== "Singularity"
+=== "Apptainer"
 
     ```bash
-    singularity run --no-home -B $PWD bagel.sif pheno \
+    apptainer run --no-home -B $PWD bagel.sif pheno \
         --pheno "$PWD/Dataset1_pheno.tsv" \
         --dictionary "$PWD/Dataset1_pheno.json" \
         --name "Dataset 1" \
@@ -261,10 +261,10 @@ If you have a [BIDS metadata table](#generate-a-bids-metadata-table), run this c
         --overwrite
     ```
 
-=== "Singularity"
+=== "Apptainer"
 
     ```bash
-    singularity run --no-home -B $PWD bagel.sif bids \
+    apptainer run --no-home -B $PWD bagel.sif bids \
         --jsonld-path "$PWD/Dataset1.jsonld" \
         --bids-table "$PWD/Dataset1_bids.tsv" \
         --output "$PWD/Dataset1.jsonld" \
@@ -294,10 +294,10 @@ If you have a [processing status file from Nipoppy](https://nipoppy.readthedocs.
         --overwrite
     ```
 
-=== "Singularity"
+=== "Apptainer"
 
     ```bash
-    singularity run --no-home -B $PWD bagel.sif derivatives \
+    apptainer run --no-home -B $PWD bagel.sif derivatives \
         --jsonld-path "$PWD/Dataset1.jsonld" \
         --tabular "$PWD/Dataset1_proc_status.tsv" \
         --output "$PWD/Dataset1.jsonld" \
@@ -315,7 +315,7 @@ The resulting JSONLD is ready to upload to a Neurobagel graph database.
 
 ### Troubleshooting
 
-#### `File or directory does not exist` error when using Docker/Singularity
+#### `File or directory does not exist` error when using Docker/Apptainer
 
 This error usually means the container cannot access your input files because the directories were not mounted correctly.
 
@@ -331,13 +331,13 @@ The examples assume you are running the CLI from inside the directory containing
 
     When passing file paths to the CLI, always use the **absolute path inside the container** to avoid confusion.
 
-=== "Singularity"
+=== "Apptainer"
 
     ```bash
-    singularity run --no-home -B $PWD bagel.sif ...
+    apptainer run --no-home -B $PWD bagel.sif ...
     ```
 
-    However, if your inputs are located in a different directory or spread across multiple directories, you must [mount](https://docs.docker.com/engine/storage/bind-mounts/) each directory explicitly using the Singularity option `-B /path/on/host:/path/in/container`.
+    However, if your inputs are located in a different directory or spread across multiple directories, you must [mount](https://docs.docker.com/engine/storage/bind-mounts/) each directory explicitly using the Apptainer option `-B /path/on/host:/path/in/container`.
 
     When passing file paths to the CLI, always use the **absolute path inside the container** to avoid confusion.
 
@@ -361,10 +361,10 @@ To upgrade to the latest version of the data model:
         docker pull neurobagel/bagelcli
         ```
 
-    === "Singularity"
+    === "Apptainer"
 
         ```bash
-        singularity pull bagel.sif docker://neurobagel/bagelcli
+        apptainer pull bagel.sif docker://neurobagel/bagelcli
         ```
 
 2. If you have an existing Neurobagel graph database, we recommend regenerating and [reuploading](maintaining.md#updating-the-data-in-your-graph) all existing `.jsonld` files in your database using the latest CLI version.
