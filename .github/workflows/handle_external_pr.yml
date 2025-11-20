@@ -12,6 +12,8 @@ jobs:
     # write access to the repo.
     if: github.event.pull_request.head.repo.full_name != github.repository
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
 
     steps:
       - name: Label pull request with "_community"
@@ -22,6 +24,8 @@ jobs:
   handle_precommit_pr:
     if: contains(github.event.pull_request.title, '[pre-commit.ci]')
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     
     steps:
       - name: Label pull request with "_bot"
