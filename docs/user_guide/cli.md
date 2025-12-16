@@ -39,6 +39,7 @@ To run the CLI on a dataset, you will need the following files:
 <div class="annotate" markdown>
 - [ ] [A phenotypic TSV](./data_prep.md)
 - [ ] [A Neurobagel JSON data dictionary](../data_models/dictionaries.md) for the TSV
+- [ ] [A dataset description JSON](./dataset_description.md) for the dataset
 - [ ] (Optional) A valid [BIDS metadata table](preparing_imaging_data.md), if subjects have neuroimaging data available (1)
 - [ ] (Optional) A TSV of subject statuses for any image processing pipelines that have been run, following the [Nipoppy processing status file schema](https://nipoppy.readthedocs.io/en/latest/schemas/index.html#processing-status-file) (2)
 
