@@ -9,6 +9,7 @@ nav:
     - Configuring a node: "config.md"
     - Maintaining a node: "maintaining.md"
   - Annotating your data:
+    - Preparing the dataset description: "dataset_description.md"
     - Preparing phenotypic data: "data_prep.md"
     - Annotating phenotypic data: "annotation_tool.md"
     - Preparing imaging data: "preparing_imaging_data.md"
