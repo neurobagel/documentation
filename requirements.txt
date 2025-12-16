@@ -1,5 +1,6 @@
 mkdocs-awesome-nav
 mkdocs-include-markdown-plugin[cache]
+mkdocs-madlibs
 mkdocs-material>=9.5.0
 mkdocs-open-in-new-tab
 mkdocs-redirects
