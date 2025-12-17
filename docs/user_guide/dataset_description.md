@@ -76,7 +76,7 @@ ReferencesAndLinks* | RECOMMENDED | list of strings | List of links or reference
 Keywords* | RECOMMENDED | list of strings | List of keywords describing the content or subject matter of the dataset.
 RepositoryURL | RECOMMENDED | string | URL to a repository where the dataset can be downloaded or retrieved from (e.g., DataLad, Zenodo, GitHub).
 AccessInstructions | RECOMMENDED | string | Description of how to access the data.
-AccessType | RECOMMENDED | string, one of: `"public"`, `"registered"`, `"restricted"` | Level of requirements for dataset access. `public`: Immediately accessible without registration, authentication, or approval. `registered`: Requires authentication or agreement to basic terms of use, but no formal application or review. `restricted`: Formal approval or review of application/request required before access is granted.
+AccessType | RECOMMENDED | string, one of: `"public"`, `"registered"`, `"restricted"` | Level of requirements for accessing the data. `public`: Immediately accessible without registration, authentication, or approval. `registered`: Requires authentication or agreement to basic terms of use, but no formal application or review. `restricted`: Requires formal approval or review of a data access request.
 AccessEmail | RECOMMENDED | string (email) | Primary email for access requests.
 AccessLink | RECOMMENDED | string | Primary link for access requests or information.
 
