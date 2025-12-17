@@ -216,37 +216,42 @@ To set up federation across both nodes, you would configure `local_nb_nodes.json
     For an example, see the configuration for the node called `"My Institute"` above.
 
 ??? warning "Be careful to not use your federation API's own address for `ApiURL`!"
-    
+
     This will cause an infinite request loop that will likely overload your service, as an f-API will be repeatedly making requests to itself.
 
-## Behind a reverse proxy
+## Production deployment
 
-!!! warning "These steps are for advanced users and production deployments"
+!!! note "The following section is intended for system administrators"
 
-To make your Neurobagel node services (node API, query tool, etc.) accessible via custom URLs
-(e.g. `https://www.myfirstnode.org/query`) rather than a server IP address and port
-(e.g. `http://192.168.0.1:3000`) as shown in in the [getting started guide](getting_started.md), 
-you will need to set up a reverse proxy such as [NGINX](https://nginx.org/en/docs/beginners_guide.html) or
-[Caddy](https://caddyserver.com/docs/quick-starts/reverse-proxy). 
-This will route incoming requests for custom URLs to the Neurobagel services deployed on your server. 
+This section explains how you make your Neurobagel node services
+(node API, query tool, etc.) accessible on a specific
+[domain name](https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Web_mechanics/What_is_a_domain_name)
+(e.g. `https://www.myfirstnode.org/query`) rather than your server IP address and port
+(e.g. `http://192.168.0.1:3000`) as shown in in the [getting started guide](getting_started.md).
 
 The [Neurobagel `recipes` repository](https://github.com/neurobagel/recipes/)
-includes pre-configured Docker Compose files for both NGINX and Caddy,
-each of which can be used to launch a reverse proxy server alongside the services in your Neurobagel node.
-The reverse proxy setup will then automatically handle routing 
-and also manage and renew SSL certificates (providing secure HTTPS connections) for node services.
+includes two docker compose files for production:
 
-1. If you haven't already, follow the [steps](getting_started.md#the-neurobagel-node-deployment-recipe)
-to clone and minimally configure the services in the [Neurobagel deployment recipe](https://github.com/neurobagel/recipes).
+- `docker-compose.proxy.yaml`: deploys a reverse proxy server and provisions SSL certificates for
+your Neurobagel services to be accessible at a custom domain name and via HTTPS.
+- `docker-compose.prod.yaml`: deploys Neurobagel services configured to work with the proxy server
 
-2. Ensure you have already registered your desired domain(s) with a DNS provider and configured the DNS settings to resolve correctly to your host machine.
+### Preparation
 
-3. Ensure ports 80 and 443 are open on the host machine where your Docker Compose stack is running.
-These are the ports your reverse proxy will listen on for incoming HTTP and HTTPS traffic.
+Make sure you have:
+
+1. [followed the "getting started" steps](getting_started.md#the-neurobagel-node-deployment-recipe)
+to clone and minimally configure the services.
+
+2. registered your desired domain(s).
+
+3. opened ports [80 and 443](https://letsencrypt.org/docs/allow-port-80/)
+on the server where you will deploy the Neurobagel production services.
+
 
 === "NGINX"
 
-    4. In your local `docker-compose-nginx.yml` file, for **each** service
+    1. In your local `docker-compose-nginx.yml` file, for **each** service
     (i.e. `api`, `federation`, and `query_federation`),
 
         1. Locate the `environment` section for that service 
@@ -281,7 +286,7 @@ These are the ports your reverse proxy will listen on for incoming HTTP and HTTP
         ??? warning "Do not change the `VIRTUAL_PATH` and `VIRTUAL_PORT` variables"
             You can look at the [NGINX-Proxy documentation](https://github.com/nginx-proxy/nginx-proxy/tree/main/docs#virtual-hosts-and-ports) to learn more about how these variables work.
 
-    5. In your `.env` file, set `NB_API_QUERY_URL` to your custom URL for the **federation API**, including any subpath if used. 
+    2. In your `.env` file, set `NB_API_QUERY_URL` to your custom URL for the **federation API**, including any subpath if used. 
     This URL must always begin with `https://`.
 
         Example:
@@ -291,7 +296,7 @@ These are the ports your reverse proxy will listen on for incoming HTTP and HTTP
         ...
         ```
 
-    6. Finally, launch your node by explicitly referencing the custom Docker Compose file:
+    3. Finally, launch your node by explicitly referencing the custom Docker Compose file:
 
         ```bash
         docker compose -f docker-compose-nginx.yml up -d
