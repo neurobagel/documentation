@@ -248,10 +248,46 @@ to clone and minimally configure the services.
 3. opened ports [80 and 443](https://letsencrypt.org/docs/allow-port-80/)
 on the server where you will deploy the Neurobagel production services.
 
+### Configuration
+
+Our production recipes can be used with two different proxy servers.
+Select the "tab" with your preferred option and follow the setup steps below.
 
 === "NGINX"
 
-    1. In your local `docker-compose-nginx.yml` file, for **each** service
+    Sets up a [dockerized](https://github.com/nginx/docker-nginx)
+    [NGINX service](https://nginx.org/en/) that automatically creates routes for each Neurobagel service.
+    Also includes an
+    [ACME service](https://docs.nginx.com/nginx/admin-guide/dynamic-modules/acme/)
+    to automatically request SSL certificates for each domain.
+
+=== "Caddy"
+
+    Sets up a dockerized Caddy service.
+
+#### Set launch profile in `.env` file
+
+The `COMPOSE_PROFILES` environment variable controls how your production deployment will run.
+The first entry controls which [Neurobagel profile](#available-profiles) to run,
+the second entry controls which proxy server to use.
+
+=== "NGINX"
+
+    ```bash
+    COMPOSE_PROFILES=node, nginx
+    ```
+
+=== "Caddy"
+
+    ```bash
+    COMPOSE_PROFILES=node, caddy
+    ```
+
+#### Add proxy metadata
+
+=== "NGINX"
+
+    1. In your `docker-compose.prod.yml` file, for **each** service
     (i.e. `api`, `federation`, and `query_federation`),
 
         1. Locate the `environment` section for that service 
@@ -296,17 +332,11 @@ on the server where you will deploy the Neurobagel production services.
         ...
         ```
 
-    3. Finally, launch your node by explicitly referencing the custom Docker Compose file:
-
-        ```bash
-        docker compose -f docker-compose-nginx.yml up -d
-        ```
-
 === "Caddy"
 
     !!! note "You do not need to edit the `docker-compose-caddy.yml` file directly."
 
-    4. In your local `recipes/config/caddy/Caddyfile`,
+    1. In your local `recipes/config/caddy/Caddyfile`,
     change the default URL for each service to the URL you want to use for that service.
     Follow the comments in the file for guidance.
     
@@ -315,8 +345,10 @@ on the server where you will deploy the Neurobagel production services.
         The [Caddy documentation](https://caddyserver.com/docs/caddyfile) has more detailed information
         on subdirectory routing and other configuration options.
 
-    5. Finally, launch your node by explicitly referencing the custom Docker Compose file:
+### Launch Proxy server
 
-        ```bash
-        docker compose -f docker-compose-caddy.yml up -d
-        ```
+```bash
+docker compose -f docker-compose.proxy.yml up -d
+```
+
+### Launch 
