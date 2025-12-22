@@ -10,60 +10,22 @@ for the changes to take effect.
 ## Deployment
 
 ### Available services
+
 The Neurobagel Docker Compose recipe includes several services
 and coordinates them to work together:
 
 (In parentheses are the names of services within the Docker Compose stack)
 
-- **[Neurobagel node API/n-API](api.md)** (`api`): The API that communicates with a single graph store and determines 
+- **[Neurobagel node API/n-API](api.md)** (`api`): The API that communicates with a single graph store and determines
     how detailed the response to a query should be from that graph.
 - **Graph store** (`graph`): A third-party RDF store that stores Neurobagel-harmonized data to be queried. At the moment our recipe uses the free tier
     of [GraphDB](https://db-engines.com/en/system/GraphDB) for this.
 - **Neurobagel federation/f-API** (`federation`): A special API that can federate over one or more
     Neurobagel nodes to provide a single point of access to multiple distributed databases.
-    By default it will federate over all public nodes and any local nodes you specify. 
-- **[Neurobagel query tool](query_tool.md)** (`query_federation`): A web app that provides a graphical interface for users to query a 
+    By default it will federate over all public nodes and any local nodes you specify.
+- **[Neurobagel query tool](query_tool.md)** (`query_federation`): A web app that provides a graphical interface for users to query a
     federation API and view the results from one or more nodes. Because the query tool is a static app and is run locally
     in the user's browser, this service simply hosts the app.
-
-### Available profiles
-Neurobagel offers different deployment profiles that allow you to spin up specific combinations of services (listed below), depending on your use case.
-
-1. `full_stack`: Best profile to get started with Neurobagel. 
-    It includes all services you need to run a local Neurobagel node and have the ability to query public nodes, along with a graphical query tool.
-       - `api`
-       - `graph`
-       - `federation`
-       - `query_tool`
-
-    !!! info
-        This is the **default profile** if you don't specify one.
-    
-        By default, this profile will also federate over all publicly accessible Neurobagel nodes, although this behaviour can be disabled in the f-API using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables).
-
-2. `local_node`: Best profile if you want to run a standalone Neurobagel node
-    but rely on a separate deployment for providing federation and a graphical query tool (such as Neurobagel's own hosted public instances).
-       - `api`
-       - `graph`
-
-3. `local_federation`: Best profile if you already have multiple standalone (local or non-publicly-accessible) Neurobagel node
-    deployments running and you now want to provide federation over them.  
-       - `federation`
-       - `query_tool`
-    !!! info
-        If you only want to federate over a single local node and all public Neurobagel nodes,
-        we recommend using the `full_stack` profile to set up your node and federation in one step.
-        If you choose to use the `local_federation` profile, 
-        you will have to [manually configure your `local_nb_nodes.json` file](#configuring-local-node-names-and-urls-for-federation).
-
-#### Launching a profile
-You can then launch a specific profile using the `--profile` or  `-p` flag with `docker compose`, e.g.:
-```bash
-docker compose --profile full_stack up -d
-```
-If no profile is specified, `docker compose up -d` will start the services for the default profile, `full_stack`.
-
-Take a look at the [getting started guide](getting_started.md) for more information setting up for a first launch.
 
 ### Default host ports for services
 
@@ -248,6 +210,32 @@ to clone and minimally configure the services.
 3. opened ports [80 and 443](https://letsencrypt.org/docs/allow-port-80/)
 on the server where you will deploy the Neurobagel production services.
 
+### Choose launch profile
+
+Neurobagel offers different deployment profiles that allow you to spin up
+specific combinations of services (listed below), depending on your use case.
+
+1. `node`: Deploys an individual Neurobagel node.
+       - `api`
+       - `graph`
+
+2. `portal`: Deploys the federation engine and a connected web query interface.
+    Chose this profile if you want to host your own federated query e.g. for a list of nodes that
+    are not included in the list of publicly accessible Neurobagel nodes.
+       - `federation`
+       - `query_tool`
+
+    !!! info
+        By default, the `portal` profile will also federate
+        over all publicly accessible Neurobagel nodes,
+        although this behaviour can be disabled in the f-API
+        using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables).
+
+        If you only want to federate over a single local node and all public Neurobagel nodes,
+        we recommend using the `full_stack` profile to set up your node and federation in one step.
+        If you choose to use the `local_federation` profile, 
+        you will have to [manually configure your `local_nb_nodes.json` file](#configuring-local-node-names-and-urls-for-federation).
+
 ### Configuration
 
 Our production recipes can be used with two different proxy servers.
@@ -283,58 +271,57 @@ the second entry controls which proxy server to use.
     COMPOSE_PROFILES=node, caddy
     ```
 
+If you use the `portal` profile,
+also set `NB_API_QUERY_URL` to your custom URL for the **federation API**,
+including any subpath if used. This URL must always begin with `https://`.
+
+    Example:
+    ``` { .bash title=".env" }
+    ...
+    NB_API_QUERY_URL="https://myinstitute.org/federate"
+    ...
+    ```
+
 #### Add proxy metadata
 
 === "NGINX"
 
-    1. In your `docker-compose.prod.yml` file, for **each** service
+    In your `docker-compose.prod.yml` file, for **each** service
     (i.e. `api`, `federation`, and `query_federation`),
 
-        1. Locate the `environment` section for that service 
-        2. Update the value of the following variables to the custom domain that specific service will use:
+      1. Locate the `environment` section for that service 
+      2. Update the value of the following variables to the custom domain that specific service will use:
 
-            - `VIRTUAL_HOST`
-            - `LETSENCRYPT_HOST`
+          - `VIRTUAL_HOST`
+          - `LETSENCRYPT_HOST`
 
-            Both variables must have the same value for a given service, and must not include a protocol (`http://` or `https://`).
-        3. (Optional) To host services on different subpaths instead of different subdomains (e.g., `myinstitute.org/service1` instead of `service1.myinstitute.org`), 
-        **do not include the subpath in the `VIRTUAL_HOST` or `LETSENCRYPT_HOST` values**. 
-        Instead, update the corresponding `XXX_BASE_PATH` variables for the services in the `.env` file.
-        The full list of service-specific base path variables can be found [here](config.md#environment-variables).
+          Both variables must have the same value for a given service, and must not include a protocol (`http://` or `https://`).
+      3. (Optional) To host services on different subpaths instead of different subdomains (e.g., `myinstitute.org/service1` instead of `service1.myinstitute.org`), 
+      **do not include the subpath in the `VIRTUAL_HOST` or `LETSENCRYPT_HOST` values**. 
+      Instead, update the corresponding `XXX_BASE_PATH` variables for the services in the `.env` file.
+      The full list of service-specific base path variables can be found [here](config.md#environment-variables).
 
-            For example, to host your node API at `myinstitute.org/node`:
+          For example, to host your node API at `myinstitute.org/node`:
 
-            ``` { .yaml title="docker-compose-nginx.yml" }
-            ...
-            api:
-              environment: 
-                VIRTUAL_HOST: myinstitute.org
-                LETSENCRYPT_HOST: myinstitute.org
-            ...
-            ```
-            
-            ``` { .bash title=".env" }
-            ...
-            NB_NAPI_BASE_PATH="/node"
-            ...
-            ```
+          ``` { .yaml title="docker-compose-nginx.yml" }
+          ...
+          api:
+            environment: 
+              VIRTUAL_HOST: myinstitute.org
+              LETSENCRYPT_HOST: myinstitute.org
+          ...
+          ```
+          
+          ``` { .bash title=".env" }
+          ...
+          NB_NAPI_BASE_PATH="/node"
+          ...
+          ```
 
-        ??? warning "Do not change the `VIRTUAL_PATH` and `VIRTUAL_PORT` variables"
-            You can look at the [NGINX-Proxy documentation](https://github.com/nginx-proxy/nginx-proxy/tree/main/docs#virtual-hosts-and-ports) to learn more about how these variables work.
-
-    2. In your `.env` file, set `NB_API_QUERY_URL` to your custom URL for the **federation API**, including any subpath if used. 
-    This URL must always begin with `https://`.
-
-        Example:
-        ``` { .bash title=".env" }
-        ...
-        NB_API_QUERY_URL="https://myinstitute.org/federate"
-        ...
-        ```
+    ??? warning "Do not change the `VIRTUAL_PATH` and `VIRTUAL_PORT` variables"
+        You can look at the [NGINX-Proxy documentation](https://github.com/nginx-proxy/nginx-proxy/tree/main/docs#virtual-hosts-and-ports) to learn more about how these variables work.
 
 === "Caddy"
-
-    !!! note "You do not need to edit the `docker-compose-caddy.yml` file directly."
 
     1. In your local `recipes/config/caddy/Caddyfile`,
     change the default URL for each service to the URL you want to use for that service.
