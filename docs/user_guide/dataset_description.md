@@ -19,8 +19,6 @@ For more information on each field, see [Dataset description fields](#dataset-de
     - Fields wrapped in square brackets `[]` expect a list of comma-separated strings, e.g. `["Item 1", "Item 2"]`.
     - To leave any fields empty, delete the placeholder value.
 
-(Downloadable empty template: [neurobagel_dataset_description_template.json](../files/neurobagel_dataset_description_template.zip){:download})
-
 ```madlibs
 json
 ~~~
@@ -37,7 +35,7 @@ json
 }
 ```
 
-Save the contents in a file with the extension `.json`. 
+After editing, copy the save the contents in a file with the extension `.json`. 
 We recommend using an informative file name like `DATASETNAME_description.json`.
 
 !!! question "I have a dataset_description.json from my BIDS dataset"
