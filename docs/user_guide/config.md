@@ -85,26 +85,77 @@ along with the [environment variables](#environment-variables) that can be used 
     - environment variable: `NB_GRAPH_PORT_HOST`
     - default host port: `7200`
 
-## Environment variables
+## Production deployment
 
-Below are all the possible Neurobagel environment variables that can be set in `.env`.
+### Proxy server
 
-{{ read_table('./repos/recipes/docs/neurobagel_environment_variables.tsv') }}
+To make your Neurobagel node services (node API, query tool, etc.) accessible via custom URLs
+(e.g. `https://www.myfirstnode.org/query`) rather than a server IP address and port
+(e.g. `http://192.168.0.1:3000`) as shown in in the [getting started guide](getting_started.md),
+you will need to set up a reverse proxy such as [NGINX](https://nginx.org/en/docs/beginners_guide.html) or
+[Caddy](https://caddyserver.com/docs/quick-starts/reverse-proxy).
+This will route incoming requests for custom URLs to the Neurobagel services deployed on your server.
 
-??? warning "Ensure that shell variables do not clash with `.env` file"
+Our deployment templates assume that you do not yet have a proxy server set up
+on the machine where you will be hosting your Neurobagel services.
+If you do already have a proxy server setup using a different method,
+you can adjust the default deployment with some minor changes documented in the
+section on [deploying with a bare metal proxy server](#own-proxy).
 
-    If the shell you run `docker compose` from already has any 
-    shell variable of the same name set, 
-    the shell variable will take precedence over the configuration
-    of `.env`!
-    In this case, make sure to `unset` the local variable first.
+!!! info "Before you begin"
 
-    For more information, see [Docker's environment variable precedence](https://docs.docker.com/compose/environment-variables/envvars-precedence/).
+    Make sure that:
 
-!!! tip
-    Double check that any environment variables you have customized in `.env` are resolved with your expected values using the command `docker compose config`.
+    - you have access to the domain you want to host your services at,
+    so that you can create a DNS entry that points at the webserver
+    that will host your Neurobagel services.
+    - your web server firewall allows incoming connections
+    on ports 80 (HTTP) and 443 (HTTPS).
+    [Both are necessary](https://letsencrypt.org/docs/integration-guide/#firewall-configuration)
+    to complete the SSL certificate challenge and offer HTTPS connections.
 
-### Change security relevant variables
+1. Make a fresh clone of the recipe repository in a location of your choice.
+
+    ```bash
+    git clone https://github.com/neurobagel/recipes.git nb-proxy
+    cd nb-proxy
+    ```
+
+2. Copy and edit the `template.env` file
+
+    ```bash
+    cp template.env .env
+    ```
+
+3. open the `.env` file in you favourite text editor
+    and uncomment the following line:
+
+    ```bash
+    # Uncomment to manually set the name of the proxy docker network
+    # PROXY_NETWORK_NAME=NB_proxynet
+    ```
+
+    If you change the name of the proxy network, make sure to remember it
+    as you will have to use the same name in your other deployments so that
+    your deployed services and the proxy server can see each other.
+
+4. Launch the proxy server
+
+    ```bash
+    docker compose -f docker-compose.proxy.yml up -d
+    ```
+
+You should now see the `nginx` and `nginx-acme` services running:
+
+```bash
+docker ps
+```
+
+### Node
+
+
+
+### Change security relevant variables -> to Node
 
 The graph store (GraphDB instance) in a Neurobagel node is secured with password-based access and includes two users: an `admin` superuser and a regular database user, both of which are automatically configured by the Neurobagel deployment recipe.
 Passwords for both users are defined via files in the `./secrets` directory of the recipes repository, while the regular database username is set through an environment variable in `.env` file.
@@ -368,3 +419,23 @@ docker compose -f docker-compose.proxy.yml up -d
 ```
 
 ### Launch 
+
+
+## Environment variables reference -> to context at the end
+
+Below are all the possible Neurobagel environment variables that can be set in `.env`.
+
+{{ read_table('./repos/recipes/docs/neurobagel_environment_variables.tsv') }}
+
+??? warning "Ensure that shell variables do not clash with `.env` file"
+
+    If the shell you run `docker compose` from already has any 
+    shell variable of the same name set, 
+    the shell variable will take precedence over the configuration
+    of `.env`!
+    In this case, make sure to `unset` the local variable first.
+
+    For more information, see [Docker's environment variable precedence](https://docs.docker.com/compose/environment-variables/envvars-precedence/).
+
+!!! tip
+    Double check that any environment variables you have customized in `.env` are resolved with your expected values using the command `docker compose config`.
