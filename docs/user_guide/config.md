@@ -102,7 +102,7 @@ specific combinations of services (listed below), depending on your use case.
         on the machine where you will be hosting your Neurobagel services.
         If you do already have a proxy server setup using a different method,
         you can adjust the default deployment with some minor changes documented in the
-        section on [deploying with a bare metal proxy server](#own-proxy).
+        section on [deploying with an existing proxy server](#deploying-with-an-existing-proxy-server).
         
         In this case, you can ignore the `proxy server` deployment template.
 
