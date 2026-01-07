@@ -177,7 +177,8 @@ This will route incoming requests for custom URLs to the Neurobagel services dep
     as you will have to use the same name in your other deployments so that
     your deployed services and the proxy server can see each other.
 
-2. Launch the proxy server
+3. Launch the proxy server from the corresponding deployment template:
+    `docker-compose.proxy.yml`
 
     ```bash
     docker compose -f docker-compose.proxy.yml up -d
@@ -239,10 +240,49 @@ For security and best practice purposes, we recommend changing the following val
 
 #### Configuring the node for a production deployment
 
-- set subpath settings
-- set domain name
-  - make sure it points to this computer
-- ...
+1. Make sure you have [set up a fresh clone of the recipe repo](#preparations)
+    for your node.
+
+2. Set the domain name of your node:
+
+    In the `.env` file under the `CONFIGURATION FOR n-API` section,
+    uncomment the value of `NB_NAPI_DOMAIN` and set it to the domain
+    (including any subdomain) that you want to use for your node.
+
+    ```bash
+    NB_NAPI_DOMAIN=api.mydomain.org
+    ```
+
+    !!! warning "Do not include `https://` in the domain name"
+
+3. Set the launch profile to `node`:
+
+    Set the `COMPOSE_PROFILES` variable in the `.env` file to
+    [the `node` profile](#profiles). This is the default value.
+
+    ```bash
+    COMPOSE_PROFILES=node
+    ```
+
+4. **Optional**: Set the URL subdirectory for your node:
+
+    You may want to have your node API respond on a subdirectory of your domain (e.g. `myinstitute.org/node-api`).
+    This is especially useful if you want to serve several nodes (or services)
+    on the same domain, because you can set a different subdirectory for each
+    (e.g. `myinstitute.org/node1`, `myinstitute.org/node2`, ...).
+
+    To do so, uncomment and set the following line in the `.env` file:
+
+    ```bash
+    NB_NAPI_BASE_PATH="/node-api"
+    ```
+
+5. Save the changes in your `.env` file
+6. Launch your node:
+
+    ```bash
+    docker compose -f docker-compose.prod.yml up -d
+    ```
 
 ### Portal
 
