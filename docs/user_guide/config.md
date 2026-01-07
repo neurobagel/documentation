@@ -321,94 +321,96 @@ docker compose -f docker-compose.prod.yml up -d
 
 ### Portal
 
-Begin by [setting up a new clone of the recipe repo](#preparations).
+!!! note "Start from a [fresh setup](#preparations)!"
 
-#### Configuring local node names and URLs for federation
+#### Set nodes to federate over
 
 You configure the URLs and display names of the **node APIs** of any
 nodes you want your portal to federate over
-by editing the `local_nb_nodes.json` file:
+by editing the `local_nb_nodes.json` file.
 
-1. Make a copy of the `local_nb_nodes.template.json` file
+Each node to be federated over is defined using a dictionary with two key-value pairs:
 
-    ```bash
-    cp local_nb_nodes.template.json local_nb_nodes.json
-    ```
+```json
+{
+"NodeName": "<DISPLAY NAME OF NODE>",
+"ApiURL": "<URL OF NODE API>"
+}
+```
 
-2. Add the nodes you want federate over:
+`NodeName` can be any string, and determines how the node appears
+in the node selection dropdown in the query tool of the portal.
 
-    Each node to be federated over is defined using a dictionary with two key-value pairs:
+!!! warning "`ApiURL` must include the protocol (`http://` or `https://`)"
 
-    ```json
-    {
-    "NodeName": "<DISPLAY NAME OF NODE>",
-    "ApiURL": "<URL OF NODE API>"
-    }
-    ```
+??? info "You do not need to specify public Neurobagel nodes"
 
-    `NodeName` can be any string, and determines how the node appears
-    in the node selection dropdown in the query tool of the portal.
+        We maintain a list of publicly accessible Neurobagel nodes 
+    [here](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json).
+    By default, every new f-API will look up this list
+    on startup and include it in its internal list of nodes to
+    federate over (this can be disabled using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables)).
+    This means that **you do not have to manually add these public nodes** to your `local_nb_nodes.json` file.
 
-    !!! warning "`ApiURL` must include the protocol (`http://` or `https://`)"
+??? warning "Do not use `localhost`/`127.0.0.1` in `local_nb_nodes.json`"
 
-    ??? info "You do not need to specify public Neurobagel nodes"
+    Even if the local node API(s) you are federating over are running 
+    on the same host machine as your federation API, 
+    you cannot use `localhost` for the `ApiURL` and must instead provide a network-accessible URL, IP address, or container name.
+    For an example, see the configuration for the node called `"My Institute"` above.
 
-         We maintain a list of publicly accessible Neurobagel nodes 
-        [here](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json).
-        By default, every new f-API will look up this list
-        on startup and include it in its internal list of nodes to
-        federate over (this can be disabled using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables)).
-        This means that **you do not have to manually add these public nodes** to your `local_nb_nodes.json` file.
+??? failure "Be careful to not use your federation API's own address for `ApiURL`!"
 
-    ??? warning "Do not use `localhost`/`127.0.0.1` in `local_nb_nodes.json`"
+    This will cause an infinite request loop that will likely overload your service, as an f-API will be repeatedly making requests to itself.
 
-        Even if the local node API(s) you are federating over are running 
-        on the same host machine as your federation API, 
-        you cannot use `localhost` for the `ApiURL` and must instead provide a network-accessible URL, IP address, or container name.
-        For an example, see the configuration for the node called `"My Institute"` above.
 
-    ??? warning "Be careful to not use your federation API's own address for `ApiURL`!"
+#### Set portal domain
 
-        This will cause an infinite request loop that will likely overload your service, as an f-API will be repeatedly making requests to itself.
+If you want to serve both the web query tool and the federation API
+service under the same domain, you only need uncomment and set the
+`NB_DEPLOY_DOMAIN` variable in the `.env` file:
 
-#### Production deployment
+```bash
+NB_DEPLOY_DOMAIN="www.mydomain.org"
+```
 
-1. Make sure you have [set up a fresh clone of the recipe repo](#preparations)
-    for your portal.
+You can **optionally** override this value for each service by setting
+a different domain in the
 
-2. Set the domain name for your portal:
+- `NB_QUERY_DOMAIN` variable for the query tool
+- `NB_FAPI_DOMAIN` variable for the federation API
 
-    If you want to serve both the web query tool and the federation API
-    service under the same domain, you only need uncomment and set the
-    `NB_DEPLOY_DOMAIN` variable in the `.env` file:
+!!! warning "Do not include `https://` in the domain name"
 
-    ```bash
-    NB_DEPLOY_DOMAIN="www.mydomain.org"
-    ```
+#### Set portal subdirectory route
 
-    You can **optionally** override this value for each service by setting
-    a different domain in the
+!!! info "This is an optional step"
 
-    - `NB_QUERY_DOMAIN` variable for the query tool
-    - `NB_FAPI_DOMAIN` variable for the federation API
+You may want to have one or several of your portal services
+respond on a subdirectory of your domain (e.g. `myinstitute.org/federate`).
+This is especially useful if you want to serve several services
+on the same domain, because you can set a different subdirectory for each
+(e.g. `myinstitute.org/federate`, `myinstitute.org/query`, ...).
 
-    !!! warning "Do not include `https://` in the domain name"
+To do so, uncomment and set the corresponding variable in the `.env` file:
 
-3. Set the launch profile to `portal`:
+- `NB_QUERY_APP_BASE_PATH` for the query tool
+- `NB_FAPI_BASE_PATH` for the federation API
 
-    Set the `COMPOSE_PROFILES` variable in the `.env` file to
-    [the `portal` profile](#profiles).
+#### Set `portal` launch profile
 
-    ```bash
-    COMPOSE_PROFILES=portal
-    ```
+Set the `COMPOSE_PROFILES` variable in the `.env` file to
+[the `portal` profile](#profiles).
 
-4. Launch the portal:
+```bash
+COMPOSE_PROFILES=portal
+```
 
-    ```bash
-    docker compose -f docker-compose.prod.yml up -d
-    ```
+#### Launch portal
 
+```bash
+docker compose -f docker-compose.prod.yml up -d
+```
 
 ## Deploying with an existing proxy server
 
