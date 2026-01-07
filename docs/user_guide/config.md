@@ -471,7 +471,7 @@ for a list of the variable names.
 ### Configure your reverse proxy
 
 You must manually configure the routing rules in your reverse proxy
-and provision the necessary SSL certficates for HTTPS. That means,
+and provision the necessary SSL certificates for HTTPS. That means,
 for each service you deploy, you must:
 
 - ensure that your reverse proxy is correctly configured to route incoming
