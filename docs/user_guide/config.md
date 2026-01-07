@@ -124,23 +124,34 @@ specific combinations of services (listed below), depending on your use case.
     All three production deployment profiles begin with the same initial steps.
     Make sure to complete them before following the profile specific setup instructions:
 
-1. Make a fresh clone of the recipe repository in a location of your choice.
+#### Clone the recipe repository
 
-    ```bash
-    git clone https://github.com/neurobagel/recipes.git my-new-deployment
-    ```
+Make a fresh clone of the recipe repository in a location of your choice.
 
-    Change `my-new-deployment` to a directory name you will recognize in the future.
+```bash
+git clone https://github.com/neurobagel/recipes.git my-new-deployment
+```
 
-    ```bash
-    cd my-new-deployment
-    ```
+Change `my-new-deployment` to a directory name you will recognize in the future.
+Then navigate into the directory. All following steps happen inside this
+directory.
 
-2. Copy and edit the `template.env` file
+```bash
+cd my-new-deployment
+```
 
-    ```bash
-    cp template.env .env
-    ```
+#### Copy the template files
+
+The recipe repository comes with templates of the `.env` and
+`local_nb_nodes.json` files. Copy and rename these templates, but do not edit
+the templates themselves.
+
+```bash
+cp template.env .env
+cp local_nb_nodes.template.json local_nb_nodes.json
+```
+
+You are now ready to follow the remaining steps of the deployment instructions.
 
 ### Proxy server
 
@@ -163,26 +174,28 @@ This will route incoming requests for custom URLs to the Neurobagel services dep
     [Both are necessary](https://letsencrypt.org/docs/integration-guide/#firewall-configuration)
     to complete the SSL certificate challenge and offer HTTPS connections.
 
-1. [Set up a fresh clone of the recipe repo](#preparations)
+#### Set proxy network name
 
-2. open the `.env` file in you favourite text editor
-    and uncomment the following line:
+!!! note "Start from a [fresh setup](#preparations)!"
 
-    ```bash
-    # Uncomment to manually set the name of the proxy docker network
-    # PROXY_NETWORK_NAME=NB_proxynet
-    ```
+Open the `.env` file in you favourite text editor and uncomment the following line:
 
-    If you change the name of the proxy network, make sure to remember it
-    as you will have to use the same name in your other deployments so that
-    your deployed services and the proxy server can see each other.
+```bash
+# Uncomment to manually set the name of the proxy docker network
+# PROXY_NETWORK_NAME=NB_proxynet
+```
 
-3. Launch the proxy server from the corresponding deployment template:
-    `docker-compose.proxy.yml`
+If you change the name of the proxy network, make sure to remember it
+as you will have to use the same name in your other deployments so that
+your deployed services and the proxy server can see each other.
 
-    ```bash
-    docker compose -f docker-compose.proxy.yml up -d
-    ```
+#### Launch the proxy server
+
+Launch the proxy server from the corresponding deployment template:
+
+```bash
+docker compose -f docker-compose.proxy.yml up -d
+```
 
 You should now see the `nginx` and `nginx-acme` services running:
 
@@ -192,20 +205,31 @@ docker ps
 
 ### Node
 
-Begin by [setting up a new clone of the recipe repo](#preparations) for each node.
+!!! note "Start from a [fresh setup](#preparations)!"
 
-#### Change security relevant variables
+#### Set graph username and secrets
 
-The graph store (GraphDB instance) in a Neurobagel node is secured with password-based access and includes two users: an `admin` superuser and a regular database user, both of which are automatically configured by the Neurobagel deployment recipe.
-Passwords for both users are defined via files in the `./secrets` directory of the recipes repository, while the regular database username is set through an environment variable in `.env` file.
+!!! danger "This is a security relevant section!"
+
+The graph store (GraphDB instance) in a Neurobagel node
+is secured with password-based access and includes two users:
+an `admin` superuser and a regular database user,
+both of which are automatically configured by the Neurobagel deployment recipe.
+Passwords for both users are defined via files in the `./secrets` directory
+of the recipes repository, while the regular database username is set
+through an environment variable in `.env` file.
 
 ??? warning "Changing user names and secrets after the first launch requires a hard reset"
 
-    If you've previously launched a Neurobagel Docker Compose stack following the [Getting started](getting_started.md#the-neurobagel-node-deployment-recipe) instructions,
-    you'll need to [reset your graph store](maintaining.md#resetting-your-graphdb-instance) for any changes you have made to user credentials to take effect (steps 1-2 above). 
-    Don't worry, any other configuration changes you've already made will be applied when you re-launch your node.
+    If you've previously launched a Neurobagel Docker Compose stack following the
+    [Getting started](getting_started.md#the-neurobagel-node-deployment-recipe) instructions,
+    you'll need to
+    [reset your graph store](maintaining.md#resetting-your-graphdb-instance)
+    for any changes you have made to user credentials to take effect. 
+    Don't worry, any other configuration changes you've already made
+    will be applied when you re-launch your node.
 
-For security and best practice purposes, we recommend changing the following values from their defaults if you are using a deployment profile that includes a graph store:
+For security and best practice purposes, we recommend changing the following values from their defaults:
 
 1. In your `.env`, **set a custom username and database name for your graph store** by editing the following variables:
     - `NB_GRAPH_USERNAME`
@@ -232,57 +256,68 @@ For security and best practice purposes, we recommend changing the following val
         
         Do not share your password files with others.
   
-3. **Review and change as needed** the following variables in `.env` based on your data sharing requirements:
-    - `NB_RETURN_AGG`
-    - `NB_MIN_CELL_SIZE`
-    !!! info
-        These variables are modifiable after node initialization; you can [change their values at any time](maintaining.md#restarting-services-after-an-update).
+#### Set node response granularity
 
-#### Configuring the node for a production deployment
+!!! danger "This is a security relevant section!"
 
-1. Make sure you have [set up a fresh clone of the recipe repo](#preparations)
-    for your node.
+Review and change as needed the following variables in `.env`
+based on your data sharing requirements:
 
-2. Set the domain name of your node:
+- `NB_RETURN_AGG` - controls whether a node returns subject level information
+- `NB_MIN_CELL_SIZE` - sets a minimum cohort result size
 
-    In the `.env` file under the `CONFIGURATION FOR n-API` section,
-    uncomment the value of `NB_NAPI_DOMAIN` and set it to the domain
-    (including any subdomain) that you want to use for your node.
+For more details on these and other environment variables,
+check the [Environment variable reference](#environment-variables-reference)
 
-    ```bash
-    NB_NAPI_DOMAIN=api.mydomain.org
-    ```
+#### Set node domain
 
-    !!! warning "Do not include `https://` in the domain name"
+In the `.env` file under the `CONFIGURATION FOR n-API` section,
+uncomment the value of `NB_NAPI_DOMAIN` and set it to the domain
+(including any subdomain) that you want to use for your node.
 
-3. Set the launch profile to `node`:
+```bash
+NB_NAPI_DOMAIN=api.mydomain.org
+```
 
-    Set the `COMPOSE_PROFILES` variable in the `.env` file to
-    [the `node` profile](#profiles). This is the default value.
+!!! warning "Do not include `https://` in the domain name"
 
-    ```bash
-    COMPOSE_PROFILES=node
-    ```
+#### Set `node` launch profile
 
-4. **Optional**: Set the URL subdirectory for your node:
+Set the `COMPOSE_PROFILES` variable in the `.env` file to
+[the `node` profile](#profiles). This is the default value.
 
-    You may want to have your node API respond on a subdirectory of your domain (e.g. `myinstitute.org/node-api`).
-    This is especially useful if you want to serve several nodes (or services)
-    on the same domain, because you can set a different subdirectory for each
-    (e.g. `myinstitute.org/node1`, `myinstitute.org/node2`, ...).
+```bash
+COMPOSE_PROFILES=node
+```
 
-    To do so, uncomment and set the following line in the `.env` file:
+#### Set node subdirectory route
 
-    ```bash
-    NB_NAPI_BASE_PATH="/node-api"
-    ```
+!!! info "This is an optional step"
 
-5. Save the changes in your `.env` file
-6. Launch your node:
+You may want to have your node API respond on a subdirectory of your domain (e.g. `myinstitute.org/node-api`).
+This is especially useful if you want to serve several nodes (or services)
+on the same domain, because you can set a different subdirectory for each
+(e.g. `myinstitute.org/node1`, `myinstitute.org/node2`, ...).
 
-    ```bash
-    docker compose -f docker-compose.prod.yml up -d
-    ```
+To do so, uncomment and set the following line in the `.env` file:
+
+```bash
+NB_NAPI_BASE_PATH="/node-api"
+```
+
+#### Launch node
+
+Once you have made and verified all the changes in your `.env` file,
+you can launch your node:
+
+```bash
+docker compose -f docker-compose.prod.yml up -d
+```
+
+??? info "Make sure the proxy service is already running"
+
+    The default deployment recipe requires that you have already
+    [deployed the proxy server](#proxy-server).
 
 ### Portal
 
@@ -374,8 +409,6 @@ by editing the `local_nb_nodes.json` file:
     docker compose -f docker-compose.prod.yml up -d
     ```
 
-Still missing
-- update the query API path
 
 ## Deploying with an existing proxy server
 
