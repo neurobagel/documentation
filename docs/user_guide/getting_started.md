@@ -13,11 +13,11 @@ refer to the detailed [Configuration documentation](config.md).
 
 ## Requirements
 
-Neurobagel tools are provided as Docker containers 
-and are launched with Docker Compose. 
+Neurobagel tools are provided as Docker containers
+and are launched with Docker Compose.
 
 !!! danger "Don't install Neurobagel tools directly on your machine"
-    
+
     Please only use the Docker images provided by Neurobagel 
     (or the third party providers Neurobagel relies on) and only launch
     them with our provided `docker-compose.yml` recipe.
@@ -25,7 +25,8 @@ and are launched with Docker Compose.
     Do not install GraphDB locally on your computer, 
     as doing so can interfere with the deployment of the Neurobagel tools.
 
-### `docker` and `docker compose` 
+### `docker` and `docker compose`
+
 If you haven't yet, please install both `docker` and `docker compose`
 for your operating system:
 
@@ -64,104 +65,93 @@ tools, please make sure you have at least the following
 versions on your machine:
 
 - `docker` engine: [v20.10.24](https://docs.docker.com/engine/release-notes/20.10/) or greater
-```bash
-docker --version
-```
+
+    ```bash
+    docker --version
+    ```
+
 - `docker compose`: [v2.7.0](https://github.com/docker/compose/releases/tag/v2.7.0) or above
-```bash
-docker compose version
-```
 
-### The Neurobagel node deployment recipe
+    ```bash
+    docker compose version
+    ```
 
-The [`neurobagel/recipes` repository](https://github.com/neurobagel/recipes) 
+## The Neurobagel node deployment recipe
+
+The [`neurobagel/recipes` repository](https://github.com/neurobagel/recipes)
 on GitHub contains our official
 Docker Compose recipe and template configuration files for setting up a local Neurobagel node.
 
-1. Clone the GitHub repository to your machine and navigate to it
+!!! info "More detailed setup for production deployments"
+
+    This section provide a minimal configuration for launching Neurobagel
+    so you can get started quickly with trying out all services locally.
+    In most cases, particularly when deploying Neurobagel for other users,
+    additional configurations are necessary.
+    
+    For this, please check out our more
+    [detailed instructions for production deployments](config.md).
+
+### Clone the recipe repository
+
+Clone the recipe repository from GitHub and navigate into the cloned local repo.
+
 ```bash
 git clone https://github.com/neurobagel/recipes.git
 cd recipes
 ```
-2. Make copies of the template configuration files to edit for your deployment (do not edit the `template` files themselves)
+
+### Copy the template files
+
+Make copies of the template configuration files
+to edit for your deployment (do not edit the `template` files themselves).
+
 ```bash
 cp template.env .env
 cp local_nb_nodes.template.json local_nb_nodes.json
 ```
 
-    !!! info "Configuring local nodes to federate over"
-        To customize the name for your node as it will appear in the Neurobagel query tool (default: "Local graph 1"),
-        or to federate over more than one local node, see the section on [configuring local nodes for federation](config.md#configuring-local-node-names-and-urls-for-federation).
-
-3. Change the placeholder value of `NB_API_QUERY_URL` in the `.env` file
-    
-    ```bash
-    NB_API_QUERY_URL=http://XX.XX.XX.XX
-    ```
-   Replace `http://XX.XX.XX.XX` with the full URL where the Neurobagel federation API will be accessed, including the protocol (`http://` or `https://`):
-
-    - For local use or testing of the services **on your machine only**: 
-   you can use `NB_API_QUERY_URL=http://localhost:8080` (`8080` is the [default host port for the federation API](./config.md#environment-variables))
-    - For deployment **on a server for other users**: 
-    you must use the IP address with port (e.g., `http://123.45.67.89:8080`) or a domain-based address (e.g., `https://mysite.com/federation`) of the federation API that is reachable from other users' computers
-
+For now you can leave these files unchanged. Our detailed documentation for
+[production deployments](config.md)
+has additional information on how to edit these files.
 
 ??? info "On a machine with an ARM-based processor?"
     The default Docker Compose recipe assumes that you are launching Neurobagel on a machine with x86_64 (AMD/Intel) architecture (most Linux or Windows machines). 
     If your machine instead uses ARM-based architecture (e.g., certain Macs), **additionally change the following line in your `docker-compose.yml` file:**
     ```yml
         graph:
-            image: "ontotext/graphdb:10.3.1"     
+            image: "ontotext/graphdb:10.3.1"
     ```
     to
     ```yml
         graph:
-            image: "ontotext/graphdb:10.3.1-arm64"        
+            image: "ontotext/graphdb:10.3.1-arm64"
     ```
     You can double check the architecture of your machine in the system settings or using the command `lscpu`.
 
-#### If you have already have graph-ready data
-At this point, if you have already [generated Neurobagel JSONLD data files](cli.md), you can proceed with the below additional steps before launching Neurobagel:
+### Launch Neurobagel
 
-4. Update `LOCAL_GRAPH_DATA` in `.env` to the path containing the data files you wish to add to the graph database.
-    
-    You can update these data in the graph at any time. For more information, see [this section](maintaining.md#updating-the-data-in-your-graph).
-
-5. Change the default credentials for your graph database following [these instructions](config.md#change-security-relevant-variables).
-
-!!! info
-
-    This section provide a minimal configuration for launching Neurobagel.
-    In most cases, particularly when deploying Neurobagel for other users,
-    additional configurations may be necessary to ensure optimal usability and security of your node.
-
-    Please refer to [our detailed documentation](config.md#environment-variables) for a complete overview of 
-    configuration options.
-
-## Launch Neurobagel
-
-Once you have completed at least steps 1 to 3 [above](#the-neurobagel-node-deployment-recipe), 
-you can launch your own Neurobagel node using Docker Compose:
+Now you can launch your own Neurobagel node using Docker Compose:
 
 ```bash
 docker compose up -d
 ```
-??? info "Explanation"
-    This is a shorthand for: `docker compose --profile full_stack up -d`
 
 This will:
 
 - pull the required Docker images (if you haven't pulled them before)
-- launch the containers for [the Neurobagel services](config.md#available-services) using the default `full_stack` [service profile](config.md#available-profiles)
+- launch the containers for all [the Neurobagel services](config.md#services)
 - automatically set up and configure the services based on your configuration files
-- automatically upload data to the Neurobagel graph (by default, it will upload an example dataset we have provided for testing)
+- automatically upload example data to the Neurobagel graph
 
 You can check that your docker containers have launched correctly by running:
 
 ```bash
 docker ps
 ```
+
 and you will want to see something like this to show all 4 services running:
+
 ```bash
 ❯ docker ps
 CONTAINER ID   IMAGE                              COMMAND                  CREATED         STATUS         PORTS                                                 NAMES
@@ -171,19 +161,15 @@ d44d0b7359c8   ontotext/graphdb:10.3.1            "/usr/src/neurobagel…"   8 s
 29a61a2d83de   neurobagel/query_tool:latest       "/bin/sh -c 'npm run…"   8 seconds ago   Up 8 seconds   0.0.0.0:3000->5173/tcp, :::3000->5173/tcp             recipes-query_federation-1
 ```
 
-The `docker-compose.yml` recipe provides additional service profiles
-for different deployment use cases (e.g., if you do not need to set up local query federation). Please refer to
-our [service profile documentation](config.md#available-profiles) for details.
-
 ## Next steps
 
 :tada: You are now the proud owner of a running Neurobagel node. Here are some things you can do now:
 
 - Try the Neurobagel node you just deployed by accessing:
-    - your own query tool at  [http://localhost:3000](http://localhost:3000), and reading the [query tool usage](./query_tool.md#usage) guide
+    - your own query tool at [http://localhost:3000](http://localhost:3000), and reading the [query tool usage](./query_tool.md#usage) guide
     - the interactive docs for your node API at [http://localhost:8000/docs](http://localhost:8000/docs), and reading the [API usage](./api.md) guide
-- Change the [default ports of services](config.md#default-ports-for-services)
+- Change the [default ports of services](config.md#default-ports-of-services)
 - [Prepare your own dataset](./data_prep.md) for annotation with Neurobagel
 - [Add your own data to your Neurobagel graph](maintaining.md#updating-the-data-in-your-graph) to search
-- Learn about the different [configuration options](config.md) for your Neurobagel node
+- Learn how to make a [production deployment](config.md)
 - Hopefully all went well, but if you are experiencing issues, see how to [get help](../getting_help.md)
