@@ -290,79 +290,83 @@ Begin by [setting up a new clone of the recipe repo](#preparations).
 
 #### Configuring local node names and URLs for federation
 
-When using a deployment profile that provides federation (i.e., includes the federation API), 
-you can configure the URLs and display names of the **node APIs** of any local nodes you wish to federate over in the file `local_nb_nodes.json`. 
-This file is read by the f-API.
+You configure the URLs and display names of the **node APIs** of any
+nodes you want your portal to federate over
+by editing the `local_nb_nodes.json` file:
 
-    !!! info
-        By default, the `portal` profile will also federate
-        over all publicly accessible Neurobagel nodes,
-        although this behaviour can be disabled in the f-API
-        using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables).
+1. Make a copy of the `local_nb_nodes.template.json` file
 
-        If you only want to federate over a single local node and all public Neurobagel nodes,
-        we recommend using the `full_stack` profile to set up your node and federation in one step.
-        If you choose to use the `local_federation` profile, 
-        you will have to [manually configure your `local_nb_nodes.json` file](#configuring-local-node-names-and-urls-for-federation).
+    ```bash
+    cp local_nb_nodes.template.json local_nb_nodes.json
+    ```
 
-Each node to be federated over is defined using a dictionary with two key-value pairs:
-```json
-{
-  "NodeName": "<DISPLAY NAME OF NODE>",
-  "ApiURL": "<URL OF NODE API>"
-}
-```
+2. Add the nodes you want federate over:
 
-!!! warning "`ApiURL` must include the protocol (`http://` or `https://`)"
+    Each node to be federated over is defined using a dictionary with two key-value pairs:
 
-If you are only running a single node, or only want to federate across your local node and the public Neurobagel nodes, 
-you **do not need** to modify the default `ApiURL` in `local_nb_nodes.json`.
-However, you may want to customize your node's `NodeName`.
+    ```json
+    {
+    "NodeName": "<DISPLAY NAME OF NODE>",
+    "ApiURL": "<URL OF NODE API>"
+    }
+    ```
 
-Notes:
+    `NodeName` can be any string, and determines how the node appears
+    in the node selection dropdown in the query tool of the portal.
 
-- `NodeName` can be any string, and determines how the node appears in the node selection dropdown in the query tool
-- To add more local nodes to federate over, simply add more dictionaries to `local_nb_nodes.json`, and ensure the dictionaries are wrapped in a list `[]` (see example below)
+    !!! warning "`ApiURL` must include the protocol (`http://` or `https://`)"
 
-!!! Info "Nodes that do not need to be manually configured"
-    We maintain a list of publicly accessible Neurobagel nodes 
-    [here](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json).
-    By default, every new f-API will look up this list
-    on startup and include it in its internal list of nodes to
-    federate over (this can be disabled using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables)).
-    This means that **you do not have to manually add these public nodes** to your `local_nb_nodes.json` file.
+    ??? info "You do not need to specify public Neurobagel nodes"
 
-**Example:** Assume there are two local nodes already running on different servers of your institutional network:
+         We maintain a list of publicly accessible Neurobagel nodes 
+        [here](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json).
+        By default, every new f-API will look up this list
+        on startup and include it in its internal list of nodes to
+        federate over (this can be disabled using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables)).
+        This means that **you do not have to manually add these public nodes** to your `local_nb_nodes.json` file.
 
-- a node named `"My Institute"` running on your local computer (`localhost`), on port `8000` 
-- a node named `"Node Recruitment"` running on a different computer with the local IP `192.168.0.1`, listening on the default HTTP port `80` 
+    ??? warning "Do not use `localhost`/`127.0.0.1` in `local_nb_nodes.json`"
 
-To set up federation across both nodes, you would configure `local_nb_nodes.json` as follows:
-``` {.json title="local_nb_nodes.json"}
-[
-  {
-    "NodeName": "My Institute",
-    "ApiURL": "https://neurobagel.myinstitute.edu",
-  },
-  {
-    "NodeName": "Node Recruitment",
-    "ApiURL": "http://192.168.0.1"
-  }
-]
-```
+        Even if the local node API(s) you are federating over are running 
+        on the same host machine as your federation API, 
+        you cannot use `localhost` for the `ApiURL` and must instead provide a network-accessible URL, IP address, or container name.
+        For an example, see the configuration for the node called `"My Institute"` above.
 
-??? warning "Do not use `localhost`/`127.0.0.1` in `local_nb_nodes.json`"
+    ??? warning "Be careful to not use your federation API's own address for `ApiURL`!"
 
-    Even if the local node API(s) you are federating over are running 
-    on the same host machine as your federation API, 
-    you cannot use `localhost` for the `ApiURL` and must instead provide a network-accessible URL, IP address, or container name.
-    For an example, see the configuration for the node called `"My Institute"` above.
-
-??? warning "Be careful to not use your federation API's own address for `ApiURL`!"
-
-    This will cause an infinite request loop that will likely overload your service, as an f-API will be repeatedly making requests to itself.
+        This will cause an infinite request loop that will likely overload your service, as an f-API will be repeatedly making requests to itself.
 
 ### Production deployment
+
+1. Make sure you have [set up a fresh clone of the recipe repo](#preparations)
+    for your portal.
+
+2. Set the domain name for your portal:
+
+    If you want to serve both the web query tool and the federation API
+    service under the same domain, you only need uncomment and set the
+    `NB_DEPLOY_DOMAIN` variable in the `.env` file:
+
+    ```bash
+    NB_DEPLOY_DOMAIN="www.mydomain.org"
+    ```
+
+    You can **optionally** override this value for each service by setting
+    a different domain in the
+
+    - `NB_QUERY_DOMAIN` variable for the query tool
+    - `NB_FAPI_DOMAIN` variable for the federation API
+
+    !!! warning "Do not include `https://` in the domain name"
+
+3. Set the launch profile to `node`:
+
+    Set the `COMPOSE_PROFILES` variable in the `.env` file to
+    [the `node` profile](#profiles). This is the default value.
+
+    ```bash
+    COMPOSE_PROFILES=node
+    ```
 
 !!! note "The following section is intended for system administrators"
 
