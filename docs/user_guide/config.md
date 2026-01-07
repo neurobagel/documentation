@@ -336,7 +336,7 @@ by editing the `local_nb_nodes.json` file:
 
         This will cause an infinite request loop that will likely overload your service, as an f-API will be repeatedly making requests to itself.
 
-### Production deployment
+#### Production deployment
 
 1. Make sure you have [set up a fresh clone of the recipe repo](#preparations)
     for your portal.
@@ -359,29 +359,86 @@ by editing the `local_nb_nodes.json` file:
 
     !!! warning "Do not include `https://` in the domain name"
 
-3. Set the launch profile to `node`:
+3. Set the launch profile to `portal`:
 
     Set the `COMPOSE_PROFILES` variable in the `.env` file to
-    [the `node` profile](#profiles). This is the default value.
+    [the `portal` profile](#profiles).
 
     ```bash
-    COMPOSE_PROFILES=node
+    COMPOSE_PROFILES=portal
     ```
 
-!!! note "The following section is intended for system administrators"
+4. Launch the portal:
 
-This section explains how you make your Neurobagel node services
-(node API, query tool, etc.) accessible on a specific
-[domain name](https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Web_mechanics/What_is_a_domain_name)
-(e.g. `https://www.myfirstnode.org/query`) rather than your server IP address and port
-(e.g. `http://192.168.0.1:3000`) as shown in in the [getting started guide](getting_started.md).
+    ```bash
+    docker compose -f docker-compose.prod.yml up -d
+    ```
 
-The [Neurobagel `recipes` repository](https://github.com/neurobagel/recipes/)
-includes two docker compose files for production:
+Still missing
+- update the query API path
 
-- `docker-compose.proxy.yaml`: deploys a reverse proxy server and provisions SSL certificates for
-your Neurobagel services to be accessible at a custom domain name and via HTTPS.
-- `docker-compose.prod.yaml`: deploys Neurobagel services configured to work with the proxy server
+## Deploying with an existing proxy server
+
+If you already have a proxy server setup on your machine
+and prefer to keep using it, you need to make a few adjustments to the
+standard deployment recipes described above.
+
+!!! warning "This section is for experienced system administrators"
+
+    If you are unsure which to choose or are unfamiliar with managing and
+    maintaining a reverse proxy, you should use our
+    [production deployment templates](#production-deployment) instead.
+    
+    We document how to run Neurobagel with an existing reverse proxy to help
+    facilitate integration into established systems. This type of deployment
+    needs a good deal more manual configuration and maintenance.
+
+!!! warning "**Do not** launch the [`proxy` deployment template](#proxy-server)"
+    
+    If you want to use your existing reverse proxy setup,
+    make sure to not launch the [`proxy` deployment template](#proxy-server)
+    provided by Neurobagel, or shut it down if you have already launched it.
+
+There are two main differences from the
+[default deployment templates](#production-deployment)
+when deploying with an existing proxy server:
+
+- Use the `docker-compose.noproxy.prod.yml` compose file instead.
+    Unlike the default production compose file, this:
+    - **does not** expect an existing proxy docker network to connect with
+    - **does** export the service ports to the host machine,
+    so you can configure your existing proxy server
+    to reach each service on their port at the loopback address (i.e. `localhost`).
+- You must manually configure the routing rules in your reverse proxy
+    and provision the necessary SSL certficates for HTTPS. That means,
+    for each service you deploy, you must:
+    - ensure that your reverse proxy is correctly configured to route incoming
+    request to this service
+    - obtain, store, and update SSL certificates for each domain you use to host
+    your services.
+
+**NOTE**: Make it work for both node and portal.
+
+First, follow the
+[regular instructions for setting up a node deployment](#node) but do not
+yet launch the node stack. Then make these following changes.
+
+### Set host ports for services
+
+Neurobagel services have [default ports](#default-ports-of-services)
+that they will try to bind to on the host. In most cases, you will want to
+change these ports to avoid conflicts with existing services. To do so,
+open then `.env` file and uncomment and set `NB_<XYZ>_PORT_HOST` variables
+for your services. Refer to the [default ports](#default-ports-of-services)
+for a list of the variable names.
+
+### Launch
+
+Use the compose file for existing proxy servers to launch your services
+
+```bash
+docker compose -f docker-compose.noproxy.prod.yml up -d
+```
 
 ## Environment variables reference
 
