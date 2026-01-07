@@ -15,7 +15,7 @@ cover the most common scenarios.
     deployment you want to make. 
     
     For example if you are hosting several [nodes](#node),
-    or if you launch the [containerized proxy server](#proxy) and a [single node](#node),
+    or if you launch the [containerized proxy server](#proxy-server) and a [single node](#node),
     make one local clone of the `recipes` repo for each of them.
     This will make it easier to update and maintain each deployment.
 
@@ -61,16 +61,16 @@ Two additional, third-party services are part of production deployment templates
 
     We're providing the default ports as a reference for local deployment, testing, and for scenarios
     where you do not want to use the
-    [provided reverse proxy deployment recipes](#behind-a-reverse-proxy).
+    [provided reverse proxy deployment recipes](#proxy-server).
     
     Where possible, we **strongly recommend** that you avoid opening service ports to a public network
     and instead use our
-    [reverse proxy deployment recipe](#behind-a-reverse-proxy).
+    [reverse proxy deployment recipe](#proxy-server).
 
 Neurobagel node services run inside Docker containers. Each service listens on an *internal port* within its container and
 exposes a *host port* that makes it accessible from the host machine. Below, we list the default *host ports* for each service
 when running in a fresh deployment following our [getting started guide](getting_started.md),
-along with the [environment variables](#environment-variables) that can be used to configure them.
+along with the [environment variables](#environment-variables-reference) that can be used to configure them.
 
 - `api` (the node API)
     - environment variable: `NB_NAPI_PORT_HOST`
@@ -349,7 +349,7 @@ in the node selection dropdown in the query tool of the portal.
     [here](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json).
     By default, every new f-API will look up this list
     on startup and include it in its internal list of nodes to
-    federate over (this can be disabled using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables)).
+    federate over (this can be disabled using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables-reference)).
     This means that **you do not have to manually add these public nodes** to your `local_nb_nodes.json` file.
 
 ??? warning "Do not use `localhost`/`127.0.0.1` in `local_nb_nodes.json`"
