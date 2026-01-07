@@ -87,7 +87,7 @@ along with the [environment variables](#environment-variables) that can be used 
 
 ## Production deployment
 
-### Profiles
+### Launch profiles
 
 Neurobagel offers different deployment profiles that allow you to spin up
 specific combinations of services (listed below), depending on your use case.
@@ -284,7 +284,7 @@ NB_NAPI_DOMAIN=api.mydomain.org
 #### Set `node` launch profile
 
 Set the `COMPOSE_PROFILES` variable in the `.env` file to
-[the `node` profile](#profiles). This is the default value.
+[the `node` profile](#launch-profiles). This is the default value.
 
 ```bash
 COMPOSE_PROFILES=node
@@ -363,7 +363,6 @@ in the node selection dropdown in the query tool of the portal.
 
     This will cause an infinite request loop that will likely overload your service, as an f-API will be repeatedly making requests to itself.
 
-
 #### Set portal domain
 
 If you want to serve both the web query tool and the federation API
@@ -400,7 +399,7 @@ To do so, uncomment and set the corresponding variable in the `.env` file:
 #### Set `portal` launch profile
 
 Set the `COMPOSE_PROFILES` variable in the `.env` file to
-[the `portal` profile](#profiles).
+[the `portal` profile](#launch-profiles).
 
 ```bash
 COMPOSE_PROFILES=portal
@@ -429,36 +428,38 @@ standard deployment recipes described above.
     needs a good deal more manual configuration and maintenance.
 
 !!! warning "**Do not** launch the [`proxy` deployment template](#proxy-server)"
-    
+
     If you want to use your existing reverse proxy setup,
     make sure to not launch the [`proxy` deployment template](#proxy-server)
     provided by Neurobagel, or shut it down if you have already launched it.
 
-There are two main differences from the
-[default deployment templates](#production-deployment)
-when deploying with an existing proxy server:
+### Follow the default setup
 
-- Use the `docker-compose.noproxy.prod.yml` compose file instead.
-    Unlike the default production compose file, this:
+Deploying with an existing proxy server is very similar to using the default
+deployment templates and requires only minimal changes. Begin by following
+the default setup instructions for your [desired launch profile](#launch-profiles):
+
+- For a node deployment follow the [node setup](#node)
+- For a `portal` deployment follow the [portal setup](#portal)
+
+!!! note "Do not launch the default deployment template"
+
+    Skip the launch step of the default deployment instructions. Deploying
+    behind an existing proxy server requires a different docker compose file.
+    Trying to launch a default deployment template without the
+    [default proxy service](#proxy-server) running will most likely fail.
+
+### Set service host ports
+
+??? info "Differences from the default deployment template"
+
+    Unlike the default production compose file the deployment template for an
+    existing proxy
+
     - **does not** expect an existing proxy docker network to connect with
     - **does** export the service ports to the host machine,
-    so you can configure your existing proxy server
-    to reach each service on their port at the loopback address (i.e. `localhost`).
-- You must manually configure the routing rules in your reverse proxy
-    and provision the necessary SSL certficates for HTTPS. That means,
-    for each service you deploy, you must:
-    - ensure that your reverse proxy is correctly configured to route incoming
-    request to this service
-    - obtain, store, and update SSL certificates for each domain you use to host
-    your services.
-
-**NOTE**: Make it work for both node and portal.
-
-First, follow the
-[regular instructions for setting up a node deployment](#node) but do not
-yet launch the node stack. Then make these following changes.
-
-### Set host ports for services
+        so you can configure your existing proxy server
+        to reach each service on their port at the loopback address (i.e. `localhost`).
 
 Neurobagel services have [default ports](#default-ports-of-services)
 that they will try to bind to on the host. In most cases, you will want to
@@ -467,9 +468,25 @@ open then `.env` file and uncomment and set `NB_<XYZ>_PORT_HOST` variables
 for your services. Refer to the [default ports](#default-ports-of-services)
 for a list of the variable names.
 
-### Launch
+### Configure your reverse proxy
 
-Use the compose file for existing proxy servers to launch your services
+You must manually configure the routing rules in your reverse proxy
+and provision the necessary SSL certficates for HTTPS. That means,
+for each service you deploy, you must:
+
+- ensure that your reverse proxy is correctly configured to route incoming
+    request to this service
+- obtain, store, and update SSL certificates for each domain you use to host
+    your services.
+
+Please refer to the documentation of your existing reverse proxy server on
+how to do this.
+
+### Launch services behind an existing proxy
+
+Ensure that you have correctly followed the setup instructions for your desired
+[launch profile](#launch-profiles). Then launch your services using the
+`docker-compose.noproxy.prod.yml` compose file:
 
 ```bash
 docker compose -f docker-compose.noproxy.prod.yml up -d
