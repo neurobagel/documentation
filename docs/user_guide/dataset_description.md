@@ -60,7 +60,7 @@ Key name | Requirement level | Data type | Description
 ---- | ---- | ---- | ----
 Name* | REQUIRED | string | Name of the dataset. This name will be displayed when users discover the dataset in a Neurobagel query.
 Authors* | RECOMMENDED | list of strings | List of individuals who contributed to the creation/curation of the dataset.
-ReferencesAndLinks* | RECOMMENDED | list of strings | List of links or references that contain information on the dataset.
+ReferencesAndLinks* | RECOMMENDED | list of strings | List of links or references that contain information on the dataset. **NOTE:** The first valid URL in this list will also be used as the dataset homepage when the dataset is discovered in the Neurobagel query tool.
 Keywords* | RECOMMENDED | list of strings | List of keywords describing the content or subject matter of the dataset.
 RepositoryURL | RECOMMENDED | string | URL to a repository where the dataset can be downloaded or retrieved from (e.g., DataLad, Zenodo, GitHub).
 AccessInstructions | RECOMMENDED | string | Description of how to access the data.
