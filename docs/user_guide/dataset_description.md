@@ -4,9 +4,8 @@ This is a [JSON](https://www.w3schools.com/whatis/whatis_json.asp) file, based o
 Dataset information from this file will be displayed to a user when they discover your dataset in the Neurobagel query tool.
 
 ## Example
-<!-- TODO: Update link once neurobagel_examples PR is merged! -->
 ```json
---8<-- "https://raw.githubusercontent.com/neurobagel/neurobagel_examples/refs/heads/add-example-dataset-description/data-upload/synthetic_dataset_description.json"
+--8<-- "https://raw.githubusercontent.com/neurobagel/neurobagel_examples/refs/heads/main/data-upload/synthetic_dataset_description.json"
 ```
 
 ## Editable template
