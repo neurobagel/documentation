@@ -39,6 +39,7 @@ To run the CLI on a dataset, you will need the following files:
 <div class="annotate" markdown>
 - [ ] [A phenotypic TSV](./data_prep.md)
 - [ ] [A Neurobagel JSON data dictionary](../data_models/dictionaries.md) for the TSV
+- [ ] [A dataset description JSON](./dataset_description.md) for the dataset
 - [ ] (Optional) A valid [BIDS metadata table](preparing_imaging_data.md), if subjects have neuroimaging data available (1)
 - [ ] (Optional) A TSV of subject statuses for any image processing pipelines that have been run, following the [Nipoppy processing status file schema](https://nipoppy.readthedocs.io/en/latest/schemas/index.html#processing-status-file) (2)
 
@@ -201,13 +202,9 @@ Run the command below to generate harmonized subject-level phenotypic data for y
     bagel pheno \
         --pheno "Dataset1_pheno.tsv" \
         --dictionary "Dataset1_pheno.json" \
-        --name "Dataset 1" \
-        --portal "https://www.mydatasetportal.org/dataset1" \ # (1)!
+        --dataset-description "Dataset1_description.json" \
         --output "Dataset1.jsonld"
     ```
-    
-    1. The website/URL you enter here will be shown as a clickable link when this 
-    dataset is discovered in the query tool
 
 === "Docker"
 
@@ -215,13 +212,9 @@ Run the command below to generate harmonized subject-level phenotypic data for y
     docker run --rm -v $PWD:$PWD neurobagel/bagelcli pheno \
         --pheno "$PWD/Dataset1_pheno.tsv" \
         --dictionary "$PWD/Dataset1_pheno.json" \
-        --name "Dataset 1" \
-        --portal "https://www.mydatasetportal.org/dataset1" \ # (1)!
+        --dataset-description "Dataset1_description.json" \
         --output "$PWD/Dataset1.jsonld"
     ```
-
-    1. The website/URL you enter here will be shown as a clickable link when this 
-    dataset is discovered in the query tool
 
 === "Apptainer"
 
@@ -229,13 +222,9 @@ Run the command below to generate harmonized subject-level phenotypic data for y
     apptainer run --no-home -B $PWD bagel.sif pheno \
         --pheno "$PWD/Dataset1_pheno.tsv" \
         --dictionary "$PWD/Dataset1_pheno.json" \
-        --name "Dataset 1" \
-        --portal "https://www.mydatasetportal.org/dataset1" \ # (1)!
+        --dataset-description "Dataset1_description.json" \
         --output "$PWD/Dataset1.jsonld"
     ```
-
-     1. The website/URL you enter here will be shown as a clickable link when this 
-    dataset is discovered in the query tool
 
 #### 2. Process raw imaging metadata using the `bids` command (optional)
 

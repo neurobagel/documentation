@@ -34,7 +34,13 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
-  - pymdownx.superfences
+  - pymdownx.snippets:
+      url_download: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: madlibs
+          class: madlibs
+          format: !!python/name:mkdocs_madlibs.fence
   - pymdownx.tabbed:
       alternate_style: true
       slugify: !!python/object/apply:pymdownx.slugs.slugify
@@ -97,3 +103,6 @@ plugins:
 extra:
   analytics:
     provider: plausible
+
+extra_css:
+  - stylesheets/extra.css
