@@ -269,6 +269,28 @@ based on your data sharing requirements:
 For more details on these and other environment variables,
 check the [Environment variable reference](#environment-variables-reference)
 
+#### Set node proxy network
+
+In the `.env` file uncomment the following line
+and set it to the name of [your proxy network](#set-proxy-network-name):
+
+```bash
+# Uncomment to manually set the name of the proxy docker network
+# PROXY_NETWORK_NAME=NB_proxynet
+```
+
+??? note "Make sure to use the same proxy network name"
+
+    The `PROXY_NETWORK_NAME` `.env` variable must be set to exactly the same
+    name for all services that connect to your [proxy server](#proxy-server).
+    This is also why you have to launch the proxy server first.
+
+    You can use
+    [`docker network ls`](https://docs.docker.com/reference/cli/docker/network/ls/)
+    and 
+    [`docker network inspect <network_name>`](https://docs.docker.com/reference/cli/docker/network/inspect/)
+    to review your docker networks.
+
 #### Set node domain
 
 In the `.env` file under the `CONFIGURATION FOR n-API` section,
@@ -362,6 +384,28 @@ in the node selection dropdown in the query tool of the portal.
 ??? failure "Be careful to not use your federation API's own address for `ApiURL`!"
 
     This will cause an infinite request loop that will likely overload your service, as an f-API will be repeatedly making requests to itself.
+
+#### Set portal proxy network
+
+In the `.env` file uncomment the following line
+and set it to the name of [your proxy network](#set-proxy-network-name):
+
+```bash
+# Uncomment to manually set the name of the proxy docker network
+# PROXY_NETWORK_NAME=NB_proxynet
+```
+
+??? note "Make sure to use the same proxy network name"
+
+    The `PROXY_NETWORK_NAME` `.env` variable must be set to exactly the same
+    name for all services that connect to your [proxy server](#proxy-server).
+    This is also why you have to launch the proxy server first.
+
+    You can use
+    [`docker network ls`](https://docs.docker.com/reference/cli/docker/network/ls/)
+    and 
+    [`docker network inspect <network_name>`](https://docs.docker.com/reference/cli/docker/network/inspect/)
+    to review your docker networks.
 
 #### Set portal domain
 
