@@ -48,7 +48,7 @@ docker compose --profile full_stack pull
     If you don't specify a deployment profile, the default profile (`full_stack`) will be used,
     which pulls the images for all Neurobagel services including the [node API](api.md), [federation API](api.md), graph store, and [graphical query tool](query_tool.md).
 
-    See the [deployment profiles](config.md#available-profiles) 
+    See the [deployment profiles](config.md#launch-profiles) 
     section for more information on the available profiles.
 
 ### Restarting services after an update

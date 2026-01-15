@@ -1,86 +1,76 @@
-Neurobagel is designed to be easily deployed with a single command without deep configuration.
-In many cases however, you will want to customize your deployment to fit your needs.
+The [getting started](getting_started.md) section is designed to be easily deployed
+with a single command and without deep configuration to make local testing easier.
+For a production deployment intended for external users,
+you will want to customize the settings to fit your specific needs.
 
-If you already have a running Neurobagel node, 
-after making any configuration changes 
-(including changing the data you want to be available in the graph database), 
-follow the instructions to [restart your services](maintaining.md#restarting-services-after-an-update) 
-for the changes to take effect.
+To help you with this,
+our [`recipes` repository](https://github.com/neurobagel/recipes)
+includes dedicated production deployment templates that should
+cover the most common scenarios.
 
-## Deployment
+!!! info "Start with a fresh template for each deployment"
 
-### Available services
+    Make sure to clone a fresh copy of the 
+    [`recipes` repository](https://github.com/neurobagel/recipes) for each
+    deployment you want to make. 
+    
+    For example if you are hosting several [nodes](#node),
+    or if you launch the [containerized proxy server](#proxy-server) and a [single node](#node),
+    make one local clone of the `recipes` repo for each of them.
+    This will make it easier to update and maintain each deployment.
+
+## Deployable services and profiles
+
+The production deployment templates group services into
+[docker compose profiles](https://docs.docker.com/compose/how-tos/profiles/)
+that allow you to launch related services together.
+
+### Services
+
 The Neurobagel Docker Compose recipe includes several services
 and coordinates them to work together:
 
 (In parentheses are the names of services within the Docker Compose stack)
 
-- **[Neurobagel node API/n-API](api.md)** (`api`): The API that communicates with a single graph store and determines 
+- **[Neurobagel node API/n-API](api.md)** (`api`): The API that communicates with a single graph store and determines
     how detailed the response to a query should be from that graph.
 - **Graph store** (`graph`): A third-party RDF store that stores Neurobagel-harmonized data to be queried. At the moment our recipe uses the free tier
     of [GraphDB](https://db-engines.com/en/system/GraphDB) for this.
 - **Neurobagel federation/f-API** (`federation`): A special API that can federate over one or more
     Neurobagel nodes to provide a single point of access to multiple distributed databases.
-    By default it will federate over all public nodes and any local nodes you specify. 
-- **[Neurobagel query tool](query_tool.md)** (`query_federation`): A web app that provides a graphical interface for users to query a 
+    By default it will federate over all public nodes and any local nodes you specify.
+- **[Neurobagel query tool](query_tool.md)** (`query_federation`): A web app that provides a graphical interface for users to query a
     federation API and view the results from one or more nodes. Because the query tool is a static app and is run locally
     in the user's browser, this service simply hosts the app.
 
-### Available profiles
-Neurobagel offers different deployment profiles that allow you to spin up specific combinations of services (listed below), depending on your use case.
+Two additional, third-party services are part of production deployment templates:
 
-1. `full_stack`: Best profile to get started with Neurobagel. 
-    It includes all services you need to run a local Neurobagel node and have the ability to query public nodes, along with a graphical query tool.
-       - `api`
-       - `graph`
-       - `federation`
-       - `query_tool`
+- **[NGINX reverse proxy](https://nginx.org/en/)** (`nginx`):
+    A [containerized version](https://github.com/nginx-proxy/nginx-proxy)
+    of the popular proxy server that automatically create routes to
+    your Neurobagel services.
+- **Automatic SSL certificate service** (`nginx-acme`):
+    A [containerized companion tool](https://github.com/nginx-proxy/acme-companion)
+    for nginx that automatically provisions SSL certificates for the routes
+    created by `nginx` so users can communicate with your services
+    via encrypted HTTPS connections.
 
-    !!! info
-        This is the **default profile** if you don't specify one.
-    
-        By default, this profile will also federate over all publicly accessible Neurobagel nodes, although this behaviour can be disabled in the f-API using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables).
-
-2. `local_node`: Best profile if you want to run a standalone Neurobagel node
-    but rely on a separate deployment for providing federation and a graphical query tool (such as Neurobagel's own hosted public instances).
-       - `api`
-       - `graph`
-
-3. `local_federation`: Best profile if you already have multiple standalone (local or non-publicly-accessible) Neurobagel node
-    deployments running and you now want to provide federation over them.  
-       - `federation`
-       - `query_tool`
-    !!! info
-        If you only want to federate over a single local node and all public Neurobagel nodes,
-        we recommend using the `full_stack` profile to set up your node and federation in one step.
-        If you choose to use the `local_federation` profile, 
-        you will have to [manually configure your `local_nb_nodes.json` file](#configuring-local-node-names-and-urls-for-federation).
-
-#### Launching a profile
-You can then launch a specific profile using the `--profile` or  `-p` flag with `docker compose`, e.g.:
-```bash
-docker compose --profile full_stack up -d
-```
-If no profile is specified, `docker compose up -d` will start the services for the default profile, `full_stack`.
-
-Take a look at the [getting started guide](getting_started.md) for more information setting up for a first launch.
-
-### Default host ports for services
+### Default ports of services
 
 ??? warning "Don't publicly expose service ports on a production server"
 
     We're providing the default ports as a reference for local deployment, testing, and for scenarios
     where you do not want to use the
-    [provided reverse proxy deployment recipes](#behind-a-reverse-proxy).
+    [provided reverse proxy deployment recipes](#proxy-server).
     
     Where possible, we **strongly recommend** that you avoid opening service ports to a public network
     and instead use our
-    [reverse proxy deployment recipe](#behind-a-reverse-proxy).
+    [reverse proxy deployment recipe](#proxy-server).
 
-Neurobagel node services run inside Docker containers. Each service listens on an *internal port* within its container and 
+Neurobagel node services run inside Docker containers. Each service listens on an *internal port* within its container and
 exposes a *host port* that makes it accessible from the host machine. Below, we list the default *host ports* for each service
-when running in a fresh deployment following our [getting started guide](getting_started.md), 
-along with the [environment variables](#environment-variables) that can be used to configure them.
+when running in a fresh deployment following our [getting started guide](getting_started.md),
+along with the [environment variables](#environment-variables-reference) that can be used to configure them.
 
 - `api` (the node API)
     - environment variable: `NB_NAPI_PORT_HOST`
@@ -95,31 +85,151 @@ along with the [environment variables](#environment-variables) that can be used 
     - environment variable: `NB_GRAPH_PORT_HOST`
     - default host port: `7200`
 
-## Environment variables
+## Production deployment
 
-Below are all the possible Neurobagel environment variables that can be set in `.env`.
+### Launch profiles
 
-{{ read_table('./repos/recipes/docs/neurobagel_environment_variables.tsv') }}
+Neurobagel offers different deployment profiles that allow you to spin up
+specific combinations of services (listed below), depending on your use case.
 
-??? warning "Ensure that shell variables do not clash with `.env` file"
+- [`proxy server`](#proxy-server): Deploys pre-configured, containerized
+    reverse-proxy services that will automatically create the desired routes
+    to your Neurobagel services.
 
-    If the shell you run `docker compose` from already has any 
-    shell variable of the same name set, 
-    the shell variable will take precedence over the configuration
-    of `.env`!
-    In this case, make sure to `unset` the local variable first.
+    !!! info "You can also use an existing proxy server"
 
-    For more information, see [Docker's environment variable precedence](https://docs.docker.com/compose/environment-variables/envvars-precedence/).
+        Our deployment templates assume that you do not yet have a proxy server set up
+        on the machine where you will be hosting your Neurobagel services.
+        If you do already have a proxy server setup using a different method,
+        you can adjust the default deployment with some minor changes documented in the
+        section on [deploying with an existing proxy server](#deploying-with-an-existing-proxy-server).
+        
+        In this case, you can ignore the `proxy server` deployment template.
 
-!!! tip
-    Double check that any environment variables you have customized in `.env` are resolved with your expected values using the command `docker compose config`.
+- [`node`](#node): Deploys an individual Neurobagel node. You can run several
+    Neurobagel nodes on the same machine.
+       - `api`
+       - `graph`
 
-### Change security relevant variables
+- [`portal`](#portal): Deploys the federation engine and a connected web query interface.
+    Chose this profile if you want to host your own federated query e.g. for a list of nodes that
+    are not included in the list of publicly accessible Neurobagel nodes.
+       - `federation`
+       - `query_tool`
 
-The graph store (GraphDB instance) in a Neurobagel node is secured with password-based access and includes two users: an `admin` superuser and a regular database user, both of which are automatically configured by the Neurobagel deployment recipe.
-Passwords for both users are defined via files in the `./secrets` directory of the recipes repository, while the regular database username is set through an environment variable in `.env` file.
+### Preparations
 
-For security and best practice purposes, we recommend changing the following values from their defaults if you are using a deployment profile that includes a graph store:
+!!! info "Always do these steps first"
+
+    All three production deployment profiles begin with the same initial steps.
+    Make sure to complete them before following the profile specific setup instructions:
+
+#### Clone the recipe repository
+
+Make a fresh clone of the recipe repository in a location of your choice.
+
+```bash
+git clone https://github.com/neurobagel/recipes.git my-new-deployment
+```
+
+Change `my-new-deployment` to a directory name you will recognize in the future.
+Then navigate into the directory. All following steps happen inside this
+directory.
+
+```bash
+cd my-new-deployment
+```
+
+#### Copy the template files
+
+The recipe repository comes with templates of the `.env` and
+`local_nb_nodes.json` files. Copy and rename these templates, but do not edit
+the templates themselves.
+
+```bash
+cp template.env .env
+cp local_nb_nodes.template.json local_nb_nodes.json
+```
+
+You are now ready to follow the remaining steps of the deployment instructions.
+
+### Proxy server
+
+To make your Neurobagel node services (node API, query tool, etc.) accessible via custom URLs
+(e.g. `https://www.myfirstnode.org/query`) rather than a server IP address and port
+(e.g. `http://192.168.0.1:3000`) as shown in in the [getting started guide](getting_started.md),
+you will need to set up a reverse proxy such as [NGINX](https://nginx.org/en/docs/beginners_guide.html) or
+[Caddy](https://caddyserver.com/docs/quick-starts/reverse-proxy).
+This will route incoming requests for custom URLs to the Neurobagel services deployed on your server.
+
+!!! info "Before you begin"
+
+    Make sure that:
+
+    - you have access to the domain you want to host your services at,
+    so that you can create a DNS entry that points at the webserver
+    that will host your Neurobagel services.
+    - your web server firewall allows incoming connections
+    on ports 80 (HTTP) and 443 (HTTPS).
+    [Both are necessary](https://letsencrypt.org/docs/integration-guide/#firewall-configuration)
+    to complete the SSL certificate challenge and offer HTTPS connections.
+
+#### Set proxy network name
+
+!!! note "Start from a [fresh setup](#preparations)!"
+
+Open the `.env` file in you favourite text editor and uncomment the following line:
+
+```bash
+# Uncomment to manually set the name of the proxy docker network
+# PROXY_NETWORK_NAME=NB_proxynet
+```
+
+If you change the name of the proxy network, make sure to remember it
+as you will have to use the same name in your other deployments so that
+your deployed services and the proxy server can see each other.
+
+#### Launch the proxy server
+
+Launch the proxy server from the corresponding deployment template:
+
+```bash
+docker compose -f docker-compose.proxy.yml up -d
+```
+
+You should now see the `nginx` and `nginx-acme` services running:
+
+```bash
+docker ps
+```
+
+### Node
+
+!!! note "Start from a [fresh setup](#preparations)!"
+
+#### Set graph username and secrets
+
+!!! danger "This is a security relevant section!"
+
+The graph store (GraphDB instance) in a Neurobagel node
+is secured with password-based access and includes two users:
+an `admin` superuser and a regular database user,
+both of which are automatically configured by the Neurobagel deployment recipe.
+Passwords for both users are defined via files in the `./secrets` directory
+of the recipes repository, while the regular database username is set
+through an environment variable in `.env` file.
+
+??? warning "Changing user names and secrets after the first launch requires a hard reset"
+
+    If you've previously launched a Neurobagel Docker Compose stack following the
+    [Getting started](getting_started.md#the-neurobagel-node-deployment-recipe) instructions,
+    you'll need to
+    [reset your graph store](maintaining.md#resetting-your-graphdb-instance)
+    for any changes you have made to user credentials to take effect. 
+    Don't worry, any other configuration changes you've already made
+    will be applied when you re-launch your node.
+
+For security and best practice purposes, we recommend changing the following values from their defaults:
 
 1. In your `.env`, **set a custom username and database name for your graph store** by editing the following variables:
     - `NB_GRAPH_USERNAME`
@@ -146,67 +256,123 @@ For security and best practice purposes, we recommend changing the following val
         
         Do not share your password files with others.
   
-3. **Review and change as needed** the following variables in `.env` based on your data sharing requirements:
-    - `NB_RETURN_AGG`
-    - `NB_MIN_CELL_SIZE`
-    !!! info
-        These variables are modifiable after node initialization; you can [change their values at any time](maintaining.md#restarting-services-after-an-update).
+#### Set node response granularity
 
-4. If you've previously launched a Neurobagel Docker Compose stack following the [Getting started](getting_started.md#the-neurobagel-node-deployment-recipe) instructions,
-    you'll need to [reset your graph store](maintaining.md#resetting-your-graphdb-instance) for any changes you have made to user credentials to take effect (steps 1-2 above). 
-    Don't worry, any other configuration changes you've already made will be applied when you re-launch your node.
+!!! danger "This is a security relevant section!"
 
-## Configuring local node names and URLs for federation
+Review and change as needed the following variables in `.env`
+based on your data sharing requirements:
 
-When using a deployment profile that provides federation (i.e., includes the federation API), 
-you can configure the URLs and display names of the **node APIs** of any local nodes you wish to federate over in the file `local_nb_nodes.json`. 
-This file is read by the f-API.
+- `NB_RETURN_AGG` - controls whether a node returns subject level information
+- `NB_MIN_CELL_SIZE` - sets a minimum cohort result size
+
+For more details on these and other environment variables,
+check the [Environment variable reference](#environment-variables-reference)
+
+#### Set node proxy network
+
+In the `.env` file uncomment the following line
+and set it to the name of [your proxy network](#set-proxy-network-name):
+
+```bash
+# Uncomment to manually set the name of the proxy docker network
+# PROXY_NETWORK_NAME=NB_proxynet
+```
+
+??? note "Make sure to use the same proxy network name"
+
+    The `PROXY_NETWORK_NAME` `.env` variable must be set to exactly the same
+    name for all services that connect to your [proxy server](#proxy-server).
+    This is also why you have to launch the proxy server first.
+
+    You can use
+    [`docker network ls`](https://docs.docker.com/reference/cli/docker/network/ls/)
+    and 
+    [`docker network inspect <network_name>`](https://docs.docker.com/reference/cli/docker/network/inspect/)
+    to review your docker networks.
+
+#### Set node domain
+
+In the `.env` file under the `CONFIGURATION FOR n-API` section,
+uncomment the value of `NB_NAPI_DOMAIN` and set it to the domain
+(including any subdomain) that you want to use for your node.
+
+```bash
+NB_NAPI_DOMAIN=api.mydomain.org
+```
+
+!!! warning "Do not include `https://` in the domain name"
+
+#### Set `node` launch profile
+
+Set the `COMPOSE_PROFILES` variable in the `.env` file to
+[the `node` profile](#launch-profiles). This is the default value.
+
+```bash
+COMPOSE_PROFILES=node
+```
+
+#### Set node subdirectory route
+
+!!! info "This is an optional step"
+
+You may want to have your node API respond on a subdirectory of your domain (e.g. `myinstitute.org/node-api`).
+This is especially useful if you want to serve several nodes (or services)
+on the same domain, because you can set a different subdirectory for each
+(e.g. `myinstitute.org/node1`, `myinstitute.org/node2`, ...).
+
+To do so, uncomment and set the following line in the `.env` file:
+
+```bash
+NB_NAPI_BASE_PATH="/node-api"
+```
+
+#### Launch node
+
+Once you have made and verified all the changes in your `.env` file,
+you can launch your node:
+
+```bash
+docker compose -f docker-compose.prod.yml up -d
+```
+
+??? info "Make sure the proxy service is already running"
+
+    The default deployment recipe requires that you have already
+    [deployed the proxy server](#proxy-server).
+
+### Portal
+
+!!! note "Start from a [fresh setup](#preparations)!"
+
+#### Set nodes to federate over
+
+You configure the URLs and display names of the **node APIs** of any
+nodes you want your portal to federate over
+by editing the `local_nb_nodes.json` file.
 
 Each node to be federated over is defined using a dictionary with two key-value pairs:
+
 ```json
 {
-  "NodeName": "<DISPLAY NAME OF NODE>",
-  "ApiURL": "<URL OF NODE API>"
+"NodeName": "<DISPLAY NAME OF NODE>",
+"ApiURL": "<URL OF NODE API>"
 }
 ```
 
+`NodeName` can be any string, and determines how the node appears
+in the node selection dropdown in the query tool of the portal.
+
 !!! warning "`ApiURL` must include the protocol (`http://` or `https://`)"
 
-If you are only running a single node, or only want to federate across your local node and the public Neurobagel nodes, 
-you **do not need** to modify the default `ApiURL` in `local_nb_nodes.json`.
-However, you may want to customize your node's `NodeName`.
+??? info "You do not need to specify public Neurobagel nodes"
 
-Notes:
-
-- `NodeName` can be any string, and determines how the node appears in the node selection dropdown in the query tool
-- To add more local nodes to federate over, simply add more dictionaries to `local_nb_nodes.json`, and ensure the dictionaries are wrapped in a list `[]` (see example below)
-
-!!! Info "Nodes that do not need to be manually configured"
-    We maintain a list of publicly accessible Neurobagel nodes 
+        We maintain a list of publicly accessible Neurobagel nodes 
     [here](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json).
     By default, every new f-API will look up this list
     on startup and include it in its internal list of nodes to
-    federate over (this can be disabled using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables)).
+    federate over (this can be disabled using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables-reference)).
     This means that **you do not have to manually add these public nodes** to your `local_nb_nodes.json` file.
-
-**Example:** Assume there are two local nodes already running on different servers of your institutional network:
-
-- a node named `"My Institute"` running on your local computer (`localhost`), on port `8000` 
-- a node named `"Node Recruitment"` running on a different computer with the local IP `192.168.0.1`, listening on the default HTTP port `80` 
-
-To set up federation across both nodes, you would configure `local_nb_nodes.json` as follows:
-``` {.json title="local_nb_nodes.json"}
-[
-  {
-    "NodeName": "My Institute",
-    "ApiURL": "https://neurobagel.myinstitute.edu",
-  },
-  {
-    "NodeName": "Node Recruitment",
-    "ApiURL": "http://192.168.0.1"
-  }
-]
-```
 
 ??? warning "Do not use `localhost`/`127.0.0.1` in `local_nb_nodes.json`"
 
@@ -215,103 +381,176 @@ To set up federation across both nodes, you would configure `local_nb_nodes.json
     you cannot use `localhost` for the `ApiURL` and must instead provide a network-accessible URL, IP address, or container name.
     For an example, see the configuration for the node called `"My Institute"` above.
 
-??? warning "Be careful to not use your federation API's own address for `ApiURL`!"
-    
+??? failure "Be careful to not use your federation API's own address for `ApiURL`!"
+
     This will cause an infinite request loop that will likely overload your service, as an f-API will be repeatedly making requests to itself.
 
-## Behind a reverse proxy
+#### Set portal proxy network
 
-!!! warning "These steps are for advanced users and production deployments"
+In the `.env` file uncomment the following line
+and set it to the name of [your proxy network](#set-proxy-network-name):
 
-To make your Neurobagel node services (node API, query tool, etc.) accessible via custom URLs
-(e.g. `https://www.myfirstnode.org/query`) rather than a server IP address and port
-(e.g. `http://192.168.0.1:3000`) as shown in in the [getting started guide](getting_started.md), 
-you will need to set up a reverse proxy such as [NGINX](https://nginx.org/en/docs/beginners_guide.html) or
-[Caddy](https://caddyserver.com/docs/quick-starts/reverse-proxy). 
-This will route incoming requests for custom URLs to the Neurobagel services deployed on your server. 
+```bash
+# Uncomment to manually set the name of the proxy docker network
+# PROXY_NETWORK_NAME=NB_proxynet
+```
 
-The [Neurobagel `recipes` repository](https://github.com/neurobagel/recipes/)
-includes pre-configured Docker Compose files for both NGINX and Caddy,
-each of which can be used to launch a reverse proxy server alongside the services in your Neurobagel node.
-The reverse proxy setup will then automatically handle routing 
-and also manage and renew SSL certificates (providing secure HTTPS connections) for node services.
+??? note "Make sure to use the same proxy network name"
 
-1. If you haven't already, follow the [steps](getting_started.md#the-neurobagel-node-deployment-recipe)
-to clone and minimally configure the services in the [Neurobagel deployment recipe](https://github.com/neurobagel/recipes).
+    The `PROXY_NETWORK_NAME` `.env` variable must be set to exactly the same
+    name for all services that connect to your [proxy server](#proxy-server).
+    This is also why you have to launch the proxy server first.
 
-2. Ensure you have already registered your desired domain(s) with a DNS provider and configured the DNS settings to resolve correctly to your host machine.
+    You can use
+    [`docker network ls`](https://docs.docker.com/reference/cli/docker/network/ls/)
+    and 
+    [`docker network inspect <network_name>`](https://docs.docker.com/reference/cli/docker/network/inspect/)
+    to review your docker networks.
 
-3. Ensure ports 80 and 443 are open on the host machine where your Docker Compose stack is running.
-These are the ports your reverse proxy will listen on for incoming HTTP and HTTPS traffic.
+#### Set portal domain
 
-=== "NGINX"
+If you want to serve both the web query tool and the federation API
+service under the same domain, you only need uncomment and set the
+`NB_DEPLOY_DOMAIN` variable in the `.env` file:
 
-    4. In your local `docker-compose-nginx.yml` file, for **each** service
-    (i.e. `api`, `federation`, and `query_federation`),
+```bash
+NB_DEPLOY_DOMAIN="www.mydomain.org"
+```
 
-        1. Locate the `environment` section for that service 
-        2. Update the value of the following variables to the custom domain that specific service will use:
+You can **optionally** override this value for each service by setting
+a different domain in the
 
-            - `VIRTUAL_HOST`
-            - `LETSENCRYPT_HOST`
+- `NB_QUERY_DOMAIN` variable for the query tool
+- `NB_FAPI_DOMAIN` variable for the federation API
 
-            Both variables must have the same value for a given service, and must not include a protocol (`http://` or `https://`).
-        3. (Optional) To host services on different subpaths instead of different subdomains (e.g., `myinstitute.org/service1` instead of `service1.myinstitute.org`), 
-        **do not include the subpath in the `VIRTUAL_HOST` or `LETSENCRYPT_HOST` values**. 
-        Instead, update the corresponding `XXX_BASE_PATH` variables for the services in the `.env` file.
-        The full list of service-specific base path variables can be found [here](config.md#environment-variables).
+!!! warning "Do not include `https://` in the domain name"
 
-            For example, to host your node API at `myinstitute.org/node`:
+#### Set portal subdirectory route
 
-            ``` { .yaml title="docker-compose-nginx.yml" }
-            ...
-            api:
-              environment: 
-                VIRTUAL_HOST: myinstitute.org
-                LETSENCRYPT_HOST: myinstitute.org
-            ...
-            ```
-            
-            ``` { .bash title=".env" }
-            ...
-            NB_NAPI_BASE_PATH="/node"
-            ...
-            ```
+!!! info "This is an optional step"
 
-        ??? warning "Do not change the `VIRTUAL_PATH` and `VIRTUAL_PORT` variables"
-            You can look at the [NGINX-Proxy documentation](https://github.com/nginx-proxy/nginx-proxy/tree/main/docs#virtual-hosts-and-ports) to learn more about how these variables work.
+You may want to have one or several of your portal services
+respond on a subdirectory of your domain (e.g. `myinstitute.org/federate`).
+This is especially useful if you want to serve several services
+on the same domain, because you can set a different subdirectory for each
+(e.g. `myinstitute.org/federate`, `myinstitute.org/query`, ...).
 
-    5. In your `.env` file, set `NB_API_QUERY_URL` to your custom URL for the **federation API**, including any subpath if used. 
-    This URL must always begin with `https://`.
+To do so, uncomment and set the corresponding variable in the `.env` file:
 
-        Example:
-        ``` { .bash title=".env" }
-        ...
-        NB_API_QUERY_URL="https://myinstitute.org/federate"
-        ...
-        ```
+- `NB_QUERY_APP_BASE_PATH` for the query tool
+- `NB_FAPI_BASE_PATH` for the federation API
 
-    6. Finally, launch your node by explicitly referencing the custom Docker Compose file:
+#### Set `portal` launch profile
 
-        ```bash
-        docker compose -f docker-compose-nginx.yml up -d
-        ```
+Set the `COMPOSE_PROFILES` variable in the `.env` file to
+[the `portal` profile](#launch-profiles).
 
-=== "Caddy"
+```bash
+COMPOSE_PROFILES=portal
+```
 
-    !!! note "You do not need to edit the `docker-compose-caddy.yml` file directly."
+#### Launch portal
 
-    4. In your local `recipes/config/caddy/Caddyfile`,
-    change the default URL for each service to the URL you want to use for that service.
-    Follow the comments in the file for guidance.
+```bash
+docker compose -f docker-compose.prod.yml up -d
+```
+
+## Deploying with an existing proxy server
+
+If you already have a proxy server setup on your machine
+and prefer to keep using it, you need to make a few adjustments to the
+standard deployment recipes described above.
+
+!!! warning "This section is for experienced system administrators"
+
+    If you are unsure which to choose or are unfamiliar with managing and
+    maintaining a reverse proxy, you should use our
+    [production deployment templates](#production-deployment) instead.
     
-    ??? note "For more complex reverse proxy setups, refer to the Caddy documentation"
+    We document how to run Neurobagel with an existing reverse proxy to help
+    facilitate integration into established systems. This type of deployment
+    needs a good deal more manual configuration and maintenance.
 
-        The [Caddy documentation](https://caddyserver.com/docs/caddyfile) has more detailed information
-        on subdirectory routing and other configuration options.
+!!! warning "**Do not** launch the [`proxy` deployment template](#proxy-server)"
 
-    5. Finally, launch your node by explicitly referencing the custom Docker Compose file:
+    If you want to use your existing reverse proxy setup,
+    make sure to not launch the [`proxy` deployment template](#proxy-server)
+    provided by Neurobagel, or shut it down if you have already launched it.
 
-        ```bash
-        docker compose -f docker-compose-caddy.yml up -d
-        ```
+### Follow the default setup
+
+Deploying with an existing proxy server is very similar to using the default
+deployment templates and requires only minimal changes. Begin by following
+the default setup instructions for your [desired launch profile](#launch-profiles):
+
+- For a node deployment follow the [node setup](#node)
+- For a `portal` deployment follow the [portal setup](#portal)
+
+!!! note "Do not launch the default deployment template"
+
+    Skip the launch step of the default deployment instructions. Deploying
+    behind an existing proxy server requires a different docker compose file.
+    Trying to launch a default deployment template without the
+    [default proxy service](#proxy-server) running will most likely fail.
+
+### Set service host ports
+
+??? info "Differences from the default deployment template"
+
+    Unlike the default production compose file the deployment template for an
+    existing proxy
+
+    - **does not** expect an existing proxy docker network to connect with
+    - **does** export the service ports to the host machine,
+        so you can configure your existing proxy server
+        to reach each service on their port at the loopback address (i.e. `localhost`).
+
+Neurobagel services have [default ports](#default-ports-of-services)
+that they will try to bind to on the host. In most cases, you will want to
+change these ports to avoid conflicts with existing services. To do so,
+open then `.env` file and uncomment and set `NB_<XYZ>_PORT_HOST` variables
+for your services. Refer to the [default ports](#default-ports-of-services)
+for a list of the variable names.
+
+### Configure your reverse proxy
+
+You must manually configure the routing rules in your reverse proxy
+and provision the necessary SSL certificates for HTTPS. That means,
+for each service you deploy, you must:
+
+- ensure that your reverse proxy is correctly configured to route incoming
+    request to this service
+- obtain, store, and update SSL certificates for each domain you use to host
+    your services.
+
+Please refer to the documentation of your existing reverse proxy server on
+how to do this.
+
+### Launch services behind an existing proxy
+
+Ensure that you have correctly followed the setup instructions for your desired
+[launch profile](#launch-profiles). Then launch your services using the
+`docker-compose.noproxy.prod.yml` compose file:
+
+```bash
+docker compose -f docker-compose.noproxy.prod.yml up -d
+```
+
+## Environment variables reference
+
+Below are all the possible Neurobagel environment variables that can be set in `.env`.
+
+{{ read_table('./repos/recipes/docs/neurobagel_environment_variables.tsv') }}
+
+??? warning "Ensure that shell variables do not clash with `.env` file"
+
+    If the shell you run `docker compose` from already has any 
+    shell variable of the same name set, 
+    the shell variable will take precedence over the configuration
+    of `.env`!
+    In this case, make sure to `unset` the local variable first.
+
+    For more information, see [Docker's environment variable precedence](https://docs.docker.com/compose/environment-variables/envvars-precedence/).
+
+!!! tip
+    Double check that any environment variables you have customized in `.env` are resolved with your expected values using the command `docker compose config`.
