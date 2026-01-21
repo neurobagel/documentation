@@ -17,7 +17,7 @@ Each Docker image has a [semantic version](https://semver.org/) tag (vX.Y.Z), an
 You can pull the most recent docker images for Neurobagel tools by running:
 
 ```bash
-docker compose --profile full_stack pull
+docker compose pull
 ```
 
 ??? tip "Not sure what version you have?"
@@ -43,14 +43,6 @@ docker compose --profile full_stack pull
     ```
     where `"org.opencontainers.image.version"` refers to the version number.
 
-!!! warning "`docker compose` will only pull the images used by the current deployment profile"
-
-    If you don't specify a deployment profile, the default profile (`full_stack`) will be used,
-    which pulls the images for all Neurobagel services including the [node API](api.md), [federation API](api.md), graph store, and [graphical query tool](query_tool.md).
-
-    See the [deployment profiles](config.md#launch-profiles) 
-    section for more information on the available profiles.
-
 ### Restarting services after an update
 
 Whether you have updated the Docker images, the [configuration](config.md), or the [data](#updating-the-data-in-your-graph)
@@ -61,29 +53,23 @@ navigate to the path on your file system where
 you have stored the `docker-compose.yml` file from the [initial setup](getting_started.md) and run:
 
 ```bash
-docker compose --profile full_stack down
+docker compose down
 ```
 
 Then, to start the services again:
 
 ```bash
-docker compose --profile full_stack up -d
+docker compose up -d
 ```
-
-!!! tip "Explicitly specify the deployment profile"
-
-    To avoid unexpected behaviour when running `docker compose` commands, we recommend always explicitly specifying the deployment profile you want to use with the `-p` or `--profile` flag.
-    Otherwise, `docker compose` will only manage (start, stop, or update) the services in the default profile 
-    (for more info, see [Launching a profile](config.md#launching-a-profile)).
 
 ## Updating the data in your graph
 
 The Neurobagel deployment recipe launches a dedicated graph database that stores the datasets for a single node.
-The data in this graph database is loaded from the location specified in the 
-[`LOCAL_GRAPH_DATA` environment variable](config.md#environment-variables), 
+The data in this graph database is loaded from the location specified in the
+[`LOCAL_GRAPH_DATA` environment variable](config.md#environment-variables),
 and can be changed at any time.
 
-By default, the graph database will only contain an [example dataset called `BIDS synthetic`](https://github.com/neurobagel/recipes/blob/main/data/example_synthetic_pheno-bids-derivatives.jsonld). 
+By default, the graph database will only contain an [example dataset called `BIDS synthetic`](https://github.com/neurobagel/recipes/blob/main/data/example_synthetic_pheno-bids-derivatives.jsonld).
 
 If you have followed the [initial setup](getting_started.md) for deploying a Neurobagel node from our Docker Compose recipe, replacing the existing data in your graph database with your own data (or updated data) is a straightforward process.
 
@@ -92,15 +78,14 @@ Once you have generated or updated the JSONLD files you want to upload, to updat
 1. Shut down the Neurobagel node, if it is already running
 
     ```bash
-    docker compose --profile full_stack down
+    docker compose down
     ```
-   (or, replace `full_stack` with the profile you are using)
 
 2. Update the data files in the directory specified by the `LOCAL_GRAPH_DATA` variable in `.env`, or simply change the path to a directory containing your JSONLD files.
 3. (Re)start the Neurobagel node
 
     ```bash
-    docker compose --profile full_stack up -d
+    docker compose up -d
     ```
 
 Here are some other common scenarios where you might need to update the data in your graph:
@@ -207,10 +192,8 @@ follow these steps:
 1. Ensure that your Neurobagel node is not running (i.e., shut down the Docker containers for the node).
 
     ```bash
-    docker compose --profile full_stack down
+    docker compose down
     ```
-
-    If you are not using the `full_stack` profile, replace `full_stack` with the name of the profile you are using.
 
 2. Delete the Docker volume that contains the GraphDB data for your node.
 
@@ -228,14 +211,11 @@ follow these steps:
         You can use the `docker volume ls` command to list all volumes on your system.
         This will help you identify the name of the volume that was created for your Neurobagel node.
 
-
 3. Launch your Neurobagel node again.
 
     ```bash
-    docker compose --profile full_stack up -d
+    docker compose up -d
     ```
-
-    If you are not using the `full_stack` profile, replace `full_stack` with the name of the profile you are using.
 
 Some examples of when you might want to do this:
 
