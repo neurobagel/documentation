@@ -1,29 +1,29 @@
-The [getting started](getting_started.md) section is designed to be easily deployed
-with a single command and without deep configuration to make local testing easier.
+The [getting started](getting_started.md) section
+is designed for quick local testing with minimal configuration.
 For a production deployment intended for external users,
-you will want to customize the settings to fit your specific needs.
+you should customize the settings to fit your specific needs.
 
 To help you with this,
-our [`recipes` repository](https://github.com/neurobagel/recipes)
-includes dedicated production deployment templates that should
-cover the most common scenarios.
+the Neurobagel [`recipes` repository](https://github.com/neurobagel/recipes)
+includes dedicated production deployment recipes that should
+cover the most common use cases.
 
-!!! info "Start with a fresh template for each deployment"
+!!! info "Start with a fresh recipe for each deployment"
 
-    Make sure to clone a fresh copy of the 
+    Make a fresh clone of the 
     [`recipes` repository](https://github.com/neurobagel/recipes) for each
-    deployment you want to make. 
+    deployment you want to launch.
     
-    For example if you are hosting several [nodes](#node),
-    or if you launch the [containerized proxy server](#proxy-server) and a [single node](#node),
-    make one local clone of the `recipes` repo for each of them.
+    For example, hosting multiple Neurobagel [nodes](#node),
+    or a single [node](#node) alongside a [containerized proxy server](#proxy-server),
+    means creating a separate clone of the `recipes` repo for each node or proxy server.
     This will make it easier to update and maintain each deployment.
 
-## Deployable services and profiles
+## Deployable services
 
-The production deployment templates group services into
-[docker compose profiles](https://docs.docker.com/compose/how-tos/profiles/)
-that allow you to launch related services together.
+All Neurobagel services are [containerized](https://www.docker.com/resources/what-container/).
+The production deployment recipes use [Docker Compose profiles](https://docs.docker.com/compose/how-tos/profiles/)
+to group related services and allow them to be launched together.
 
 ### Services
 
@@ -43,13 +43,13 @@ and coordinates them to work together:
     federation API and view the results from one or more nodes. Because the query tool is a static app and is run locally
     in the user's browser, this service simply hosts the app.
 
-Two additional, third-party services are part of production deployment templates:
+Two additional, third-party services are part of production deployment recipes:
 
-- **[NGINX reverse proxy](https://nginx.org/en/)** (`nginx`):
+- **[NGINX reverse proxy](https://nginx.org/en/)** (`nginx-proxy`):
     A [containerized version](https://github.com/nginx-proxy/nginx-proxy)
-    of the popular proxy server that automatically create routes to
-    your Neurobagel services.
-- **Automatic SSL certificate service** (`nginx-acme`):
+    of the popular proxy server that lets you serve your Neurobagel services
+    under custom URLs, handling routes automatically.
+- **Automatic SSL certificate service** (`acme-companion`):
     A [containerized companion tool](https://github.com/nginx-proxy/acme-companion)
     for nginx that automatically provisions SSL certificates for the routes
     created by `nginx` so users can communicate with your services
@@ -69,7 +69,7 @@ Two additional, third-party services are part of production deployment templates
 
 Neurobagel node services run inside Docker containers. Each service listens on an *internal port* within its container and
 exposes a *host port* that makes it accessible from the host machine. Below, we list the default *host ports* for each service
-when running in a fresh deployment following our [getting started guide](getting_started.md),
+when running in a fresh deployment,
 along with the [environment variables](#environment-variables-reference) that can be used to configure them.
 
 - `api` (the node API)
@@ -89,31 +89,31 @@ along with the [environment variables](#environment-variables-reference) that ca
 
 ### Launch profiles
 
-Neurobagel offers different deployment profiles that allow you to spin up
+Neurobagel offers different deployment profiles that allow you to launch
 specific combinations of services (listed below), depending on your use case.
 
 - [`proxy server`](#proxy-server): Deploys pre-configured, containerized
-    reverse-proxy services that will automatically create the desired routes
-    to your Neurobagel services.
+    reverse-proxy services that will automatically set up routes
+    to your Neurobagel services under your desired URLs.
 
-    !!! info "You can also use an existing proxy server"
+    ??? info "You can also use an existing proxy server"
 
-        Our deployment templates assume that you do not yet have a proxy server set up
-        on the machine where you will be hosting your Neurobagel services.
-        If you do already have a proxy server setup using a different method,
-        you can adjust the default deployment with some minor changes documented in the
-        section on [deploying with an existing proxy server](#deploying-with-an-existing-proxy-server).
+        Our deployment instructions assume that there is no existing proxy server set up
+        on the machine that will host your Neurobagel services.
+        If you already have a proxy server setup, 
+        follow the slightly modified steps described in [deploying with an existing proxy server](#deploying-with-an-existing-proxy-server).
         
-        In this case, you can ignore the `proxy server` deployment template.
-
-- [`node`](#node): Deploys an individual Neurobagel node. You can run several
-    Neurobagel nodes on the same machine.
+        In this case, you can ignore the `proxy` deployment recipe.
+- [`node`](#node): Deploys an individual Neurobagel node.
+A Neurobagel node includes an internal graph database and a node API
+that handles all incoming queries and talks to the graph database.
+You can run several nodes on the same machine.
        - `api`
        - `graph`
 
 - [`portal`](#portal): Deploys the federation engine and a connected web query interface.
-    Chose this profile if you want to host your own federated query e.g. for a list of nodes that
-    are not included in the list of publicly accessible Neurobagel nodes.
+    Use this profile only if you need to host your own federated query tool,
+    e.g. to federate over nodes that are not in the list of public Neurobagel nodes.
        - `federation`
        - `query_tool`
 
