@@ -82,19 +82,19 @@ The [`neurobagel/recipes` repository](https://github.com/neurobagel/recipes)
 on GitHub contains our official
 Docker Compose recipe and template configuration files for setting up a local Neurobagel node.
 
-!!! info "More detailed setup for production deployments"
+!!! info "Production deployments require additional configuration"
 
     This section provide a minimal configuration for launching Neurobagel
     so you can get started quickly with trying out all services locally.
     In most cases, particularly when deploying Neurobagel for other users,
     additional configurations are necessary.
     
-    For this, please check out our more
+    For a complete, production-ready setup containing real-world data, see our
     [detailed instructions for production deployments](config.md).
 
 ### Clone the recipe repository
 
-Clone the recipe repository from GitHub and navigate into the cloned local repo.
+Clone the `recipes` repository from GitHub and navigate into the cloned local repo.
 
 ```bash
 git clone https://github.com/neurobagel/recipes.git
@@ -104,19 +104,19 @@ cd recipes
 ### Copy the template files
 
 Make copies of the template configuration files
-to edit for your deployment (do not edit the `template` files themselves).
+to use for your deployment.
 
 ```bash
 cp template.env .env
 cp local_nb_nodes.template.json local_nb_nodes.json
 ```
 
-For now you can leave these files unchanged. Our detailed documentation for
-[production deployments](config.md)
-has additional information on how to edit these files.
+You can leave these files unchanged for a local test deployment.
+Our guide on [setting up a production node](config.md) has instructions
+on editing these files for a production server deployment.
 
 ??? info "On a machine with an ARM-based processor?"
-    The default Docker Compose recipe assumes that you are launching Neurobagel on a machine with x86_64 (AMD/Intel) architecture (most Linux or Windows machines). 
+    The default Docker Compose recipe assumes that you are launching Neurobagel on a machine with x86_64 (AMD/Intel) architecture (most Linux or Windows machines).
     If your machine instead uses ARM-based architecture (e.g., certain Macs), **additionally change the following line in your `docker-compose.yml` file:**
     ```yml
         graph:
@@ -131,7 +131,7 @@ has additional information on how to edit these files.
 
 ### Launch Neurobagel
 
-Now you can launch your own Neurobagel node using Docker Compose:
+Now you can launch your local Neurobagel node using Docker Compose:
 
 ```bash
 docker compose up -d
@@ -168,8 +168,6 @@ d44d0b7359c8   ontotext/graphdb:10.3.1            "/usr/src/neurobagel…"   8 s
 - Try the Neurobagel node you just deployed by accessing:
     - your own query tool at [http://localhost:3000](http://localhost:3000), and reading the [query tool usage](./query_tool.md#usage) guide
     - the interactive docs for your node API at [http://localhost:8000/docs](http://localhost:8000/docs), and reading the [API usage](./api.md) guide
-- Change the [default ports of services](config.md#default-ports-of-services)
 - [Prepare your own dataset](./data_prep.md) for annotation with Neurobagel
-- [Add your own data to your Neurobagel graph](maintaining.md#updating-the-data-in-your-graph) to search
 - Learn how to make a [production deployment](config.md)
 - Hopefully all went well, but if you are experiencing issues, see how to [get help](../getting_help.md)
