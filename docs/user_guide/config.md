@@ -87,7 +87,7 @@ along with the [environment variables](#environment-variables-reference) that ca
 
 ## Production deployment
 
-### Launch profiles
+### Deployment profiles
 
 Neurobagel offers different deployment profiles that allow you to launch
 specific combinations of services (listed below), depending on your use case.
@@ -115,11 +115,11 @@ You can run several nodes on the same machine.
     Use this profile only if you need to host your own federated query tool,
     e.g. to federate over nodes that are not in the list of public Neurobagel nodes.
        - `federation`
-       - `query_tool`
+       - `query_federation`
 
-### Preparations
+### Common setup for all deployment profiles
 
-!!! info "Always do these steps first"
+!!! info "Do these steps first for each deployment profile you set up"
 
     All three production deployment profiles begin with the same initial steps.
     Make sure to complete them before following the profile specific setup instructions:
@@ -176,7 +176,7 @@ This will route incoming requests for custom URLs to the Neurobagel services dep
 
 #### Set proxy network name
 
-!!! note "Start from a [fresh setup](#preparations)!"
+!!! note "Start from a [fresh setup](#common-setup-for-all-deployment-profiles)!"
 
 Open the `.env` file in you favourite text editor and uncomment the following line:
 
@@ -205,7 +205,7 @@ docker ps
 
 ### Node
 
-!!! note "Start from a [fresh setup](#preparations)!"
+!!! note "Start from a [fresh setup](#common-setup-for-all-deployment-profiles)!"
 
 #### Set graph username and secrets
 
@@ -303,10 +303,10 @@ NB_NAPI_DOMAIN=api.mydomain.org
 
 !!! warning "Do not include `https://` in the domain name"
 
-#### Set `node` launch profile
+#### Set node deployment profile
 
 Set the `COMPOSE_PROFILES` variable in the `.env` file to
-[the `node` profile](#launch-profiles). This is the default value.
+[the `node` profile](#deployment-profiles). This is the default value.
 
 ```bash
 COMPOSE_PROFILES=node
@@ -343,7 +343,7 @@ docker compose -f docker-compose.prod.yml up -d
 
 ### Portal
 
-!!! note "Start from a [fresh setup](#preparations)!"
+!!! note "Start from a [fresh setup](#common-setup-for-all-deployment-profiles)!"
 
 #### Set nodes to federate over
 
@@ -440,10 +440,10 @@ To do so, uncomment and set the corresponding variable in the `.env` file:
 - `NB_QUERY_APP_BASE_PATH` for the query tool
 - `NB_FAPI_BASE_PATH` for the federation API
 
-#### Set `portal` launch profile
+#### Set portal deployment profile
 
 Set the `COMPOSE_PROFILES` variable in the `.env` file to
-[the `portal` profile](#launch-profiles).
+[the `portal` profile](#deployment-profiles).
 
 ```bash
 COMPOSE_PROFILES=portal
@@ -481,7 +481,7 @@ standard deployment recipes described above.
 
 Deploying with an existing proxy server is very similar to using the default
 deployment templates and requires only minimal changes. Begin by following
-the default setup instructions for your [desired launch profile](#launch-profiles):
+the default setup instructions for your [desired deployment profile](#deployment-profiles):
 
 - For a node deployment follow the [node setup](#node)
 - For a `portal` deployment follow the [portal setup](#portal)
@@ -529,7 +529,7 @@ how to do this.
 ### Launch services behind an existing proxy
 
 Ensure that you have correctly followed the setup instructions for your desired
-[launch profile](#launch-profiles). Then launch your services using the
+[deployment profile](#deployment-profiles). Then launch your services using the
 `docker-compose.noproxy.prod.yml` compose file:
 
 ```bash
