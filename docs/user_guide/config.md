@@ -121,8 +121,8 @@ You can run several nodes on the same machine.
 
 !!! info "Do these steps first for each deployment profile you set up"
 
-    All three production deployment profiles begin with the same initial steps.
-    Make sure to complete them before following the profile specific setup instructions:
+    Each production deployment profile requires a fresh deployment recipe and begins with the same initial steps.
+    Complete these steps before following the profile-specific setup instructions.
 
 #### Clone the recipe repository
 
