@@ -126,15 +126,14 @@ You can run several nodes on the same machine.
 
 #### Clone the recipe repository
 
-Make a fresh clone of the recipe repository in a location of your choice.
+Make a fresh clone of the `recipes` repository in a location of your choice.
 
 ```bash
 git clone https://github.com/neurobagel/recipes.git my-new-deployment
 ```
 
 Change `my-new-deployment` to a directory name you will recognize in the future.
-Then navigate into the directory. All following steps happen inside this
-directory.
+Then navigate into this directory for the remaining steps.
 
 ```bash
 cd my-new-deployment
@@ -151,8 +150,6 @@ cp template.env .env
 cp local_nb_nodes.template.json local_nb_nodes.json
 ```
 
-You are now ready to follow the remaining steps of the deployment instructions.
-
 ### Proxy server
 
 To make your Neurobagel node services (node API, query tool, etc.) accessible via custom URLs
@@ -160,9 +157,8 @@ To make your Neurobagel node services (node API, query tool, etc.) accessible vi
 (e.g. `http://192.168.0.1:3000`) as shown in in the [getting started guide](getting_started.md),
 you will need to set up a reverse proxy such as [NGINX](https://nginx.org/en/docs/beginners_guide.html) or
 [Caddy](https://caddyserver.com/docs/quick-starts/reverse-proxy).
-This will route incoming requests for custom URLs to the Neurobagel services deployed on your server.
-
-!!! info "Before you begin"
+(e.g. `http://192.168.0.1:3000`),
+Neurobagel provides a recipe for you to easily set up an [NGINX](https://nginx.org/en/docs/beginners_guide.html) reverse proxy alongside your Neurobagel services.
 
     Make sure that:
 
