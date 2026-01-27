@@ -354,8 +354,6 @@ Each node to be federated over is defined using a dictionary with two key-value 
 }
 ```
 
-`NodeName` can be any string, and determines how the node appears
-in the node selection dropdown in the query tool of the portal.
 
 !!! warning "`ApiURL` must include the protocol (`http://` or `https://`)"
 
@@ -408,7 +406,7 @@ service under the same domain, you only need uncomment and set the
 `NB_DEPLOY_DOMAIN` variable in the `.env` file:
 
 ```bash
-NB_DEPLOY_DOMAIN="www.mydomain.org"
+NB_DEPLOY_DOMAIN="mydomain.org"
 ```
 
 You can **optionally** override this value for each service by setting
@@ -417,9 +415,9 @@ a different domain in the
 - `NB_QUERY_DOMAIN` variable for the query tool
 - `NB_FAPI_DOMAIN` variable for the federation API
 
-!!! warning "Do not include `https://` in the domain name"
+!!! warning "Do not include the protocol (`http://` or `https://`) in the domain name"
 
-#### Set portal subdirectory route
+#### Set portal subdirectory path
 
 !!! info "This is an optional step"
 
@@ -455,17 +453,17 @@ If you already have a proxy server setup on your machine
 and prefer to keep using it, you need to make a few adjustments to the
 standard deployment recipes described above.
 
-!!! warning "This section is for experienced system administrators"
+!!! warning "Do not follow this section if you are using Neurobagel's [containerized proxy server](#proxy-server)"
 
-    If you are unsure which to choose or are unfamiliar with managing and
-    maintaining a reverse proxy, you should use our
-    [production deployment templates](#production-deployment) instead.
+    If you are unfamiliar with managing and
+    maintaining a bare-metal reverse proxy, you should use the
+    [containerized proxy server](#proxy-server) provided with Neurobagel deployment recipes instead.
     
     We document how to run Neurobagel with an existing reverse proxy to help
-    facilitate integration into established systems. This type of deployment
+    facilitate integration into established server setups. This type of deployment
     needs a good deal more manual configuration and maintenance.
 
-!!! warning "**Do not** launch the [`proxy` deployment template](#proxy-server)"
+!!! warning **Do not** launch the [`proxy` deployment profile](#proxy-server)"
 
     If you want to use your existing reverse proxy setup,
     make sure to not launch the [`proxy` deployment template](#proxy-server)
@@ -477,7 +475,7 @@ Deploying with an existing proxy server is very similar to using the default
 deployment templates and requires only minimal changes. Begin by following
 the default setup instructions for your [desired deployment profile](#deployment-profiles):
 
-- For a node deployment follow the [node setup](#node)
+- For a `node` deployment follow the [node setup](#node)
 - For a `portal` deployment follow the [portal setup](#portal)
 
 !!! note "Do not launch the default deployment template"
@@ -489,12 +487,12 @@ the default setup instructions for your [desired deployment profile](#deployment
 
 ### Set service host ports
 
-??? info "Differences from the default deployment template"
+??? info "Differences from the default deployment recipe"
 
-    Unlike the default production compose file the deployment template for an
+    Unlike the default production Docker Compose file the deployment recipe for an
     existing proxy
 
-    - **does not** expect an existing proxy docker network to connect with
+    - **does not** expect an existing proxy Docker network to connect with
     - **does** export the service ports to the host machine,
         so you can configure your existing proxy server
         to reach each service on their port at the loopback address (i.e. `localhost`).
@@ -506,7 +504,7 @@ open then `.env` file and uncomment and set `NB_<XYZ>_PORT_HOST` variables
 for your services. Refer to the [default ports](#default-ports-of-services)
 for a list of the variable names.
 
-### Configure your reverse proxy
+### Configure your existing reverse proxy
 
 You must manually configure the routing rules in your reverse proxy
 and provision the necessary SSL certificates for HTTPS. That means,
