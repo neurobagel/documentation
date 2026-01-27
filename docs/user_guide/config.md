@@ -187,7 +187,7 @@ your deployed services and the proxy server can see each other.
 
 #### Launch the proxy server
 
-Launch the proxy server from the corresponding deployment template:
+Launch the proxy server using the corresponding deployment recipe:
 
 ```bash
 docker compose -f docker-compose.proxy.yml up -d
@@ -215,17 +215,16 @@ Passwords for both users are defined via files in the `./secrets` directory
 of the recipes repository, while the regular database username is set
 through an environment variable in `.env` file.
 
-??? warning "Changing user names and secrets after the first launch requires a hard reset"
+??? warning "Changing user credentials after the first launch requires a hard reset"
 
     If you've previously launched a Neurobagel Docker Compose stack following the
     [Getting started](getting_started.md#the-neurobagel-node-deployment-recipe) instructions,
     you'll need to
     [reset your graph store](maintaining.md#resetting-your-graphdb-instance)
     for any changes you have made to user credentials to take effect. 
-    Don't worry, any other configuration changes you've already made
+    Any other configuration changes you've already made
     will be applied when you re-launch your node.
 
-For security and best practice purposes, we recommend changing the following values from their defaults:
 
 1. In your `.env`, **set a custom username and database name for your graph store** by editing the following variables:
     - `NB_GRAPH_USERNAME`
