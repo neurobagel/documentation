@@ -449,8 +449,8 @@ docker compose -f docker-compose.prod.yml up -d
 
 ## Deploying with an existing proxy server
 
-If you already have a proxy server setup on your machine
-and prefer to keep using it, you need to make a few adjustments to the
+If you already have a proxy server setup on your machine,
+you need to make a few adjustments to the
 standard deployment recipes described above.
 
 !!! warning "Do not follow this section if you are using Neurobagel's [containerized proxy server](#proxy-server)"
@@ -493,9 +493,9 @@ the default setup instructions for your [desired deployment profile](#deployment
     existing proxy
 
     - **does not** expect an existing proxy Docker network to connect with
-    - **does** export the service ports to the host machine,
+    - **does** expose the service ports to the host machine,
         so you can configure your existing proxy server
-        to reach each service on their port at the loopback address (i.e. `localhost`).
+        to reach each service on `localhost` ports
 
 Neurobagel services have [default ports](#default-ports-of-services)
 that they will try to bind to on the host. In most cases, you will want to
@@ -506,19 +506,19 @@ for a list of the variable names.
 
 ### Configure your existing reverse proxy
 
-You must manually configure the routing rules in your reverse proxy
-and provision the necessary SSL certificates for HTTPS. That means,
-for each service you deploy, you must:
+You must manually configure the existing reverse proxy on your machine for Neurobagel services. 
 
-- ensure that your reverse proxy is correctly configured to route incoming
-    request to this service
-- obtain, store, and update SSL certificates for each domain you use to host
-    your services.
+For each service you deploy, this includes:
+
+- configuring your reverse proxy routing rules so incoming 
+  requests are directed to the correct service under the appropriate domain/path
+- provisioning and keeping SSL certificates up to date for each domain used to host
+  the service
 
 Please refer to the documentation of your existing reverse proxy server on
 how to do this.
 
-### Launch services behind an existing proxy
+### Launch services behind your existing proxy
 
 Ensure that you have correctly followed the setup instructions for your desired
 [deployment profile](#deployment-profiles). Then launch your services using the
