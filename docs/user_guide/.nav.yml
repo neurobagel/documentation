@@ -7,8 +7,8 @@ nav:
   - Setting up your own Neurobagel node:
     - Getting started: "getting_started.md"
     - Production deployment: "production_deployment.md"
-    - Deployment with own proxy: "prod_with_own_proxy.md"
     - Maintaining a node: "maintaining.md"
+    - Deployment with own proxy: "prod_with_own_proxy.md"
   - Annotating your data:
     - Preparing the dataset description: "dataset_description.md"
     - Preparing phenotypic data: "data_prep.md"
