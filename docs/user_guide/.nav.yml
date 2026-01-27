@@ -6,7 +6,8 @@ nav:
     - Querying the API directly: "api.md"
   - Setting up your own Neurobagel node:
     - Getting started: "getting_started.md"
-    - Configuring a node: "config.md"
+    - Production deployment: "production_deployment.md"
+    - Deployment with own proxy: "prod_with_own_proxy.md"
     - Maintaining a node: "maintaining.md"
   - Annotating your data:
     - Preparing the dataset description: "dataset_description.md"

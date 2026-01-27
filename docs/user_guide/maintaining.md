@@ -45,7 +45,7 @@ docker compose pull
 
 ### Restarting services after an update
 
-Whether you have updated the Docker images, the [configuration](config.md), or the [data](#updating-the-data-in-your-graph)
+Whether you have updated the Docker images, the [configuration](production-deployment.md), or the [data](#updating-the-data-in-your-graph)
 of your Neurobagel node, you will need to restart the services to apply the changes.
 
 To shut down a running Neurobagel node,

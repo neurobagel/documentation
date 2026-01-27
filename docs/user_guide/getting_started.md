@@ -9,7 +9,7 @@ that lets you search across the data in your node and in public Neurobagel nodes
 
 To prepare your Neurobagel node for production use (i.e., for local or other users),
 and to configure your deployment according to your specific needs,
-refer to the detailed [Configuration documentation](config.md).
+refer to the detailed [production deployment documentation](production-deployment.md).
 
 ## Requirements
 
@@ -76,8 +76,7 @@ versions on your machine:
     docker compose version
     ```
 
-## The Neurobagel node deployment recipe
-
+## The Neurobagel quickstart recipe
 The [`neurobagel/recipes` repository](https://github.com/neurobagel/recipes)
 on GitHub contains our official
 Docker Compose recipe and template configuration files for setting up a local Neurobagel node.
@@ -90,7 +89,7 @@ Docker Compose recipe and template configuration files for setting up a local Ne
     additional configurations are necessary.
     
     For a complete, production-ready setup containing real-world data, see our
-    [detailed instructions for production deployments](config.md).
+    [detailed instructions for production deployments](production-deployment.md).
 
 ### Clone the recipe repository
 
@@ -112,7 +111,7 @@ cp local_nb_nodes.template.json local_nb_nodes.json
 ```
 
 You can leave these files unchanged for a local test deployment.
-Our guide on [setting up a production node](config.md) has instructions
+Our guide on [setting up a production node](production-deployment.md) has instructions
 on editing these files for a production server deployment.
 
 ??? info "On a machine with an ARM-based processor?"
@@ -140,7 +139,7 @@ docker compose up -d
 This will:
 
 - pull the required Docker images (if you haven't pulled them before)
-- launch the containers for all [the Neurobagel services](config.md#services)
+- launch the containers for all [the Neurobagel services](prioduction-deployment.md#services)
 - automatically set up and configure the services based on your configuration files
 - automatically upload example data to the Neurobagel graph
 
@@ -169,5 +168,5 @@ d44d0b7359c8   ontotext/graphdb:10.3.1            "/usr/src/neurobagel…"   8 s
     - your own query tool at [http://localhost:3000](http://localhost:3000), and reading the [query tool usage](./query_tool.md#usage) guide
     - the interactive docs for your node API at [http://localhost:8000/docs](http://localhost:8000/docs), and reading the [API usage](./api.md) guide
 - [Prepare your own dataset](./data_prep.md) for annotation with Neurobagel
-- Learn how to make a [production deployment](config.md)
+- Learn how to make a [production deployment](production-deployment.md)
 - Hopefully all went well, but if you are experiencing issues, see how to [get help](../getting_help.md)
