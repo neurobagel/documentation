@@ -25,7 +25,7 @@ Harmonized data are provided as standardized vocabulary-derived labels for reada
 Each row corresponds to a single matching subject session, except for [datasets configured to only return aggregate results](#protected-subject-level-results-for-aggregate-datasets).
 
 ??? abstract "Example query result TSV"
-    {{ read_table('./repos/neurobagel_examples/query-tool-results/neurobagel-query-results.tsv') }}
+    {{ read_table('./repos/neurobagel_examples/query-tool-results/neurobagel-query-results_YYYYMMDDHHMMSS.tsv') }}
 
 Columns in the TSV are described below:
 * = required values
@@ -33,7 +33,7 @@ Columns in the TSV are described below:
 | Column name | Description |
 | ---- | ---- |
 | DatasetName * | name of the dataset |
-| PortalURI | URL to a website or page about the dataset |
+| RepositoryURL | URL to a repository where the dataset can be downloaded or retrieved from (e.g., DataLad, Zenodo, GitHub) |
 | NumMatchingSubjects * | _(dataset-level)_ total number of subjects matching the query in the dataset |
 | SubjectID * | subject label |
 | SessionID * | session label |
@@ -49,6 +49,7 @@ Columns in the TSV are described below:
 | SessionCompletedPipelines | _(imaging sessions only)_ processing pipelines completed for the session |
 | DatasetImagingModalities | _(dataset-level)_ imaging modalities acquired in at least one session in the dataset |
 | DatasetPipelines | _(dataset-level)_ processing pipelines completed for at least one session in the dataset |
+| AccessLink | Primary link for access requests or information |
 
 #### Harmonized TSV data with URIs
 
@@ -57,7 +58,7 @@ A machine-optimized version of the query results, containing [URIs](https://www.
 Each row corresponds to a single matching subject session, except for [datasets configured to only return aggregate results](#protected-subject-level-results-for-aggregate-datasets).
 
 ??? abstract "Example query result TSV"
-    {{ read_table('./repos/neurobagel_examples/query-tool-results/neurobagel-query-results-with-URIs.tsv') }}
+    {{ read_table('./repos/neurobagel_examples/query-tool-results/neurobagel-query-results-with-URIs_YYYYMMDDHHMMSS.tsv') }}
 
 This file contains the same columns and data as the [descriptive query results TSV](#harmonized-tsv-data-with-descriptive-labels). 
 However, the harmonized terms in the following columns are provided in their raw URI form instead of as descriptive labels:
@@ -78,7 +79,7 @@ However, the harmonized terms in the following columns are provided in their raw
 !!! example
     For examples of aggregated matching dataset results, see the last rows of the example query result TSV in the previous two sections.
 
-A row in a query result TSV may show `protected` for all columns except for `DatasetName`, `PortalURI`, and other dataset-level columns. This means the source graph database (node) has been configured (via its corresponding Neurobagel node API) to return only aggregate information about matching subjects e.g., for data privacy reasons.
+A row in a query result TSV may show `protected` for all columns except for `DatasetName`, `RepositoryURL`, `AccessLink` and other dataset-level columns. This means the source graph database (node) has been configured (via its corresponding Neurobagel node API) to return only aggregate information about matching subjects e.g., for data privacy reasons.
 
 More information on this configuration setting, called `NB_RETURN_AGG`, and how to change it for a node can be found [here](config.md#environment-variables).
 

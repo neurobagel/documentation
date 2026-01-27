@@ -8,6 +8,10 @@ Dataset information from this file will be displayed to a user when they discove
 --8<-- "https://raw.githubusercontent.com/neurobagel/neurobagel_examples/refs/heads/main/data-upload/synthetic_dataset_description.json"
 ```
 
+How this dataset info will appear in the query tool:
+
+![Example of a dataset card in the Neurobagel query tool](../imgs/query/dataset_card.png)
+
 ## Editable template
 
 Below is an editable and copy-pasteable template for your dataset description JSON.
@@ -34,7 +38,7 @@ json
 }
 ```
 
-After editing, copy the save the contents in a file with the extension `.json`. 
+After editing, copy and save the contents in a file with the extension `.json`. 
 We recommend using an informative file name like `DATASETNAME_description.json`.
 
 !!! question "I have a dataset_description.json from my BIDS dataset"
