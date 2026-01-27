@@ -2,7 +2,7 @@ If you already have a proxy server setup on your machine,
 you need to make a few adjustments to the
 standard deployment recipes described above.
 
-!!! warning "Do not follow this section if you are using Neurobagel's [containerized proxy server](#proxy-server)"
+!!! warning "Do not follow this section if you are using Neurobagel's [containerized proxy server](production_deployment.md#proxy-server)"
 
     If you are unfamiliar with managing and
     maintaining a bare-metal reverse proxy, you should use the
@@ -12,7 +12,7 @@ standard deployment recipes described above.
     facilitate integration into established server setups. This type of deployment
     needs a good deal more manual configuration and maintenance.
 
-!!! warning **Do not** launch the [`proxy` deployment profile](#proxy-server)"
+!!! warning **Do not** launch the [`proxy` deployment profile](production_deployment.md#proxy-server)"
 
     If you want to use your existing reverse proxy setup,
     make sure to not launch the [`proxy` deployment template](#proxy-server)
@@ -24,11 +24,11 @@ Deploying Neurobagel with an existing proxy server
 is very similar to using the default deployment recipes.
 
 Begin by following the default setup instructions for your
-[desired deployment profile](#deployment-profiles), but
+[desired deployment profile](production_deployment.md#deployment-profiles), but
 **skip the final launch step** (i.e., skip "Launch node" or "Launch portal"):
 
-- For a `node` deployment follow the [node setup](#node)
-- For a `portal` deployment follow the [portal setup](#portal)
+- For a `node` deployment follow the [node setup](production_deployment.md#node)
+- For a `portal` deployment follow the [portal setup](production_deployment.md#portal)
 
 !!! note "Do not launch the default deployment template"
 
@@ -52,7 +52,7 @@ Begin by following the default setup instructions for your
 Neurobagel node services run inside Docker containers. Each service listens on an *internal port* within its container and
 exposes a *host port* that makes it accessible from the host machine. Below, we list the default *host ports* for each service
 when running in a fresh deployment,
-along with the [environment variables](#environment-variables-reference) that can be used to configure them.
+along with the [environment variables](maintaining.md#environment-variables-reference) that can be used to configure them.
 
 - `api` (the node API)
     - environment variable: `NB_NAPI_PORT_HOST`
@@ -103,7 +103,7 @@ how to do this.
 ## Launch services behind your existing proxy
 
 Ensure that you have correctly followed the setup instructions for your desired
-[deployment profile](#deployment-profiles). Then launch your services using the
+[deployment profile](production_deployment.md#deployment-profiles). Then launch your services using the
 `docker-compose.noproxy.prod.yml` compose file:
 
 ```bash
