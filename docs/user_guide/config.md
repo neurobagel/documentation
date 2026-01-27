@@ -217,8 +217,7 @@ through an environment variable in `.env` file.
 
 ??? warning "Changing user credentials after the first launch requires a hard reset"
 
-    If you've previously launched a Neurobagel Docker Compose stack following the
-    [Getting started](getting_started.md#the-neurobagel-node-deployment-recipe) instructions,
+    If you've previously launched a Neurobagel deployment (Docker Compose stack),
     you'll need to
     [reset your graph store](maintaining.md#resetting-your-graphdb-instance)
     for any changes you have made to user credentials to take effect. 
@@ -258,10 +257,10 @@ through an environment variable in `.env` file.
 Review and change as needed the following variables in `.env`
 based on your data sharing requirements:
 
-- `NB_RETURN_AGG` - controls whether a node returns subject level information
-- `NB_MIN_CELL_SIZE` - sets a minimum cohort result size
+- `NB_RETURN_AGG`: whether to return aggregate counts only, instead of subject-level records
+- `NB_MIN_CELL_SIZE`: minimum matching subject threshold for dataset visibility in queries
 
-For more details on these and other environment variables,
+For more details on all available environment variables,
 check the [Environment variable reference](#environment-variables-reference)
 
 #### Set node proxy network
@@ -288,15 +287,16 @@ and set it to the name of [your proxy network](#set-proxy-network-name):
 
 #### Set node domain
 
-In the `.env` file under the `CONFIGURATION FOR n-API` section,
-uncomment the value of `NB_NAPI_DOMAIN` and set it to the domain
-(including any subdomain) that you want to use for your node.
+In your `.env` file,
+uncomment the variable `NB_NAPI_DOMAIN` and set it to the domain
+(including any subdomain) that you want to use for your node API
+(the web-accessible part of your node).
 
 ```bash
-NB_NAPI_DOMAIN=api.mydomain.org
+NB_NAPI_DOMAIN=node.mydomain.org
 ```
 
-!!! warning "Do not include `https://` in the domain name"
+!!! warning "Do not include the protocol (`http://` or `https://`) in the domain name"
 
 #### Set node deployment profile
 
@@ -307,7 +307,7 @@ Set the `COMPOSE_PROFILES` variable in the `.env` file to
 COMPOSE_PROFILES=node
 ```
 
-#### Set node subdirectory route
+#### Set node subdirectory path
 
 !!! info "This is an optional step"
 
@@ -324,8 +324,7 @@ NB_NAPI_BASE_PATH="/node-api"
 
 #### Launch node
 
-Once you have made and verified all the changes in your `.env` file,
-you can launch your node:
+Save the changes to your `.env` file and launch your node:
 
 ```bash
 docker compose -f docker-compose.prod.yml up -d
@@ -333,7 +332,7 @@ docker compose -f docker-compose.prod.yml up -d
 
 ??? info "Make sure the proxy service is already running"
 
-    The default deployment recipe requires that you have already
+    The default `node` deployment recipe requires that you have already
     [deployed the proxy server](#proxy-server).
 
 ### Portal
@@ -360,7 +359,7 @@ in the node selection dropdown in the query tool of the portal.
 
 !!! warning "`ApiURL` must include the protocol (`http://` or `https://`)"
 
-??? info "You do not need to specify public Neurobagel nodes"
+??? info "Public Neurobagel nodes do not need to be included"
 
         We maintain a list of publicly accessible Neurobagel nodes 
     [here](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json).
