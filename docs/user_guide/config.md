@@ -92,7 +92,7 @@ along with the [environment variables](#environment-variables-reference) that ca
 Neurobagel offers different deployment profiles that allow you to launch
 specific combinations of services (listed below), depending on your use case.
 
-- [`proxy server`](#proxy-server): Deploys pre-configured, containerized
+- [`proxy`](#proxy-server): Deploys pre-configured, containerized
     reverse-proxy services that will automatically set up routes
     to your Neurobagel services under your desired URLs.
 
@@ -188,7 +188,7 @@ docker ps
 
 !!! note "Start from a [fresh setup](#common-setup-for-all-deployment-profiles)!"
 
-#### Set graph username and secrets
+#### Set graph store credentials
 
 !!! danger "This is a security relevant section!"
 
@@ -221,7 +221,7 @@ through an environment variable in `.env` file.
       ```
     - (Optional) You can change the directory where your password files are stored by editing the `NB_GRAPH_SECRETS_PATH` variable in `.env`.
 
-    ??? info "Graph store passwords are not meant for node users!"
+    ??? info "Graph store passwords are only for administrator use!"
         The `admin` user and graph database user credentials are intended solely for internal use by the deployment recipe scripts that automatically set up and update the graph store, 
         or for a node administrator to interact directly with the graph store.
         These credentials also secure internal communication between your graph store and its node API,
@@ -274,16 +274,17 @@ COMPOSE_PROFILES=node
 
 !!! info "This is an optional step"
 
-You may want to have your node API respond on a subdirectory of your domain (e.g. `myinstitute.org/node-api`).
-This is especially useful if you want to serve several nodes (or services)
-on the same domain, because you can set a different subdirectory for each
-(e.g. `myinstitute.org/node1`, `myinstitute.org/node2`, ...).
-
-To do so, uncomment and set the following line in the `.env` file:
+To host your node API on a subdirectory of your domain (e.g. `mydomain.org/node`),
+uncomment and set `NB_NAPI_BASE_PATH`
+to the desired subdirectory path in the `.env` file.
 
 ```bash
-NB_NAPI_BASE_PATH="/node-api"
+NB_NAPI_BASE_PATH="/node"
 ```
+
+This is useful if you want to serve several nodes (or services)  
+on the same domain, because you can use a different subdirectory for each  
+(e.g. `myinstitute.org/node1`, `myinstitute.org/node2`, ...).
 
 #### Launch node
 
@@ -310,11 +311,17 @@ by editing the `local_nb_nodes.json` file.
 
 Each node to be federated over is defined using a dictionary with two key-value pairs:
 
-```json
-{
-"NodeName": "<DISPLAY NAME OF NODE>",
-"ApiURL": "<URL OF NODE API>"
-}
+```json title="local_nb_nodes.json"
+[
+    {
+        "NodeName": "Parkinson's Disease Data - Site 1",
+        "ApiURL": "https://mydomain.org/site1"
+    }
+    {
+        "NodeName": "Parkinson's Disease Data - Site 2",
+        "ApiURL": "https://mydomain.org/site2"
+    }
+]
 ```
 
 
@@ -328,13 +335,6 @@ Each node to be federated over is defined using a dictionary with two key-value 
     on startup and include it in its internal list of nodes to
     federate over (this can be disabled using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables-reference)).
     This means that **you do not have to manually add these public nodes** to your `local_nb_nodes.json` file.
-
-??? warning "Do not use `localhost`/`127.0.0.1` in `local_nb_nodes.json`"
-
-    Even if the local node API(s) you are federating over are running 
-    on the same host machine as your federation API, 
-    you cannot use `localhost` for the `ApiURL` and must instead provide a network-accessible URL, IP address, or container name.
-    For an example, see the configuration for the node called `"My Institute"` above.
 
 ??? failure "Be careful to not use your federation API's own address for `ApiURL`!"
 
@@ -368,7 +368,10 @@ This is especially useful if you want to serve several services
 on the same domain, because you can set a different subdirectory for each
 (e.g. `myinstitute.org/federate`, `myinstitute.org/query`, ...).
 
-To do so, uncomment and set the corresponding variable in the `.env` file:
+To host one or more of your portal services on a subdirectory
+of your domain (e.g. `mydomain.org/federate`),
+uncomment and set the following variable(s) to the desired
+subdirectory path(s) in the `.env` file:
 
 - `NB_QUERY_APP_BASE_PATH` for the query tool
 - `NB_FAPI_BASE_PATH` for the federation API
