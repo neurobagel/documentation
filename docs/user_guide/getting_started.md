@@ -1,6 +1,6 @@
 The following sections will get you started
-with deploying your own [Neurobagel node](config.md#available-services),
-a graphical query tool, 
+with deploying your own [Neurobagel node](production_deployment.md#available-services),
+a graphical query tool,
 and a local federation API
 (everything in blue in the picture below)
 that lets you search across the data in your node and in public Neurobagel nodes.
@@ -9,7 +9,7 @@ that lets you search across the data in your node and in public Neurobagel nodes
 
 To prepare your Neurobagel node for production use (i.e., for local or other users),
 and to configure your deployment according to your specific needs,
-refer to the detailed [production deployment documentation](production-deployment.md).
+refer to the detailed [production deployment documentation](production_deployment.md).
 
 ## Requirements
 
