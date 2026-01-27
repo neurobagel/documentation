@@ -186,7 +186,7 @@ docker ps
 
 ### Node
 
-!!! note "Start from a [fresh setup](#common-setup-for-all-deployment-profiles)!"
+!!! note "Start from a [fresh deployment recipe](#common-setup-for-all-deployment-profiles)!"
 
 #### Set graph store credentials
 
@@ -209,16 +209,17 @@ through an environment variable in `.env` file.
     Any other configuration changes you've already made
     will be applied when you re-launch your node.
 
-
 1. In your `.env`, **set a custom username and database name for your graph store** by editing the following variables:
     - `NB_GRAPH_USERNAME`
     - `NB_GRAPH_DB`
 
 2. In the ([`./secrets`](https://github.com/neurobagel/recipes/tree/main/secrets) directory, **change the default passwords** by replacing the contents of the file `NB_GRAPH_ADMIN_PASSWORD.txt` for the `admin` superuser, and the file `NB_GRAPH_PASSWORD.txt` for the graph database user (corresponding to `NB_GRAPH_USERNAME`).
     - To generate a random password in the terminal, you can use:
+
       ```bash
       openssl rand -hex 16
       ```
+
     - (Optional) You can change the directory where your password files are stored by editing the `NB_GRAPH_SECRETS_PATH` variable in `.env`.
 
     ??? info "Graph store passwords are only for administrator use!"
@@ -263,8 +264,8 @@ NB_NAPI_DOMAIN=node.mydomain.org
 
 #### Set node deployment profile
 
-Set the `COMPOSE_PROFILES` variable in the `.env` file to
-[the `node` profile](#deployment-profiles). This is the default value.
+In your `.env` file, ensure that `COMPOSE_PROFILES` is set to
+the [`node` profile](#deployment-profiles). This is the default value.
 
 ```bash
 COMPOSE_PROFILES=node
@@ -301,7 +302,7 @@ docker compose -f docker-compose.prod.yml up -d
 
 ### Portal
 
-!!! note "Start from a [fresh setup](#common-setup-for-all-deployment-profiles)!"
+!!! note "Start from a [fresh deployment recipe](#common-setup-for-all-deployment-profiles)!"
 
 #### Set nodes to federate over
 
@@ -376,10 +377,14 @@ subdirectory path(s) in the `.env` file:
 - `NB_QUERY_APP_BASE_PATH` for the query tool
 - `NB_FAPI_BASE_PATH` for the federation API
 
-#### Set portal deployment profile
+This is useful if you want to serve the services on the same domain,
+because you can use a different subdirectory for each  
+(e.g. `mydomain.org/federate`, `mydomain.org/query`).
 
-Set the `COMPOSE_PROFILES` variable in the `.env` file to
-[the `portal` profile](#deployment-profiles).
+#### Set `portal` deployment profile
+
+In your .env file, set `COMPOSE_PROFILES` to
+the [`portal` profile](#deployment-profiles).
 
 ```bash
 COMPOSE_PROFILES=portal
@@ -415,9 +420,12 @@ standard deployment recipes described above.
 
 ### Follow the default setup
 
-Deploying with an existing proxy server is very similar to using the default
-deployment templates and requires only minimal changes. Begin by following
-the default setup instructions for your [desired deployment profile](#deployment-profiles):
+Deploying Neurobagel with an existing proxy server
+is very similar to using the default deployment recipes.
+
+Begin by following the default setup instructions for your
+[desired deployment profile](#deployment-profiles), but
+**skip the final launch step** (i.e., skip "Launch node" or "Launch portal"):
 
 - For a `node` deployment follow the [node setup](#node)
 - For a `portal` deployment follow the [portal setup](#portal)
@@ -441,20 +449,20 @@ the default setup instructions for your [desired deployment profile](#deployment
         so you can configure your existing proxy server
         to reach each service on `localhost` ports
 
-Neurobagel services have [default ports](#default-ports-of-services)
-that they will try to bind to on the host. In most cases, you will want to
-change these ports to avoid conflicts with existing services. To do so,
-open then `.env` file and uncomment and set `NB_<XYZ>_PORT_HOST` variables
-for your services. Refer to the [default ports](#default-ports-of-services)
-for a list of the variable names.
+In our modified deployment recipe for an existing proxy server,
+Neurobagel services bind to [default ports](#default-ports-of-services)  
+on the host. In your `.env` file, you can  
+change these ports to avoid conflicts with existing services.
+Simply uncomment and set the relevant `NB_<SERVICE>_PORT_HOST` variables.  
+See [default ports](#default-ports-of-services)) for the list of port variables.
 
 ### Configure your existing reverse proxy
 
-You must manually configure the existing reverse proxy on your machine for Neurobagel services. 
+You must manually configure the existing reverse proxy on your machine for Neurobagel services.
 
 For each service you deploy, this includes:
 
-- configuring your reverse proxy routing rules so incoming 
+- configuring your reverse proxy routing rules so incoming
   requests are directed to the correct service under the appropriate domain/path
 - provisioning and keeping SSL certificates up to date for each domain used to host
   the service
