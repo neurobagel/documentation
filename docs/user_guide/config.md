@@ -170,21 +170,6 @@ Neurobagel provides a recipe for you to easily set up an [NGINX](https://nginx.o
     [Both are necessary](https://letsencrypt.org/docs/integration-guide/#firewall-configuration)
     to complete the SSL certificate challenge and offer HTTPS connections.
 
-#### Set proxy network name
-
-!!! note "Start from a [fresh setup](#common-setup-for-all-deployment-profiles)!"
-
-Open the `.env` file in you favourite text editor and uncomment the following line:
-
-```bash
-# Uncomment to manually set the name of the proxy docker network
-# PROXY_NETWORK_NAME=NB_proxynet
-```
-
-If you change the name of the proxy network, make sure to remember it
-as you will have to use the same name in your other deployments so that
-your deployed services and the proxy server can see each other.
-
 #### Launch the proxy server
 
 Launch the proxy server using the corresponding deployment recipe:
@@ -262,28 +247,6 @@ based on your data sharing requirements:
 
 For more details on all available environment variables,
 check the [Environment variable reference](#environment-variables-reference)
-
-#### Set node proxy network
-
-In the `.env` file uncomment the following line
-and set it to the name of [your proxy network](#set-proxy-network-name):
-
-```bash
-# Uncomment to manually set the name of the proxy docker network
-# PROXY_NETWORK_NAME=NB_proxynet
-```
-
-??? note "Make sure to use the same proxy network name"
-
-    The `PROXY_NETWORK_NAME` `.env` variable must be set to exactly the same
-    name for all services that connect to your [proxy server](#proxy-server).
-    This is also why you have to launch the proxy server first.
-
-    You can use
-    [`docker network ls`](https://docs.docker.com/reference/cli/docker/network/ls/)
-    and 
-    [`docker network inspect <network_name>`](https://docs.docker.com/reference/cli/docker/network/inspect/)
-    to review your docker networks.
 
 #### Set node domain
 
@@ -376,28 +339,6 @@ Each node to be federated over is defined using a dictionary with two key-value 
 ??? failure "Be careful to not use your federation API's own address for `ApiURL`!"
 
     This will cause an infinite request loop that will likely overload your service, as an f-API will be repeatedly making requests to itself.
-
-#### Set portal proxy network
-
-In the `.env` file uncomment the following line
-and set it to the name of [your proxy network](#set-proxy-network-name):
-
-```bash
-# Uncomment to manually set the name of the proxy docker network
-# PROXY_NETWORK_NAME=NB_proxynet
-```
-
-??? note "Make sure to use the same proxy network name"
-
-    The `PROXY_NETWORK_NAME` `.env` variable must be set to exactly the same
-    name for all services that connect to your [proxy server](#proxy-server).
-    This is also why you have to launch the proxy server first.
-
-    You can use
-    [`docker network ls`](https://docs.docker.com/reference/cli/docker/network/ls/)
-    and 
-    [`docker network inspect <network_name>`](https://docs.docker.com/reference/cli/docker/network/inspect/)
-    to review your docker networks.
 
 #### Set portal domain
 
