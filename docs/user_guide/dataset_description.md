@@ -1,6 +1,6 @@
 To generate harmonized data using Neurobagel, you must prepare a dataset description file.
 This is a [JSON](https://www.w3schools.com/whatis/whatis_json.asp) file that includes [specific fields](#dataset-description-fields) describing the dataset and how to access the data.
-This file is adapted from the [`dataset_description.json`](https://bids-specification.readthedocs.io/en/stable/modality-agnostic-files/dataset-description.html#dataset-description) from [BIDS](https://bids-specification.readthedocs.io/en/stable/).
+This file is adapted from the `dataset_description.json` from [BIDS](https://bids-specification.readthedocs.io/en/stable/modality-agnostic-files/dataset-description.html#dataset-description).
 
 Information from the dataset description will be displayed to a user when they discover your dataset in the Neurobagel query tool.
 
