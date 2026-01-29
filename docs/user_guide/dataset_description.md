@@ -1,7 +1,8 @@
 To generate harmonized data using Neurobagel, you must prepare a dataset description file.
-This is a [JSON](https://www.w3schools.com/whatis/whatis_json.asp) file, based on the [`dataset_description.json`](https://bids-specification.readthedocs.io/en/stable/modality-agnostic-files/dataset-description.html#dataset-description) from [BIDS](https://bids-specification.readthedocs.io/en/stable/), that includes information about both the dataset and how to access the data.
+This is a [JSON](https://www.w3schools.com/whatis/whatis_json.asp) file that includes [specific fields](#dataset-description-fields) describing the dataset and how to access the data.
+This file is adapted from the [`dataset_description.json`](https://bids-specification.readthedocs.io/en/stable/modality-agnostic-files/dataset-description.html#dataset-description) from [BIDS](https://bids-specification.readthedocs.io/en/stable/).
 
-Dataset information from this file will be displayed to a user when they discover your dataset in the Neurobagel query tool.
+Information from the dataset description will be displayed to a user when they discover your dataset in the Neurobagel query tool.
 
 ## Example
 ```json
@@ -27,9 +28,9 @@ json
 ~~~
 {
 	"Name": "___DATASET NAME___",
-	"Authors": [___AUTHORS___],
-	"ReferencesAndLinks": [___LINKS___],
-	"Keywords": [___KEYWORDS___],
+	"Authors": ["___AUTHORS___"],
+	"ReferencesAndLinks": ["___LINKS___"],
+	"Keywords": ["___KEYWORDS___"],
 	"RepositoryURL": "___URL___",
 	"AccessInstructions": "___INSTRUCTIONS___",
 	"AccessType": "___TYPE___",
