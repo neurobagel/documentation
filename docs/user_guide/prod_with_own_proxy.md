@@ -12,7 +12,7 @@ standard deployment recipes described above.
     facilitate integration into established server setups. This type of deployment
     needs a good deal more manual configuration and maintenance.
 
-!!! warning **Do not** launch the [`proxy` deployment profile](production_deployment.md#proxy-server)"
+!!! warning "**Do not** launch the [`proxy` deployment profile](production_deployment.md#proxy-server)"
 
     If you want to use your existing reverse proxy setup,
     make sure to not launch the [`proxy` deployment template](#proxy-server)
