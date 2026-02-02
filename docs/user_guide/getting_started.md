@@ -77,6 +77,7 @@ versions on your machine:
     ```
 
 ## The Neurobagel quickstart recipe
+
 The [`neurobagel/recipes` repository](https://github.com/neurobagel/recipes)
 on GitHub contains our official
 Docker Compose recipe and template configuration files for setting up a local Neurobagel node.
@@ -89,7 +90,7 @@ Docker Compose recipe and template configuration files for setting up a local Ne
     additional configurations are necessary.
     
     For a complete, production-ready setup containing real-world data, see our
-    [detailed instructions for production deployments](production-deployment.md).
+    [detailed instructions for production deployments](production_deployment.md).
 
 ### Clone the recipe repository
 
@@ -111,7 +112,7 @@ cp local_nb_nodes.template.json local_nb_nodes.json
 ```
 
 You can leave these files unchanged for a local test deployment.
-Our guide on [setting up a production node](production-deployment.md) has instructions
+Our guide on [setting up a production node](production_deployment.md) has instructions
 on editing these files for a production server deployment.
 
 ??? info "On a machine with an ARM-based processor?"
@@ -139,7 +140,7 @@ docker compose up -d
 This will:
 
 - pull the required Docker images (if you haven't pulled them before)
-- launch the containers for all [the Neurobagel services](prioduction-deployment.md#services)
+- launch the containers for all [the Neurobagel services](production_deployment.md#services)
 - automatically set up and configure the services based on your configuration files
 - automatically upload example data to the Neurobagel graph
 
