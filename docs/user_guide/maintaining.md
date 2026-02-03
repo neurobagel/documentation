@@ -45,7 +45,7 @@ docker compose pull
 
 ### Restarting services after an update
 
-Whether you have updated the Docker images, the [configuration](production-deployment.md), or the [data](#updating-the-data-in-your-graph)
+Whether you have updated the Docker images, the [configuration](production_deployment.md), or the [data](#updating-the-data-in-your-graph)
 of your Neurobagel node, you will need to restart the services to apply the changes.
 
 To shut down a running Neurobagel node,
@@ -66,7 +66,7 @@ docker compose up -d
 
 The Neurobagel deployment recipe launches a dedicated graph database that stores the datasets for a single node.
 The data in this graph database is loaded from the location specified in the
-[`LOCAL_GRAPH_DATA` environment variable](config.md#environment-variables),
+[`LOCAL_GRAPH_DATA` environment variable](#environment-variables-reference),
 and can be changed at any time.
 
 By default, the graph database will only contain an [example dataset called `BIDS synthetic`](https://github.com/neurobagel/recipes/blob/main/data/example_synthetic_pheno-bids-derivatives.jsonld).

@@ -126,10 +126,7 @@ cp local_nb_nodes.template.json local_nb_nodes.json
 
     If you already have a reverse proxy server set up and want to continue using
     it, **do not follow this section** and instead continue with our guide
-    on production deployment with existing proxy servers.
-
-    # TODO: link
-
+    on [production deployment with an existing proxy server](prod_with_own_proxy.md).
 ??? warning "Always launch the proxy server first"
 
     Our reverse proxy recipe is set up to automatically configure routes to the
@@ -303,7 +300,7 @@ Each node to be federated over is defined using a dictionary with two required k
         {
             "NodeName": "Parkinson's Disease Data - Site 1",
             "ApiURL": "https://mydomain.org/site1"
-        }
+        },
         {
             "NodeName": "Parkinson's Disease Data - Site 2",
             "ApiURL": "https://mydomain.org/site2"
@@ -321,7 +318,7 @@ Each node to be federated over is defined using a dictionary with two required k
     federate over (this can be disabled using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables-reference)).
     This means that **you do not have to manually add these public nodes** to your `local_nb_nodes.json` file.
 
-??? failure "Be careful to not use your federation API's own address for `ApiURL`!"
+    federate over (this can be disabled using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](maintaining.md#environment-variables-reference)).
 
     This will cause an infinite request loop that will likely overload your service, as an f-API will be repeatedly making requests to itself.
 
