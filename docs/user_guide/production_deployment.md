@@ -315,8 +315,9 @@ Each node to be federated over is defined using a dictionary with two required k
 - `NodeName`: Display name of the node, which will be shown in the query portal
 - `ApiURL`: URL of the **node API** for the node
 
-`local_nb_nodes.json`:
+Example:
 
+```json title="local_nb_nodes.json"
     [
         {
             "NodeName": "Parkinson's Disease Data - Site 1",
@@ -327,6 +328,7 @@ Each node to be federated over is defined using a dictionary with two required k
             "ApiURL": "https://mydomain.org/site2"
         }
     ]
+```
 
 !!! warning "`ApiURL` must include the protocol (`http://` or `https://`)"
 
