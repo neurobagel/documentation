@@ -25,12 +25,7 @@ All Neurobagel services are [containerized](https://www.docker.com/resources/wha
 The production deployment recipes use [Docker Compose profiles](https://docs.docker.com/compose/how-tos/profiles/)
 to group related services and allow them to be launched together.
 
-### Services
-
-The Neurobagel Docker Compose recipe includes several services
-and coordinates them to work together:
-
-(In parentheses are the names of services within the Docker Compose stack)
+Neurobagel services that are included in the Docker Compose deployment recipes:
 
 - **[Neurobagel node API/n-API](api.md)** (`api`): The API that communicates with a single graph store and determines
     how detailed the response to a query should be from that graph.
@@ -55,25 +50,13 @@ Two additional, third-party services are part of production deployment recipes:
     created by `nginx` so users can communicate with your services
     via encrypted HTTPS connections.
 
-## Production deployment
+## Setting up a production deployment
 
 ### Deployment profiles
 
 Neurobagel offers different deployment profiles that allow you to launch
 specific combinations of services (listed below), depending on your use case.
 
-- [`proxy`](#proxy-server): Deploys pre-configured, containerized
-    reverse-proxy services that will automatically set up routes
-    to your Neurobagel services under your desired URLs.
-
-    ??? info "You can also use an existing proxy server"
-
-        Our deployment instructions assume that there is no existing proxy server set up
-        on the machine that will host your Neurobagel services.
-        If you already have a proxy server setup, 
-        follow the slightly modified steps described in [deploying with an existing proxy server](#deploying-with-an-existing-proxy-server).
-        
-        In this case, you can ignore the `proxy` deployment recipe.
 - [`node`](#node): Deploys an individual Neurobagel node.
 A Neurobagel node includes an internal graph database and a node API
 that handles all incoming queries and talks to the graph database.
@@ -86,6 +69,18 @@ You can run several nodes on the same machine.
     e.g. to federate over nodes that are not in the list of public Neurobagel nodes.
        - `federation`
        - `query_federation`
+- [`proxy`](#proxy-server): Deploys pre-configured, containerized
+    reverse-proxy services that will automatically set up routes
+    to your Neurobagel services under your desired URLs.
+
+    ??? info "You can also use an existing proxy server"
+
+        Our deployment instructions assume that there is no existing proxy server set up
+        on the machine that will host your Neurobagel services.
+        If you already have a proxy server setup, 
+        follow the slightly modified steps described in [deploying with an existing proxy server](#deploying-with-an-existing-proxy-server).
+        
+        In this case, you can ignore the `proxy` deployment recipe.
 
 ### Common setup for all deployment profiles
 

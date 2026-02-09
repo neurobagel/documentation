@@ -76,7 +76,7 @@ versions on your machine:
     docker compose version
     ```
 
-## The Neurobagel quickstart recipe
+## Quickstart recipe
 
 The [`neurobagel/recipes` repository](https://github.com/neurobagel/recipes)
 on GitHub contains our official
