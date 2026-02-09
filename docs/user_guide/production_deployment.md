@@ -121,7 +121,7 @@ cp local_nb_nodes.template.json local_nb_nodes.json
 
     If you already have a reverse proxy server set up and want to continue using
     it, **do not follow this section** and instead continue with our guide
-    on [production deployment with an existing proxy server](prod_with_own_proxy.md).
+    on [production deployment with an existing proxy server](production_deployment_with_own_proxy.md).
 ??? warning "Always launch the proxy server first"
 
     Our reverse proxy recipe is set up to automatically configure routes to the

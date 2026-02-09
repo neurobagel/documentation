@@ -48,9 +48,8 @@ docker compose pull
 Whether you have updated the Docker images, the [configuration](production_deployment.md), or the [data](#updating-the-data-in-your-graph)
 of your Neurobagel node, you will need to restart the services to apply the changes.
 
-To shut down a running Neurobagel node,
-navigate to the path on your file system where
-you have stored the `docker-compose.yml` file from the [initial setup](getting_started.md) and run:
+To shut down your Neurobagel services,
+navigate to the directory containing your deployment recipe and run:
 
 ```bash
 docker compose down
@@ -65,13 +64,14 @@ docker compose up -d
 ## Updating the data in your graph
 
 The Neurobagel deployment recipe launches a dedicated graph database that stores the datasets for a single node.
-The data in this graph database is loaded from the location specified in the
+The data in this graph database is loaded from the path specified in the
 [`LOCAL_GRAPH_DATA` environment variable](#environment-variables-reference),
 and can be changed at any time.
 
 By default, the graph database will only contain an [example dataset called `BIDS synthetic`](https://github.com/neurobagel/recipes/blob/main/data/example_synthetic_pheno-bids-derivatives.jsonld).
 
-If you have followed the [initial setup](getting_started.md) for deploying a Neurobagel node from our Docker Compose recipe, replacing the existing data in your graph database with your own data (or updated data) is a straightforward process.
+If you have followed the [initial setup](getting_started.md) for deploying a Neurobagel node from our Docker Compose recipe,
+replacing the existing data in your graph database with your own data (or updated data) is a straightforward process.
 
 Once you have generated or updated the JSONLD files you want to upload, to update the data in your graph:
 
