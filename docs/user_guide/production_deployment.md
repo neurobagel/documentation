@@ -84,7 +84,7 @@ You can run several nodes on the same machine.
 
 ### Common setup for all deployment profiles
 
-!!! info "Do these steps first for each deployment profile you set up"
+!!! warning "Do these steps first for each deployment profile you set up"
 
     Each production deployment profile requires a fresh deployment recipe and begins with the same initial steps.
     Complete these steps before following the profile-specific setup instructions.
@@ -94,20 +94,20 @@ You can run several nodes on the same machine.
 Make a fresh clone of the `recipes` repository in a location of your choice.
 
 ```bash
-git clone https://github.com/neurobagel/recipes.git my-new-deployment
+git clone https://github.com/neurobagel/recipes.git recipes
 ```
 
 Change `my-new-deployment` to a directory name you will recognize in the future.
 Then navigate into this directory for the remaining steps.
 
 ```bash
-cd my-new-deployment
+cd recipes
 ```
 
-#### Copy the template files
+#### Copy the template configuration files
 
-The recipe repository comes with templates of the `.env` and
-`local_nb_nodes.json` files. Copy and rename these templates, but do not edit
+The recipe repository includes templates of files for configuring your deployment: `.env` and  
+`local_nb_nodes.json`. Copy and rename these templates, but do not edit
 the templates themselves.
 
 ```bash
@@ -129,11 +129,12 @@ cp local_nb_nodes.template.json local_nb_nodes.json
     already be running when you launch a new Neurobagel service.
     If you have already launched Neurobagel services
     (e.g. [node](#node) or [portal](#portal)),
-    shut them down again, launch the proxy server, and then relaunch the services.
+    shut them down again,
+    launch the proxy server, and then relaunch the services.
 
 !!! info "Start from a [fresh deployment recipe](#common-setup-for-all-deployment-profiles)!"
 
-To host your Neurobagel [node services](#services) under a custom URL
+To host your Neurobagel [node services](#deployable-services) under a custom URL
 (e.g. `https://www.myfirstnode.org/query`) rather than a server IP address and port
 (e.g. `http://192.168.0.1:3000`), we provide a recipe for you to easily set up an
 [NGINX](https://nginx.org/en/docs/beginners_guide.html) reverse proxy
@@ -142,12 +143,12 @@ alongside your Neurobagel services.
 Make sure that:
 
 - you have access to the domain you want to host your services at,
-so that you can create a DNS entry that points at the webserver
+so that you can create a DNS entry that points at the machine
 that will host your Neurobagel services.
-- your web server firewall allows incoming connections
+- your machine firewall allows incoming connections
 on ports 80 (HTTP) and 443 (HTTPS).
 [Both are necessary](https://letsencrypt.org/docs/integration-guide/#firewall-configuration)
-to complete the SSL certificate challenge and offer HTTPS connections.
+to enable HTTPS connections.
 
 Launch the proxy server using the corresponding deployment recipe:
 
@@ -155,7 +156,7 @@ Launch the proxy server using the corresponding deployment recipe:
 docker compose -f docker-compose.proxy.yml up -d
 ```
 
-You should now see the `nginx` and `nginx-acme` services running:
+You should now see the `nginx-proxy` and `acme-companion` services running:
 
 ```bash
 docker ps
