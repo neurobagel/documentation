@@ -17,7 +17,7 @@ standard deployment steps.
 !!! warning "**Do not** launch the [`proxy` deployment profile](production_deployment.md#proxy-server)"
 
     If you want to use your existing reverse proxy setup,
-    make sure to not launch the [`proxy` deployment template](#proxy-server)
+    make sure to not launch the [`proxy` deployment template](production_deployment.md#proxy-server)
     provided by Neurobagel, or shut it down if you have already launched it.
 
 Deploying Neurobagel with an existing proxy server
@@ -66,8 +66,8 @@ along with the [environment variables](maintaining.md#environment-variables-refe
 
 ??? info "Differences from the default deployment recipe"
 
-    Unlike the default production Docker Compose recipe the deployment recipe for an
-    existing proxy
+    Unlike the default production Docker Compose recipe, the deployment recipe for an
+    existing proxy has the following characteristics:
 
     - **does not** expect an existing proxy Docker network to connect with
     - **does** expose the service ports to the host machine,

@@ -56,11 +56,11 @@ Neurobagel offers different deployment profiles that allow you to launch
 specific combinations of services (listed below), depending on your use case.
 
 - [`node`](#node): Deploys an individual Neurobagel node.
-A Neurobagel node includes an internal graph database and a node API
-that handles all incoming queries and talks to the graph database.
-You can run several nodes on the same machine.
-       - `api`
-       - `graph`
+    A Neurobagel node includes an internal graph database and a node API
+    that handles all incoming queries and talks to the graph database.
+    You can run several nodes on the same machine.
+    - `api`
+    - `graph`
 
 - [`portal`](#portal): Deploys the federation engine and a connected web query interface.
     Use this profile only if you need to host your own federated query tool,
@@ -77,7 +77,7 @@ You can run several nodes on the same machine.
         Our deployment instructions assume that there is no existing proxy server set up
         on the machine that will host your Neurobagel services.
         If you already have a proxy server setup, 
-        follow the slightly modified steps described in [deploying with an existing proxy server](#deploying-with-an-existing-proxy-server).
+        follow the slightly modified steps described in [deploying with an existing proxy server](production_deployment_with_own_proxy.md).
         
         In this case, you can ignore the `proxy` deployment recipe.
 
@@ -98,7 +98,8 @@ Make a fresh clone of the `recipes` repository in a location of your choice.
 git clone https://github.com/neurobagel/recipes.git recipes
 ```
 
-Change `my-new-deployment` to a directory name you will recognize in the future.
+!!! tip "Consider changing `recipes` to a name you will recognize in the future"
+
 Then navigate into this directory for the remaining steps.
 
 ```bash
@@ -168,6 +169,9 @@ docker ps
 !!! note "Start from a [fresh deployment recipe](#common-setup-for-all-deployment-profiles)!"
 
 ??? info "Make sure the proxy service is already running"
+
+    The default `portal` deployment recipe requires that you have already  
+    [deployed the proxy server](#proxy-server).
 
 #### Set graph store credentials
 
@@ -292,10 +296,6 @@ Save the changes to your `.env` file and launch your node:
 docker compose -f docker-compose.prod.yml up -d
 ```
 
-
-    The default `node` deployment recipe requires that you have already
-    [deployed the proxy server](#proxy-server).
-
 ### Portal
 
 !!! note "Start from a [fresh deployment recipe](#common-setup-for-all-deployment-profiles)!"
@@ -338,12 +338,15 @@ Example:
     [here](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json).
     By default, every new f-API will look up this list
     on startup and include it in its internal list of nodes to
-    federate over (this can be disabled using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](#environment-variables-reference)).
+    federate over (this can be disabled using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](maintaining.md#environment-variables-reference)).
     This means that **you do not have to manually add these public nodes** to your `local_nb_nodes.json` file.
 
-    federate over (this can be disabled using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](maintaining.md#environment-variables-reference)).
+!!! danger "Avoid creating an infinite loop"
 
-    This will cause an infinite request loop that will likely overload your service, as an f-API will be repeatedly making requests to itself.
+    Make sure you do not include your own f-API in the list of nodes to
+    federate over.
+    This will cause an infinite request loop that will likely overload your service,
+    as an f-API will be repeatedly making requests to itself.
 
 #### Set portal domains
 
