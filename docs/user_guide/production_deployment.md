@@ -50,9 +50,7 @@ Two additional, third-party services are part of production deployment recipes:
     created by `nginx` so users can communicate with your services
     via encrypted HTTPS connections.
 
-## Setting up a production deployment
-
-### Deployment profiles
+## Deployment profiles
 
 Neurobagel offers different deployment profiles that allow you to launch
 specific combinations of services (listed below), depending on your use case.
@@ -66,7 +64,8 @@ You can run several nodes on the same machine.
 
 - [`portal`](#portal): Deploys the federation engine and a connected web query interface.
     Use this profile only if you need to host your own federated query tool,
-    e.g. to federate over nodes that are not in the list of public Neurobagel nodes.
+    e.g. to federate over nodes that are not in the
+    [list of public Neurobagel nodes](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json).
        - `federation`
        - `query_federation`
 - [`proxy`](#proxy-server): Deploys pre-configured, containerized
@@ -81,6 +80,8 @@ You can run several nodes on the same machine.
         follow the slightly modified steps described in [deploying with an existing proxy server](#deploying-with-an-existing-proxy-server).
         
         In this case, you can ignore the `proxy` deployment recipe.
+
+## Setting up a production deployment
 
 ### Common setup for all deployment profiles
 
@@ -166,6 +167,8 @@ docker ps
 
 !!! note "Start from a [fresh deployment recipe](#common-setup-for-all-deployment-profiles)!"
 
+??? info "Make sure the proxy service is already running"
+
 #### Set graph store credentials
 
 !!! danger "This is a security relevant section!"
@@ -213,7 +216,21 @@ through an environment variable in `.env` file.
         This ensures that your passwords are not exposed in the container logs or in the `docker-compose.yml` file.
         
         Do not share your password files with others.
-  
+
+#### Add data to the node  
+
+By default,
+any JSONLD data in the
+[`./data`](https://github.com/neurobagel/recipes/tree/main/data)
+subdirectory of your deployment recipe directory
+will be automatically uploaded to the graph store.
+
+To add the dataset JSONLD files for your node, you can either:
+
+- place the JSONLD files inside `./data` (remember to delete the example JSONLD), OR  
+- change the path where the deployment recipe will look for JSONLD files
+by editing the variable `LOCAL_GRAPH_DATA` in your `.env` file
+
 #### Set node response granularity
 
 !!! danger "This is a security relevant section!"
@@ -261,9 +278,11 @@ to the desired subdirectory path in the `.env` file.
 NB_NAPI_BASE_PATH="/node"
 ```
 
-This is useful if you want to serve several nodes (or services)  
-on the same domain, because you can use a different subdirectory for each  
-(e.g. `myinstitute.org/node1`, `myinstitute.org/node2`, ...).
+This is useful if you want to serve several nodes (or services)
+on the same domain, because you can use a different subdirectory for each
+(e.g. `mydomain.org/node1`, `mydomain.org/node2`, ...).
+
+!!! warning "Custom paths must include a leading slash `/`"
 
 #### Launch node
 
@@ -273,7 +292,6 @@ Save the changes to your `.env` file and launch your node:
 docker compose -f docker-compose.prod.yml up -d
 ```
 
-??? info "Make sure the proxy service is already running"
 
     The default `node` deployment recipe requires that you have already
     [deployed the proxy server](#proxy-server).
@@ -281,6 +299,13 @@ docker compose -f docker-compose.prod.yml up -d
 ### Portal
 
 !!! note "Start from a [fresh deployment recipe](#common-setup-for-all-deployment-profiles)!"
+
+??? info "Make sure the proxy server is already running"  
+
+    The default `portal` deployment recipe requires that you have already  
+    [deployed the proxy server](#proxy-server). 
+
+#### Set nodes to federate  
 
 To host your own query portal that federates over a set of nodes,
 use your `local_nb_nodes.json` to configure the nodes of interest.
@@ -307,7 +332,7 @@ Each node to be federated over is defined using a dictionary with two required k
 
 ??? info "Public Neurobagel nodes do not need to be included"
 
-        We maintain a list of publicly accessible Neurobagel nodes 
+    We maintain a list of publicly accessible Neurobagel nodes 
     [here](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json).
     By default, every new f-API will look up this list
     on startup and include it in its internal list of nodes to
@@ -320,23 +345,20 @@ Each node to be federated over is defined using a dictionary with two required k
 
 #### Set portal domains
 
-Uncomment and set the domain name for both
-the web query tool and the federation API in your `.env` file.
+In your `.env` file, set the domain names for your
+web query tool and federation API by uncommenting and setting the following variables:
 
-- `NB_QUERY_DOMAIN` variable for the query tool
-- `NB_FAPI_DOMAIN` variable for the federation API
+- `NB_QUERY_DOMAIN` for the query tool
+- `NB_FAPI_DOMAIN` for the federation API
 
 !!! warning "Do not include the protocol (`http://` or `https://`) in the domain name"
 
-#### Set portal subdirectory path
+#### Set portal subdirectory paths
 
 !!! info "This is an optional step"
 
 You may want to have one or several of your portal services
 respond on a subdirectory of your domain (e.g. `myinstitute.org/federate`).
-This is especially useful if you want to serve several services
-on the same domain, because you can set a different subdirectory for each
-(e.g. `myinstitute.org/federate`, `myinstitute.org/query`, ...).
 
 To host one or more of your portal services on a subdirectory
 of your domain (e.g. `mydomain.org/federate`),
@@ -345,6 +367,8 @@ subdirectory path(s) in the `.env` file:
 
 - `NB_QUERY_APP_BASE_PATH` for the query tool
 - `NB_FAPI_BASE_PATH` for the federation API
+
+!!! warning "Custom paths must include a leading slash `/`"
 
 This is useful if you want to serve the services on the same domain,
 because you can use a different subdirectory for each  

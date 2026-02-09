@@ -61,6 +61,15 @@ Then, to start the services again:
 docker compose up -d
 ```
 
+!!! tip "For production deployments, you must specify the recipe filename"  
+
+    To relaunch services for a [`node`](production_deployment.md#node) or [`portal`](production_deployment.md#portal) deployment, 
+    you must provide the production Docker Compose recipe filename explicitly using the `-f` option:  
+
+    ```bash  
+    docker compose -f docker-compose.prod.yml up -d
+    ```
+
 ## Updating the data in your graph
 
 The Neurobagel deployment recipe launches a dedicated graph database that stores the datasets for a single node.
@@ -86,6 +95,15 @@ Once you have generated or updated the JSONLD files you want to upload, to updat
 
     ```bash
     docker compose up -d
+    ```
+
+!!! tip "For production deployments, you must specify the recipe filename"
+
+    To relaunch services for a production [`node`](production_deployment.md#node) deployment, 
+    you must provide the production Docker Compose recipe filename explicitly using the `-f` option:  
+
+    ```bash  
+    docker compose -f docker-compose.prod.yml up -d
     ```
 
 Here are some other common scenarios where you might need to update the data in your graph:
@@ -216,6 +234,15 @@ follow these steps:
     ```bash
     docker compose up -d
     ```
+
+    !!! tip "For production deployments, you must specify the recipe filename"  
+
+        To relaunch services for a production [`node`](production_deployment.md#node) deployment,
+        you must provide the production Docker Compose recipe filename explicitly using the `-f` option:  
+        
+        ```bash  
+        docker compose -f docker-compose.prod.yml up -d
+        ```
 
 Some examples of when you might want to do this:
 
