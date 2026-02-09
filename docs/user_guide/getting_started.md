@@ -1,5 +1,5 @@
 The following sections will get you started
-with deploying your own [Neurobagel node](production_deployment.md#available-services),
+with deploying your own [Neurobagel node](production_deployment.md#deployable-services),
 a graphical query tool,
 and a local federation API
 (everything in blue in the picture below)
