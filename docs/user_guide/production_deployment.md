@@ -396,7 +396,8 @@ docker compose -f docker-compose.prod.yml up -d
 
 ## Making your node publicly discoverable
 
-The public Neurobagel query tool (https://query.neurobagel.org) provides query federation to all publicly accessible Neurobagel nodes. 
+The public Neurobagel query tool ([https://query.neurobagel.org](https://query.neurobagel.org))
+provides query federation to all publicly accessible Neurobagel nodes. 
 
 To make your node queryable at https://query.neurobagel.org, it simply needs to be added to our [public federation index](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json) on GitHub.
 
