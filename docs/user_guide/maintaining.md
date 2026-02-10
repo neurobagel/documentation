@@ -17,7 +17,7 @@ Each Docker image has a [semantic version](https://semver.org/) tag (vX.Y.Z), an
 You can pull the most recent docker images for Neurobagel tools by running:
 
 ```bash
-docker compose --profile full_stack pull
+docker compose pull
 ```
 
 ??? tip "Not sure what version you have?"
@@ -43,64 +43,67 @@ docker compose --profile full_stack pull
     ```
     where `"org.opencontainers.image.version"` refers to the version number.
 
-!!! warning "`docker compose` will only pull the images used by the current deployment profile"
-
-    If you don't specify a deployment profile, the default profile (`full_stack`) will be used,
-    which pulls the images for all Neurobagel services including the [node API](api.md), [federation API](api.md), graph store, and [graphical query tool](query_tool.md).
-
-    See the [deployment profiles](config.md#available-profiles) 
-    section for more information on the available profiles.
-
 ### Restarting services after an update
 
-Whether you have updated the Docker images, the [configuration](config.md), or the [data](#updating-the-data-in-your-graph)
+Whether you have updated the Docker images, the [configuration](production_deployment.md), or the [data](#updating-the-data-in-your-graph)
 of your Neurobagel node, you will need to restart the services to apply the changes.
 
-To shut down a running Neurobagel node,
-navigate to the path on your file system where
-you have stored the `docker-compose.yml` file from the [initial setup](getting_started.md) and run:
+To shut down your Neurobagel services,
+navigate to the directory containing your deployment recipe and run:
 
 ```bash
-docker compose --profile full_stack down
+docker compose down
 ```
 
 Then, to start the services again:
 
 ```bash
-docker compose --profile full_stack up -d
+docker compose up -d
 ```
 
-!!! tip "Explicitly specify the deployment profile"
+!!! tip "For production deployments, you must specify the recipe filename"  
 
-    To avoid unexpected behaviour when running `docker compose` commands, we recommend always explicitly specifying the deployment profile you want to use with the `-p` or `--profile` flag.
-    Otherwise, `docker compose` will only manage (start, stop, or update) the services in the default profile 
-    (for more info, see [Launching a profile](config.md#launching-a-profile)).
+    To relaunch services for a [`node`](production_deployment.md#node) or [`portal`](production_deployment.md#portal) deployment, 
+    you must provide the production Docker Compose recipe filename explicitly using the `-f` option:  
+
+    ```bash  
+    docker compose -f docker-compose.prod.yml up -d
+    ```
 
 ## Updating the data in your graph
 
 The Neurobagel deployment recipe launches a dedicated graph database that stores the datasets for a single node.
-The data in this graph database is loaded from the location specified in the 
-[`LOCAL_GRAPH_DATA` environment variable](config.md#environment-variables), 
+The data in this graph database is loaded from the path specified in the
+[`LOCAL_GRAPH_DATA` environment variable](#environment-variables-reference),
 and can be changed at any time.
 
-By default, the graph database will only contain an [example dataset called `BIDS synthetic`](https://github.com/neurobagel/recipes/blob/main/data/example_synthetic_pheno-bids-derivatives.jsonld). 
+By default, the graph database will only contain an [example dataset called `BIDS synthetic`](https://github.com/neurobagel/recipes/blob/main/data/example_synthetic_pheno-bids-derivatives.jsonld).
 
-If you have followed the [initial setup](getting_started.md) for deploying a Neurobagel node from our Docker Compose recipe, replacing the existing data in your graph database with your own data (or updated data) is a straightforward process.
+If you have followed the [initial setup](getting_started.md) for deploying a Neurobagel node from our Docker Compose recipe,
+replacing the existing data in your graph database with your own data (or updated data) is a straightforward process.
 
 Once you have generated or updated the JSONLD files you want to upload, to update the data in your graph:
 
 1. Shut down the Neurobagel node, if it is already running
 
     ```bash
-    docker compose --profile full_stack down
+    docker compose down
     ```
-   (or, replace `full_stack` with the profile you are using)
 
 2. Update the data files in the directory specified by the `LOCAL_GRAPH_DATA` variable in `.env`, or simply change the path to a directory containing your JSONLD files.
 3. (Re)start the Neurobagel node
 
     ```bash
-    docker compose --profile full_stack up -d
+    docker compose up -d
+    ```
+
+!!! tip "For production deployments, you must specify the recipe filename"
+
+    To relaunch services for a production [`node`](production_deployment.md#node) deployment, 
+    you must provide the production Docker Compose recipe filename explicitly using the `-f` option:  
+
+    ```bash  
+    docker compose -f docker-compose.prod.yml up -d
     ```
 
 Here are some other common scenarios where you might need to update the data in your graph:
@@ -207,10 +210,8 @@ follow these steps:
 1. Ensure that your Neurobagel node is not running (i.e., shut down the Docker containers for the node).
 
     ```bash
-    docker compose --profile full_stack down
+    docker compose down
     ```
-
-    If you are not using the `full_stack` profile, replace `full_stack` with the name of the profile you are using.
 
 2. Delete the Docker volume that contains the GraphDB data for your node.
 
@@ -228,14 +229,20 @@ follow these steps:
         You can use the `docker volume ls` command to list all volumes on your system.
         This will help you identify the name of the volume that was created for your Neurobagel node.
 
-
 3. Launch your Neurobagel node again.
 
     ```bash
-    docker compose --profile full_stack up -d
+    docker compose up -d
     ```
 
-    If you are not using the `full_stack` profile, replace `full_stack` with the name of the profile you are using.
+    !!! tip "For production deployments, you must specify the recipe filename"  
+
+        To relaunch services for a production [`node`](production_deployment.md#node) deployment,
+        you must provide the production Docker Compose recipe filename explicitly using the `-f` option:  
+        
+        ```bash  
+        docker compose -f docker-compose.prod.yml up -d
+        ```
 
 Some examples of when you might want to do this:
 
@@ -246,3 +253,22 @@ Some examples of when you might want to do this:
 !!! warning
 
     This action will wipe any graph databases and users you previously created!
+
+## Environment variables reference
+
+??? warning "Ensure that shell variables do not clash with `.env` file"
+
+    If the shell you run `docker compose` from already has any 
+    shell variable of the same name set, 
+    the shell variable will take precedence over the configuration
+    of `.env`!
+    In this case, make sure to `unset` the local variable first.
+
+    For more information, see [Docker's environment variable precedence](https://docs.docker.com/compose/environment-variables/envvars-precedence/).
+
+!!! tip
+    Double check that any environment variables you have customized in `.env` are resolved with your expected values using the command `docker compose config`.
+
+Below are all the possible Neurobagel environment variables that can be set in `.env`.
+
+{{ read_table('./repos/recipes/docs/neurobagel_environment_variables.tsv') }}

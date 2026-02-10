@@ -5,6 +5,7 @@ Neurobagel's query tool is a web interface for searching across a Neurobagel gra
 The query tool is a React application, developed in [TypeScript](https://www.typescriptlang.org/) using a variety of tools including [Vite](https://vitejs.dev/), [Cypress](https://www.cypress.io/), and [MUI](https://mui.com/).
 
 ## Quickstart
+
 {%
    include-markdown "https://raw.githubusercontent.com/neurobagel/query-tool/main/README.md"
    start="## Quickstart"
@@ -19,7 +20,7 @@ At least one dataset matching the query must be selected in the results panel in
 
 #### Harmonized TSV data with descriptive labels
 
-The default TSV available for download describes the available harmonized attributes and metadata for subjects matching the query, from the (selected) matching datasets. 
+The default TSV available for download describes the available harmonized attributes and metadata for subjects matching the query, from the (selected) matching datasets.
 Harmonized data are provided as standardized vocabulary-derived labels for readability.
 
 Each row corresponds to a single matching subject session, except for [datasets configured to only return aggregate results](#protected-subject-level-results-for-aggregate-datasets).
@@ -81,9 +82,10 @@ However, the harmonized terms in the following columns are provided in their raw
 
 A row in a query result TSV may show `protected` for all columns except for `DatasetName`, `RepositoryURL`, `AccessLink` and other dataset-level columns. This means the source graph database (node) has been configured (via its corresponding Neurobagel node API) to return only aggregate information about matching subjects e.g., for data privacy reasons.
 
-More information on this configuration setting, called `NB_RETURN_AGG`, and how to change it for a node can be found [here](config.md#environment-variables).
+More information on this configuration setting, called `NB_RETURN_AGG`, and how to change it for a node can be found [here](maintaining.md#environment-variables-reference).
 
 ## Testing
+
 {%
    include-markdown "https://raw.githubusercontent.com/neurobagel/query-tool/main/README.md"
    start="## Testing"
