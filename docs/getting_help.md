@@ -2,9 +2,9 @@
 
 There are several ways you can interact with the Neurobagel team:
 
+- Join our [Discord server](https://discord.gg/BEXXgt3hXk) to chat with us
 - Create an issue in our [GitHub repositories](https://github.com/neurobagel)
 - Our tag on the [Neurostars forum](https://neurostars.org/tag/neurobagel)
-- Join our [Discord server](https://discord.gg/BEXXgt3hXk) to chat with us
 
 ## General usage questions
 
