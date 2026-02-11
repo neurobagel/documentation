@@ -12,8 +12,8 @@ If you have a _usage question_ about Neurobagel (feedback on a specific use case
 or want to _discuss the Neurobagel project in general_ with the development team or other users,
 please either:
 
-- search for or start a new thread on Neurostars with the `neurobagel` tag: [https://neurostars.org/tag/neurobagel](https://neurostars.org/tag/neurobagel) or
-- send us a message in the [Neurobagel Discord server](https://discord.gg/BEXXgt3hXk)
+- send us a message in the [Neurobagel Discord server](https://discord.gg/BEXXgt3hXk) (recommended - quickest way to get help)
+- search for or start a new thread on Neurostars with the `neurobagel` tag: [https://neurostars.org/tag/neurobagel](https://neurostars.org/tag/neurobagel)
 
 ## Problem with deploying a Neurobagel node
 
