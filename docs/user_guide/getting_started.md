@@ -120,12 +120,12 @@ on editing these files for a production server deployment.
     If your machine instead uses ARM-based architecture (e.g., certain Macs), **additionally change the following line in your `docker-compose.yml` file:**
     ```yml
         graph:
-            image: "ontotext/graphdb:10.3.1"
+            image: "ontotext/graphdb:10.8.12"
     ```
     to
     ```yml
         graph:
-            image: "ontotext/graphdb:10.3.1-arm64"
+            image: "ontotext/graphdb:10.8.12-arm64"
     ```
     You can double check the architecture of your machine in the system settings or using the command `lscpu`.
 
@@ -157,7 +157,7 @@ and you will want to see something like this to show all 4 services running:
 CONTAINER ID   IMAGE                              COMMAND                  CREATED         STATUS         PORTS                                                 NAMES
 d5e43f9ff0c2   neurobagel/federation_api:latest   "/bin/sh -c 'uvicorn…"   8 seconds ago   Up 8 seconds   0.0.0.0:8080->8000/tcp, :::8080->8000/tcp             recipes-federation-1
 f0a26d0ea574   neurobagel/api:latest              "/usr/src/api_entryp…"   8 seconds ago   Up 8 seconds   0.0.0.0:8000->8000/tcp, :::8000->8000/tcp             recipes-api-1
-d44d0b7359c8   ontotext/graphdb:10.3.1            "/usr/src/neurobagel…"   8 seconds ago   Up 8 seconds   0.0.0.0:7200->7200/tcp, :::7200->7200/tcp, 7300/tcp   recipes-graph-1
+d44d0b7359c8   ontotext/graphdb:10.8.12            "/usr/src/neurobagel…"   8 seconds ago   Up 8 seconds   0.0.0.0:7200->7200/tcp, :::7200->7200/tcp, 7300/tcp   recipes-graph-1
 29a61a2d83de   neurobagel/query_tool:latest       "/bin/sh -c 'npm run…"   8 seconds ago   Up 8 seconds   0.0.0.0:3000->5173/tcp, :::3000->5173/tcp             recipes-query_federation-1
 ```
 
