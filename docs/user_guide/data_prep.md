@@ -56,8 +56,9 @@ In addition to phenotypic characteristics of subjects, Neurobagel can also harmo
 To include subjects' BIDS imaging data as part of their representation in Neurobagel,
 your phenotypic TSV **MUST** meet the following requirements **in addition** to the ones listed above:
 
-- At least 1 column in the TSV contains subject IDs that 
-  match the [BIDS subject IDs](https://bids-specification.readthedocs.io/en/stable/02-common-principles.html#filesystem-structure) (in the form `sub-<label>`), 
+- At least 1 column in the phenotypic TSV contains subject IDs that 
+  exactly match the subject IDs in your [BIDS metadata table](preparing_imaging_data.md) 
+  (by default, these should be [BIDS subject IDs](https://bids-specification.readthedocs.io/en/stable/02-common-principles.html#filesystem-structure) in the form `sub-<label>`), 
   **AND** this must be the column you annotate as the primary subject ID
 
     !!! note "Subject IDs are case-sensitive"
