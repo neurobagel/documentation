@@ -24,10 +24,10 @@ Additional columns are allowed but will be ignored by Neurobagel.
 Each row of the table indexes a single image file with the following metadata:
 
 - `sub` (required)
-    - Subject ID in the format `sub-<label>`
+    - Subject ID
     - Example: `sub-PD123`
 - `ses` (optional)
-    - Session ID in the format `ses-<label>`, if applicable
+    - Session ID, if applicable
     - Example: `ses-01`
 - `suffix` (required)
     - BIDS suffix corresponding to the modality (or sequence) of the image file 
