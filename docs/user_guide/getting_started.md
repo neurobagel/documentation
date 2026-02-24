@@ -168,6 +168,7 @@ d44d0b7359c8   ontotext/graphdb:10.8.12            "/usr/src/neurobagel…"   8 
 - Try the Neurobagel node you just deployed by accessing:
     - your own query tool at [http://localhost:3000](http://localhost:3000), and reading the [query tool usage](./query_tool.md#usage) guide
     - the interactive docs for your node API at [http://localhost:8000/docs](http://localhost:8000/docs), and reading the [API usage](./api.md) guide
+    - the public Neurobagel REST API documentation at [https://api.neurobagel.org/docs](https://api.neurobagel.org/docs)                                                                                                                                                                                                                                                                              
 - [Prepare your own dataset](./data_prep.md) for annotation with Neurobagel
 - [Add your own data to your Neurobagel graph](maintaining.md#updating-the-data-in-your-graph) to search
 - Learn how to make a [production deployment](production_deployment.md)
