@@ -39,7 +39,7 @@ Each column in your uploaded table is represented as a card on this page. For ea
     1. When your column doesn't match any standardized variable
     2. When your column matches the "Assessment tool" standardized variable (which does not have a predefined data type since it can represent multi-column measures)
 
-#### If your dataset has imaging (BIDS) data
+### If your dataset has imaging (BIDS) data
 
 The "Participant ID" standardized variable **must** be mapped to a column that contains the BIDS IDs for subjects, following the BIDS naming scheme `sub-<label>`.
 
@@ -59,7 +59,6 @@ The card on the right lists all columns from your data table that you have mappe
     - To avoid incomplete annotations, un-map any column(s) corresponding to missing assessments from the "Assessment tool" standardized variable using the :octicons-x-circle-fill-16: button in the overview card.
 2. Select the column(s) that describe each assessment, grouping together related columns as needed, using the dropdown on the respective assessment card.
     - You can check remaining, ungrouped columns in the overview on the right.
-
 
 ## 3. Value Annotation
 ![Annotation tool value annotation step screenshot](../imgs/annotate/value_annotation.png)
