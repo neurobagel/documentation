@@ -2,21 +2,25 @@
 
 ## Naming conventions
 ### Namespace prefixes
+
 - Names should be all lowercase (e.g., `nidm`, `snomed`)
 
 ### Properties (graph "edges")
+
 - Names should adhere to camelCase (uses capitalized words except for the first word/letter)
 - Should be a compound of:
     - a verb relevant to the property (e.g., **has**Age, **is**SubjectGroup)
     - the [range](https://www.w3.org/TR/owl-ref/#range-def) of the property, (e.g.,has**Diagnosis** points to a Diagnosis object)
 
 What this might look like in semantic triples:
+
 ```
 <Subject> <nb:hasDiagnosis> <snomed:1234>
 <snomed:1234> <rdf:type> <nb:Diagnosis>
 ```
 
 ### Classes or resources (graph "nodes")
+
 - Names should adhere to PascalCase (each word capitalized)
 - Where possible, simplify to a single word (e.g., `Diagnosis`, `Dataset`, `Sex`)
 
@@ -27,6 +31,7 @@ What this might look like in semantic triples:
     In cases where we reuse a term for a class that comes from an existing controlled vocabulary, and that vocabulary follows a different naming convention (e.g., all lowercase), we should follow the existing naming convention.
 
 ## Currently used namespaces
+
 | Prefix | IRI | Types of terms |
 | ----- | ----- | ----- |
 | `nb` | http://neurobagel.org/vocab/ | Neurobagel-"owned" properties and classes |
@@ -42,6 +47,7 @@ we document this and express their equivalence using `owl:sameAs`.
 
 Example:
 If our term is `nb:Subject` and `nidm:Subject` is conceptually equivalent:
+
 ```
 <nb:12345> a <nb:Subject>
 <nb:Subject> a <rdfs:Resource>;
@@ -49,5 +55,6 @@ If our term is `nb:Subject` and `nidm:Subject` is conceptually equivalent:
 ```
 
 ## Other general guidelines
+
 - Each property (edge) should use a single namespace for the resources it corresponds to
 - Where possible, hardcode or refer to identifiers and not human-readable labels

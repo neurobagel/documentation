@@ -5,6 +5,7 @@ This file is adapted from the `dataset_description.json` from [BIDS](https://bid
 Information from the dataset description will be displayed to a user when they discover your dataset in the Neurobagel query tool.
 
 ## Example
+
 ```json
 --8<-- "https://raw.githubusercontent.com/neurobagel/neurobagel_examples/refs/heads/main/data-upload/synthetic_dataset_description.json"
 ```

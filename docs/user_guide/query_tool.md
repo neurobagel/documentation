@@ -29,7 +29,7 @@ Each row corresponds to a single matching subject session, except for [datasets 
     {{ read_table('./repos/neurobagel_examples/query-tool-results/neurobagel-query-results_YYYYMMDDHHMMSS.tsv') }}
 
 Columns in the TSV are described below:
-* = required values
+`*` = required values
 
 | Column name | Description |
 | ---- | ---- |

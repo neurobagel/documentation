@@ -45,12 +45,6 @@
   // no-trailing-punctuation
   "MD026": false,
 
-  // blanks-around-fences
-  "MD031": false,
-
-  // blanks-around-lists
-  "MD032": false,
-
   // MD033/no-inline-html : Inline HTML : https://github.com/DavidAnson/markdownlint/blob/v0.40.0/doc/md033.md
   "MD033": false,
 
@@ -74,9 +68,6 @@
 
   // table-column-count
   "MD056": false,
-
-  // blanks-around-tables
-  "MD058": false,
 
   // descriptive-link-text"
   "MD059": false,
