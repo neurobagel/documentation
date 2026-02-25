@@ -39,7 +39,7 @@ json
 }
 ```
 
-After editing, copy and save the contents in a file with the extension `.json`. 
+After editing, copy and save the contents in a file with the extension `.json`.
 We recommend using an informative file name like `DATASETNAME_description.json`.
 
 !!! question "I have a dataset_description.json from my BIDS dataset"

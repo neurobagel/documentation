@@ -20,7 +20,7 @@ body:
       label: Additional details
       description: |
         Any other details you think would be helpful?
-        
+
         Specific use cases, examples, etc.
     validations:
       required: false

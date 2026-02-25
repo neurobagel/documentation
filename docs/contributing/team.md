@@ -4,7 +4,7 @@ Neurobagel is a project originating from the [ORIGAMI Lab](https://neurodatascie
 
 ## Developers
 
-🧑‍🍳 _Core maintainer_  
+🧑‍🍳 _Core maintainer_
 🧑‍🔬 _Principal Investigator_
 
 ### Current

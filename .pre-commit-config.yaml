@@ -12,8 +12,8 @@ repos:
                 mkdocs.yml
             )$
       -   id: end-of-file-fixer
-      # -   id: mixed-line-ending
-      #     args: [--fix=lf]
+      -   id: mixed-line-ending
+          args: [--fix=lf]
       -   id: trailing-whitespace
   - repo: https://github.com/tcort/markdown-link-check
     rev: v3.14.2

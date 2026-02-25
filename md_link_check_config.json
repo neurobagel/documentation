@@ -1,19 +1,19 @@
 {
-    "ignorePatterns": [
-        {"pattern": "http://neurobagel.org/vocab/.*"},
-        {"pattern": "http://neurobagel.org/graph/"},
-        {"pattern": "http://neurobagel.org/graph/"},
-        {"pattern": ".*localhost.*"},
-        {"pattern": "https://api.neurobagel.org/.*"},
-        {"pattern": "http://purl.org/nidash/nidm#.*"},
-        {"pattern": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#"},
-        {"pattern": "https://www.cognitiveatlas.org/task/id/"},
-        {"pattern": "http://purl.bioontology.org/ontology/SNOMEDCT/"},
-        {"pattern": "https://www.ontotext.com/knowledgehub/fundamentals/"},
-        {"pattern": "overrides/assets/img/"},
-        {"pattern": "https://www.w3.org/RDF/"}
-    ],
-    "timeout": "120s",
-    "retryOn429": true,
-    "retryCount": 5
+  "ignorePatterns": [
+    { "pattern": "http://neurobagel.org/vocab/.*" },
+    { "pattern": "http://neurobagel.org/graph/" },
+    { "pattern": "http://neurobagel.org/graph/" },
+    { "pattern": ".*localhost.*" },
+    { "pattern": "https://api.neurobagel.org/.*" },
+    { "pattern": "http://purl.org/nidash/nidm#.*" },
+    { "pattern": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#" },
+    { "pattern": "https://www.cognitiveatlas.org/task/id/" },
+    { "pattern": "http://purl.bioontology.org/ontology/SNOMEDCT/" },
+    { "pattern": "https://www.ontotext.com/knowledgehub/fundamentals/" },
+    { "pattern": "overrides/assets/img/" },
+    { "pattern": "https://www.w3.org/RDF/" }
+  ],
+  "timeout": "120s",
+  "retryOn429": true,
+  "retryCount": 5
 }
