@@ -1,6 +1,6 @@
 # The Neurobagel CLI
 
-The Neurobagel CLI is a command-line tool that processes a Neurobagel-annotated dataset and produces harmonized subject-level phenotypic and imaging attributes. 
+The Neurobagel CLI is a command-line tool that processes a Neurobagel-annotated dataset and produces harmonized subject-level phenotypic and imaging attributes.
 The resulting harmonized data can be directly integrated into a Neurobagel graph store.
 
 ## Installation
@@ -25,7 +25,7 @@ The resulting harmonized data can be directly integrated into a Neurobagel graph
 
 === "Apptainer"
 
-    Build a Apptainer image for the Neurobagel CLI using the Docker Hub image:  
+    Build a Apptainer image for the Neurobagel CLI using the Docker Hub image:
     ```bash
     apptainer pull bagel.sif docker://neurobagel/bagelcli
     ```
@@ -73,10 +73,10 @@ To view the general CLI help and information about the available commands:
 
 ### Generate a BIDS metadata table
 !!! info
-    - If your dataset does not have imaging data, skip this step. 
+    - If your dataset does not have imaging data, skip this step.
     - If your dataset's imaging data are **not** in BIDS format, you must manually create a [BIDS metadata table](preparing_imaging_data.md).
 
-To include BIDS imaging data as part of the harmonized subject data, you must first convert the BIDS metadata into a [table](preparing_imaging_data.md). 
+To include BIDS imaging data as part of the harmonized subject data, you must first convert the BIDS metadata into a [table](preparing_imaging_data.md).
 
 You can do this automatically using the CLI's `bids2tsv` command.[^1]
 
@@ -91,20 +91,20 @@ If your BIDS directory is located at `/data/public/Dataset1_bids` and you want t
     bagel bids2tsv \
         --bids-dir "/data/public/Dataset1_bids"
         --output "/home/Neurobagel/Dataset1_bids.tsv"
-    ``` 
+    ```
 
 === "Docker"
     ```bash
     docker run --rm \
         -v "/data/public:/data/public" \
-        -v "/home/Neurobagel:/home/Neurobagel" \ 
+        -v "/home/Neurobagel:/home/Neurobagel" \
         neurobagel/bagelcli bids2tsv \
         --bids-dir "/data/public/Dataset1_bids" \
         --output "/home/Neurobagel/Dataset1_bids.tsv"
     ```
- 
+
     ??? info "Mounting input paths using `-v`/`--volume`"
-        When running the CLI in a container, you must [mount](https://docs.docker.com/engine/storage/bind-mounts/) any input or output directories to directory paths within the container so that the app can access them. In your CLI options, always refer to the **container paths**. 
+        When running the CLI in a container, you must [mount](https://docs.docker.com/engine/storage/bind-mounts/) any input or output directories to directory paths within the container so that the app can access them. In your CLI options, always refer to the **container paths**.
         In the example above, container paths are set to match the host paths for simplicity.
 
 === "Apptainer"
@@ -117,11 +117,11 @@ If your BIDS directory is located at `/data/public/Dataset1_bids` and you want t
     ```
 
     ??? info "Mounting input paths using `-B`/`--bind`"
-        When running the CLI in a container, you must [mount](https://docs.sylabs.io/guides/3.0/user-guide/bind_paths_and_mounts.html) any input or output directories to directory paths within the container so that the app can access them. In your CLI options, always refer to the **container paths**. 
+        When running the CLI in a container, you must [mount](https://docs.sylabs.io/guides/3.0/user-guide/bind_paths_and_mounts.html) any input or output directories to directory paths within the container so that the app can access them. In your CLI options, always refer to the **container paths**.
         In the example above, the container paths are set to match the host paths for simplicity.
 
 ??? tip "This command may be slow on large datasets"
-    On datasets with more than a few hundred subjects, `bids2tsv` can take upwards of several minutes 
+    On datasets with more than a few hundred subjects, `bids2tsv` can take upwards of several minutes
     due to the time needed for [`PyBIDS`](https://github.com/bids-standard/pybids) to read the dataset structure.
 
 This will produce a BIDS metadata table named `Dataset1_bids.tsv`, which can then be provided as input to the `bids` command below.
@@ -133,7 +133,7 @@ The Neurobagel CLI provides different commands for generating different types of
 - `pheno`
 
     !!! info "Must be run first"
-        Each subject in a Neurobagel graph requires at least phenotypic data. 
+        Each subject in a Neurobagel graph requires at least phenotypic data.
         The other metadata are optional and can be added afterward via the `bids` and/or `derivatives` commands in any order.
 
 - `bids`
@@ -299,7 +299,7 @@ If you have a [processing status file from Nipoppy](https://nipoppy.readthedocs.
 ??? tip "When to use `-f`/`--overwrite`"
     If you're only interested in the final JSONLD with all metadata added (i.e., after all relevant commands have been run), you can safely overwrite intermediate output files by specifying the same output file path each time.
 
-These steps have generated a graph-ready JSONLD file for Dataset1 (`Dataset1.jsonld`) that incorporates all the available subject data sources. 
+These steps have generated a graph-ready JSONLD file for Dataset1 (`Dataset1.jsonld`) that incorporates all the available subject data sources.
 The resulting JSONLD is ready to upload to a Neurobagel graph database.
 
 ### Troubleshooting
@@ -331,7 +331,7 @@ The examples assume you are running the CLI from inside the directory containing
     When passing file paths to the CLI, always use the **absolute path inside the container** to avoid confusion.
 
 ## Upgrading data to a newer version of the CLI
-Neurobagel is under active development and future CLI releases may introduce breaking changes to the data model used in subject-level `.jsonld` graph files. 
+Neurobagel is under active development and future CLI releases may introduce breaking changes to the data model used in subject-level `.jsonld` graph files.
 Breaking changes are highlighted in the [release notes](https://github.com/neurobagel/bagel-cli/releases).
 
 To upgrade to the latest version of the data model:

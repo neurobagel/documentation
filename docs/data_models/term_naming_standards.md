@@ -37,10 +37,10 @@ What this might look like in semantic triples:
 
 
 ## What if an `nb` term already exists in another controlled vocabulary?
-If there is an equivalent controlled term to one we are defining in a different namespace, 
+If there is an equivalent controlled term to one we are defining in a different namespace,
 we document this and express their equivalence using `owl:sameAs`.
 
-Example:  
+Example:
 If our term is `nb:Subject` and `nidm:Subject` is conceptually equivalent:
 ```
 <nb:12345> a <nb:Subject>

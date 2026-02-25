@@ -10,10 +10,10 @@ cover the most common use cases.
 
 !!! info "Start with a fresh recipe for each deployment"
 
-    Make a fresh clone of the 
+    Make a fresh clone of the
     [`recipes` repository](https://github.com/neurobagel/recipes) for each
     deployment you want to launch.
-    
+
     For example, hosting multiple Neurobagel [nodes](#node),
     or a single [node](#node) alongside a [containerized proxy server](#proxy-server),
     means creating a separate clone of the `recipes` repo for each node or proxy server.
@@ -76,9 +76,9 @@ specific combinations of services (listed below), depending on your use case.
 
         Our deployment instructions assume that there is no existing proxy server set up
         on the machine that will host your Neurobagel services.
-        If you already have a proxy server setup, 
+        If you already have a proxy server setup,
         follow the slightly modified steps described in [deploying with an existing proxy server](production_deployment_with_own_proxy.md).
-        
+
         In this case, you can ignore the `proxy` deployment recipe.
 
 ## Setting up a production deployment
@@ -166,7 +166,7 @@ docker ps
 
 ??? info "Make sure the proxy service is already running"
 
-    The default `portal` deployment recipe requires that you have already  
+    The default `portal` deployment recipe requires that you have already
     [deployed the proxy server](#proxy-server).
 
 #### Set graph store credentials
@@ -186,7 +186,7 @@ through an environment variable in `.env` file.
     If you've previously launched a Neurobagel deployment (Docker Compose stack),
     you'll need to
     [reset your graph store](maintaining.md#resetting-your-graphdb-instance)
-    for any changes you have made to user credentials to take effect. 
+    for any changes you have made to user credentials to take effect.
     Any other configuration changes you've already made
     will be applied when you re-launch your node.
 
@@ -214,10 +214,10 @@ through an environment variable in `.env` file.
 
         The contents of `NB_GRAPH_ADMIN_PASSWORD.txt` and `NB_GRAPH_PASSWORD.txt` are passed to Neurobagel containers as [Docker secrets](https://docs.docker.com/reference/compose-file/secrets/).
         This ensures that your passwords are not exposed in the container logs or in the `docker-compose.yml` file.
-        
+
         Do not share your password files with others.
 
-#### Add data to the node  
+#### Add data to the node
 
 By default,
 any JSONLD data in the
@@ -227,7 +227,7 @@ will be automatically uploaded to the graph store.
 
 To add the dataset JSONLD files for your node, you can either:
 
-- place the JSONLD files inside `./data` (remember to delete the example JSONLD), OR  
+- place the JSONLD files inside `./data` (remember to delete the example JSONLD), OR
 - change the path where the deployment recipe will look for JSONLD files
 by editing the variable `LOCAL_GRAPH_DATA` in your `.env` file
 
@@ -296,12 +296,12 @@ docker compose -f docker-compose.prod.yml up -d
 
 !!! note "Start from a [fresh deployment recipe](#common-setup-for-all-deployment-profiles)!"
 
-??? info "Make sure the proxy server is already running"  
+??? info "Make sure the proxy server is already running"
 
-    The default `portal` deployment recipe requires that you have already  
-    [deployed the proxy server](#proxy-server). 
+    The default `portal` deployment recipe requires that you have already
+    [deployed the proxy server](#proxy-server).
 
-#### Set nodes to federate  
+#### Set nodes to federate
 
 To host your own query portal that federates over a set of nodes,
 use your `local_nb_nodes.json` to configure the nodes of interest.
@@ -330,7 +330,7 @@ Example:
 
 ??? info "Public Neurobagel nodes do not need to be included"
 
-    We maintain a list of publicly accessible Neurobagel nodes 
+    We maintain a list of publicly accessible Neurobagel nodes
     [here](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json).
     By default, every new f-API will look up this list
     on startup and include it in its internal list of nodes to
@@ -372,7 +372,7 @@ subdirectory path(s) in the `.env` file:
 !!! warning "Custom paths must include a leading slash `/`"
 
 This is useful if you want to serve the services on the same domain,
-because you can use a different subdirectory for each  
+because you can use a different subdirectory for each
 (e.g. `mydomain.org/federate`, `mydomain.org/query`).
 
 #### Set `portal` deployment profile
@@ -393,7 +393,7 @@ docker compose -f docker-compose.prod.yml up -d
 ## Making your node publicly discoverable
 
 The public Neurobagel query tool ([https://query.neurobagel.org](https://query.neurobagel.org))
-provides query federation to all publicly accessible Neurobagel nodes. 
+provides query federation to all publicly accessible Neurobagel nodes.
 
 To make your node queryable at [https://query.neurobagel.org](https://query.neurobagel.org), it simply needs to be added to our [public federation index](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json) on GitHub.
 

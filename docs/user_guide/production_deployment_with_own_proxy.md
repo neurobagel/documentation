@@ -7,7 +7,7 @@ standard deployment steps.
     If you are unfamiliar with managing and
     maintaining a bare-metal reverse proxy, you should use the
     [containerized proxy server](production_deployment.md#proxy-server) provided with Neurobagel deployment recipes instead.
-    
+
     We document how to run Neurobagel with an existing reverse proxy to help
     facilitate integration into established server setups. This type of deployment
     needs a good deal more manual configuration and maintenance.
@@ -42,7 +42,7 @@ Begin by following the default setup instructions for your
     We're providing the default ports as a reference for local deployment, testing, and for scenarios
     where you do not want to use the
     [provided reverse proxy deployment recipes](production_deployment.md#proxy-server).
-    
+
     Where possible, we **strongly recommend** that you avoid opening service ports to a public network.
 
 Neurobagel node services run inside Docker containers. Each service listens on an *internal port* within its container and
@@ -75,7 +75,7 @@ along with the [environment variables](maintaining.md#environment-variables-refe
         to reach each service on `localhost` ports
 
 In our modified deployment recipe for an existing proxy server,
-Neurobagel services bind to [default ports](#default-ports-of-services)  
+Neurobagel services bind to [default ports](#default-ports-of-services)
 on the host.
 
 In your `.env` file, you can

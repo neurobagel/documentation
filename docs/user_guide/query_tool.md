@@ -61,7 +61,7 @@ Each row corresponds to a single matching subject session, except for [datasets 
 ??? abstract "Example query result TSV"
     {{ read_table('./repos/neurobagel_examples/query-tool-results/neurobagel-query-results-with-URIs_YYYYMMDDHHMMSS.tsv') }}
 
-This file contains the same columns and data as the [descriptive query results TSV](#harmonized-tsv-data-with-descriptive-labels). 
+This file contains the same columns and data as the [descriptive query results TSV](#harmonized-tsv-data-with-descriptive-labels).
 However, the harmonized terms in the following columns are provided in their raw URI form instead of as descriptive labels:
 
 | Column name |

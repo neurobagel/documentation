@@ -18,11 +18,11 @@ and are launched with Docker Compose.
 
 !!! danger "Don't install Neurobagel tools directly on your machine"
 
-    Please only use the Docker images provided by Neurobagel 
+    Please only use the Docker images provided by Neurobagel
     (or the third party providers Neurobagel relies on) and only launch
     them with our provided `docker-compose.yml` recipe.
 
-    Do not install GraphDB locally on your computer, 
+    Do not install GraphDB locally on your computer,
     as doing so can interfere with the deployment of the Neurobagel tools.
 
 ### `docker` and `docker compose`
@@ -34,16 +34,16 @@ for your operating system:
 
     1. [Install the Docker engine](https://docs.docker.com/engine/install/)
     and [follow the post-setup instructions](https://docs.docker.com/engine/install/linux-postinstall/)
-    
+
     2. [Install Docker Compose using the repository option](https://docs.docker.com/compose/install/linux/#install-using-the-repository)
 
 === "Windows"
 
-    1. [Install Docker Desktop on Windows](https://docs.docker.com/desktop/install/windows-install/). 
+    1. [Install Docker Desktop on Windows](https://docs.docker.com/desktop/install/windows-install/).
     This will install both `docker` and `docker compose`.
 
     2. We strongly recommend also [installing Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install)
-    to get a Windows-supported Linux installation for a more seamless Neurobagel deployment experience. 
+    to get a Windows-supported Linux installation for a more seamless Neurobagel deployment experience.
     Simply follow [these instructions](https://docs.docker.com/desktop/wsl/) to make your existing Docker Desktop installation (including Docker and Docker Compose) available when running WSL.
 
 === "MacOS"
@@ -57,8 +57,8 @@ for your operating system:
     deployment instructions work on Linux systems.
 
     We also try to provide docs and help for different architectures,
-    but as a small team with limited resources we won't be able to 
-    help you debug Operating System specific problems. 
+    but as a small team with limited resources we won't be able to
+    help you debug Operating System specific problems.
 
 Because we rely on some modern features of these
 tools, please make sure you have at least the following
@@ -88,7 +88,7 @@ Docker Compose recipe and template configuration files for setting up a local Ne
     so you can get started quickly with trying out all services locally.
     In most cases, particularly when deploying Neurobagel for other users,
     additional configurations are necessary.
-    
+
     For a complete, production-ready setup containing real-world data, see our
     [detailed instructions for production deployments](production_deployment.md).
 

@@ -1,17 +1,43 @@
 repos:
+  -   repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v6.0.0
+      hooks:
+      -   id: check-ast
+      -   id: check-case-conflict
+      -   id: check-json
+      -   id: check-merge-conflict
+      -   id: check-yaml
+          exclude: |
+            (?x)^(
+                mkdocs.yml
+            )$
+      -   id: end-of-file-fixer
+      -   id: mixed-line-ending
+          args: [--fix=lf]
+      -   id: trailing-whitespace
   - repo: https://github.com/tcort/markdown-link-check
-    rev: v3.13.7
+    rev: v3.14.2
     hooks:
       - id: markdown-link-check
         args:
           - --quiet
           - --config=md_link_check_config.json
+    # Check formatting of CSS, JSON
+    # prettier: https://prettier.io/
+  -   repo: https://github.com/rbubley/mirrors-prettier
+      rev: v3.8.1
+      hooks:
+      -   id: prettier
+          types_or: [css, json]
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.3.0
+    rev: v2.4.1
     hooks:
       - id: codespell
-
   # -   repo: https://github.com/shellcheck-py/shellcheck-py
   #     rev: v0.11.0.1
   #     hooks:
   #     -   id: shellcheck
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.47.0
+    hooks:
+    - id: markdownlint
