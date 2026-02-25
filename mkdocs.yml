@@ -20,6 +20,7 @@ theme:
     text: Roboto
     code: Roboto Mono
 repo_url: https://github.com/neurobagel/documentation
+docs_dir: docs
 
 # For docs navigation definition, see docs/.nav.yml
 # See also README for more info on how to add new pages/sections
@@ -107,3 +108,8 @@ extra:
 
 extra_css:
   - stylesheets/extra.css
+
+
+watch:
+  - docs
+  - snippets

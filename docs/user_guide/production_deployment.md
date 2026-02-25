@@ -94,27 +94,23 @@ specific combinations of services (listed below), depending on your use case.
 
 Make a fresh clone of the `recipes` repository in a location of your choice.
 
-```bash
-git clone https://github.com/neurobagel/recipes.git recipes
-```
-
 !!! tip "Consider changing `recipes` to a name you will recognize in the future"
 
-Then navigate into this directory for the remaining steps.
-
 ```bash
-cd recipes
+--8<-- "snippets/user_guide/clone_recipe.sh"
 ```
 
 #### Copy the template configuration files
 
 The recipe repository includes templates of files for configuring your deployment: `.env` and  
-`local_nb_nodes.json`. Copy and rename these templates, but do not edit
-the templates themselves.
+`local_nb_nodes.json`.
+
+Navigate into this directory for the remaining steps.
+Copy and rename these templates,
+but do not edit the templates themselves.
 
 ```bash
-cp template.env .env
-cp local_nb_nodes.template.json local_nb_nodes.json
+--8<-- "snippets/user_guide/copy_template_files.sh"
 ```
 
 ### Proxy server
