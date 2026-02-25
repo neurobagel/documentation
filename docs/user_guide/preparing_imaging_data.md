@@ -18,7 +18,7 @@ sub-02 | ses-01 | bold | /data/bids-examples/synthetic/sub-02/ses-01/func/sub-02
 
 
 ## About the BIDS metadata table
-The table must include at least four columns named exactly `sub`, `ses`, `suffix`, and `path` (adapted from [BIDS](https://bids-specification.readthedocs.io/en/stable/) entities). 
+The table must include at least four columns named exactly `sub`, `ses`, `suffix`, and `path` (adapted from [BIDS](https://bids-specification.readthedocs.io/en/stable/) entities).
 Additional columns are allowed but will be ignored by Neurobagel.
 
 Each row of the table indexes a single image file with the following metadata:
@@ -30,7 +30,7 @@ Each row of the table indexes a single image file with the following metadata:
     - Session ID, if applicable
     - Example: `ses-01`
 - `suffix` (required)
-    - BIDS suffix corresponding to the modality (or sequence) of the image file 
+    - BIDS suffix corresponding to the modality (or sequence) of the image file
     - See also [Supported BIDS imaging modalities](#supported-bids-imaging-modalities)
     - Example: `T1w`
 - `path` (required)
@@ -55,5 +55,5 @@ Supported modalities are listed below using their BIDS suffixes:
 - `pet`
 
 !!! info
-    For more information, see also the "Modality specific files" section of the [BIDS specification](https://bids-specification.readthedocs.io/en/stable/) 
+    For more information, see also the "Modality specific files" section of the [BIDS specification](https://bids-specification.readthedocs.io/en/stable/)
     or consult this [master list](https://github.com/bids-standard/bids-specification/blob/master/src/schema/objects/suffixes.yaml) of image suffixes supported by BIDS.

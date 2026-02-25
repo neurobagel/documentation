@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
-    
+
     steps:
       - name: Label pull request with "_bot"
         run: gh pr edit ${{ github.event.pull_request.number }} -R ${{ github.repository }} --add-label "_bot"

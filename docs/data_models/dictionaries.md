@@ -1,7 +1,7 @@
 # Neurobagel data dictionaries
 
 ## Overview
-When you annotate a phenotypic TSV using the Neurobagel annotation tool 
+When you annotate a phenotypic TSV using the Neurobagel annotation tool
 (see also the [section on the annotation tool](../user_guide/annotation_tool.md)),
 your annotations are automatically stored in a JSON data dictionary.
 A Neurobagel data dictionary essentially describes the meaning and properties of columns and column values
@@ -10,18 +10,18 @@ using standardized vocabularies.
 !!! example
     A comprehensive example data dictionary containing all currently supported phenotypic attributes and annotations can be found [here](https://github.com/neurobagel/neurobagel_examples/blob/main/data-upload/example_synthetic.json) (corresponding [phenotypic .tsv](https://github.com/neurobagel/neurobagel_examples/blob/main/data-upload/example_synthetic.tsv)).
 
-Importantly, Neurobagel uses a structure for these data dictionaries that is compatible 
-with and expands on 
-[BIDS `participant.json` data dictionaries](https://bids-specification.readthedocs.io/en/stable/03-modality-agnostic-files.html#participants-file). 
+Importantly, Neurobagel uses a structure for these data dictionaries that is compatible
+with and expands on
+[BIDS `participant.json` data dictionaries](https://bids-specification.readthedocs.io/en/stable/03-modality-agnostic-files.html#participants-file).
 
 !!! info
     The specification for how a Neurobagel data dictionary is structured
-    is also called a schema. 
+    is also called a schema.
     Because Neurobagel data dictionaries are stored as `.json` files,
-    we use the [`jsonschema` schema language](https://json-schema.org/) 
+    we use the [`jsonschema` schema language](https://json-schema.org/)
     to write the specification.
 
-Neurobagel data dictionaries uniquely include an `Annotations` attribute 
+Neurobagel data dictionaries uniquely include an `Annotations` attribute
 for each column entry to store user-provided semantic annotations.
 
 Here is an example BIDS data dictionary (`participants.json`):
@@ -95,7 +95,7 @@ And here is the same data dictionary augmented with Neurobagel annotations:
 !!! info
     `TermURL` values in Neurobagel data dictionaries are [compact URIs](https://en.wikipedia.org/wiki/CURIE).
 
-A custom Neurobagel namespace, defined by the prefix `nb` (full URI: `http://neurobagel.org/vocab/`), is used for controlled terms that represent attribute classes modelled by Neurobagel, such as `"Age"` and `"Sex"`, even though these terms may have equivalents in other vocabularies used for annotation. 
+A custom Neurobagel namespace, defined by the prefix `nb` (full URI: `http://neurobagel.org/vocab/`), is used for controlled terms that represent attribute classes modelled by Neurobagel, such as `"Age"` and `"Sex"`, even though these terms may have equivalents in other vocabularies used for annotation.
 
 For example, the following terms from the Neurobagel annotations above are conceptually equivalent to terms from the SNOMED CT namespace:
 
@@ -106,7 +106,7 @@ For example, the following terms from the Neurobagel annotations above are conce
 
 ## Phenotypic attributes
 
-The Neurobagel annotation tool generates a data dictionary entry for a given column 
+The Neurobagel annotation tool generates a data dictionary entry for a given column
 by augmenting the information recommended by BIDS with unambiguous semantic tags.
 
 Below we'll outline several example annotations using the following example `participants.tsv` file:
@@ -153,7 +153,7 @@ Term from the Neurobagel vocabulary.
 ```
 
 !!! info
-    `participant_id` is a reserved name in BIDS and BIDS data dictionaries therefore typically don't annotate this column. 
+    `participant_id` is a reserved name in BIDS and BIDS data dictionaries therefore typically don't annotate this column.
     Neurobagel supports tables containing multiple subject ID columns for studies that employ more than one ID scheme.
 
 ### Session identifier
@@ -219,12 +219,12 @@ The `IsAbout` relation uses a term from the Neurobagel namespace because
 
 !!! info
     Columns with categorical values (e.g., study groups, diagnoses, sex)
-    require a `Levels` key in their Neurobagel annotation. 
+    require a `Levels` key in their Neurobagel annotation.
     The Neurobagel "Levels" key is modeled after the BIDS "Levels" key for human readable descriptions.
 
 ### Sex
 
-Terms are from the SNOMED-CT ontology, which has controlled terms aligning with BIDS `participants.tsv` descriptions for sex.  Below are the SNOMED terms for the sex values allowed by BIDS: 
+Terms are from the SNOMED-CT ontology, which has controlled terms aligning with BIDS `participants.tsv` descriptions for sex.  Below are the SNOMED terms for the sex values allowed by BIDS:
 
 | Sex    | Controlled term                                                 |
 | ------ | --------------------------------------------------------------- |
@@ -263,16 +263,16 @@ Here is what a sex annotation looks like in practice:
 }
 ```
 
-The `IsAbout` relation uses a Neurobagel scoped term for `"Sex"` because 
+The `IsAbout` relation uses a Neurobagel scoped term for `"Sex"` because
 this is a Neurobagel common data element.
 
 ### Age
-Neurobagel has a common data element for `"Age"` describing a continuous column. 
-To ensure age values are represented as floats in Neurobagel graphs, 
-Neurobagel encodes the format of the raw numerical values in a given age column. 
+Neurobagel has a common data element for `"Age"` describing a continuous column.
+To ensure age values are represented as floats in Neurobagel graphs,
+Neurobagel encodes the format of the raw numerical values in a given age column.
 This is stored in the `Format` annotation (required for continuous columns) and maps internally to a specific transformation that is then used to convert the raw values to floats.
 
-Possible formats: 
+Possible formats:
 
 | TermURL | Label | Examples |
 | ----- | ----- | ----- |
@@ -306,16 +306,16 @@ Possible formats:
 
 Terms are from the SNOMED-CT ontology.
 
-For assessment tools like cognitive tests or rating scales, 
+For assessment tools like cognitive tests or rating scales,
 Neurobagel encodes whether a subject has a value/score for _at least one_ item or subscale of the assessment.
-Because assessment tools often have several subscales or items 
+Because assessment tools often have several subscales or items
 that can be stored as separate columns in the tabular `participant.tsv` file,
 each assessment tool column receives **a minimum** of two annotations:
 
 - one to classify that the column `IsAbout` the generic category of assessment tools
 - one to classify that the column `IsPartOf` the specific assessment tool
 
-An optional additional annotation `MissingValues` can be used to specify value(s) 
+An optional additional annotation `MissingValues` can be used to specify value(s)
 in an assessment tool column which represent that the participant is missing a value/response for that subscale,
 when instances of missing values are present (see also section [Missing values](#missing-values)).
 
@@ -366,7 +366,7 @@ For the above example, this would be:
 | sub-02        | 1       | 1       |
 | sub-03        |         |         |
 
-Therefore: 
+Therefore:
 
 | particpant_id | updrs_available |
 |---------------|-----------------|
@@ -375,6 +375,6 @@ Therefore:
 | sub-03        | False           |
 
 ## Missing values
-Missing values are allowed for any phenotypic variable (column) that does not describe a participant or session identifier (e.g., columns like `participant_id` or `session_id`). 
+Missing values are allowed for any phenotypic variable (column) that does not describe a participant or session identifier (e.g., columns like `participant_id` or `session_id`).
 In a Neurobagel data dictionary, missing values for a given column are listed under the `"MissingValues"` annotation for the column (see the [Assessment tool](#assessment-tool) section
 or the [comprehensive example data dictionary](https://github.com/neurobagel/neurobagel_examples/blob/main/data-upload/example_synthetic.json) for examples).

@@ -61,12 +61,12 @@ Then, to start the services again:
 docker compose up -d
 ```
 
-!!! tip "For production deployments, you must specify the recipe filename"  
+!!! tip "For production deployments, you must specify the recipe filename"
 
-    To relaunch services for a [`node`](production_deployment.md#node) or [`portal`](production_deployment.md#portal) deployment, 
-    you must provide the production Docker Compose recipe filename explicitly using the `-f` option:  
+    To relaunch services for a [`node`](production_deployment.md#node) or [`portal`](production_deployment.md#portal) deployment,
+    you must provide the production Docker Compose recipe filename explicitly using the `-f` option:
 
-    ```bash  
+    ```bash
     docker compose -f docker-compose.prod.yml up -d
     ```
 
@@ -99,10 +99,10 @@ Once you have generated or updated the JSONLD files you want to upload, to updat
 
 !!! tip "For production deployments, you must specify the recipe filename"
 
-    To relaunch services for a production [`node`](production_deployment.md#node) deployment, 
-    you must provide the production Docker Compose recipe filename explicitly using the `-f` option:  
+    To relaunch services for a production [`node`](production_deployment.md#node) deployment,
+    you must provide the production Docker Compose recipe filename explicitly using the `-f` option:
 
-    ```bash  
+    ```bash
     docker compose -f docker-compose.prod.yml up -d
     ```
 
@@ -118,7 +118,7 @@ For any of the below types of changes, you will need to regenerate a graph-ready
 
 #### If the phenotypic (tabular) data have changed
 
-If new variables have been added to the dataset such that there are new columns in the phenotypic TSV you previously annotated using Neurobagel's annotation tool, you will need to:  
+If new variables have been added to the dataset such that there are new columns in the phenotypic TSV you previously annotated using Neurobagel's annotation tool, you will need to:
 
 1. **Generate an updated data dictionary** by annotating the new variables in your TSV following the [annotation workflow](annotation_tool.md)
 
@@ -197,7 +197,7 @@ curl -X PUT --header 'Content-Type: application/json' -d '
 
 ??? tip "Managing user permissions using the GraphDB Workbench"
 
-    If you are managing multiple GraphDB databases, the web-based administration interface for a GraphDB instance, the Workbench, 
+    If you are managing multiple GraphDB databases, the web-based administration interface for a GraphDB instance, the Workbench,
     might be an easier way to manage user permissions than the REST API.
     More information on using the GraphDB Workbench can be found [here](https://graphdb.ontotext.com/documentation/10.0/workbench-user-interface.html).
 
@@ -235,12 +235,12 @@ follow these steps:
     docker compose up -d
     ```
 
-    !!! tip "For production deployments, you must specify the recipe filename"  
+    !!! tip "For production deployments, you must specify the recipe filename"
 
         To relaunch services for a production [`node`](production_deployment.md#node) deployment,
-        you must provide the production Docker Compose recipe filename explicitly using the `-f` option:  
-        
-        ```bash  
+        you must provide the production Docker Compose recipe filename explicitly using the `-f` option:
+
+        ```bash
         docker compose -f docker-compose.prod.yml up -d
         ```
 
@@ -258,8 +258,8 @@ Some examples of when you might want to do this:
 
 ??? warning "Ensure that shell variables do not clash with `.env` file"
 
-    If the shell you run `docker compose` from already has any 
-    shell variable of the same name set, 
+    If the shell you run `docker compose` from already has any
+    shell variable of the same name set,
     the shell variable will take precedence over the configuration
     of `.env`!
     In this case, make sure to `unset` the local variable first.
