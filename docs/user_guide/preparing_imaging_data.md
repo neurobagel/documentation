@@ -16,7 +16,6 @@ The BIDS metadata table lists each subject's available imaging files and modalit
 | sub-02 | ses-01 | bold | /data/bids-examples/synthetic/sub-02/ses-01/func/sub-02_ses-01_task-rest_bold.nii |
 | ... | ... | ... | ... |
 
-
 ## About the BIDS metadata table
 The table must include at least four columns named exactly `sub`, `ses`, `suffix`, and `path` (adapted from [BIDS](https://bids-specification.readthedocs.io/en/stable/) entities).
 Additional columns are allowed but will be ignored by Neurobagel.
@@ -36,7 +35,6 @@ Each row of the table indexes a single image file with the following metadata:
 - `path` (required)
     - Path to the image file
     - Example: `/data/pd/qpn/sub-PD123/ses-01/anat/sub-PD123_ses-01_T1w.nii.gz`
-
 
 ## Supported BIDS imaging modalities
 
