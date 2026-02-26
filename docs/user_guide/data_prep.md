@@ -16,7 +16,9 @@ which are typically stored in a tabular format.
 !!! warning "If you're unfamiliar with TSV files or unsure how to format them correctly"
     Please first consult our [TSV glossary section](../glossary.md#tsv) for information on creating valid TSV files.
 
-In a valid phenotypic TSV file for Neurobagel, rows identify each participant (or participant-session in a longitudinal dataset), and columns describe properties of participants (age, sex, diagnosis, etc.).
+In a valid phenotypic TSV file for Neurobagel, rows identify each participant
+(or participant-session in a longitudinal dataset),
+and columns describe properties of participants (age, sex, diagnosis, etc.).
 
 Each row **MUST** describe only one participant/session, and each participant/session **MUST** be described by only one row.
 
@@ -50,7 +52,10 @@ For all phenotypic variables currently modeled by Neurobagel, see [here](../data
 
 ### If your dataset has imaging (BIDS) data
 
-In addition to phenotypic characteristics of subjects, Neurobagel can also harmonize information about subjects' imaging data from a corresponding [BIDS](https://bids-specification.readthedocs.io/en/stable/) dataset (see also [Preparing imaging data](preparing_imaging_data.md)).
+In addition to phenotypic characteristics of subjects,
+Neurobagel can also harmonize information about subjects' imaging data
+from a corresponding [BIDS](https://bids-specification.readthedocs.io/en/stable/) dataset
+(see also [Preparing imaging data](preparing_imaging_data.md)).
 
 To include subjects' BIDS imaging data as part of their representation in Neurobagel,
 your phenotypic TSV **MUST** meet the following requirements **in addition** to the ones listed above:

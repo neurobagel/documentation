@@ -1,6 +1,7 @@
 # The Neurobagel CLI
 
-The Neurobagel CLI is a command-line tool that processes a Neurobagel-annotated dataset and produces harmonized subject-level phenotypic and imaging attributes.
+The Neurobagel CLI is a command-line tool that processes a Neurobagel-annotated dataset
+and produces harmonized subject-level phenotypic and imaging attributes.
 The resulting harmonized data can be directly integrated into a Neurobagel graph store.
 
 ## Installation
@@ -32,7 +33,9 @@ The resulting harmonized data can be directly integrated into a Neurobagel graph
 
 ## Input files
 
-The Neurobagel CLI creates a single harmonized view of each subject's data in a dataset, and can integrate information from several data sources (phenotypic, raw neuroimaging, processed neuroimaging).
+The Neurobagel CLI creates a single harmonized view of each subject's data in a dataset,
+and can integrate information from several data sources
+(phenotypic, raw neuroimaging, processed neuroimaging).
 
 To run the CLI on a dataset, you will need the following files:
 
@@ -41,12 +44,15 @@ To run the CLI on a dataset, you will need the following files:
 - [ ] [A Neurobagel JSON data dictionary](../data_models/dictionaries.md) for the TSV
 - [ ] [A dataset description JSON](./dataset_description.md) for the dataset
 - [ ] (Optional) A valid [BIDS metadata table](preparing_imaging_data.md), if subjects have neuroimaging data available (1)
-- [ ] (Optional) A TSV of subject statuses for any image processing pipelines that have been run, following the [Nipoppy processing status file schema](https://nipoppy.readthedocs.io/en/latest/schemas/index.html#processing-status-file) (2)
+- [ ] (Optional) A TSV of subject statuses for any image processing pipelines that have been run,
+      following the [Nipoppy processing status file schema](https://nipoppy.readthedocs.io/en/latest/schemas/index.html#processing-status-file) (2)
 
 </div>
 
-1. This table can be generated automatically using the CLI's [`bids2tsv`](#generate-a-bids-metadata-table) command, and will be used to generate harmonized subject imaging data availability.
-2. This file is adapted from the [Nipoppy](https://nipoppy.readthedocs.io/en/latest/index.html) workflow and can be automatically generated using [Nipoppy pipeline trackers](https://nipoppy.readthedocs.io/en/latest/how_to_guides/user_guide/tracking.html). It will be used to generate harmonized subject processed imaging data availability.
+1. This table can be generated automatically using the CLI's [`bids2tsv`](#generate-a-bids-metadata-table) command,
+2. and will be used to generate harmonized subject imaging data availability.
+3. This file is adapted from the [Nipoppy](https://nipoppy.readthedocs.io/en/latest/index.html) workflow and can be automatically generated using [Nipoppy pipeline trackers](https://nipoppy.readthedocs.io/en/latest/how_to_guides/user_guide/tracking.html).
+4. It will be used to generate harmonized subject processed imaging data availability.
 
 ## Running the CLI
 
@@ -105,7 +111,9 @@ If your BIDS directory is located at `/data/public/Dataset1_bids` and you want t
     ```
 
     ??? info "Mounting input paths using `-v`/`--volume`"
-        When running the CLI in a container, you must [mount](https://docs.docker.com/engine/storage/bind-mounts/) any input or output directories to directory paths within the container so that the app can access them. In your CLI options, always refer to the **container paths**.
+        When running the CLI in a container, you must [mount](https://docs.docker.com/engine/storage/bind-mounts/) any input or output directories to directory paths within the container so that the app can access them.
+        In your CLI options,
+        always refer to the **container paths**.
         In the example above, container paths are set to match the host paths for simplicity.
 
 === "Apptainer"
@@ -118,14 +126,17 @@ If your BIDS directory is located at `/data/public/Dataset1_bids` and you want t
     ```
 
     ??? info "Mounting input paths using `-B`/`--bind`"
-        When running the CLI in a container, you must [mount](https://docs.sylabs.io/guides/3.0/user-guide/bind_paths_and_mounts.html) any input or output directories to directory paths within the container so that the app can access them. In your CLI options, always refer to the **container paths**.
+        When running the CLI in a container,
+        you must [mount](https://docs.sylabs.io/guides/3.0/user-guide/bind_paths_and_mounts.html) any input or output directories to directory paths within the container so that the app can access them.
+        In your CLI options, always refer to the **container paths**.
         In the example above, the container paths are set to match the host paths for simplicity.
 
 ??? tip "This command may be slow on large datasets"
     On datasets with more than a few hundred subjects, `bids2tsv` can take upwards of several minutes
     due to the time needed for [`PyBIDS`](https://github.com/bids-standard/pybids) to read the dataset structure.
 
-This will produce a BIDS metadata table named `Dataset1_bids.tsv`, which can then be provided as input to the `bids` command below.
+This will produce a BIDS metadata table named `Dataset1_bids.tsv`,
+which can then be provided as input to the `bids` command below.
 
 ### Generate graph-ready data (JSONLD files)
 
@@ -135,12 +146,14 @@ The Neurobagel CLI provides different commands for generating different types of
 
     !!! info "Must be run first"
         Each subject in a Neurobagel graph requires at least phenotypic data.
-        The other metadata are optional and can be added afterward via the `bids` and/or `derivatives` commands in any order.
+        The other metadata are optional and can be added afterward
+        via the `bids` and/or `derivatives` commands in any order.
 
 - `bids`
 - `derivatives`
 
-If you are using Docker or Apptainer, we strongly recommend placing all the [input files](#input-files) for your dataset into a single directory.
+If you are using Docker or Apptainer,
+we strongly recommend placing all the [input files](#input-files) for your dataset into a single directory.
 This avoids the need to mount multiple paths into the container when running CLI commands.
 
 #### Viewing help for a command
@@ -230,7 +243,8 @@ Run the command below to generate harmonized subject-level phenotypic data for y
 
 #### 2. Process raw imaging metadata using the `bids` command (optional)
 
-If you have a [BIDS metadata table](#generate-a-bids-metadata-table), run this command to include subjects' imaging data availability to your dataset JSONLD file:
+If you have a [BIDS metadata table](#generate-a-bids-metadata-table),
+run this command to include subjects' imaging data availability to your dataset JSONLD file:
 
 === "Python"
 
@@ -264,7 +278,8 @@ If you have a [BIDS metadata table](#generate-a-bids-metadata-table), run this c
 
 #### 3. Process derived imaging metadata using the `derivatives` command (optional)
 
-If you have a [processing status file from Nipoppy](https://nipoppy.readthedocs.io/en/latest/schemas/index.html#processing-status-file), run this command to add subjects' processing pipeline data availability to the dataset JSONLD:
+If you have a [processing status file from Nipoppy](https://nipoppy.readthedocs.io/en/latest/schemas/index.html#processing-status-file),
+run this command to add subjects' processing pipeline data availability to the dataset JSONLD:
 
 === "Python"
     ```bash
@@ -299,7 +314,10 @@ If you have a [processing status file from Nipoppy](https://nipoppy.readthedocs.
     To see all options for a CLI command, including short forms and optional parameters, refer to the [command's help](#viewing-help-for-a-command).
 
 ??? tip "When to use `-f`/`--overwrite`"
-    If you're only interested in the final JSONLD with all metadata added (i.e., after all relevant commands have been run), you can safely overwrite intermediate output files by specifying the same output file path each time.
+    If you're only interested in the final JSONLD with all metadata addedµ
+    (i.e., after all relevant commands have been run),
+    you can safely overwrite intermediate output files
+    by specifying the same output file path each time.
 
 These steps have generated a graph-ready JSONLD file for Dataset1 (`Dataset1.jsonld`) that incorporates all the available subject data sources.
 The resulting JSONLD is ready to upload to a Neurobagel graph database.
@@ -310,7 +328,9 @@ The resulting JSONLD is ready to upload to a Neurobagel graph database.
 
 This error usually means the container cannot access your input files because the directories were not mounted correctly.
 
-The examples assume you are running the CLI from inside the directory containing your inputs. Thus, they mount the current working directory `$PWD` to the same path inside the container for convenience using the syntax:
+The examples assume you are running the CLI from inside the directory containing your inputs.
+Thus, they mount the current working directory `$PWD`
+to the same path inside the container for convenience using the syntax:
 
 === "Docker"
 
@@ -318,7 +338,9 @@ The examples assume you are running the CLI from inside the directory containing
     docker run --rm -v $PWD:$PWD neurobagel/bagelcli ...
     ```
 
-    However, if your inputs are located in a different directory or spread across multiple directories, you must [mount](https://docs.sylabs.io/guides/3.0/user-guide/bind_paths_and_mounts.html) each directory explicitly using the Docker option `-v /path/on/host:/path/in/container`.
+    However, if your inputs are located in a different directory or spread across multiple directories,
+    you must [mount](https://docs.sylabs.io/guides/3.0/user-guide/bind_paths_and_mounts.html) each directory explicitly
+    using the Docker option `-v /path/on/host:/path/in/container`.
 
     When passing file paths to the CLI, always use the **absolute path inside the container** to avoid confusion.
 
@@ -328,7 +350,9 @@ The examples assume you are running the CLI from inside the directory containing
     apptainer run --no-home -B $PWD bagel.sif ...
     ```
 
-    However, if your inputs are located in a different directory or spread across multiple directories, you must [mount](https://docs.docker.com/engine/storage/bind-mounts/) each directory explicitly using the Apptainer option `-B /path/on/host:/path/in/container`.
+    However, if your inputs are located in a different directory or spread across multiple directories,
+    you must [mount](https://docs.docker.com/engine/storage/bind-mounts/) each directory explicitly
+    using the Apptainer option `-B /path/on/host:/path/in/container`.
 
     When passing file paths to the CLI, always use the **absolute path inside the container** to avoid confusion.
 
@@ -359,5 +383,7 @@ To upgrade to the latest version of the data model:
         apptainer pull bagel.sif docker://neurobagel/bagelcli
         ```
 
-2. If you have an existing Neurobagel graph database, we recommend regenerating and [reuploading](maintaining.md#updating-the-data-in-your-graph) all existing `.jsonld` files in your database using the latest CLI version.
-This keeps the database internally consistent and avoids conflicts with dataset `.jsonld` files generated using older CLI versions.
+2. If you have an existing Neurobagel graph database,
+   we recommend regenerating and [reuploading](maintaining.md#updating-the-data-in-your-graph)
+   all existing `.jsonld` files in your database using the latest CLI version.
+   This keeps the database internally consistent and avoids conflicts with dataset `.jsonld` files generated using older CLI versions.

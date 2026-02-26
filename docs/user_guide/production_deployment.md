@@ -198,7 +198,9 @@ through an environment variable in `.env` file.
     - `NB_GRAPH_USERNAME`
     - `NB_GRAPH_DB`
 
-2. In the ([`./secrets`](https://github.com/neurobagel/recipes/tree/main/secrets) directory, **change the default passwords** by replacing the contents of the file `NB_GRAPH_ADMIN_PASSWORD.txt` for the `admin` superuser, and the file `NB_GRAPH_PASSWORD.txt` for the graph database user (corresponding to `NB_GRAPH_USERNAME`).
+2. In the [`./secrets`](https://github.com/neurobagel/recipes/tree/main/secrets) directory,
+   **change the default passwords** by replacing the contents of the file `NB_GRAPH_ADMIN_PASSWORD.txt`
+   for the `admin` superuser,and the file `NB_GRAPH_PASSWORD.txt` for the graph database user (corresponding to `NB_GRAPH_USERNAME`).
     - To generate a random password in the terminal, you can use:
 
       ```bash
@@ -399,13 +401,16 @@ docker compose -f docker-compose.prod.yml up -d
 The public Neurobagel query tool ([https://query.neurobagel.org](https://query.neurobagel.org))
 provides query federation to all publicly accessible Neurobagel nodes.
 
-To make your node queryable at [https://query.neurobagel.org](https://query.neurobagel.org), it simply needs to be added to our [public federation index](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json) on GitHub.
+To make your node queryable at [https://query.neurobagel.org](https://query.neurobagel.org),
+it simply needs to be added to our [public federation index](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json) on GitHub.
 
 ### If you have a GitHub Account
 
 1. [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) the [neurobagel/menu](https://github.com/neurobagel/menu) repository.
 
-2. Add your node name and node API URL to the [public federation index JSON file](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json), using the following format:
+2. Add your node name and node API URL
+   to the [public federation index JSON file](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json),
+   using the following format:
 
     ```json
     {
@@ -416,8 +421,10 @@ To make your node queryable at [https://query.neurobagel.org](https://query.neur
 
     `NodeName` defines the display name of your node as it will appear the Neurobagel query tool.
 
-3. [Open a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork) in the neurobagel/menu repository.
+3. [Open a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
+   in the neurobagel/menu repository.
 
 ### If you do not have a GitHub Account
 
-Join the [Neurobagel Discord server](https://discord.gg/BEXXgt3hXk) and message `@neurobagel/dev` with your node information, so that a maintainer can add your node to the public federation index.
+Join the [Neurobagel Discord server](https://discord.gg/BEXXgt3hXk) and message `@neurobagel/dev`
+with your node information, so that a maintainer can add your node to the public federation index.

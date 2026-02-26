@@ -98,7 +98,10 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
     by drawing a new edge between two nodes.
 
 ??? note
-    A single Neurobagel graph database can contain harmonised information about multiple datasets and their respective subjects. Each subject is represented by a node, and their harmonised phenotypic and imaging data characteristics are described using controlled terms connected to the subject node via a series of edges that individually encode the type of attribute described by the controlled term.
+    A single Neurobagel graph database can contain harmonised information about multiple datasets and their respective subjects.
+    Each subject is represented by a node, and their harmonised phenotypic and imaging data characteristics
+    are described using controlled terms connected to the subject node via a series of edges
+    that individually encode the type of attribute described by the controlled term.
 
     Neurobagel uses the RDF graph data model, see also [https://en.wikipedia.org/wiki/Graph_database](https://en.wikipedia.org/wiki/Graph_database).
 

@@ -9,7 +9,9 @@ A Neurobagel data dictionary essentially describes the meaning and properties of
 using standardized vocabularies.
 
 !!! example
-    A comprehensive example data dictionary containing all currently supported phenotypic attributes and annotations can be found [here](https://github.com/neurobagel/neurobagel_examples/blob/main/data-upload/example_synthetic.json) (corresponding [phenotypic .tsv](https://github.com/neurobagel/neurobagel_examples/blob/main/data-upload/example_synthetic.tsv)).
+    A comprehensive example data dictionary containing all currently supported phenotypic attributes and annotations
+    can be found [here](https://github.com/neurobagel/neurobagel_examples/blob/main/data-upload/example_synthetic.json)
+    (corresponding [phenotypic .tsv](https://github.com/neurobagel/neurobagel_examples/blob/main/data-upload/example_synthetic.tsv)).
 
 Importantly, Neurobagel uses a structure for these data dictionaries that is compatible
 with and expands on
@@ -96,7 +98,9 @@ And here is the same data dictionary augmented with Neurobagel annotations:
 !!! info
     `TermURL` values in Neurobagel data dictionaries are [compact URIs](https://en.wikipedia.org/wiki/CURIE).
 
-A custom Neurobagel namespace, defined by the prefix `nb` (full URI: `http://neurobagel.org/vocab/`), is used for controlled terms that represent attribute classes modelled by Neurobagel, such as `"Age"` and `"Sex"`, even though these terms may have equivalents in other vocabularies used for annotation.
+A custom Neurobagel namespace, defined by the prefix `nb` (full URI: `http://neurobagel.org/vocab/`),
+is used for controlled terms that represent attribute classes modelled by Neurobagel, such as `"Age"` and `"Sex"`,
+even though these terms may have equivalents in other vocabularies used for annotation.
 
 For example, the following terms from the Neurobagel annotations above are conceptually equivalent to terms from the SNOMED CT namespace:
 
@@ -225,7 +229,9 @@ The `IsAbout` relation uses a term from the Neurobagel namespace because
 
 ### Sex
 
-Terms are from the SNOMED-CT ontology, which has controlled terms aligning with BIDS `participants.tsv` descriptions for sex.  Below are the SNOMED terms for the sex values allowed by BIDS:
+Terms are from the SNOMED-CT ontology,
+which has controlled terms aligning with BIDS `participants.tsv` descriptions for sex.
+Below are the SNOMED terms for the sex values allowed by BIDS:
 
 | Sex | Controlled term |
 | --- | --------------- |
