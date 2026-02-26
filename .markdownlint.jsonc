@@ -7,17 +7,11 @@
   // Path to configuration file to extend
   "extends": null,
 
-  // heading-increment
-  "MD001": false,
-
   // ul-indent Unordered list indentation
   "MD007": {"indent": 4},
 
   // no-hard-tabs
   "MD010": false,
-
-  // no-multiple-blanks
-  "MD012": false,
 
   // MD013/line-length : Line length : https://github.com/DavidAnson/markdownlint/blob/v0.40.0/doc/md013.md
   "MD013": {

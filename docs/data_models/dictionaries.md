@@ -282,7 +282,6 @@ Possible formats:
 | `nb:FromRange` | a range between a minimum and maximum value | `30-35` |
 | `nb:FromISO8061` | period of time defined according to the ISO8601 standard | `31Y6M` |
 
-
 ```json hl_lines="5-13"
 {
   "age": {

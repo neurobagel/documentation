@@ -33,7 +33,6 @@ The TSV **MUST** contain:
 
 - At least 1 column that describes demographic or other phenotypic information
 
-
 The TSV **MAY** contain:
 
 - At least 1 column containing session identifiers (e.g., if the dataset is longitudinal)
@@ -91,7 +90,6 @@ Example TSV:
 | sub-01 | 22 | female | WASI-2 |
 | sub-02 | 28 | male | Stroop |
 | ... | ... | ... | ... |
-
 
 ### A longitudinal data file
 If you have longitudinal tabular data (e.g. age collected at multiple sessions/visits),
