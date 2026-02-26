@@ -8,6 +8,7 @@ Neurobagel is a project originating from the [ORIGAMI Lab](https://neurodatascie
 🧑‍🔬 _Principal Investigator_
 
 ### Current
+
 <table>
   <tr>
     <td align="center"><a href="https://github.com/surchs"><img src="../../overrides/assets/img/sebastian_urchs.jpg" width="100px;" alt=""/><br /><sub><b>Sebastian Urchs</b></sub></a><br/>🧑‍🍳</td>
@@ -24,6 +25,7 @@ Neurobagel is a project originating from the [ORIGAMI Lab](https://neurodatascie
 </table>
 
 ### Past
+
 <table>
   <tr>
     <td align="center"><a href="https://github.com/jarmoza"><img src="../../overrides/assets/img/jonathan_armoza.jpg" width="100px;" alt=""/><br /><sub><b>Jonathan Armoza</b></sub></a><br/>🧑‍🍳</td>

@@ -1,6 +1,7 @@
 # Neurobagel graph data files
 
 ## Overview
+
 Using the Neurobagel CLI (see also the [section on the CLI](../user_guide/cli.md)),
 a Neurobagel data dictionary (`.json`) for a dataset can be processed together with the corresponding tabular data (`.tsv`) and BIDS dataset (if available) to generate subject-level [linked data](https://www.w3.org/wiki/LinkedData) that can be encoded in a knowledge graph.
 The Neurobagel graph-ready data are stored in [JSON-LD](https://json-ld.org/) format (`.jsonld`),

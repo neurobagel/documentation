@@ -1,12 +1,14 @@
 This glossary compiles some key terms used in the Neurobagel documentation and defines them in the context of the Neurobagel ecosystem.
 
 ### Data dictionary
+
 :   A JSON file that describes the information contained in columns from a tabular data file,
     along with the meaning and properties (format of numerical data, unique “levels”
     of categorical data, etc.) of values in each column. In the context of Neurobagel,
     the meanings of columns and column values are encoded using terms from standardised vocabularies.
 
 ### Data model
+
 **Used interchangeably with**: data schema
 
 :   A structure that has been designed with the
@@ -28,6 +30,7 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
     information.
 
 ### Controlled term
+
 :   A unique identifier or code for a concept that is described in a controlled vocabulary.
 
     A controlled term has a
@@ -41,6 +44,7 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
     with the unique code `8A00.0`.
 
 ### Controlled vocabulary
+
 **Used interchangeably with**: taxonomy, and ontology
 
 :   A **controlled vocabulary** is a collection of controlled terms that
@@ -83,6 +87,7 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
     rich ways of validating and even inferring information.
 
 ### Graph database
+
 **Used interchangeably with**: knowledge graph store, graph store, graph
 
 :   A type of database, in the same way that a relational databases is a type of database.
@@ -98,6 +103,7 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
     Neurobagel uses the RDF graph data model, see also [https://en.wikipedia.org/wiki/Graph_database](https://en.wikipedia.org/wiki/Graph_database).
 
 ### Annotation
+
 :   In the context of Neurobagel, annotation refers to the process
     of describing tabular demographic, cognitive, and/or clinical (phenotypic) data for a dataset
     with terms from controlled vocabularies to create machine
@@ -105,6 +111,7 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
     more about this process in our [documentation](user_guide/annotation_tool.md).
 
 ### Aggregated results
+
 :   If the owner of a Neurobagel node decides that query responses
     should not include information at the level of individual
     participants, they can configure their node to only return
@@ -113,6 +120,7 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
     and only respond with counts of matching participants.
 
 ### Data owner
+
 :   A person or an institute
     who is responsible in the data governance sense
     for one or many datasets. In the context of Neurobagel, one data owner can have one or
@@ -121,6 +129,7 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
     stored inside the node.
 
 ### Federation API
+
 **Used interchangeably with**: f-API
 :   A standalone service that allows query users to send a single
     query and have it automatically sent to many Neurobagel node APIs
@@ -134,6 +143,7 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
     able to work either directly with a single n-API or with an f-API.
 
 ### Node API
+
 **Used interchangeably with**: n-API
 :   A Neurobagel "node" is a locally deployed service
     that holds information about data for one data owner who controls
@@ -149,6 +159,7 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
     can control how detailed the query responses should be.
 
 ### Tabular data
+
 **Used interchangeably with**: phenotypic data
 
 :   Tabular text files (e.g., .tsv or .csv) that contain information about

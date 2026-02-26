@@ -72,6 +72,7 @@ To view the general CLI help and information about the available commands:
     ```
 
 ### Generate a BIDS metadata table
+
 !!! info
     - If your dataset does not have imaging data, skip this step.
     - If your dataset's imaging data are **not** in BIDS format, you must manually create a [BIDS metadata table](preparing_imaging_data.md).
@@ -143,6 +144,7 @@ If you are using Docker or Apptainer, we strongly recommend placing all the [inp
 This avoids the need to mount multiple paths into the container when running CLI commands.
 
 #### Viewing help for a command
+
 To view the command-line options for a specific command, such as `pheno`:
 
 === "Python"
@@ -331,6 +333,7 @@ The examples assume you are running the CLI from inside the directory containing
     When passing file paths to the CLI, always use the **absolute path inside the container** to avoid confusion.
 
 ## Upgrading data to a newer version of the CLI
+
 Neurobagel is under active development and future CLI releases may introduce breaking changes to the data model used in subject-level `.jsonld` graph files.
 Breaking changes are highlighted in the [release notes](https://github.com/neurobagel/bagel-cli/releases).
 

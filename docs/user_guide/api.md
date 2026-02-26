@@ -18,6 +18,7 @@ Neurobagel also hosts its own public instances of a node API and a federation AP
 [https://api.neurobagel.org/](https://api.neurobagel.org/) is a public, Neurobagel-hosted node API that interfaces with Neurobagel's own running graph instance containing harmonized datasets from the [OpenNeuro](https://openneuro.org/) platform.
 
 ## Sending a request to a Neurobagel API directly
+
 Cohort queries of a specific Neurobagel graph database can be submitted via direct requests to the corresponding node API using the `/query` endpoint, e.g. `https://api.neurobagel.org/query`.
 Specific query parameters are defined using key-value pairs in the URL following `/query`.
 
@@ -45,6 +46,7 @@ curl -L https://api.neurobagel.org/query?sex=snomed:248152002
     For example, requests to `https://api.neurobagel.org/query` will work, but `https://api.neurobagel.org/query/` will not.
 
 ## Using the interactive Neurobagel API docs
+
 Interactive documentation for a Neurobagel API (provided by [Swagger UI](https://github.com/swagger-api/swagger-ui)) is available at the `/docs` endpoint (e.g., [https://api.neurobagel.org/docs](https://api.neurobagel.org/docs)) and can also be used to run queries against the graph.
 
 !!! note

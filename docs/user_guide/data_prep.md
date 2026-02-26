@@ -92,6 +92,7 @@ Example TSV:
 | ... | ... | ... | ... |
 
 ### A longitudinal data file
+
 If you have longitudinal tabular data (e.g. age collected at multiple sessions/visits),
 then the information for all sessions should be combined into a single TSV.
 Each row must describe a unique combination of subject and session.

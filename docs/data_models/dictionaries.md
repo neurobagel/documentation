@@ -1,6 +1,7 @@
 # Neurobagel data dictionaries
 
 ## Overview
+
 When you annotate a phenotypic TSV using the Neurobagel annotation tool
 (see also the [section on the annotation tool](../user_guide/annotation_tool.md)),
 your annotations are automatically stored in a JSON data dictionary.
@@ -267,6 +268,7 @@ The `IsAbout` relation uses a Neurobagel scoped term for `"Sex"` because
 this is a Neurobagel common data element.
 
 ### Age
+
 Neurobagel has a common data element for `"Age"` describing a continuous column.
 To ensure age values are represented as floats in Neurobagel graphs,
 Neurobagel encodes the format of the raw numerical values in a given age column.
@@ -374,6 +376,7 @@ Therefore:
 | sub-03 | False |
 
 ## Missing values
+
 Missing values are allowed for any phenotypic variable (column) that does not describe a participant or session identifier (e.g., columns like `participant_id` or `session_id`).
 In a Neurobagel data dictionary, missing values for a given column are listed under the `"MissingValues"` annotation for the column (see the [Assessment tool](#assessment-tool) section
 or the [comprehensive example data dictionary](https://github.com/neurobagel/neurobagel_examples/blob/main/data-upload/example_synthetic.json) for examples).

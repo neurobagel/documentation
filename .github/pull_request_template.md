@@ -18,6 +18,7 @@ Changes proposed in this pull request:
 
 <!-- To be checked off by reviewers -->
 ## Checklist
+
 _Please leave checkboxes empty for PR reviewers_
 
 - [ ] PR has an interpretable title with a prefix (`[ENH]`, `[FIX]`, `[REF]`, `[TST]`, `[CI]`, `[MNT]`, `[INF]`) _see our [Contributing Guidelines](https://neurobagel.org/contributing/CONTRIBUTING/#pull-request-guidelines) for more info)_

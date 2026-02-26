@@ -61,6 +61,7 @@ The card on the right lists all columns from your data table that you have mappe
     - You can check remaining, ungrouped columns in the overview on the right.
 
 ## 3. Value Annotation
+
 ![Annotation tool value annotation step screenshot](../imgs/annotate/value_annotation.png)
 
 The left sidebar displays the standardized variables that are represented in your tabular data, along with the column names that have been mapped to those variables.
@@ -106,6 +107,7 @@ For each unique column value, you can:
     For the value annotation to be considered complete by Neurobagel, all unique values must either be mapped to a standardized term or marked as missing.
 
 ## 4. Download data dictionary
+
 ![Annotation tool download step screenshot](../imgs/annotate/download.png)
 
 - **Preview** your annotated data dictionary
