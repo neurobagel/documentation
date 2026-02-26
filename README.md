@@ -8,7 +8,6 @@ The neurobagel documentation.
 
 Our docs are built with the [Material Theme](https://squidfunk.github.io/mkdocs-material/) for [MKdocs](https://www.mkdocs.org/).
 
-
 ## Setup
 Create a new virtual environment with `python -m venv venv` and activate it.
 Then install the dependencies with `pip install -r requirements.txt`
@@ -63,3 +62,24 @@ If you need to rebuild the tailwind css, run:
 ```bash
 npx tailwindcss build docs/stylesheets/tailwind.css -o docs/stylesheets/output.css
 ```
+
+## Style guide
+
+We use several tools in this repository to enforce our style guide (codespell, prettier, markdownlint...).
+They can all be run in an orchestrated manner using [pre-commit](https://pre-commit.com/) python package.
+
+You can install pre-commit by doing:
+
+```bash
+pip install pre-commit
+pre-commit install
+```
+
+After this the style guide will be enforced every time you commit:
+some pre-commit 'hooks' will try to fix some of the errors they find,
+so you may have to restaage your file before committing.
+
+For markdownlint, you can also use
+the [VS-code extension](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
+to flag (and sometimes autofix)
+potential formatting errors in your markdown file.

@@ -7,17 +7,11 @@
   // Path to configuration file to extend
   "extends": null,
 
-  // heading-increment
-  "MD001": false,
-
   // ul-indent Unordered list indentation
-  "MD007": false,
+  "MD007": {"indent": 4},
 
   // no-hard-tabs
   "MD010": false,
-
-  // no-multiple-blanks
-  "MD012": false,
 
   // MD013/line-length : Line length : https://github.com/DavidAnson/markdownlint/blob/v0.40.0/doc/md013.md
   "MD013": {
@@ -42,8 +36,11 @@
   // blanks-around-headings
   "MD022": false,
 
-  // no-trailing-punctuation
-  "MD026": false,
+  // blanks-around-fences
+  "MD031": false,
+
+  // blanks-around-lists
+  "MD032": false,
 
   // MD033/no-inline-html : Inline HTML : https://github.com/DavidAnson/markdownlint/blob/v0.40.0/doc/md033.md
   "MD033": false,
@@ -54,9 +51,6 @@
   // no-emphasis-as-heading
   "MD036":false,
 
-  // fenced-code-language
-  "MD040": false,
-
   // first-line-heading/first-line-h1
   "MD041" : false,
 
@@ -64,15 +58,12 @@
   "MD046": false,
 
   // table-pipe-style
-  "MD055": false,
-
-  // table-column-count
-  "MD056": false,
+  "MD055": {"style": "consistent"},
 
   // descriptive-link-text"
   "MD059": false,
 
   // table-column-style
-  "MD060": false
+  "MD060": {"style": "compact"}
 
 }

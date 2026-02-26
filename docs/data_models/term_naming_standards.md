@@ -14,7 +14,7 @@
 
 What this might look like in semantic triples:
 
-```
+```owl
 <Subject> <nb:hasDiagnosis> <snomed:1234>
 <snomed:1234> <rdf:type> <nb:Diagnosis>
 ```
@@ -40,7 +40,6 @@ What this might look like in semantic triples:
 | `nidm` | http://purl.org/nidash/nidm# | imaging modalities |
 | `np` | https://github.com/nipoppy/pipeline-catalog/tree/main/processing/ | processing pipeline and derivative metadata |
 
-
 ## What if an `nb` term already exists in another controlled vocabulary?
 If there is an equivalent controlled term to one we are defining in a different namespace,
 we document this and express their equivalence using `owl:sameAs`.
@@ -48,7 +47,7 @@ we document this and express their equivalence using `owl:sameAs`.
 Example:
 If our term is `nb:Subject` and `nidm:Subject` is conceptually equivalent:
 
-```
+```owl
 <nb:12345> a <nb:Subject>
 <nb:Subject> a <rdfs:Resource>;
 	<owl:sameAs> <nidm:Subject>

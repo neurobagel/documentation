@@ -46,16 +46,16 @@ All Neurobagel issues are expected to be addressed through [pull requests](https
 
 As an external contributor, the process you would follow to make your [proposed changes](#identifying-an-issue-to-contribute-to) should look something like this:
 
-### 1. [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) the relevant Neurobagel repository to your profile.
+### 1. [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) the relevant Neurobagel repository to your profile
 
-### 2. [Clone](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#cloning-your-forked-repository) your fork of the Neurobagel repository to your local machine.
+### 2. [Clone](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#cloning-your-forked-repository) your fork of the Neurobagel repository to your local machine
 
 To keep up with changes in the Neurobagel repository while you work and avoid merge conflicts later on, make sure to:
 
 - [Add the "upstream" Neurobagel repository as a remote](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#configuring-git-to-sync-your-fork-with-the-upstream-repository) to your locally cloned repository
 - [Keep your fork up to date](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork#syncing-a-fork-branch-from-the-command-line) with the upstream repository
 
-### 3. Set up a development environment.
+### 3. Set up a development environment
 Refer to the README of the Neurobagel repository you are contributing to for instructions on setting up a development environment so you can test any local code changes you make.
 Note that the steps to set up a development environment (usually under a "Local installation", "Manual installation", or "Development environment" section) are generally different than those used to install the tool purely as a user, which usually appears at the top of the README.
 
