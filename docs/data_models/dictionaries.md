@@ -99,8 +99,8 @@ A custom Neurobagel namespace, defined by the prefix `nb` (full URI: `http://neu
 
 For example, the following terms from the Neurobagel annotations above are conceptually equivalent to terms from the SNOMED CT namespace:
 
-| Neurobagel namespace term       | Equivalent external controlled vocabulary term                     |
-|---------------------------------|---------------------------------------------------------|
+| Neurobagel namespace term | Equivalent external controlled vocabulary term |
+| ------------------------- | ------------------------------------------------------- |
 | http://neurobagel.org/vocab/Age | http://purl.bioontology.org/ontology/SNOMEDCT/397669002 |
 | http://neurobagel.org/vocab/Sex | http://purl.bioontology.org/ontology/SNOMEDCT/184100006 |
 
@@ -112,11 +112,11 @@ by augmenting the information recommended by BIDS with unambiguous semantic tags
 Below we'll outline several example annotations using the following example `participants.tsv` file:
 
 | participant_id | session_id | group | age | sex | updrs_1 | updrs_2 |
-|----------------|------------|-------|-----|-----|---------|---------|
-| sub-01         | ses-01     | PAT   | 25  | M   | 2       |         |
-| sub-01         | ses-02     | PAT   | 26  | M   | 3       | 5       |
-| sub-02         | ses-01     | CTL   | 28  | F   | 1       | 1       |
-| sub-02         | ses-02     | CTL   | 29  | F   | 1       | 1       |
+| -------------- | ---------- | ----- | --- | --- | ------- | ------- |
+| sub-01 | ses-01 | PAT | 25 | M | 2 | |
+| sub-01 | ses-02 | PAT | 26 | M | 3 | 5 |
+| sub-02 | ses-01 | CTL | 28 | F | 1 | 1 |
+| sub-02 | ses-02 | CTL | 29 | F | 1 | 1 |
 
 Controlled terms in the below examples are shortened using the RDF prefix/context
 syntax for [json-ld](https://w3c.github.io/json-ld-syntax/#the-context):
@@ -226,11 +226,11 @@ The `IsAbout` relation uses a term from the Neurobagel namespace because
 
 Terms are from the SNOMED-CT ontology, which has controlled terms aligning with BIDS `participants.tsv` descriptions for sex.  Below are the SNOMED terms for the sex values allowed by BIDS:
 
-| Sex    | Controlled term                                                 |
-| ------ | --------------------------------------------------------------- |
-| Male   | http://purl.bioontology.org/ontology/SNOMEDCT/248153007         |
-| Female | http://purl.bioontology.org/ontology/SNOMEDCT/248152002         |
-| Other  | http://purl.bioontology.org/ontology/SNOMEDCT/32570681000036106 |
+| Sex | Controlled term |
+| --- | --------------- |
+| Male | http://purl.bioontology.org/ontology/SNOMEDCT/248153007 |
+| Female | http://purl.bioontology.org/ontology/SNOMEDCT/248152002 |
+| Other | http://purl.bioontology.org/ontology/SNOMEDCT/32570681000036106 |
 
 Here is what a sex annotation looks like in practice:
 
@@ -361,18 +361,18 @@ contain any `MissingValues`.
 For the above example, this would be:
 
 | particpant_id | updrs_1 | updrs_2 |
-|---------------|---------|---------|
-| sub-01        | 2       |         |
-| sub-02        | 1       | 1       |
-| sub-03        |         |         |
+| ------------- | ------- | ------- |
+| sub-01 | 2 | |
+| sub-02 | 1 | 1 |
+| sub-03 | | |
 
 Therefore:
 
 | particpant_id | updrs_available |
-|---------------|-----------------|
-| sub-01        | True           |
-| sub-02        | True            |
-| sub-03        | False           |
+| ------------- | --------------- |
+| sub-01 | True |
+| sub-02 | True |
+| sub-03 | False |
 
 ## Missing values
 Missing values are allowed for any phenotypic variable (column) that does not describe a participant or session identifier (e.g., columns like `participant_id` or `session_id`).
