@@ -26,6 +26,7 @@ Specific query parameters are defined using key-value pairs in the URL following
 The URL for such a query would be `https://api.neurobagel.org/query?sex=snomed:248152002`, where `snomed:248152002` is a controlled term from the SNOMED CT vocabulary corresponding to female sex.
 
 ### Example using a curl request
+
 ```bash
 # To query for female participants in the graph
 

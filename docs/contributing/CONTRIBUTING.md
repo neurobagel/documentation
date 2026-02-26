@@ -72,6 +72,7 @@ At this point, please follow the repository instructions to set up these tools b
 For example, our repositories written in Python have [pre-commit](https://pre-commit.com/) configured for this purpose.
 
 To tell pre-commit to run on any local changes you make, run the following from the repository root of your local clone:
+
 ```bash
 pre-commit install
 ```

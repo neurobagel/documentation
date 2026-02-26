@@ -60,9 +60,6 @@
   // table-pipe-style
   "MD055": {"style": "consistent"},
 
-  // blanks-around-tables
-  "MD058": false,
-
   // descriptive-link-text"
   "MD059": false,
 
