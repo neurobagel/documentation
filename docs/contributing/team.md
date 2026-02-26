@@ -8,6 +8,7 @@ Neurobagel is a project originating from the [ORIGAMI Lab](https://neurodatascie
 🧑‍🔬 _Principal Investigator_
 
 ### Current
+
 <table>
   <tr>
     <td align="center"><a href="https://github.com/surchs"><img src="../../overrides/assets/img/sebastian_urchs.jpg" width="100px;" alt=""/><br /><sub><b>Sebastian Urchs</b></sub></a><br/>🧑‍🍳</td>
@@ -19,11 +20,13 @@ Neurobagel is a project originating from the [ORIGAMI Lab](https://neurodatascie
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/Remi-Gau"><img src="../../overrides/assets/img/remi_gau.jpeg" width="100px;" alt=""/><br /><sub><b>Remi Gau</b></sub></td>
-    <td align="center"><a href="https://www.mcgill.ca/neuro/jean-baptiste-poline-phd"><img src="../../overrides/assets/img/jb.jpg" width="100px;" alt=""/><br /><sub><b>Jean-Baptise Poline</b></sub></a><br/>🧑‍🔬</td>
+    <td align="center"><a href="https://www.mcgill.ca/neuro/jean-baptiste-poline-phd"><img
+        src="../../overrides/assets/img/jb.jpg" width="100px;" alt=""/><br /><sub><b>Jean-Baptise Poline</b></sub></a><br/>🧑‍🔬</td>
   </tr>
 </table>
 
 ### Past
+
 <table>
   <tr>
     <td align="center"><a href="https://github.com/jarmoza"><img src="../../overrides/assets/img/jonathan_armoza.jpg" width="100px;" alt=""/><br /><sub><b>Jonathan Armoza</b></sub></a><br/>🧑‍🍳</td>

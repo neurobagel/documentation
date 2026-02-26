@@ -1,6 +1,7 @@
 # Neurobagel standards for controlled term naming
 
 ## Naming conventions
+
 ### Namespace prefixes
 
 - Names should be all lowercase (e.g., `nidm`, `snomed`)
@@ -41,6 +42,7 @@ What this might look like in semantic triples:
 | `np` | https://github.com/nipoppy/pipeline-catalog/tree/main/processing/ | processing pipeline and derivative metadata |
 
 ## What if an `nb` term already exists in another controlled vocabulary?
+
 If there is an equivalent controlled term to one we are defining in a different namespace,
 we document this and express their equivalence using `owl:sameAs`.
 
