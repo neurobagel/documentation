@@ -60,9 +60,6 @@
   // no-emphasis-as-heading
   "MD036":false,
 
-  // fenced-code-language
-  "MD040": false,
-
   // first-line-heading/first-line-h1
   "MD041" : false,
 
