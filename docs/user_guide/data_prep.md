@@ -86,11 +86,11 @@ to create a data dictionary for the file.
 
 Example TSV:
 
-participant_id | age | sex | tools
----- | ---- | ---- | ----
-sub-01 | 22 | female | WASI-2
-sub-02  | 28 | male | Stroop
-... | ... | ... | ... |
+| participant_id | age | sex | tools |
+| ---- | ---- | ---- | ---- |
+| sub-01 | 22 | female | WASI-2 |
+| sub-02 | 28 | male | Stroop |
+| ... | ... | ... | ... |
 
 
 ### A longitudinal data file
@@ -100,12 +100,12 @@ Each row must describe a unique combination of subject and session.
 
 Example TSV:
 
-participant_id | session_id | age | tools
----- | ---- | ---- | ----
-sub-01 | ses-01 | 22 | WASI-2
-sub-01 | ses-02 | 23 |
-sub-02 | ses-01 | 28 | Stroop
-... | ... | ... | ...
+| participant_id | session_id | age | tools |
+| ---- | ---- | ---- | ---- |
+| sub-01 | ses-01 | 22 | WASI-2 |
+| sub-01 | ses-02 | 23 | |
+| sub-02 | ses-01 | 28 | Stroop |
+| ... | ... | ... | ... |
 
 !!! tip
 
@@ -133,19 +133,19 @@ For Neurobagel, the only requirement is that **the combination of all ID values 
 
 Example **invalid** TSV:
 
-participant_id | alternative_participant_id | ...
----- | ---- | ----
-sub-01 | SID-1234 | ...
-sub-01 | SID-2222 | ...
-sub-02 | SID-1234 | ...
+| participant_id | alternative_participant_id | ... |
+| ---- | ---- | ---- |
+| sub-01 | SID-1234 | ... |
+| sub-01 | SID-2222 | ... |
+| sub-02 | SID-1234 | ... |
 
 The same rules apply when multiple session IDs are present.
 
 Example **valid** TSV:
 
-participant_id | alt_participant_id | session_id | alt_session_id | age | ...
----- | ---- | ---- | ---- | ---- | ----
-sub-01 | SID-1234 | ses-01 | visit-1 | 22 | ...
-sub-01 | SID-1234 | ses-02 | visit-2 | 23 | ...
-sub-02 | SID-2222 | ses-01 | visit-1 | 28 | ...
-... | ... | ... | ... | ... | ...
+| participant_id | alt_participant_id | session_id | alt_session_id | age | ... |
+| ---- | ---- | ---- | ---- | ---- | ---- |
+| sub-01 | SID-1234 | ses-01 | visit-1 | 22 | ... |
+| sub-01 | SID-1234 | ses-02 | visit-2 | 23 | ... |
+| sub-02 | SID-2222 | ses-01 | visit-1 | 28 | ... |
+| ... | ... | ... | ... | ... | ... |
