@@ -1,0 +1,2616 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../getting_started/">
+      
+      
+        <link rel="next" href="../production_deployment_with_own_proxy/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../imgs/logo/neurobagel_favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>Production deployment - Neurobagel</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  <script defer data-domain="neurobagel.org" src="https://plausible.neurobagel.org/js/script.js"></script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#deployable-services" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Neurobagel" class="md-header__button md-logo" aria-label="Neurobagel" data-md-component="logo">
+      
+  <img src="../../imgs/logo/neurobagel_logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Neurobagel
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Production deployment
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/neurobagel/documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Welcome
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  User guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../data_models/variables/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Data models
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../contributing/CONTRIBUTING/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Contributing
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../getting_help/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting help
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../glossary/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Glossary
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../cite/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Citing Neurobagel
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Neurobagel" class="md-nav__button md-logo" aria-label="Neurobagel" data-md-component="logo">
+      
+  <img src="../../imgs/logo/neurobagel_logo.png" alt="logo">
+
+    </a>
+    Neurobagel
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/neurobagel/documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User guide
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    User guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Running cohort queries
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Running cohort queries
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public_nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search the public nodes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../query_tool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to use the query tool
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Querying the API directly
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setting up your own Neurobagel node
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Setting up your own Neurobagel node
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Production deployment
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Production deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#deployable-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployable services
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployment profiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-a-production-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting up a production deployment
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting up a production deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-setup-for-all-deployment-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common setup for all deployment profiles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common setup for all deployment profiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clone-the-recipe-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clone the recipe repository
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy-the-template-configuration-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Copy the template configuration files
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proxy-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proxy server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Node
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-graph-store-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set graph store credentials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-data-to-the-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add data to the node
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-node-response-granularity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set node response granularity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-node-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set node domain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-node-deployment-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set node deployment profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-node-subdirectory-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set node subdirectory path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#launch-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Launch node
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#portal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Portal
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Portal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-nodes-to-federate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set nodes to federate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-portal-domains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set portal domains
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-portal-subdirectory-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set portal subdirectory paths
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-portal-deployment-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set portal deployment profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#launch-portal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Launch portal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#making-your-node-publicly-discoverable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Making your node publicly discoverable
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Making your node publicly discoverable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if-you-have-a-github-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If you have a GitHub Account
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-you-do-not-have-a-github-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If you do not have a GitHub Account
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../production_deployment_with_own_proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Production deployment with an existing proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maintaining/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maintaining a node
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Annotating your data
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Annotating your data
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dataset_description/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparing the dataset description
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_prep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparing phenotypic data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../annotation_tool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Annotating phenotypic data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preparing_imaging_data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparing imaging data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generating harmonized subject-level metadata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data models
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data models
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_models/variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Harmonized variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_models/dictionaries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Augmented BIDS data dictionaries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_models/graph_data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data files for Neurobagel graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_models/term_naming_standards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naming conventions for terms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_models/communities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community vocabularies (beta)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contributing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to contribute
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/team/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Our team
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting help
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Citing Neurobagel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#deployable-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployable services
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployment profiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-a-production-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting up a production deployment
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting up a production deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-setup-for-all-deployment-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common setup for all deployment profiles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common setup for all deployment profiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clone-the-recipe-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clone the recipe repository
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy-the-template-configuration-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Copy the template configuration files
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proxy-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proxy server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Node
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-graph-store-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set graph store credentials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-data-to-the-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add data to the node
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-node-response-granularity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set node response granularity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-node-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set node domain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-node-deployment-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set node deployment profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-node-subdirectory-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set node subdirectory path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#launch-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Launch node
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#portal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Portal
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Portal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-nodes-to-federate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set nodes to federate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-portal-domains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set portal domains
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-portal-subdirectory-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set portal subdirectory paths
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-portal-deployment-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set portal deployment profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#launch-portal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Launch portal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#making-your-node-publicly-discoverable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Making your node publicly discoverable
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Making your node publicly discoverable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if-you-have-a-github-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If you have a GitHub Account
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-you-do-not-have-a-github-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If you do not have a GitHub Account
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Production deployment</h1>
+
+<p>The <a href="../getting_started/">getting started</a> section
+is designed for quick local testing with minimal configuration.
+For a production deployment intended for external users,
+you should customize the settings to fit your specific needs.</p>
+<p>To help you with this,
+the Neurobagel <a href="https://github.com/neurobagel/recipes"><code>recipes</code> repository</a>
+includes dedicated production deployment recipes that should
+cover the most common use cases.</p>
+<div class="admonition info">
+<p class="admonition-title">Start with a fresh recipe for each deployment</p>
+<p>Make a fresh clone of the
+<a href="https://github.com/neurobagel/recipes"><code>recipes</code> repository</a> for each
+deployment you want to launch.</p>
+<p>For example, hosting multiple Neurobagel <a href="#node">nodes</a>,
+or a single <a href="#node">node</a> alongside a <a href="#proxy-server">containerized proxy server</a>,
+means creating a separate clone of the <code>recipes</code> repo for each node or proxy server.
+This will make it easier to update and maintain each deployment.</p>
+</div>
+<h2 id="deployable-services">Deployable services</h2>
+<p>All Neurobagel services are <a href="https://www.docker.com/resources/what-container/">containerized</a>.
+The production deployment recipes use <a href="https://docs.docker.com/compose/how-tos/profiles/">Docker Compose profiles</a>
+to group related services and allow them to be launched together.</p>
+<p>Neurobagel services that are included in the Docker Compose deployment recipes:</p>
+<ul>
+<li><strong><a href="../api/">Neurobagel node API/n-API</a></strong> (<code>api</code>): The API that communicates with a single graph store and determines
+    how detailed the response to a query should be from that graph.</li>
+<li><strong>Graph store</strong> (<code>graph</code>): A third-party RDF store that stores Neurobagel-harmonized data to be queried. At the moment our recipe uses the free tier
+    of <a href="https://db-engines.com/en/system/GraphDB">GraphDB</a> for this.</li>
+<li><strong>Neurobagel federation/f-API</strong> (<code>federation</code>): A special API that can federate over one or more
+    Neurobagel nodes to provide a single point of access to multiple distributed databases.
+    By default it will federate over all public nodes and any local nodes you specify.</li>
+<li><strong><a href="../query_tool/">Neurobagel query tool</a></strong> (<code>query_federation</code>): A web app that provides a graphical interface for users to query a
+    federation API and view the results from one or more nodes. Because the query tool is a static app and is run locally
+    in the user's browser, this service simply hosts the app.</li>
+</ul>
+<p>Two additional, third-party services are part of production deployment recipes:</p>
+<ul>
+<li><strong><a href="https://nginx.org/en/">NGINX reverse proxy</a></strong> (<code>nginx-proxy</code>):
+    A <a href="https://github.com/nginx-proxy/nginx-proxy">containerized version</a>
+    of the popular proxy server that lets you serve your Neurobagel services
+    under custom URLs, handling routes automatically.</li>
+<li><strong>Automatic SSL certificate service</strong> (<code>acme-companion</code>):
+    A <a href="https://github.com/nginx-proxy/acme-companion">containerized companion tool</a>
+    for nginx that automatically provisions SSL certificates for the routes
+    created by <code>nginx</code> so users can communicate with your services
+    via encrypted HTTPS connections.</li>
+</ul>
+<h2 id="deployment-profiles">Deployment profiles</h2>
+<p>Neurobagel offers different deployment profiles that allow you to launch
+specific combinations of services (listed below), depending on your use case.</p>
+<ul>
+<li>
+<p><a href="#node"><code>node</code></a>: Deploys an individual Neurobagel node.
+    A Neurobagel node includes an internal graph database and a node API
+    that handles all incoming queries and talks to the graph database.
+    You can run several nodes on the same machine.</p>
+<ul>
+<li><code>api</code></li>
+<li><code>graph</code></li>
+</ul>
+</li>
+<li>
+<p><a href="#portal"><code>portal</code></a>: Deploys the federation engine and a connected web query interface.
+    Use this profile only if you need to host your own federated query tool,
+    e.g. to federate over nodes that are not in the
+    <a href="https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json">list of public Neurobagel nodes</a>.</p>
+<ul>
+<li><code>federation</code></li>
+<li><code>query_federation</code></li>
+</ul>
+</li>
+<li>
+<p><a href="#proxy-server"><code>proxy</code></a>: Deploys pre-configured, containerized
+    reverse-proxy services that will automatically set up routes
+    to your Neurobagel services under your desired URLs.</p>
+<details class="info">
+<summary>You can also use an existing proxy server</summary>
+<p>Our deployment instructions assume that there is no existing proxy server set up
+on the machine that will host your Neurobagel services.
+If you already have a proxy server setup,
+follow the slightly modified steps described in <a href="../production_deployment_with_own_proxy/">deploying with an existing proxy server</a>.</p>
+<p>In this case, you can ignore the <code>proxy</code> deployment recipe.</p>
+</details>
+</li>
+</ul>
+<h2 id="setting-up-a-production-deployment">Setting up a production deployment</h2>
+<h3 id="common-setup-for-all-deployment-profiles">Common setup for all deployment profiles</h3>
+<div class="admonition warning">
+<p class="admonition-title">Do these steps first for each deployment profile you set up</p>
+<p>Each production deployment profile requires a fresh deployment recipe and begins with the same initial steps.
+Complete these steps before following the profile-specific setup instructions.</p>
+</div>
+<h4 id="clone-the-recipe-repository">Clone the recipe repository</h4>
+<p>Make a fresh clone of the <code>recipes</code> repository in a location of your choice.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/neurobagel/recipes.git<span class="w"> </span>recipes
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Consider changing <code>recipes</code> to a name you will recognize in the future</p>
+</div>
+<p>Then navigate into this directory for the remaining steps.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>recipes
+</code></pre></div>
+<h4 id="copy-the-template-configuration-files">Copy the template configuration files</h4>
+<p>The recipe repository includes templates of files for configuring your deployment: <code>.env</code> and
+<code>local_nb_nodes.json</code>. Copy and rename these templates, but do not edit
+the templates themselves.</p>
+<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>template.env<span class="w"> </span>.env
+cp<span class="w"> </span>local_nb_nodes.template.json<span class="w"> </span>local_nb_nodes.json
+</code></pre></div>
+<h3 id="proxy-server">Proxy server</h3>
+<details class="warning">
+<summary>Skip if you already have a reverse proxy server</summary>
+<p>If you already have a reverse proxy server set up and want to continue using
+it, <strong>do not follow this section</strong> and instead continue with our guide
+on <a href="../production_deployment_with_own_proxy/">production deployment with an existing proxy server</a>.</p>
+</details>
+<details class="warning">
+<summary>Always launch the proxy server first</summary>
+<p>Our reverse proxy recipe is set up to automatically configure routes to the
+Neurobagel services you launch. In order to do that, the proxy server must
+already be running when you launch a new Neurobagel service.
+If you have already launched Neurobagel services
+(e.g. <a href="#node">node</a> or <a href="#portal">portal</a>),
+shut them down again,
+launch the proxy server, and then relaunch the services.</p>
+</details>
+<div class="admonition info">
+<p class="admonition-title">Start from a <a href="#common-setup-for-all-deployment-profiles">fresh deployment recipe</a>!</p>
+</div>
+<p>To host your Neurobagel <a href="#deployable-services">node services</a> under a custom URL
+(e.g. <code>https://www.myfirstnode.org/query</code>) rather than a server IP address and port
+(e.g. <code>http://192.168.0.1:3000</code>), we provide a recipe for you to easily set up an
+<a href="https://nginx.org/en/docs/beginners_guide.html">NGINX</a> reverse proxy
+alongside your Neurobagel services.</p>
+<p>Make sure that:</p>
+<ul>
+<li>you have access to the domain you want to host your services at,
+so that you can create a DNS entry that points at the machine
+that will host your Neurobagel services.</li>
+<li>your machine firewall allows incoming connections
+on ports 80 (HTTP) and 443 (HTTPS).
+<a href="https://letsencrypt.org/docs/integration-guide/#firewall-configuration">Both are necessary</a>
+to enable HTTPS connections.</li>
+</ul>
+<p>Launch the proxy server using the corresponding deployment recipe:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.proxy.yml<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+<p>You should now see the <code>nginx-proxy</code> and <code>acme-companion</code> services running:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>ps
+</code></pre></div>
+<h3 id="node">Node</h3>
+<div class="admonition note">
+<p class="admonition-title">Start from a <a href="#common-setup-for-all-deployment-profiles">fresh deployment recipe</a>!</p>
+</div>
+<details class="info">
+<summary>Make sure the proxy service is already running</summary>
+<p>The default <code>portal</code> deployment recipe requires that you have already
+<a href="#proxy-server">deployed the proxy server</a>.</p>
+</details>
+<h4 id="set-graph-store-credentials">Set graph store credentials</h4>
+<div class="admonition danger">
+<p class="admonition-title">This is a security relevant section!</p>
+</div>
+<p>The graph store (GraphDB instance) in a Neurobagel node
+is secured with password-based access and includes two users:
+an <code>admin</code> superuser and a regular database user,
+both of which are automatically configured by the Neurobagel deployment recipe.
+Passwords for both users are defined via files in the <code>./secrets</code> directory
+of the recipes repository, while the regular database username is set
+through an environment variable in <code>.env</code> file.</p>
+<details class="warning">
+<summary>Changing user credentials after the first launch requires a hard reset</summary>
+<p>If you've previously launched a Neurobagel deployment (Docker Compose stack),
+you'll need to
+<a href="../maintaining/#resetting-your-graphdb-instance">reset your graph store</a>
+for any changes you have made to user credentials to take effect.
+Any other configuration changes you've already made
+will be applied when you re-launch your node.</p>
+</details>
+<ol>
+<li>
+<p>In your <code>.env</code>, <strong>set a custom username and database name for your graph store</strong> by editing the following variables:</p>
+<ul>
+<li><code>NB_GRAPH_USERNAME</code></li>
+<li><code>NB_GRAPH_DB</code></li>
+</ul>
+</li>
+<li>
+<p>In the (<a href="https://github.com/neurobagel/recipes/tree/main/secrets"><code>./secrets</code></a> directory, <strong>change the default passwords</strong> by replacing the contents of the file <code>NB_GRAPH_ADMIN_PASSWORD.txt</code> for the <code>admin</code> superuser, and the file <code>NB_GRAPH_PASSWORD.txt</code> for the graph database user (corresponding to <code>NB_GRAPH_USERNAME</code>).</p>
+<ul>
+<li>To generate a random password in the terminal, you can use:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>rand<span class="w"> </span>-hex<span class="w"> </span><span class="m">16</span>
+</code></pre></div>
+<ul>
+<li>(Optional) You can change the directory where your password files are stored by editing the <code>NB_GRAPH_SECRETS_PATH</code> variable in <code>.env</code>.</li>
+</ul>
+<details class="info">
+<summary>Graph store passwords are only for administrator use!</summary>
+<p>The <code>admin</code> user and graph database user credentials are intended solely for internal use by the deployment recipe scripts that automatically set up and update the graph store,
+or for a node administrator to interact directly with the graph store.
+These credentials also secure internal communication between your graph store and its node API,
+ensuring that node users cannot query your graph directly.
+GraphDB user credentials are not intended for use by a general node query user.</p>
+</details>
+<details class="info">
+<summary>Passwords are handled as Docker secrets</summary>
+<p>The contents of <code>NB_GRAPH_ADMIN_PASSWORD.txt</code> and <code>NB_GRAPH_PASSWORD.txt</code> are passed to Neurobagel containers as <a href="https://docs.docker.com/reference/compose-file/secrets/">Docker secrets</a>.
+This ensures that your passwords are not exposed in the container logs or in the <code>docker-compose.yml</code> file.</p>
+<p>Do not share your password files with others.</p>
+</details>
+</li>
+</ol>
+<h4 id="add-data-to-the-node">Add data to the node</h4>
+<p>By default,
+any JSONLD data in the
+<a href="https://github.com/neurobagel/recipes/tree/main/data"><code>./data</code></a>
+subdirectory of your deployment recipe directory
+will be automatically uploaded to the graph store.</p>
+<p>To add the dataset JSONLD files for your node, you can either:</p>
+<ul>
+<li>place the JSONLD files inside <code>./data</code> (remember to delete the example JSONLD), OR</li>
+<li>change the path where the deployment recipe will look for JSONLD files
+by editing the variable <code>LOCAL_GRAPH_DATA</code> in your <code>.env</code> file</li>
+</ul>
+<h4 id="set-node-response-granularity">Set node response granularity</h4>
+<div class="admonition danger">
+<p class="admonition-title">This is a security relevant section!</p>
+</div>
+<p>Review and change as needed the following variables in <code>.env</code>
+based on your data sharing requirements:</p>
+<ul>
+<li><code>NB_RETURN_AGG</code>: whether to return aggregate counts only, instead of subject-level records</li>
+<li><code>NB_MIN_CELL_SIZE</code>: minimum matching subject threshold for dataset visibility in queries</li>
+</ul>
+<p>For more details on all available environment variables,
+check the <a href="../maintaining/#environment-variables-reference">Environment variable reference</a></p>
+<h4 id="set-node-domain">Set node domain</h4>
+<p>In your <code>.env</code> file,
+uncomment the variable <code>NB_NAPI_DOMAIN</code> and set it to the domain
+(including any subdomain) that you want to use for your node API
+(the web-accessible part of your node).</p>
+<div class="highlight"><pre><span></span><code><span class="nv">NB_NAPI_DOMAIN</span><span class="o">=</span>node.mydomain.org
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Do not include the protocol (<code>http://</code> or <code>https://</code>) in the domain name</p>
+</div>
+<h4 id="set-node-deployment-profile">Set node deployment profile</h4>
+<p>In your <code>.env</code> file, ensure that <code>COMPOSE_PROFILES</code> is set to
+the <a href="#deployment-profiles"><code>node</code> profile</a>. This is the default value.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">COMPOSE_PROFILES</span><span class="o">=</span>node
+</code></pre></div>
+<h4 id="set-node-subdirectory-path">Set node subdirectory path</h4>
+<div class="admonition info">
+<p class="admonition-title">This is an optional step</p>
+</div>
+<p>To host your node API on a subdirectory of your domain (e.g. <code>mydomain.org/node</code>),
+uncomment and set <code>NB_NAPI_BASE_PATH</code>
+to the desired subdirectory path in the <code>.env</code> file.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">NB_NAPI_BASE_PATH</span><span class="o">=</span><span class="s2">&quot;/node&quot;</span>
+</code></pre></div>
+<p>This is useful if you want to serve several nodes (or services)
+on the same domain, because you can use a different subdirectory for each
+(e.g. <code>mydomain.org/node1</code>, <code>mydomain.org/node2</code>, ...).</p>
+<div class="admonition warning">
+<p class="admonition-title">Custom paths must include a leading slash <code>/</code></p>
+</div>
+<h4 id="launch-node">Launch node</h4>
+<p>Save the changes to your <code>.env</code> file and launch your node:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.prod.yml<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+<h3 id="portal">Portal</h3>
+<div class="admonition note">
+<p class="admonition-title">Start from a <a href="#common-setup-for-all-deployment-profiles">fresh deployment recipe</a>!</p>
+</div>
+<details class="info">
+<summary>Make sure the proxy server is already running</summary>
+<p>The default <code>portal</code> deployment recipe requires that you have already
+<a href="#proxy-server">deployed the proxy server</a>.</p>
+</details>
+<h4 id="set-nodes-to-federate">Set nodes to federate</h4>
+<p>To host your own query portal that federates over a set of nodes,
+use your <code>local_nb_nodes.json</code> to configure the nodes of interest.</p>
+<p>Each node to be federated over is defined using a dictionary with two required keys:</p>
+<ul>
+<li><code>NodeName</code>: Display name of the node, which will be shown in the query portal</li>
+<li><code>ApiURL</code>: URL of the <strong>node API</strong> for the node</li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><span class="filename">local_nb_nodes.json</span><pre><span></span><code><span class="w">    </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;NodeName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Parkinson&#39;s Disease Data - Site 1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;ApiURL&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://mydomain.org/site1&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;NodeName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Parkinson&#39;s Disease Data - Site 2&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;ApiURL&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://mydomain.org/site2&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title"><code>ApiURL</code> must include the protocol (<code>http://</code> or <code>https://</code>)</p>
+</div>
+<details class="info">
+<summary>Public Neurobagel nodes do not need to be included</summary>
+<p>We maintain a list of publicly accessible Neurobagel nodes
+<a href="https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json">here</a>.
+By default, every new f-API will look up this list
+on startup and include it in its internal list of nodes to
+federate over (this can be disabled using the environment variable <a href="../maintaining/#environment-variables-reference"><code>NB_FEDERATE_REMOTE_PUBLIC_NODES</code></a>).
+This means that <strong>you do not have to manually add these public nodes</strong> to your <code>local_nb_nodes.json</code> file.</p>
+</details>
+<div class="admonition danger">
+<p class="admonition-title">Avoid creating an infinite loop</p>
+<p>Make sure you do not include your own f-API in the list of nodes to
+federate over.
+This will cause an infinite request loop that will likely overload your service,
+as an f-API will be repeatedly making requests to itself.</p>
+</div>
+<h4 id="set-portal-domains">Set portal domains</h4>
+<p>In your <code>.env</code> file, set the domain names for your
+web query tool and federation API by uncommenting and setting the following variables:</p>
+<ul>
+<li><code>NB_QUERY_DOMAIN</code> for the query tool</li>
+<li><code>NB_FAPI_DOMAIN</code> for the federation API</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Do not include the protocol (<code>http://</code> or <code>https://</code>) in the domain name</p>
+</div>
+<h4 id="set-portal-subdirectory-paths">Set portal subdirectory paths</h4>
+<div class="admonition info">
+<p class="admonition-title">This is an optional step</p>
+</div>
+<p>You may want to have one or several of your portal services
+respond on a subdirectory of your domain (e.g. <code>myinstitute.org/federate</code>).</p>
+<p>To host one or more of your portal services on a subdirectory
+of your domain (e.g. <code>mydomain.org/federate</code>),
+uncomment and set the following variable(s) to the desired
+subdirectory path(s) in the <code>.env</code> file:</p>
+<ul>
+<li><code>NB_QUERY_APP_BASE_PATH</code> for the query tool</li>
+<li><code>NB_FAPI_BASE_PATH</code> for the federation API</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Custom paths must include a leading slash <code>/</code></p>
+</div>
+<p>This is useful if you want to serve the services on the same domain,
+because you can use a different subdirectory for each
+(e.g. <code>mydomain.org/federate</code>, <code>mydomain.org/query</code>).</p>
+<h4 id="set-portal-deployment-profile">Set <code>portal</code> deployment profile</h4>
+<p>In your .env file, set <code>COMPOSE_PROFILES</code> to
+the <a href="#deployment-profiles"><code>portal</code> profile</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">COMPOSE_PROFILES</span><span class="o">=</span>portal
+</code></pre></div>
+<h4 id="launch-portal">Launch portal</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.prod.yml<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+<h2 id="making-your-node-publicly-discoverable">Making your node publicly discoverable</h2>
+<p>The public Neurobagel query tool (<a href="https://query.neurobagel.org">https://query.neurobagel.org</a>)
+provides query federation to all publicly accessible Neurobagel nodes.</p>
+<p>To make your node queryable at <a href="https://query.neurobagel.org">https://query.neurobagel.org</a>, it simply needs to be added to our <a href="https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json">public federation index</a> on GitHub.</p>
+<h3 id="if-you-have-a-github-account">If you have a GitHub Account</h3>
+<ol>
+<li>
+<p><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo">Fork</a> the <a href="https://github.com/neurobagel/menu">neurobagel/menu</a> repository.</p>
+</li>
+<li>
+<p>Add your node name and node API URL to the <a href="https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json">public federation index JSON file</a>, using the following format:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;NodeName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NAME OF YOUR NODE&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ApiURL&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://URL-OF-YOUR-NODE-API&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>NodeName</code> defines the display name of your node as it will appear the Neurobagel query tool.</p>
+</li>
+<li>
+<p><a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork">Open a pull request</a> in the neurobagel/menu repository.</p>
+</li>
+</ol>
+<h3 id="if-you-do-not-have-a-github-account">If you do not have a GitHub Account</h3>
+<p>Join the <a href="https://discord.gg/BEXXgt3hXk">Neurobagel Discord server</a> and message <code>@neurobagel/dev</code> with your node information, so that a maintainer can add your node to the public federation index.</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../getting_started/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Getting started">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Getting started
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../production_deployment_with_own_proxy/" class="md-footer__link md-footer__link--next" aria-label="Next: Production deployment with an existing proxy">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Production deployment with an existing proxy
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.footer", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.expand", "content.tabs.link", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../js/open_in_new_tab.js"></script>
+      
+    
+  </body>
+</html>

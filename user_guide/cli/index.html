@@ -1,0 +1,2291 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../preparing_imaging_data/">
+      
+      
+        <link rel="next" href="../../data_models/variables/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../imgs/logo/neurobagel_favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>Generating harmonized subject-level metadata - Neurobagel</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  <script defer data-domain="neurobagel.org" src="https://plausible.neurobagel.org/js/script.js"></script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-neurobagel-cli" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Neurobagel" class="md-header__button md-logo" aria-label="Neurobagel" data-md-component="logo">
+      
+  <img src="../../imgs/logo/neurobagel_logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Neurobagel
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Generating harmonized subject-level metadata
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/neurobagel/documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Welcome
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  User guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../data_models/variables/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Data models
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../contributing/CONTRIBUTING/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Contributing
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../getting_help/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting help
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../glossary/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Glossary
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../cite/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Citing Neurobagel
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Neurobagel" class="md-nav__button md-logo" aria-label="Neurobagel" data-md-component="logo">
+      
+  <img src="../../imgs/logo/neurobagel_logo.png" alt="logo">
+
+    </a>
+    Neurobagel
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/neurobagel/documentation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User guide
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    User guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Running cohort queries
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Running cohort queries
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public_nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search the public nodes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../query_tool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to use the query tool
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Querying the API directly
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setting up your own Neurobagel node
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Setting up your own Neurobagel node
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../production_deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Production deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../production_deployment_with_own_proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Production deployment with an existing proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maintaining/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maintaining a node
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Annotating your data
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Annotating your data
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dataset_description/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparing the dataset description
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_prep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparing phenotypic data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../annotation_tool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Annotating phenotypic data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preparing_imaging_data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preparing imaging data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generating harmonized subject-level metadata
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generating harmonized subject-level metadata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Input files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running the CLI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running the CLI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generate-a-bids-metadata-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generate a BIDS metadata table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-graph-ready-data-jsonld-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generate graph-ready data (JSONLD files)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Generate graph-ready data (JSONLD files)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#viewing-help-for-a-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Viewing help for a command
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-process-phenotypic-data-using-the-pheno-command-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Process phenotypic data using the pheno command (required)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-process-raw-imaging-metadata-using-the-bids-command-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Process raw imaging metadata using the bids command (optional)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-process-derived-imaging-metadata-using-the-derivatives-command-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Process derived imaging metadata using the derivatives command (optional)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-or-directory-does-not-exist-error-when-using-dockerapptainer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File or directory does not exist error when using Docker/Apptainer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrading-data-to-a-newer-version-of-the-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Upgrading data to a newer version of the CLI
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data models
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data models
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_models/variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Harmonized variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_models/dictionaries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Augmented BIDS data dictionaries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_models/graph_data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data files for Neurobagel graphs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_models/term_naming_standards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naming conventions for terms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_models/communities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community vocabularies (beta)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contributing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to contribute
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/team/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Our team
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting help
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Citing Neurobagel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Input files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running the CLI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running the CLI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generate-a-bids-metadata-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generate a BIDS metadata table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-graph-ready-data-jsonld-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generate graph-ready data (JSONLD files)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Generate graph-ready data (JSONLD files)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#viewing-help-for-a-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Viewing help for a command
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-process-phenotypic-data-using-the-pheno-command-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Process phenotypic data using the pheno command (required)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-process-raw-imaging-metadata-using-the-bids-command-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Process raw imaging metadata using the bids command (optional)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-process-derived-imaging-metadata-using-the-derivatives-command-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Process derived imaging metadata using the derivatives command (optional)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-or-directory-does-not-exist-error-when-using-dockerapptainer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File or directory does not exist error when using Docker/Apptainer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrading-data-to-a-newer-version-of-the-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Upgrading data to a newer version of the CLI
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="the-neurobagel-cli">The Neurobagel CLI</h1>
+<p>The Neurobagel CLI is a command-line tool that processes a Neurobagel-annotated dataset and produces harmonized subject-level phenotypic and imaging attributes.
+The resulting harmonized data can be directly integrated into a Neurobagel graph store.</p>
+<h2 id="installation">Installation</h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="python" name="__tabbed_1" type="radio" /><input id="docker" name="__tabbed_1" type="radio" /><input id="apptainer" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="python">Python</label><label for="docker">Docker</label><label for="apptainer">Apptainer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The Neurobagel CLI can be installed from <a href="https://pypi.org/project/bagel/">PyPI</a> using <code>pip</code>.</p>
+<ol>
+<li>
+<p>Before installing the Python package, we recommend first creating and activating a Python virtual environment (using a tool such as <a href="https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#create-and-use-virtual-environments">venv</a>).</p>
+</li>
+<li>
+<p>Install the <code>bagel</code> package into your virtual environment:
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>bagel
+</code></pre></div></p>
+</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<p>Pull the Docker image for the Neurobagel CLI from Docker Hub:
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>pull<span class="w"> </span>neurobagel/bagelcli
+</code></pre></div></p>
+</div>
+<div class="tabbed-block">
+<p>Build a Apptainer image for the Neurobagel CLI using the Docker Hub image:
+<div class="highlight"><pre><span></span><code>apptainer<span class="w"> </span>pull<span class="w"> </span>bagel.sif<span class="w"> </span>docker://neurobagel/bagelcli
+</code></pre></div></p>
+</div>
+</div>
+</div>
+<h2 id="input-files">Input files</h2>
+<p>The Neurobagel CLI creates a single harmonized view of each subject's data in a dataset, and can integrate information from several data sources (phenotypic, raw neuroimaging, processed neuroimaging).</p>
+<p>To run the CLI on a dataset, you will need the following files:</p>
+<div class="annotate">
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <a href="../data_prep/">A phenotypic TSV</a></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <a href="../../data_models/dictionaries/">A Neurobagel JSON data dictionary</a> for the TSV</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <a href="../dataset_description/">A dataset description JSON</a> for the dataset</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> (Optional) A valid <a href="../preparing_imaging_data/">BIDS metadata table</a>, if subjects have neuroimaging data available (1)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> (Optional) A TSV of subject statuses for any image processing pipelines that have been run, following the <a href="https://nipoppy.readthedocs.io/en/latest/schemas/index.html#processing-status-file">Nipoppy processing status file schema</a> (2)</li>
+</ul>
+</div>
+<ol>
+<li>This table can be generated automatically using the CLI's <a href="#generate-a-bids-metadata-table"><code>bids2tsv</code></a> command, and will be used to generate harmonized subject imaging data availability.</li>
+<li>This file is adapted from the <a href="https://nipoppy.readthedocs.io/en/latest/index.html">Nipoppy</a> workflow and can be automatically generated using <a href="https://nipoppy.readthedocs.io/en/latest/how_to_guides/user_guide/tracking.html">Nipoppy pipeline trackers</a>. It will be used to generate harmonized subject processed imaging data availability.</li>
+</ol>
+<h2 id="running-the-cli">Running the CLI</h2>
+<p>To view the general CLI help and information about the available commands:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="python_1" name="__tabbed_2" type="radio" /><input id="docker_1" name="__tabbed_2" type="radio" /><input id="apptainer_1" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="python_1">Python</label><label for="docker_1">Docker</label><label for="apptainer_1">Apptainer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>bagel<span class="w"> </span>-h
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># This is a shorthand for: docker run --rm neurobagel/bagelcli --help</span>
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>neurobagel/bagelcli
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># This is a shorthand for: apptainer run bagel.sif --help</span>
+apptainer<span class="w"> </span>run<span class="w"> </span>bagel.sif
+</code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="generate-a-bids-metadata-table">Generate a BIDS metadata table</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<ul>
+<li>If your dataset does not have imaging data, skip this step.</li>
+<li>If your dataset's imaging data are <strong>not</strong> in BIDS format, you must manually create a <a href="../preparing_imaging_data/">BIDS metadata table</a>.</li>
+</ul>
+</div>
+<p>To include BIDS imaging data as part of the harmonized subject data, you must first convert the BIDS metadata into a <a href="../preparing_imaging_data/">table</a>.</p>
+<p>You can do this automatically using the CLI's <code>bids2tsv</code> command.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
+<p><strong>Example:</strong></p>
+<p>If your BIDS directory is located at <code>/data/public/Dataset1_bids</code> and you want the table output to be saved to <code>/home/Neurobagel</code>:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="python_2" name="__tabbed_3" type="radio" /><input id="docker_2" name="__tabbed_3" type="radio" /><input id="apptainer_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="python_2">Python</label><label for="docker_2">Docker</label><label for="apptainer_2">Apptainer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>bagel<span class="w"> </span>bids2tsv<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--bids-dir<span class="w"> </span><span class="s2">&quot;/data/public/Dataset1_bids&quot;</span>
+<span class="w">    </span>--output<span class="w"> </span><span class="s2">&quot;/home/Neurobagel/Dataset1_bids.tsv&quot;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">&quot;/data/public:/data/public&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">&quot;/home/Neurobagel:/home/Neurobagel&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>neurobagel/bagelcli<span class="w"> </span>bids2tsv<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--bids-dir<span class="w"> </span><span class="s2">&quot;/data/public/Dataset1_bids&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span><span class="s2">&quot;/home/Neurobagel/Dataset1_bids.tsv&quot;</span>
+</code></pre></div>
+<details class="info">
+<summary>Mounting input paths using <code>-v</code>/<code>--volume</code></summary>
+<p>When running the CLI in a container, you must <a href="https://docs.docker.com/engine/storage/bind-mounts/">mount</a> any input or output directories to directory paths within the container so that the app can access them. In your CLI options, always refer to the <strong>container paths</strong>.
+In the example above, container paths are set to match the host paths for simplicity.</p>
+</details>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>apptainer<span class="w"> </span>run<span class="w"> </span>--no-home<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-B<span class="w"> </span><span class="s2">&quot;/data/public,/home/Neurobagel&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>bagel.sif<span class="w"> </span>bids2tsv<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--bids-dir<span class="w"> </span><span class="s2">&quot;/data/public/Dataset1_bids&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span><span class="s2">&quot;/home/Neurobagel/Dataset1_bids.tsv&quot;</span>
+</code></pre></div>
+<details class="info">
+<summary>Mounting input paths using <code>-B</code>/<code>--bind</code></summary>
+<p>When running the CLI in a container, you must <a href="https://docs.sylabs.io/guides/3.0/user-guide/bind_paths_and_mounts.html">mount</a> any input or output directories to directory paths within the container so that the app can access them. In your CLI options, always refer to the <strong>container paths</strong>.
+In the example above, the container paths are set to match the host paths for simplicity.</p>
+</details>
+</div>
+</div>
+</div>
+<details class="tip">
+<summary>This command may be slow on large datasets</summary>
+<p>On datasets with more than a few hundred subjects, <code>bids2tsv</code> can take upwards of several minutes
+due to the time needed for <a href="https://github.com/bids-standard/pybids"><code>PyBIDS</code></a> to read the dataset structure.</p>
+</details>
+<p>This will produce a BIDS metadata table named <code>Dataset1_bids.tsv</code>, which can then be provided as input to the <code>bids</code> command below.</p>
+<h3 id="generate-graph-ready-data-jsonld-files">Generate graph-ready data (JSONLD files)</h3>
+<p>The Neurobagel CLI provides different commands for generating different types of harmonized subject (meta)data:</p>
+<ul>
+<li>
+<p><code>pheno</code></p>
+<div class="admonition info">
+<p class="admonition-title">Must be run first</p>
+<p>Each subject in a Neurobagel graph requires at least phenotypic data.
+The other metadata are optional and can be added afterward via the <code>bids</code> and/or <code>derivatives</code> commands in any order.</p>
+</div>
+</li>
+<li>
+<p><code>bids</code></p>
+</li>
+<li><code>derivatives</code></li>
+</ul>
+<p>If you are using Docker or Apptainer, we strongly recommend placing all the <a href="#input-files">input files</a> for your dataset into a single directory.
+This avoids the need to mount multiple paths into the container when running CLI commands.</p>
+<h4 id="viewing-help-for-a-command">Viewing help for a command</h4>
+<p>To view the command-line options for a specific command, such as <code>pheno</code>:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:3"><input checked="checked" id="python_3" name="__tabbed_4" type="radio" /><input id="docker_3" name="__tabbed_4" type="radio" /><input id="apptainer_3" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="python_3">Python</label><label for="docker_3">Docker</label><label for="apptainer_3">Apptainer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>bagel<span class="w"> </span>pheno<span class="w"> </span>-h
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>neurobagel/bagelcli<span class="w"> </span>pheno<span class="w"> </span>-h
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>apptainer<span class="w"> </span>run<span class="w"> </span>bagel.sif<span class="w"> </span>pheno<span class="w"> </span>-h
+</code></pre></div>
+</div>
+</div>
+</div>
+<p><strong>Example:</strong></p>
+<p>The following example assumes that the input files for your dataset are located in <code>/home/Dataset1/Neurobagel</code>:</p>
+<div class="no-copy highlight"><pre><span></span><code>home/
+└──<span class="w"> </span>Dataset1/
+<span class="w">    </span>├──<span class="w"> </span>Neurobagel/
+<span class="hll"><span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>Dataset1_pheno.tsv<span class="w"> </span><span class="c1"># (1)!</span>
+</span><span class="hll"><span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>Dataset1_pheno.json<span class="w"> </span><span class="c1"># (2)!</span>
+</span><span class="hll"><span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>Dataset1_bids.tsv<span class="w"> </span><span class="c1"># (3)!</span>
+</span><span class="hll"><span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>Dataset1_proc_status.tsv<span class="w"> </span><span class="c1"># (4)!</span>
+</span><span class="w">    </span>│<span class="w">   </span>└──<span class="w"> </span>...
+<span class="w">    </span>└──<span class="w"> </span>...
+</code></pre></div>
+<ol>
+<li>The phenotypic TSV</li>
+<li>The phenotypic data dictionary</li>
+<li>The BIDS metadata table</li>
+<li>The processing status file</li>
+</ol>
+<p>Navigate to the directory containing your input files, e.g.:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/home/Dataset1/Neurobagel
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>In the example commands below, replace the Dataset1 files with the actual input files for your dataset.</p>
+</div>
+<h4 id="1-process-phenotypic-data-using-the-pheno-command-required">1. Process phenotypic data using the <code>pheno</code> command (required)</h4>
+<p>Run the command below to generate harmonized subject-level phenotypic data for your dataset as a JSONLD file:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:3"><input checked="checked" id="python_4" name="__tabbed_5" type="radio" /><input id="docker_4" name="__tabbed_5" type="radio" /><input id="apptainer_4" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="python_4">Python</label><label for="docker_4">Docker</label><label for="apptainer_4">Apptainer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>bagel<span class="w"> </span>pheno<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pheno<span class="w"> </span><span class="s2">&quot;Dataset1_pheno.tsv&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dictionary<span class="w"> </span><span class="s2">&quot;Dataset1_pheno.json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dataset-description<span class="w"> </span><span class="s2">&quot;Dataset1_description.json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span><span class="s2">&quot;Dataset1.jsonld&quot;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="nv">$PWD</span>:<span class="nv">$PWD</span><span class="w"> </span>neurobagel/bagelcli<span class="w"> </span>pheno<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pheno<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/Dataset1_pheno.tsv&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dictionary<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/Dataset1_pheno.json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dataset-description<span class="w"> </span><span class="s2">&quot;Dataset1_description.json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/Dataset1.jsonld&quot;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>apptainer<span class="w"> </span>run<span class="w"> </span>--no-home<span class="w"> </span>-B<span class="w"> </span><span class="nv">$PWD</span><span class="w"> </span>bagel.sif<span class="w"> </span>pheno<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pheno<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/Dataset1_pheno.tsv&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dictionary<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/Dataset1_pheno.json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dataset-description<span class="w"> </span><span class="s2">&quot;Dataset1_description.json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/Dataset1.jsonld&quot;</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h4 id="2-process-raw-imaging-metadata-using-the-bids-command-optional">2. Process raw imaging metadata using the <code>bids</code> command (optional)</h4>
+<p>If you have a <a href="#generate-a-bids-metadata-table">BIDS metadata table</a>, run this command to include subjects' imaging data availability to your dataset JSONLD file:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:3"><input checked="checked" id="python_5" name="__tabbed_6" type="radio" /><input id="docker_5" name="__tabbed_6" type="radio" /><input id="apptainer_5" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="python_5">Python</label><label for="docker_5">Docker</label><label for="apptainer_5">Apptainer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>bagel<span class="w"> </span>bids<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--jsonld-path<span class="w"> </span><span class="s2">&quot;Dataset1.jsonld&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--bids-table<span class="w"> </span><span class="s2">&quot;Dataset1_bids.tsv&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span><span class="s2">&quot;Dataset1.jsonld&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--overwrite
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="nv">$PWD</span>:<span class="nv">$PWD</span><span class="w"> </span>neurobagel/bagelcli<span class="w"> </span>bids<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--jsonld-path<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/Dataset1.jsonld&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--bids-table<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/Dataset1_bids.tsv&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/Dataset1.jsonld&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--overwrite
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>apptainer<span class="w"> </span>run<span class="w"> </span>--no-home<span class="w"> </span>-B<span class="w"> </span><span class="nv">$PWD</span><span class="w"> </span>bagel.sif<span class="w"> </span>bids<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--jsonld-path<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/Dataset1.jsonld&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--bids-table<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/Dataset1_bids.tsv&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/Dataset1.jsonld&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--overwrite
+</code></pre></div>
+</div>
+</div>
+</div>
+<h4 id="3-process-derived-imaging-metadata-using-the-derivatives-command-optional">3. Process derived imaging metadata using the <code>derivatives</code> command (optional)</h4>
+<p>If you have a <a href="https://nipoppy.readthedocs.io/en/latest/schemas/index.html#processing-status-file">processing status file from Nipoppy</a>, run this command to add subjects' processing pipeline data availability to the dataset JSONLD:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:3"><input checked="checked" id="python_6" name="__tabbed_7" type="radio" /><input id="docker_6" name="__tabbed_7" type="radio" /><input id="apptainer_6" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="python_6">Python</label><label for="docker_6">Docker</label><label for="apptainer_6">Apptainer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>bagel<span class="w"> </span>derivatives<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--jsonld-path<span class="w"> </span><span class="s2">&quot;Dataset1.jsonld&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--tabular<span class="w"> </span><span class="s2">&quot;Dataset1_proc_status.tsv&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span><span class="s2">&quot;Dataset1.jsonld&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--overwrite
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--v<span class="w"> </span><span class="nv">$PWD</span>:<span class="nv">$PWD</span><span class="w"> </span>neurobagel/bagelcli<span class="w"> </span>derivatives<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--jsonld-path<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/Dataset1.jsonld&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--tabular<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/Dataset1_proc_status.tsv&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/Dataset1.jsonld&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--overwrite
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>apptainer<span class="w"> </span>run<span class="w"> </span>--no-home<span class="w"> </span>-B<span class="w"> </span><span class="nv">$PWD</span><span class="w"> </span>bagel.sif<span class="w"> </span>derivatives<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--jsonld-path<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/Dataset1.jsonld&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--tabular<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/Dataset1_proc_status.tsv&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/Dataset1.jsonld&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--overwrite
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To see all options for a CLI command, including short forms and optional parameters, refer to the <a href="#viewing-help-for-a-command">command's help</a>.</p>
+</div>
+<details class="tip">
+<summary>When to use <code>-f</code>/<code>--overwrite</code></summary>
+<p>If you're only interested in the final JSONLD with all metadata added (i.e., after all relevant commands have been run), you can safely overwrite intermediate output files by specifying the same output file path each time.</p>
+</details>
+<p>These steps have generated a graph-ready JSONLD file for Dataset1 (<code>Dataset1.jsonld</code>) that incorporates all the available subject data sources.
+The resulting JSONLD is ready to upload to a Neurobagel graph database.</p>
+<h3 id="troubleshooting">Troubleshooting</h3>
+<h4 id="file-or-directory-does-not-exist-error-when-using-dockerapptainer"><code>File or directory does not exist</code> error when using Docker/Apptainer</h4>
+<p>This error usually means the container cannot access your input files because the directories were not mounted correctly.</p>
+<p>The examples assume you are running the CLI from inside the directory containing your inputs. Thus, they mount the current working directory <code>$PWD</code> to the same path inside the container for convenience using the syntax:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="docker_7" name="__tabbed_8" type="radio" /><input id="apptainer_7" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="docker_7">Docker</label><label for="apptainer_7">Apptainer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="nv">$PWD</span>:<span class="nv">$PWD</span><span class="w"> </span>neurobagel/bagelcli<span class="w"> </span>...
+</code></pre></div>
+<p>However, if your inputs are located in a different directory or spread across multiple directories, you must <a href="https://docs.sylabs.io/guides/3.0/user-guide/bind_paths_and_mounts.html">mount</a> each directory explicitly using the Docker option <code>-v /path/on/host:/path/in/container</code>.</p>
+<p>When passing file paths to the CLI, always use the <strong>absolute path inside the container</strong> to avoid confusion.</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>apptainer<span class="w"> </span>run<span class="w"> </span>--no-home<span class="w"> </span>-B<span class="w"> </span><span class="nv">$PWD</span><span class="w"> </span>bagel.sif<span class="w"> </span>...
+</code></pre></div>
+<p>However, if your inputs are located in a different directory or spread across multiple directories, you must <a href="https://docs.docker.com/engine/storage/bind-mounts/">mount</a> each directory explicitly using the Apptainer option <code>-B /path/on/host:/path/in/container</code>.</p>
+<p>When passing file paths to the CLI, always use the <strong>absolute path inside the container</strong> to avoid confusion.</p>
+</div>
+</div>
+</div>
+<h2 id="upgrading-data-to-a-newer-version-of-the-cli">Upgrading data to a newer version of the CLI</h2>
+<p>Neurobagel is under active development and future CLI releases may introduce breaking changes to the data model used in subject-level <code>.jsonld</code> graph files.
+Breaking changes are highlighted in the <a href="https://github.com/neurobagel/bagel-cli/releases">release notes</a>.</p>
+<p>To upgrade to the latest version of the data model:</p>
+<ol>
+<li>
+<p>Upgrade to the latest CLI version:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:3"><input checked="checked" id="python_7" name="__tabbed_9" type="radio" /><input id="docker_8" name="__tabbed_9" type="radio" /><input id="apptainer_8" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="python_7">Python</label><label for="docker_8">Docker</label><label for="apptainer_8">Apptainer</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>bagel
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>pull<span class="w"> </span>neurobagel/bagelcli
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>apptainer<span class="w"> </span>pull<span class="w"> </span>bagel.sif<span class="w"> </span>docker://neurobagel/bagelcli
+</code></pre></div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>If you have an existing Neurobagel graph database, we recommend regenerating and <a href="../maintaining/#updating-the-data-in-your-graph">reuploading</a> all existing <code>.jsonld</code> files in your database using the latest CLI version.
+This keeps the database internally consistent and avoids conflicts with dataset <code>.jsonld</code> files generated using older CLI versions.</p>
+</li>
+</ol>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p><code>bids2tsv</code> internally uses <a href="https://childmindresearch.github.io/bids2table/bids2table.html">bids2table</a>.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../preparing_imaging_data/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Preparing imaging data">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Preparing imaging data
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../data_models/variables/" class="md-footer__link md-footer__link--next" aria-label="Next: Harmonized variables">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Harmonized variables
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.footer", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.expand", "content.tabs.link", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../js/open_in_new_tab.js"></script>
+      
+    
+  </body>
+</html>
