@@ -99,8 +99,8 @@ For each unique column value, you can:
 - Add a free-form description of the value
 - Select a standardized term that best captures the meaning of the value[^1]
 - Select "Mark as missing" if the value:[^1]
-     - indicates missing, unavailable, or invalid data
-     - OR, does not have a suitable match among the standardized term options
+    - indicates missing, unavailable, or invalid data
+    - OR, does not have a suitable match among the standardized term options
 
 !!! warning
     For the value annotation to be considered complete by Neurobagel, all unique values must either be mapped to a standardized term or marked as missing.

@@ -11,7 +11,7 @@
     - the [range](https://www.w3.org/TR/owl-ref/#range-def) of the property, (e.g.,has**Diagnosis** points to a Diagnosis object)
 
 What this might look like in semantic triples:
-```
+```owl
 <Subject> <nb:hasDiagnosis> <snomed:1234>
 <snomed:1234> <rdf:type> <nb:Diagnosis>
 ```
@@ -41,7 +41,7 @@ we document this and express their equivalence using `owl:sameAs`.
 
 Example:
 If our term is `nb:Subject` and `nidm:Subject` is conceptually equivalent:
-```
+```owl
 <nb:12345> a <nb:Subject>
 <nb:Subject> a <rdfs:Resource>;
 	<owl:sameAs> <nidm:Subject>
