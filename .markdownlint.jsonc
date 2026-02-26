@@ -64,10 +64,7 @@
   "MD046": false,
 
   // table-pipe-style
-  "MD055": false,
-
-  // table-column-count
-  "MD056": false,
+  "MD055": {"style": "consistent"},
 
   // blanks-around-tables
   "MD058": false,
@@ -76,6 +73,6 @@
   "MD059": false,
 
   // table-column-style
-  "MD060": false
+  "MD060": {"style": "compact"}
 
 }
