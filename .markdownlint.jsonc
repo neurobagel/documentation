@@ -36,9 +36,6 @@
   // blanks-around-headings
   "MD022": false,
 
-  // no-trailing-punctuation
-  "MD026": false,
-
   // blanks-around-fences
   "MD031": false,
 
