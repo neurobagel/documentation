@@ -1,0 +1,30 @@
+Environment variable	Default needs change?	Description	Default value if not set	Used in these installation modes
+`COMPOSE_PROJECT_NAME`	No	(Used only by Docker Compose) Prefix for container names in the deployment; useful when running multiple deployments on the same machine.	neurobagel_node	Docker
+`NB_GRAPH_USERNAME`	Yes	Username to set for the graph database user.	-	Docker, Python
+`NB_GRAPH_SECRETS_PATH`	Yes	Path to files containing the secure passwords to set for the admin user (NB_GRAPH_ADMIN_PASSWORD.txt) and graph database user (NB_GRAPH_PASSWORD.txt).	`./secrets`	Docker
+`NB_GRAPH_DB`	Yes	Name to give your graph database (e.g., for a GraphDB database, use the format `repositories/{database_name}`)	`repositories/my_db`	Docker, Python
+`NB_GRAPH_MEMORY`	No	The maximum amount of memory that can be used by graph. Equivalent to setting the `-Xmx` parameter on the JVM. Value should be a number followed directly by a letter denoting the size. E.g. `264m` for 264 MB, `2g` for 2 GB. (For more info, see https://graphdb.ontotext.com/documentation/10.8/requirements.html#hardware-sizing.)	`2g`	Docker
+`LOCAL_GRAPH_DATA`	Yes	Path on your filesystem to the JSONLD files you want to upload to the graph database	`./data`	Docker
+`NB_GRAPH_PORT_HOST`	No	Port number on the _host machine_ to map the graph server container port to	`7200`	Docker
+`NB_NAPI_ALLOWED_ORIGINS`	No	Origins allowed to make cross-origin resource sharing requests. Multiple origins must be separated with spaces in a single string enclosed in quotes.	"`""""`"	Docker, Python
+`NB_RETURN_AGG`	No	Whether to return only aggregate, dataset-level query results (excluding subject/session-level attributes). One of [true, false]	`true`	Docker, Python
+`NB_MIN_CELL_SIZE`	No	Minimum number of matching subjects required for a dataset to be returned as a query match. Datasets with matching subjects <= this number will be excluded from query results.	`0`	Docker, Python
+`NB_NAPI_TAG`	No	Docker image tag for the Neurobagel node API	`latest`	Docker
+`NB_NAPI_PORT_HOST`	No	Port number on the _host machine_ to map the Neurobagel node API container port to	`8000`	Docker
+`NB_NAPI_BASE_PATH`	No	(If using reverse proxy) The URL path where the node API is served from. Do not include a trailing slash.	`""`	Docker
+`NB_NAPI_DOMAIN`	Yes	(Production only) The domain name where the n-API will be hosted from	`""`	Docker
+`NB_FAPI_TAG`	No	Docker image tag for the Neurobagel federation API	`latest`	Docker
+`NB_FAPI_PORT_HOST`	No	Port number on the _host machine_ to map the Neurobagel federation API container port to	`8080`	Docker
+`NB_FEDERATE_REMOTE_PUBLIC_NODES`	No 	If "True", include public nodes in federation. If "False", only locally specified nodes in `local_nb_nodes.json` are queried.	`true`	Docker, Python
+`NB_FAPI_BASE_PATH`	No	(If using reverse proxy) The URL path where the federation API is served from. Do not include a trailing slash.	`""`	Docker
+`NB_FAPI_DOMAIN`	Yes	(Production only) The domain name where the f-API will be hosted from	`""`	Docker
+`NB_QUERY_TAG`	No	Docker image tag for the query tool	`latest`	Docker
+`NB_QUERY_PORT_HOST`	No	Port number used by the `query_tool` on the host machine	`3000`	Docker
+`NB_API_QUERY_URL`	No	(Testing only) URL of the Neurobagel f-API that the query tool will send its requests to. The query tool sends requests from a user's machine, so ensure the API URL is provided *as a user would access it from their own machine*. See also the [query tool README](https://github.com/neurobagel/query-tool?tab=readme-ov-file#set-the-environment-variables). In a production deployment this variable is ignored.	http://localhost:8080	Docker
+`NB_QUERY_APP_BASE_PATH`	No	(If using reverse proxy) The URL path for the query tool, determines the specific URL at which the app should be rendered for users to access it	`/`	Docker
+`NB_QUERY_DOMAIN`	Yes	(Production only) The domain name where the query tool will be hosted from	`""`	Docker
+`NB_CONFIG`	No	**(Experimental)** Name of the Neurobagel community configuration to load, if the node uses a community's custom vocabularies.	`Neurobagel`	Docker, Python
+`NB_QUERY_HEADER_SCRIPT`	No	**(Experimental, for development environments only)** Custom script to add to the header section of the query tool site, such as for a GDPR-aware analytics tool.	`""`	Docker
+`NB_ENABLE_AUTH`	No	**(Experimental, for development environments only)** Whether to enable authentication for cohort queries. One of [true, false]	`false`	Docker, Python
+`NB_QUERY_CLIENT_ID`	No	**(Experimental, for development environments only)** OAuth client ID for the query tool. Required if NB_ENABLE_AUTH is set to true.	-	Docker, Python
+`COMPOSE_PROFILES`	No	(Production only) Selects the production launch profile to use: "node" or "portal". See [the documentation](https://neurobagel.org/user_guide/production_deployment) for details.	`node`	Docker
