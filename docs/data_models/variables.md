@@ -7,6 +7,7 @@ The following list summarizes the variables that can currently be modeled and qu
 **We are actively working to expand our subject data model, and welcome [feedback](https://github.com/orgs/neurobagel/discussions/categories/subject-data-model-requests) on any other variables you would like to be able to query.**
 
 ## Phenotypic
+
 For details on how phenotypic attributes are modeled, see the page on [Neurobagel data dictionaries](dictionaries.md).
 
 - Age

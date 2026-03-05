@@ -2,7 +2,9 @@
 
 Neurobagel's query tool is a web interface for searching across a Neurobagel graph based on various subject clinical-demographic and imaging parameters.
 
-The query tool is a React application, developed in [TypeScript](https://www.typescriptlang.org/) using a variety of tools including [Vite](https://vitejs.dev/), [Cypress](https://www.cypress.io/), and [MUI](https://mui.com/).
+The query tool is a React application,
+developed in [TypeScript](https://www.typescriptlang.org/) using a variety of tools
+including [Vite](https://vitejs.dev/), [Cypress](https://www.cypress.io/), and [MUI](https://mui.com/).
 
 ## Quickstart
 
@@ -54,7 +56,10 @@ Columns in the TSV are described below:
 
 #### Harmonized TSV data with URIs
 
-A machine-optimized version of the query results, containing [URIs](https://www.ontotext.com/knowledgehub/fundamentals/linked-data-linked-open-data/) instead of descriptive labels for harmonized attributes and metadata of matching subjects, is also available for download as a TSV.
+A machine-optimized version of the query results,
+containing [URIs](https://www.ontotext.com/knowledgehub/fundamentals/linked-data-linked-open-data/)
+instead of descriptive labels for harmonized attributes and metadata of matching subjects,
+is also available for download as a TSV.
 
 Each row corresponds to a single matching subject session, except for [datasets configured to only return aggregate results](#protected-subject-level-results-for-aggregate-datasets).
 
@@ -80,7 +85,9 @@ However, the harmonized terms in the following columns are provided in their raw
 !!! example
     For examples of aggregated matching dataset results, see the last rows of the example query result TSV in the previous two sections.
 
-A row in a query result TSV may show `protected` for all columns except for `DatasetName`, `RepositoryURL`, `AccessLink` and other dataset-level columns. This means the source graph database (node) has been configured (via its corresponding Neurobagel node API) to return only aggregate information about matching subjects e.g., for data privacy reasons.
+A row in a query result TSV may show `protected` for all columns except for `DatasetName`, `RepositoryURL`, `AccessLink`
+and other dataset-level columns. This means the source graph database (node) has been configure
+(via its corresponding Neurobagel node API) to return only aggregate information about matching subjects e.g., for data privacy reasons.
 
 More information on this configuration setting, called `NB_RETURN_AGG`, and how to change it for a node can be found [here](maintaining.md#environment-variables-reference).
 
