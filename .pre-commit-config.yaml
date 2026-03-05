@@ -33,6 +33,10 @@ repos:
     rev: v2.4.1
     hooks:
       - id: codespell
+  # -   repo: https://github.com/shellcheck-py/shellcheck-py
+  #     rev: v0.11.0.1
+  #     hooks:
+  #     -   id: shellcheck
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.47.0
     hooks:

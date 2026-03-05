@@ -97,8 +97,7 @@ Docker Compose recipe and template configuration files for setting up a local Ne
 Clone the `recipes` repository from GitHub and navigate into the cloned local repo.
 
 ```bash
-git clone https://github.com/neurobagel/recipes.git
-cd recipes
+--8<-- "snippets/user_guide/clone_recipe.sh"
 ```
 
 ### Copy the template files
@@ -107,8 +106,7 @@ Make copies of the template configuration files
 to use for your deployment.
 
 ```bash
-cp template.env .env
-cp local_nb_nodes.template.json local_nb_nodes.json
+--8<-- "snippets/user_guide/copy_template_files.sh"
 ```
 
 You can leave these files unchanged for a local test deployment.
