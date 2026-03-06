@@ -10,7 +10,7 @@
 - Names should adhere to camelCase (uses capitalized words except for the first word/letter)
 - Should be a compound of:
     - a verb relevant to the property (e.g., **has**Age, **is**SubjectGroup)
-    - the [range](https://www.w3.org/TR/owl-ref/#range-def) of the property, (e.g.,has**Diagnosis** points to a Diagnosis object)
+    - the [range](https://www.w3.org/TR/owl-ref/#range-def) of the property, (e.g., has**Diagnosis** points to a Diagnosis object)
 
 What this might look like in semantic triples:
 
