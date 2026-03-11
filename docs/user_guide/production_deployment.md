@@ -179,7 +179,7 @@ docker ps
     The default `portal` deployment recipe requires that you have already
     [deployed the proxy server](#proxy-server).
 
-#### Create node INI configuration file
+#### Create node INI config file
 
 In your deployment recipe directory, create a file called [`nb_config.ini`](../glossary.md#neurobagel-configuration-file).
 This file will store the environment variables used to configure the services in your deployment.
@@ -187,6 +187,9 @@ This file will store the environment variables used to configure the services in
 Here is an example minimal `nb_config.ini` for a **node** deployment:
 
 ```ini title="nb_config.ini"
+[compose]
+COMPOSE_PROFILES=node
+
 [service:graph]
 NB_GRAPH_DB=repositories/DB_NAME
 NB_GRAPH_USERNAME=DB_USER
@@ -197,9 +200,6 @@ NB_RETURN_AGG=true
 NB_MIN_CELL_SIZE=0
 NB_NAPI_DOMAIN=mydomain.org
 NB_NAPI_BASE_PATH=/node
-
-[compose]
-COMPOSE_PROFILES=node
 ```
 
 !!! warning
@@ -239,7 +239,7 @@ both of which are automatically created by the Neurobagel deployment recipe.
     will be applied when you re-launch your node.
 
 1. In `nb_config.ini`, set a database name and database username for your graph store by setting the following variables,
-replacing `DB_NAME` and `DB_USER`:
+replacing `DB_NAME` and `DB_USER`.
 
     ```ini title="nb_config.ini"
     [service:graph]
@@ -302,14 +302,14 @@ To add the dataset JSONLD files for your node, you can either:
 Based on your data sharing requirements, set the following variables to control
 the level of detail returned in query results from your node:
 
+- `NB_RETURN_AGG`: whether to return aggregate counts only, instead of subject-level records
+- `NB_MIN_CELL_SIZE`: minimum matching subject threshold for dataset visibility in queries
+
 ```ini title="nb_config.ini"
 [service:node-api]
 NB_RETURN_AGG=true
 NB_MIN_CELL_SIZE=0
 ```
-
-- `NB_RETURN_AGG`: whether to return aggregate counts only, instead of subject-level records
-- `NB_MIN_CELL_SIZE`: minimum matching subject threshold for dataset visibility in queries
 
 #### Set node domain
 
@@ -343,9 +343,20 @@ on the same domain, because you can use a different subdirectory for each
 
 !!! warning "Custom paths must include a leading slash `/`"
 
+#### Generate node runtime config
+
+Run `configure-nb` to generate the runtime configuration file for your deployment
+from the `nb_config.ini` file you created.
+
+```bash
+configure-nb
+```
+
+You should now have a `.env` file in your deployment recipe directory.
+
 #### Launch node
 
-Save the changes to `nb_config.ini` and launch your node:
+Launch your node using Docker Compose.
 
 ```bash
 docker compose -f docker-compose.prod.yml up -d
@@ -360,7 +371,7 @@ docker compose -f docker-compose.prod.yml up -d
     The default `portal` deployment recipe requires that you have already
     [deployed the proxy server](#proxy-server).
 
-#### Create portal INI configuration file
+#### Create portal INI config file
 
 In your deployment recipe directory, create a file called [`nb_config.ini`](../glossary.md#neurobagel-configuration-file).
 This file will store the environment variables used to configure the services in your deployment.
@@ -492,7 +503,20 @@ This is useful if you want to serve the services on the same domain,
 because you can use a different subdirectory for each
 (e.g. `mydomain.org/federate`, `mydomain.org/query`).
 
+#### Generate portal runtime config
+
+Run `configure-nb` to generate the runtime configuration files for your deployment
+from the `nb_config.ini` file you created.
+
+```bash
+configure-nb
+```
+
+You should now have two additional files in your deployment recipe directory: `.env` and `local_nb_nodes.json`.
+
 #### Launch portal
+
+Launch your portal using Docker Compose.
 
 ```bash
 docker compose -f docker-compose.prod.yml up -d
