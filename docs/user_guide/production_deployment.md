@@ -179,9 +179,9 @@ docker ps
     The default `portal` deployment recipe requires that you have already
     [deployed the proxy server](#proxy-server).
 
-#### Create an INI configuration file
+#### Create node INI configuration file
 
-In the root of your `recipes` directory, create an empty file called [`nb_config.ini`](../glossary.md#neurobagel-configuration-file).
+In your deployment recipe directory, create a file called [`nb_config.ini`](../glossary.md#neurobagel-configuration-file).
 This file will store the environment variables used to configure the services in your deployment.
 
 Here is an example minimal `nb_config.ini` for a **node** deployment:
@@ -202,11 +202,23 @@ NB_NAPI_BASE_PATH=/node
 COMPOSE_PROFILES=node
 ```
 
+!!! warning
+    Do not wrap values in quotations (`''` or `""`), as they will be treated as literal characters.
+
 The following sections describe each of these configuration options in more detail.
 
 !!! info
     For more details on all available environment variables,
     check the [Environment variable reference](maintaining.md#environment-variables-reference).
+
+#### Set node deployment profile
+
+Set `COMPOSE_PROFILES` to the [`node` profile](#deployment-profiles).
+
+```ini title="nb_config.ini"
+[compose]
+COMPOSE_PROFILES=node
+```
 
 #### Set graph store credentials
 
@@ -271,7 +283,7 @@ change the default passwords for the graph store using the following files:
 #### Add data to the node
 
 By default, any JSONLD data in the [`./data`](https://github.com/neurobagel/recipes/tree/main/data) subdirectory
-of your `recipes` directory will be automatically uploaded to the graph store.
+of your deployment recipe directory will be automatically uploaded to the graph store.
 
 To add the dataset JSONLD files for your node, you can either:
 
@@ -317,7 +329,7 @@ NB_NAPI_DOMAIN=node.mydomain.org
 !!! info "This is an optional step"
 
 To host your node API on a subdirectory of your domain (e.g. `mydomain.org/node`),
-set `NB_NAPI_BASE_PATH`
+additionally set `NB_NAPI_BASE_PATH`
 to the desired subdirectory path.
 
 ```ini title="nb_config.ini"
@@ -330,15 +342,6 @@ on the same domain, because you can use a different subdirectory for each
 (e.g. `mydomain.org/node1`, `mydomain.org/node2`, ...).
 
 !!! warning "Custom paths must include a leading slash `/`"
-
-#### Set node deployment profile
-
-Set `COMPOSE_PROFILES` to the [`node` profile](#deployment-profiles).
-
-```ini title="nb_config.ini"
-[compose]
-COMPOSE_PROFILES=node
-```
 
 #### Launch node
 
@@ -357,32 +360,77 @@ docker compose -f docker-compose.prod.yml up -d
     The default `portal` deployment recipe requires that you have already
     [deployed the proxy server](#proxy-server).
 
+#### Create portal INI configuration file
+
+In your deployment recipe directory, create a file called [`nb_config.ini`](../glossary.md#neurobagel-configuration-file).
+This file will store the environment variables used to configure the services in your deployment.
+
+Here is an example minimal `nb_config.ini` for a **portal** deployment:
+
+```ini title="nb_config.ini"
+[compose]
+COMPOSE_PROFILES=portal
+
+[node:1]
+NAME=Parkinson's Disease Data - Site 1
+API_URL=https://mydomain.org/site1
+
+[node:2]
+NAME=Parkinson's Disease Data - Site 2
+API_URL=https://mydomain.org/site2
+
+[service:federation-api]
+NB_FAPI_DOMAIN=mydomain.org
+NB_FAPI_BASE_PATH=/federate
+
+[service:query]
+NB_QUERY_DOMAIN=mydomain.org
+NB_QUERY_APP_BASE_PATH=/
+```
+
+!!! warning
+    Do not wrap values in quotations (`''` or `""`), as they will be treated as literal characters.
+
+The following sections describe each of these configuration options in more detail.
+
+#### Set `portal` deployment profile
+
+Set `COMPOSE_PROFILES` to
+the [`portal` profile](#deployment-profiles).
+
+```ini title="nb_config.ini"
+COMPOSE_PROFILES=portal
+```
+
 #### Set nodes to federate
 
-To host your own query portal that federates over a set of nodes,
-use your `local_nb_nodes.json` to configure the nodes of interest.
+A portal deployment federates queries across a custom set of nodes that you define.
 
-Each node to be federated over is defined using a dictionary with two required keys:
+In `nb_config.ini`, add a federation node configuration section for each node of interest following the format:
 
-- `NodeName`: Display name of the node, which will be shown in the query portal
-- `ApiURL`: URL of the **node API** for the node
+```ini
+[node:<ID>]
+NAME=<NODE DISPLAY NAME (SHOWN IN THE QUERY PORTAL)>
+API_URL=<URL OF THE NODE API>
+```
+
+Federation node configuration section headers must start with the prefix `node:`.
+`<ID>` is an arbitrary internal identifier used only to ensure section names are unique.
+For simplicity, we recommend using numeric IDs such as `[node:1]`, `[node:2]`, etc.
 
 Example:
 
-```json title="local_nb_nodes.json"
-    [
-        {
-            "NodeName": "Parkinson's Disease Data - Site 1",
-            "ApiURL": "https://mydomain.org/site1"
-        },
-        {
-            "NodeName": "Parkinson's Disease Data - Site 2",
-            "ApiURL": "https://mydomain.org/site2"
-        }
-    ]
+```ini title="nb_config.ini"
+[node:1]
+NAME=Parkinson's Disease Data - Site 1
+API_URL=https://mydomain.org/site1
+
+[node:2]
+NAME=Parkinson's Disease Data - Site 2
+API_URL=https://mydomain.org/site2
 ```
 
-!!! warning "`ApiURL` must include the protocol (`http://` or `https://`)"
+!!! warning "`API_URL` must include the protocol (`http://` or `https://`)"
 
 ??? info "Public Neurobagel nodes do not need to be included"
 
@@ -390,10 +438,11 @@ Example:
     [here](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json).
     By default, every new f-API will look up this list
     on startup and include it in its internal list of nodes to
-    federate over (this can be disabled using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](maintaining.md#environment-variables-reference)).
-    This means that **you do not have to manually add these public nodes** to your `local_nb_nodes.json` file.
+    federate over
+    (this can be disabled by setting the variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](maintaining.md#environment-variables-reference) in `nb_config.ini`).
+    This means that you do not have to manually define these public nodes in `nb_config.ini`.
 
-!!! danger "Avoid creating an infinite loop"
+!!! danger "Do not include URLs of federation APIs"
 
     Make sure you do not include your own f-API in the list of nodes to
     federate over.
@@ -402,11 +451,18 @@ Example:
 
 #### Set portal domains
 
-In your `.env` file, set the domain names for your
-web query tool and federation API by uncommenting and setting the following variables:
+Set the domain names for your web query tool and federation API using the variables:
 
 - `NB_QUERY_DOMAIN` for the query tool
 - `NB_FAPI_DOMAIN` for the federation API
+
+```ini title="nb_config.ini"
+[service:federation-api]
+NB_FAPI_DOMAIN=federate.mydomain.org
+
+[service:query]
+NB_QUERY_DOMAIN=query.mydomain.org
+```
 
 !!! warning "Do not include the protocol (`http://` or `https://`) in the domain name"
 
@@ -414,31 +470,27 @@ web query tool and federation API by uncommenting and setting the following vari
 
 !!! info "This is an optional step"
 
-You may want to have one or several of your portal services
-respond on a subdirectory of your domain (e.g. `myinstitute.org/federate`).
-
 To host one or more of your portal services on a subdirectory
 of your domain (e.g. `mydomain.org/federate`),
-uncomment and set the following variable(s) to the desired
-subdirectory path(s) in the `.env` file:
+additionally set the following variable(s) to the desired
+subdirectory path(s):
 
 - `NB_QUERY_APP_BASE_PATH` for the query tool
 - `NB_FAPI_BASE_PATH` for the federation API
+
+```ini title="nb_config.ini"
+[service:federation-api]
+NB_FAPI_BASE_PATH=/federate
+
+[service:query]
+NB_QUERY_APP_BASE_PATH=/query
+```
 
 !!! warning "Custom paths must include a leading slash `/`"
 
 This is useful if you want to serve the services on the same domain,
 because you can use a different subdirectory for each
 (e.g. `mydomain.org/federate`, `mydomain.org/query`).
-
-#### Set `portal` deployment profile
-
-In your .env file, set `COMPOSE_PROFILES` to
-the [`portal` profile](#deployment-profiles).
-
-```bash
-COMPOSE_PROFILES=portal
-```
 
 #### Launch portal
 
