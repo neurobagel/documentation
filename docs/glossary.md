@@ -133,6 +133,21 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
     the endpoints of a n-API so that services can be built that are
     able to work either directly with a single n-API or with an f-API.
 
+### Neurobagel configuration file
+:    Also known as the `nb_config.ini`.
+
+    The user-defined INI configuration file for a Neurobagel deployment.
+    Each Neurobagel service has a uniquely named section header,
+    where you can set variables that will configure the behaviour of
+    the associated service (e.g., `[service:node-api]` defines configuration options for the Neurobagel node API).
+
+    Additional sections are available for configuring global options rather than a specific service, such as
+    `[compose]` for the overall Docker Compose service stack and `[experimental]`
+    for enabling or disabling experimental settings.
+
+    For information on all available configuration options,
+    see the [Environment variables reference](user_guide/maintaining.md#environment-variables-reference).
+
 ### Node API
 **Used interchangeably with**: n-API
 :   A Neurobagel "node" is a locally deployed service
