@@ -1,4 +1,4 @@
-The [getting started](getting_started.md) section
+The [Getting started](getting_started.md) page
 is designed for quick local testing with minimal configuration.
 For a production deployment intended for external users,
 you should customize the settings to fit your specific needs.
@@ -83,6 +83,23 @@ specific combinations of services (listed below), depending on your use case.
 
 ## Setting up a production deployment
 
+### Requirements
+
+In addition to the Docker and Docker Compose requirements outlined on the [Getting started page](getting_started.md#docker-and-docker-compose),
+the Neurobagel configuration wizard for a production deployment requires **Python 3.10 or later** on the host machine.
+
+### Install the Neurobagel configuration wizard
+
+`configure-nb` is a tool that simplifies Neurobagel deployment configuration, and can be installed from [PyPI](https://pypi.org/project/configure-nb/) using `pip`.
+
+1. (Recommended) Create and activate a Python virtual environment (e.g., using [venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#create-and-use-virtual-environments)).
+
+2. Install the `configure-nb` package:
+
+    ```bash
+    pip install configure-nb
+    ```
+
 ### Common setup for all deployment profiles
 
 !!! warning "Do these steps first for each deployment profile you set up"
@@ -104,17 +121,6 @@ Then navigate into this directory for the remaining steps.
 
 ```bash
 cd recipes
-```
-
-#### Copy the template configuration files
-
-The recipe repository includes templates of files for configuring your deployment: `.env` and
-`local_nb_nodes.json`. Copy and rename these templates, but do not edit
-the templates themselves.
-
-```bash
-cp template.env .env
-cp local_nb_nodes.template.json local_nb_nodes.json
 ```
 
 ### Proxy server
@@ -173,17 +179,43 @@ docker ps
     The default `portal` deployment recipe requires that you have already
     [deployed the proxy server](#proxy-server).
 
+#### Create an INI configuration file
+
+In the root of your `recipes` directory, create an empty file called [`nb_config.ini`](../glossary.md#neurobagel-configuration-file).
+This file will store the environment variables used to configure the services in your deployment.
+
+Here is an example minimal `nb_config.ini` for a **node** deployment:
+
+```ini title="nb_config.ini"
+[service:graph]
+NB_GRAPH_DB=repositories/DB_NAME
+NB_GRAPH_USERNAME=DB_USER
+LOCAL_GRAPH_DATA=./data
+
+[service:node-api]
+NB_RETURN_AGG=true
+NB_MIN_CELL_SIZE=0
+NB_NAPI_DOMAIN=mydomain.org
+NB_NAPI_BASE_PATH=/node
+
+[compose]
+COMPOSE_PROFILES=node
+```
+
+The following sections describe each of these configuration options in more detail.
+
+!!! info
+    For more details on all available environment variables,
+    check the [Environment variable reference](maintaining.md#environment-variables-reference).
+
 #### Set graph store credentials
 
 !!! danger "This is a security relevant section!"
 
 The graph store (GraphDB instance) in a Neurobagel node
 is secured with password-based access and includes two users:
-an `admin` superuser and a regular database user,
-both of which are automatically configured by the Neurobagel deployment recipe.
-Passwords for both users are defined via files in the `./secrets` directory
-of the recipes repository, while the regular database username is set
-through an environment variable in `.env` file.
+an `admin` superuser and a  regular database user,
+both of which are automatically created by the Neurobagel deployment recipe.
 
 ??? warning "Changing user credentials after the first launch requires a hard reset"
 
@@ -194,18 +226,33 @@ through an environment variable in `.env` file.
     Any other configuration changes you've already made
     will be applied when you re-launch your node.
 
-1. In your `.env`, **set a custom username and database name for your graph store** by editing the following variables:
-    - `NB_GRAPH_USERNAME`
-    - `NB_GRAPH_DB`
+1. In `nb_config.ini`, set a database name and database username for your graph store by setting the following variables,
+replacing `DB_NAME` and `DB_USER`:
 
-2. In the ([`./secrets`](https://github.com/neurobagel/recipes/tree/main/secrets) directory, **change the default passwords** by replacing the contents of the file `NB_GRAPH_ADMIN_PASSWORD.txt` for the `admin` superuser, and the file `NB_GRAPH_PASSWORD.txt` for the graph database user (corresponding to `NB_GRAPH_USERNAME`).
-    - To generate a random password in the terminal, you can use:
+    ```ini title="nb_config.ini"
+    [service:graph]
+    NB_GRAPH_DB=repositories/DB_NAME
+    NB_GRAPH_USERNAME=DB_USER
+    ```
 
-      ```bash
-      openssl rand -hex 16
-      ```
+2. In the [`./secrets`](https://github.com/neurobagel/recipes/tree/main/secrets) directory,
+change the default passwords for the graph store using the following files:
 
-    - (Optional) You can change the directory where your password files are stored by editing the `NB_GRAPH_SECRETS_PATH` variable in `.env`.
+    - Replace the contents of `NB_GRAPH_ADMIN_PASSWORD.txt` to set the password for the `admin` superuser
+    - Replace the contents of `NB_GRAPH_PASSWORD.txt` to set the password for the graph database user (corresponding to `NB_GRAPH_USERNAME`)
+
+    !!! tip "Generating a random password in the terminal"
+        To generate a random password in the terminal, you can use:
+
+        ```bash
+        openssl rand -hex 16
+        ```
+
+    (Optional) To change the directory where your password files are stored, use the `NB_GRAPH_SECRETS_PATH` variable:
+    ```ini title="nb_config.ini"
+    [service:graph]
+    NB_GRAPH_SECRETS_PATH=./secrets
+    ```
 
     ??? info "Graph store passwords are only for administrator use!"
         The `admin` user and graph database user credentials are intended solely for internal use by the deployment recipe scripts that automatically set up and update the graph store,
@@ -223,63 +270,59 @@ through an environment variable in `.env` file.
 
 #### Add data to the node
 
-By default,
-any JSONLD data in the
-[`./data`](https://github.com/neurobagel/recipes/tree/main/data)
-subdirectory of your deployment recipe directory
-will be automatically uploaded to the graph store.
+By default, any JSONLD data in the [`./data`](https://github.com/neurobagel/recipes/tree/main/data) subdirectory
+of your `recipes` directory will be automatically uploaded to the graph store.
 
 To add the dataset JSONLD files for your node, you can either:
 
-- place the JSONLD files inside `./data` (remember to delete the example JSONLD), OR
-- change the path where the deployment recipe will look for JSONLD files
-by editing the variable `LOCAL_GRAPH_DATA` in your `.env` file
+- place them inside `./data` (replacing the example JSONLD file), **or**
+- define a custom path to your JSONLD files using the variable `LOCAL_GRAPH_DATA`:
+
+    ```ini title="nb_config.ini"
+    [service:graph]
+    LOCAL_GRAPH_DATA=./data
+    ```
 
 #### Set node response granularity
 
 !!! danger "This is a security relevant section!"
 
-Review and change as needed the following variables in `.env`
-based on your data sharing requirements:
+Based on your data sharing requirements, set the following variables to control
+the level of detail returned in query results from your node:
+
+```ini title="nb_config.ini"
+[service:node-api]
+NB_RETURN_AGG=true
+NB_MIN_CELL_SIZE=0
+```
 
 - `NB_RETURN_AGG`: whether to return aggregate counts only, instead of subject-level records
 - `NB_MIN_CELL_SIZE`: minimum matching subject threshold for dataset visibility in queries
 
-For more details on all available environment variables,
-check the [Environment variable reference](maintaining.md#environment-variables-reference)
-
 #### Set node domain
 
-In your `.env` file,
-uncomment the variable `NB_NAPI_DOMAIN` and set it to the domain
+Set `NB_NAPI_DOMAIN` to the domain
 (including any subdomain) that you want to use for your node API
 (the web-accessible part of your node).
 
-```bash
+```ini title="nb_config.ini"
+[service:node-api]
 NB_NAPI_DOMAIN=node.mydomain.org
 ```
 
 !!! warning "Do not include the protocol (`http://` or `https://`) in the domain name"
-
-#### Set node deployment profile
-
-In your `.env` file, ensure that `COMPOSE_PROFILES` is set to
-the [`node` profile](#deployment-profiles). This is the default value.
-
-```bash
-COMPOSE_PROFILES=node
-```
 
 #### Set node subdirectory path
 
 !!! info "This is an optional step"
 
 To host your node API on a subdirectory of your domain (e.g. `mydomain.org/node`),
-uncomment and set `NB_NAPI_BASE_PATH`
-to the desired subdirectory path in the `.env` file.
+set `NB_NAPI_BASE_PATH`
+to the desired subdirectory path.
 
-```bash
-NB_NAPI_BASE_PATH="/node"
+```ini title="nb_config.ini"
+[service:node-api]
+NB_NAPI_BASE_PATH=/node
 ```
 
 This is useful if you want to serve several nodes (or services)
@@ -288,9 +331,18 @@ on the same domain, because you can use a different subdirectory for each
 
 !!! warning "Custom paths must include a leading slash `/`"
 
+#### Set node deployment profile
+
+Set `COMPOSE_PROFILES` to the [`node` profile](#deployment-profiles).
+
+```ini title="nb_config.ini"
+[compose]
+COMPOSE_PROFILES=node
+```
+
 #### Launch node
 
-Save the changes to your `.env` file and launch your node:
+Save the changes to `nb_config.ini` and launch your node:
 
 ```bash
 docker compose -f docker-compose.prod.yml up -d
