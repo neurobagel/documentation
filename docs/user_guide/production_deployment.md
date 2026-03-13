@@ -223,11 +223,11 @@ The following sections describe the node configuration options in more detail.
 
 The graph store (GraphDB instance) in a Neurobagel node
 is secured with password-based access and includes two users:
-an `admin` superuser and a  regular database user,
-both of which are automatically created by the Neurobagel deployment recipe.
+an `admin` superuser and a  regular database user.
+The Neurobagel deployment recipes automatically creates both these users.
 
 In the [`./secrets`](https://github.com/neurobagel/recipes/tree/main/secrets) subdirectory,
-change the default passwords for the graph store:
+change the default passwords for these users:
 
 - Replace the contents of `NB_GRAPH_ADMIN_PASSWORD.txt` to set the password for the `admin` superuser
 - Replace the contents of `NB_GRAPH_PASSWORD.txt` to set the password for the graph database user
