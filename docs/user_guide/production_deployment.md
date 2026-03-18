@@ -271,12 +271,12 @@ NB_NAPI_BASE_PATH=/node
 
 #### Add data to the node
 
-By default, any JSONLD files in the [`./data`](https://github.com/neurobagel/recipes/tree/main/data) subdirectory
-of your deployment recipe directory will be automatically uploaded to the graph store.
+By default, the deployment recipe will automatically upload all JSONLD files found in [`./data`](https://github.com/neurobagel/recipes/tree/main/data)
+inside your deployment recipe directory to the graph store.
 
 To add the dataset JSONLD files for your node, either:
 
-- place them inside `./data` (replacing the example JSONLD file), **or**
+- place them in the `./data` subdirectory (replacing the example JSONLD file), **or**
 - define a custom path to your JSONLD files using the variable `LOCAL_GRAPH_DATA`:
 
     ```ini title="nb_config.ini" hl_lines="5"
