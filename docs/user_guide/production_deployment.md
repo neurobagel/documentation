@@ -440,17 +440,17 @@ NB_QUERY_DOMAIN=mydomain.org
 NB_QUERY_APP_BASE_PATH=/query
 ```
 
-A portal deployment federates queries across a custom set of nodes that you define.
-Each node of interest is defined using a federation node configuration section following the format:
+A portal deployment federates queries across a custom set of nodes defined in `nb_config.ini`.
+For each node you want to include for federation, create a section with the `node:` header prefix in the following format:
 
 ```ini
 [node:<ID>]
 NAME=<NODE DISPLAY NAME (SHOWN IN THE QUERY PORTAL)>
-API_URL=<URL OF THE NODE API>
+API_URL=<FULL URL OF THE NODE API>
 ```
 
-Federation node configuration section headers must start with the prefix `node:`.
-`<ID>` is an arbitrary internal identifier used only to ensure section names are unique.
+In the section header, `<ID>` is an arbitrary identifier used only internally to uniquely identify the federation node,
+and can be any alphanumeric string as long as it is unique within the INI file.
 For simplicity, we recommend using numeric IDs such as `[node:1]`, `[node:2]`, etc.
 
 !!! warning "`API_URL` must include the protocol (`http://` or `https://`)"
@@ -465,10 +465,10 @@ For simplicity, we recommend using numeric IDs such as `[node:1]`, `[node:2]`, e
     (this can be disabled by setting the variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](maintaining.md#environment-variables-reference) in `nb_config.ini`).
     This means that you do not have to manually define these public nodes in `nb_config.ini`.
 
-!!! danger "Do not include URLs of federation APIs"
+!!! danger "Do not include URLs of federation APIs as `API_URL`"
 
-    Make sure you do not include your own f-API in the list of nodes to
-    federate over.
+    Make sure you do not accidentally include your own f-API in the list of nodes to
+    federate across.
     This will cause an infinite request loop that will likely overload your service,
     as an f-API will be repeatedly making requests to itself.
 
