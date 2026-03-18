@@ -8,6 +8,7 @@ If your dataset is already in [BIDS](https://bids-specification.readthedocs.io/e
 The BIDS metadata table lists each subject's available imaging files and modality information, using [BIDS](https://bids-specification.readthedocs.io/en/stable/) naming conventions, in the format shown below.
 
 ## Example BIDS metadata table
+
 | sub | ses | suffix | path |
 | ---- | ---- | ---- | ---- |
 | sub-01 | ses-01 | T1w | /data/bids-examples/synthetic/sub-01/ses-01/anat/sub-01_ses-01_T1w.nii |
@@ -17,6 +18,7 @@ The BIDS metadata table lists each subject's available imaging files and modalit
 | ... | ... | ... | ... |
 
 ## About the BIDS metadata table
+
 The table must include at least four columns named exactly `sub`, `ses`, `suffix`, and `path` (adapted from [BIDS](https://bids-specification.readthedocs.io/en/stable/) entities).
 Additional columns are allowed but will be ignored by Neurobagel.
 

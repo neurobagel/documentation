@@ -1,4 +1,4 @@
-The [getting started](getting_started.md) section
+The [Getting started](getting_started.md) page
 is designed for quick local testing with minimal configuration.
 For a production deployment intended for external users,
 you should customize the settings to fit your specific needs.
@@ -83,6 +83,21 @@ specific combinations of services (listed below), depending on your use case.
 
 ## Setting up a production deployment
 
+### Requirements
+
+In addition to the Docker and Docker Compose requirements outlined on the [Getting started page](getting_started.md#docker-and-docker-compose),
+the Neurobagel configuration wizard for a production deployment requires **Python 3.10 or later** on the host machine.
+
+### Install the Neurobagel configuration wizard
+
+`configure-nb` is a tool that simplifies Neurobagel deployment configuration, and can be installed from [PyPI](https://pypi.org/project/configure-nb/) using `pip`.
+
+Install the `configure-nb` package:
+
+```bash
+pip install configure-nb
+```
+
 ### Common setup for all deployment profiles
 
 !!! warning "Do these steps first for each deployment profile you set up"
@@ -104,17 +119,6 @@ Then navigate into this directory for the remaining steps.
 
 ```bash
 cd recipes
-```
-
-#### Copy the template configuration files
-
-The recipe repository includes templates of files for configuring your deployment: `.env` and
-`local_nb_nodes.json`. Copy and rename these templates, but do not edit
-the templates themselves.
-
-```bash
-cp template.env .env
-cp local_nb_nodes.template.json local_nb_nodes.json
 ```
 
 ### Proxy server
@@ -173,19 +177,43 @@ docker ps
     The default `portal` deployment recipe requires that you have already
     [deployed the proxy server](#proxy-server).
 
+#### Create node INI config file
+
+In your deployment recipe directory, create a file called [`nb_config.ini`](../glossary.md#neurobagel-configuration-file).
+This file will store the environment variables used to configure the services in your deployment.
+
+Here is an example minimal `nb_config.ini` for a **node** deployment:
+
+```ini title="nb_config.ini"
+[compose]
+COMPOSE_PROFILES=node #(1)!
+
+[service:graph]
+NB_GRAPH_SECRETS_PATH=./secrets
+LOCAL_GRAPH_DATA=./data
+
+[service:node-api]
+NB_RETURN_AGG=true
+NB_MIN_CELL_SIZE=0
+NB_NAPI_DOMAIN=mydomain.org
+NB_NAPI_BASE_PATH=/node
+```
+
+1. `COMPOSE_PROFILES` must be set to `node` for a [node deployment](#deployment-profiles).
+
+!!! warning "Do not wrap values in quotations (`''` or `""`) - they will be treated as literal characters"
+
+!!! info
+    For more details on all available environment variables,
+    see the [Environment variable reference](maintaining.md#environment-variables-reference).
+
+The following sections describe the node configuration options in more detail.
+
 #### Set graph store credentials
 
 !!! danger "This is a security relevant section!"
 
-The graph store (GraphDB instance) in a Neurobagel node
-is secured with password-based access and includes two users:
-an `admin` superuser and a regular database user,
-both of which are automatically configured by the Neurobagel deployment recipe.
-Passwords for both users are defined via files in the `./secrets` directory
-of the recipes repository, while the regular database username is set
-through an environment variable in `.env` file.
-
-??? warning "Changing user credentials after the first launch requires a hard reset"
+??? warning "Changing passwords after the first launch requires a hard reset"
 
     If you've previously launched a Neurobagel deployment (Docker Compose stack),
     you'll need to
@@ -194,103 +222,149 @@ through an environment variable in `.env` file.
     Any other configuration changes you've already made
     will be applied when you re-launch your node.
 
-1. In your `.env`, **set a custom username and database name for your graph store** by editing the following variables:
-    - `NB_GRAPH_USERNAME`
-    - `NB_GRAPH_DB`
+The graph store (GraphDB instance) in a Neurobagel node
+is secured with password-based access and includes two users:
+an `admin` superuser and a  regular database user.
+The Neurobagel deployment recipes automatically creates both these users.
 
-2. In the ([`./secrets`](https://github.com/neurobagel/recipes/tree/main/secrets) directory, **change the default passwords** by replacing the contents of the file `NB_GRAPH_ADMIN_PASSWORD.txt` for the `admin` superuser, and the file `NB_GRAPH_PASSWORD.txt` for the graph database user (corresponding to `NB_GRAPH_USERNAME`).
-    - To generate a random password in the terminal, you can use:
+In the [`./secrets`](https://github.com/neurobagel/recipes/tree/main/secrets) subdirectory,
+change the default passwords for these users:
 
-      ```bash
-      openssl rand -hex 16
-      ```
+- Replace the contents of `NB_GRAPH_ADMIN_PASSWORD.txt` to set the password for the `admin` superuser
+- Replace the contents of `NB_GRAPH_PASSWORD.txt` to set the password for the graph database user
 
-    - (Optional) You can change the directory where your password files are stored by editing the `NB_GRAPH_SECRETS_PATH` variable in `.env`.
+??? tip "Want to generate a random password in the terminal?"
+    To generate a random password in the terminal, you can use:
 
-    ??? info "Graph store passwords are only for administrator use!"
-        The `admin` user and graph database user credentials are intended solely for internal use by the deployment recipe scripts that automatically set up and update the graph store,
-        or for a node administrator to interact directly with the graph store.
-        These credentials also secure internal communication between your graph store and its node API,
-        ensuring that node users cannot query your graph directly.
-        GraphDB user credentials are not intended for use by a general node query user.
+    ```bash
+    openssl rand -hex 16
+    ```
 
-    ??? info "Passwords are handled as Docker secrets"
+(Optional) To change the directory where your password files are stored, use the `NB_GRAPH_SECRETS_PATH` variable:
+```ini title="nb_config.ini" hl_lines="5"
+[compose]
+COMPOSE_PROFILES=node
 
-        The contents of `NB_GRAPH_ADMIN_PASSWORD.txt` and `NB_GRAPH_PASSWORD.txt` are passed to Neurobagel containers as [Docker secrets](https://docs.docker.com/reference/compose-file/secrets/).
-        This ensures that your passwords are not exposed in the container logs or in the `docker-compose.yml` file.
+[service:graph]
+NB_GRAPH_SECRETS_PATH=./secrets
+LOCAL_GRAPH_DATA=./data
 
-        Do not share your password files with others.
+[service:node-api]
+NB_RETURN_AGG=true
+NB_MIN_CELL_SIZE=0
+NB_NAPI_DOMAIN=mydomain.org
+NB_NAPI_BASE_PATH=/node
+```
+
+??? info "Graph store passwords are only for administrator use!"
+    The `admin` user and graph database user credentials are intended solely for internal use by the deployment recipe scripts that automatically set up and update the graph store,
+    or for a node administrator to interact directly with the graph store.
+    These credentials also secure internal communication between your graph store and its node API,
+    ensuring that node users cannot query your graph directly.
+    GraphDB user credentials are not intended for use by a general node query user.
+
+??? info "Passwords are handled as Docker secrets"
+
+    The contents of `NB_GRAPH_ADMIN_PASSWORD.txt` and `NB_GRAPH_PASSWORD.txt` are passed to Neurobagel containers as [Docker secrets](https://docs.docker.com/reference/compose-file/secrets/).
+    This ensures that your passwords are not exposed in the container logs or in the `docker-compose.yml` file.
+
+    Do not share your password files with others.
 
 #### Add data to the node
 
-By default,
-any JSONLD data in the
-[`./data`](https://github.com/neurobagel/recipes/tree/main/data)
-subdirectory of your deployment recipe directory
-will be automatically uploaded to the graph store.
+By default, the deployment recipe will automatically upload all JSONLD files found in [`./data`](https://github.com/neurobagel/recipes/tree/main/data)
+inside your deployment recipe directory to the graph store.
 
-To add the dataset JSONLD files for your node, you can either:
+To add the dataset JSONLD files for your node, either:
 
-- place the JSONLD files inside `./data` (remember to delete the example JSONLD), OR
-- change the path where the deployment recipe will look for JSONLD files
-by editing the variable `LOCAL_GRAPH_DATA` in your `.env` file
+- place them in the `./data` subdirectory (replacing the example JSONLD file), **or**
+- define a custom path to your JSONLD files using the variable `LOCAL_GRAPH_DATA`:
+
+    ```ini title="nb_config.ini" hl_lines="6"
+    [compose]
+    COMPOSE_PROFILES=node
+
+    [service:graph]
+    NB_GRAPH_SECRETS_PATH=./secrets
+    LOCAL_GRAPH_DATA=./data
+
+    [service:node-api]
+    NB_RETURN_AGG=true
+    NB_MIN_CELL_SIZE=0
+    NB_NAPI_DOMAIN=mydomain.org
+    NB_NAPI_BASE_PATH=/node
+    ```
 
 #### Set node response granularity
 
 !!! danger "This is a security relevant section!"
 
-Review and change as needed the following variables in `.env`
-based on your data sharing requirements:
+Based on your data sharing requirements, set the following variables to control
+the level of detail returned in query results from your node:
 
 - `NB_RETURN_AGG`: whether to return aggregate counts only, instead of subject-level records
 - `NB_MIN_CELL_SIZE`: minimum matching subject threshold for dataset visibility in queries
 
-For more details on all available environment variables,
-check the [Environment variable reference](maintaining.md#environment-variables-reference)
+```ini title="nb_config.ini" hl_lines="9-10"
+[compose]
+COMPOSE_PROFILES=node
 
-#### Set node domain
+[service:graph]
+NB_GRAPH_SECRETS_PATH=./secrets
+LOCAL_GRAPH_DATA=./data
 
-In your `.env` file,
-uncomment the variable `NB_NAPI_DOMAIN` and set it to the domain
-(including any subdomain) that you want to use for your node API
+[service:node-api]
+NB_RETURN_AGG=true
+NB_MIN_CELL_SIZE=0
+NB_NAPI_DOMAIN=mydomain.org
+NB_NAPI_BASE_PATH=/node
+```
+
+#### Set node domain and subpath
+
+Set `NB_NAPI_DOMAIN` to the domain name
+(including any subdomain) you will use for your node API
 (the web-accessible part of your node).
 
-```bash
-NB_NAPI_DOMAIN=node.mydomain.org
-```
-
-!!! warning "Do not include the protocol (`http://` or `https://`) in the domain name"
-
-#### Set node deployment profile
-
-In your `.env` file, ensure that `COMPOSE_PROFILES` is set to
-the [`node` profile](#deployment-profiles). This is the default value.
-
-```bash
-COMPOSE_PROFILES=node
-```
-
-#### Set node subdirectory path
-
-!!! info "This is an optional step"
-
-To host your node API on a subdirectory of your domain (e.g. `mydomain.org/node`),
-uncomment and set `NB_NAPI_BASE_PATH`
-to the desired subdirectory path in the `.env` file.
-
-```bash
-NB_NAPI_BASE_PATH="/node"
-```
-
-This is useful if you want to serve several nodes (or services)
-on the same domain, because you can use a different subdirectory for each
+Optionally, set `NB_NAPI_BASE_PATH` to host your node API on a subpath of your domain.
+This is useful when hosting multiple nodes or services on the same domain, because you can use a different subpath for each
 (e.g. `mydomain.org/node1`, `mydomain.org/node2`, ...).
 
-!!! warning "Custom paths must include a leading slash `/`"
+```ini title="nb_config.ini" hl_lines="11-12"
+[compose]
+COMPOSE_PROFILES=node
+
+[service:graph]
+NB_GRAPH_SECRETS_PATH=./secrets
+LOCAL_GRAPH_DATA=./data
+
+[service:node-api]
+NB_RETURN_AGG=true
+NB_MIN_CELL_SIZE=0
+NB_NAPI_DOMAIN=mydomain.org
+NB_NAPI_BASE_PATH=/node #(1)!
+```
+
+1. `NB_NAPI_BASE_PATH` is optional and can be omitted if you are not using a subpath.
+
+!!! warning "Domain names must not include a protocol (`http://` or `https://`)"
+!!! warning "Custom subpaths must include a leading slash `/`"
+
+#### Generate node configuration
+
+Run `configure-nb` to generate an `.env` file with the correct environment variables for your node deployment, based on your `nb_config.ini` file.
+
+```bash
+configure-nb
+```
+
+!!! warning "Do not edit the `.env` file directly"
+    Manual changes to the auto-generated `.env` may produce invalid configurations.
+    Instead, to update your configuration, edit your `nb_config.ini` and rerun `configure-nb`.
 
 #### Launch node
 
-Save the changes to your `.env` file and launch your node:
+Launch your node using Docker Compose.
 
 ```bash
 docker compose -f docker-compose.prod.yml up -d
@@ -305,32 +379,81 @@ docker compose -f docker-compose.prod.yml up -d
     The default `portal` deployment recipe requires that you have already
     [deployed the proxy server](#proxy-server).
 
-#### Set nodes to federate
+#### Create portal INI config file
 
-To host your own query portal that federates over a set of nodes,
-use your `local_nb_nodes.json` to configure the nodes of interest.
+In your deployment recipe directory, create a file called [`nb_config.ini`](../glossary.md#neurobagel-configuration-file).
+This file will store the environment variables used to configure the services in your deployment.
 
-Each node to be federated over is defined using a dictionary with two required keys:
+Here is an example minimal `nb_config.ini` for a **portal** deployment:
 
-- `NodeName`: Display name of the node, which will be shown in the query portal
-- `ApiURL`: URL of the **node API** for the node
+```ini title="nb_config.ini"
+[compose]
+COMPOSE_PROFILES=portal #(1)!
 
-Example:
+[node:1]
+NAME=Parkinson's Disease Data - Site 1
+API_URL=https://mydomain.org/site1
 
-```json title="local_nb_nodes.json"
-    [
-        {
-            "NodeName": "Parkinson's Disease Data - Site 1",
-            "ApiURL": "https://mydomain.org/site1"
-        },
-        {
-            "NodeName": "Parkinson's Disease Data - Site 2",
-            "ApiURL": "https://mydomain.org/site2"
-        }
-    ]
+[node:2]
+NAME=Parkinson's Disease Data - Site 2
+API_URL=https://mydomain.org/site2
+
+[service:federation-api]
+NB_FAPI_DOMAIN=mydomain.org
+NB_FAPI_BASE_PATH=/federate
+
+[service:query]
+NB_QUERY_DOMAIN=mydomain.org
+NB_QUERY_APP_BASE_PATH=/
 ```
 
-!!! warning "`ApiURL` must include the protocol (`http://` or `https://`)"
+1. `COMPOSE_PROFILES` must be set to `portal` for a [portal deployment](#deployment-profiles).
+
+!!! warning "Do not wrap values in quotations (`''` or `""`) - they will be treated as literal characters"
+
+!!! info
+    For more details on all available environment variables,
+    see the [Environment variable reference](maintaining.md#environment-variables-reference).
+
+The following sections describe the portal configuration options in more detail.
+
+#### Set nodes to federate
+
+```ini title="nb_config.ini" hl_lines="4-10"
+[compose]
+COMPOSE_PROFILES=portal
+
+[node:1]
+NAME=Parkinson's Disease Data - Site 1
+API_URL=https://mydomain.org/site1
+
+[node:2]
+NAME=Parkinson's Disease Data - Site 2
+API_URL=https://mydomain.org/site2
+
+[service:federation-api]
+NB_FAPI_DOMAIN=mydomain.org
+NB_FAPI_BASE_PATH=/federate
+
+[service:query]
+NB_QUERY_DOMAIN=mydomain.org
+NB_QUERY_APP_BASE_PATH=/query
+```
+
+A portal deployment federates queries across a custom set of nodes defined in `nb_config.ini`.
+For each node you want to include for federation, create a section with the `node:` header prefix in the following format:
+
+```ini
+[node:<ID>]
+NAME=<NODE DISPLAY NAME (SHOWN IN THE QUERY PORTAL)>
+API_URL=<FULL URL OF THE NODE API>
+```
+
+In the section header, `<ID>` is an arbitrary identifier used only internally to uniquely identify the federation node,
+and can be any alphanumeric string as long as it is unique within the INI file.
+For simplicity, we recommend using numeric IDs such as `[node:1]`, `[node:2]`, etc.
+
+!!! warning "`API_URL` must include the protocol (`http://` or `https://`)"
 
 ??? info "Public Neurobagel nodes do not need to be included"
 
@@ -338,57 +461,70 @@ Example:
     [here](https://github.com/neurobagel/menu/blob/main/node_directory/neurobagel_public_nodes.json).
     By default, every new f-API will look up this list
     on startup and include it in its internal list of nodes to
-    federate over (this can be disabled using the environment variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](maintaining.md#environment-variables-reference)).
-    This means that **you do not have to manually add these public nodes** to your `local_nb_nodes.json` file.
+    federate over
+    (this can be disabled by setting the variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](maintaining.md#environment-variables-reference) in `nb_config.ini`).
+    This means that you do not have to manually define these public nodes in `nb_config.ini`.
 
-!!! danger "Avoid creating an infinite loop"
+!!! danger "Do not include URLs of federation APIs as `API_URL`"
 
-    Make sure you do not include your own f-API in the list of nodes to
-    federate over.
+    Make sure you do not accidentally include your own f-API in the list of nodes to
+    federate across.
     This will cause an infinite request loop that will likely overload your service,
     as an f-API will be repeatedly making requests to itself.
 
-#### Set portal domains
+#### Set portal domains and subpaths
 
-In your `.env` file, set the domain names for your
-web query tool and federation API by uncommenting and setting the following variables:
+Set `NB_FAPI_DOMAIN` and `NB_QUERY_DOMAIN` to the domain names you will use for your federation API and web query tool, respectively.
 
-- `NB_QUERY_DOMAIN` for the query tool
-- `NB_FAPI_DOMAIN` for the federation API
+Optionally, set `NB_FAPI_BASE_PATH` and/or `NB_QUERY_APP_BASE_PATH` to host your federation API and/or
+web query tool on a subpath of your domain.
+This is useful when hosting multiple services on the same domain, because you can use a different subpath for each
+(e.g. `mydomain.org/federate`, `mydomain.org/query`, ...).
 
-!!! warning "Do not include the protocol (`http://` or `https://`) in the domain name"
-
-#### Set portal subdirectory paths
-
-!!! info "This is an optional step"
-
-You may want to have one or several of your portal services
-respond on a subdirectory of your domain (e.g. `myinstitute.org/federate`).
-
-To host one or more of your portal services on a subdirectory
-of your domain (e.g. `mydomain.org/federate`),
-uncomment and set the following variable(s) to the desired
-subdirectory path(s) in the `.env` file:
-
-- `NB_QUERY_APP_BASE_PATH` for the query tool
-- `NB_FAPI_BASE_PATH` for the federation API
-
-!!! warning "Custom paths must include a leading slash `/`"
-
-This is useful if you want to serve the services on the same domain,
-because you can use a different subdirectory for each
-(e.g. `mydomain.org/federate`, `mydomain.org/query`).
-
-#### Set `portal` deployment profile
-
-In your .env file, set `COMPOSE_PROFILES` to
-the [`portal` profile](#deployment-profiles).
-
-```bash
+```ini title="nb_config.ini" hl_lines="13-14 17-18"
+[compose]
 COMPOSE_PROFILES=portal
+
+[node:1]
+NAME=Parkinson's Disease Data - Site 1
+API_URL=https://mydomain.org/site1
+
+[node:2]
+NAME=Parkinson's Disease Data - Site 2
+API_URL=https://mydomain.org/site2
+
+[service:federation-api]
+NB_FAPI_DOMAIN=mydomain.org
+NB_FAPI_BASE_PATH=/federate #(1)!
+
+[service:query]
+NB_QUERY_DOMAIN=mydomain.org
+NB_QUERY_APP_BASE_PATH=/query #(2)!
 ```
 
+1. `NB_FAPI_BASE_PATH` is optional and can be omitted if you are not using a subpath.
+2. `NB_QUERY_APP_BASE_PATH` is optional and can be omitted if you are not using a subpath.
+
+!!! warning "Domain names must not include a protocol (`http://` or `https://`)"
+
+!!! warning "Custom subpaths must include a leading slash `/`"
+
+#### Generate portal configuration
+
+Run `configure-nb` to generate an `.env` file and `local_nb_nodes.json` file for configuring your portal deployment,
+based on your `nb_config.ini` file.
+
+```bash
+configure-nb
+```
+
+!!! warning "Do not edit the `.env` or `local_nb_nodes.json` directly"
+    Manual changes to these auto-generated files may produce invalid configurations.
+    Instead, to update your configuration, edit your `nb_config.ini` and rerun `configure-nb`.
+
 #### Launch portal
+
+Launch your portal using Docker Compose.
 
 ```bash
 docker compose -f docker-compose.prod.yml up -d
