@@ -23,42 +23,44 @@ In the following steps, you will annotate your table by first describing the col
 
 ## 2. Column Annotation
 
-![Annotation tool column annotation step screenshot](../imgs/annotate/column_annotation.png)
+![Annotation tool column annotation step screenshot - non-assessment variables](../imgs/annotate/column_annotation_non-assessment.png)
 
-Each column in your uploaded table is represented as a card on this page. For each column, you can:
+Each column in your uploaded table is represented as a card on the left side of this page.
+Select a column to annotate it.
+
+!!! tip
+    To select multiple columns, hold down ++shift++ , ++ctrl++ , or ++cmd++ .
+
+For each column, you can:
 
 - **Add a description**
-- **Select the [standardized variable](../data_models/variables.md) that best describes the column from the dropdown** (if a suitable match exists)
-- **Select the data type**
+- **Annotate the [standardized variable](../data_models/variables.md) that best describes the column from the "Standardized Variables" list on the right** (if a suitable match exists)
+    - To map one or more columns to a specific standardized variable, select the column(s) and then select the corresponding variable name
+    - The number next to a standardized variable (:material-numeric-1-circle:) indicates how many columns are currently mapped to it
+
+    !!! info "Some standardized variables only allow 1 mapped column"
+        A standardized variable with a limit of 1 mapped column will appear disabled in the right sidebar once a column has been mapped to it.
+        To map a different column to the variable, first clear the mapping for the old column.
+
+- **Annotate the assessment tool used to collect the column's data from the "Assessment Tool" list on the right** (if a suitable match exists)
+    - For columns about an assessment tool, select the column(s) and then select the corresponding assessment term
+
+- **Annotate the data type**
+    - To indicate the data type of the selected column(s), use the "Map Data Type" buttons
     - Choose "Categorical" if the column contains discrete values, "Continuous" if it contains numerical measurements, or leave it empty if neither applies
-    - Columns mapped to standardized variables will have their data type inferred automatically
+    - Columns mapped to certain standardized variables will have their data type inferred automatically
 
-!!! tip "When to manually select data type"
-    We recommend manually selecting the data type in two cases:
+    !!! tip "When to manually annotate data type"
+        We recommend manually selecting the data type in two cases:
 
-    1. When your column doesn't match any standardized variable
-    2. When your column matches the "Assessment tool" standardized variable (which does not have a predefined data type since it can represent multi-column measures)
+        1. When your column doesn't match any standardized variable
+        2. When your column corresponds to an assessment tool (since a single assessment can be represented by multiple columns with different data types, no default data type is assumed)
 
 ### If your dataset has imaging (BIDS) data
 
 The "Participant ID" standardized variable **must** be mapped to a column that contains the BIDS IDs for subjects, following the BIDS naming scheme `sub-<label>`.
 
 For more information, see [this section](data_prep.md#if-your-dataset-has-imaging-bids-data) on preparing the phenotypic data table for a BIDS dataset.
-
-### 2.1 Multi-column measure annotation
-
-!!! info
-    This step is only available if you have mapped columns in your data table to the "Assessment tool" standardized variable.
-
-![Annotation tool multi-column measures step screenshot](../imgs/annotate/multi_column_measures.png)
-
-The card on the right lists all columns from your data table that you have mapped to the "Assessment tool" standardized variable.
-
-1. Create a card for each assessment or instrument represented in your data by clicking :fontawesome-solid-circle-plus: and then selecting the name of the assessment from the dropdown list.
-    - If no suitable match exists, the available standardized vocabulary likely cannot currently represent your assessment.
-    - To avoid incomplete annotations, un-map any column(s) corresponding to missing assessments from the "Assessment tool" standardized variable using the :octicons-x-circle-fill-16: button in the overview card.
-2. Select the column(s) that describe each assessment, grouping together related columns as needed, using the dropdown on the respective assessment card.
-    - You can check remaining, ungrouped columns in the overview on the right.
 
 ## 3. Value Annotation
 ![Annotation tool value annotation step screenshot](../imgs/annotate/value_annotation.png)
