@@ -78,10 +78,8 @@ In our modified deployment recipe for an existing proxy server,
 Neurobagel services bind to [default ports](#default-ports-of-services)
 on the host.
 
-In your `.env` file, you can
-change these ports to avoid conflicts with existing services.
-Simply uncomment and set the relevant `NB_<SERVICE>_PORT_HOST` variables.
-See [default ports](#default-ports-of-services) for the list of port variables.
+You can override the default ports in `nb_config.ini` (e.g., to avoid conflicts with existing services)
+by setting the corresponding `NB_<SERVICE>_PORT_HOST` variable(s) from the list [above](#default-ports-of-services).
 
 ## Configure your existing reverse proxy
 
