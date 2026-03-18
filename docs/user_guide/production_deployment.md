@@ -198,7 +198,7 @@ NB_NAPI_DOMAIN=mydomain.org
 NB_NAPI_BASE_PATH=/node
 ```
 
-1. `COMPOSE_PROFILES` must be set to [`node`](#deployment-profiles).
+1. `COMPOSE_PROFILES` must be set to `node` for a [node deployment](#deployment-profiles).
 
 !!! warning "Do not wrap values in quotations (`''` or `""`) - they will be treated as literal characters"
 
@@ -346,7 +346,7 @@ NB_NAPI_BASE_PATH=/node #(1)!
 !!! warning "Domain names must not include a protocol (`http://` or `https://`)"
 !!! warning "Custom subpaths must include a leading slash `/`"
 
-#### Generate node runtime config
+#### Generate node configuration
 
 Run `configure-nb` to generate the runtime configuration file for your deployment
 from the `nb_config.ini` file you created.
@@ -402,7 +402,7 @@ NB_QUERY_DOMAIN=mydomain.org
 NB_QUERY_APP_BASE_PATH=/
 ```
 
-1. `COMPOSE_PROFILES` must be set to [`portal`](#deployment-profiles).
+1. `COMPOSE_PROFILES` must be set to `portal` for a [portal deployment](#deployment-profiles).
 
 !!! warning "Do not wrap values in quotations (`''` or `""`) - they will be treated as literal characters"
 
