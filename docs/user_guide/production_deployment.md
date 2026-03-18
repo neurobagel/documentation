@@ -348,14 +348,15 @@ NB_NAPI_BASE_PATH=/node #(1)!
 
 #### Generate node configuration
 
-Run `configure-nb` to generate the runtime configuration file for your deployment
-from the `nb_config.ini` file you created.
+Run `configure-nb` to generate an `.env` file with the correct environment variables for your node deployment, based on your `nb_config.ini` file.
 
 ```bash
 configure-nb
 ```
 
-You should now have a `.env` file in your deployment recipe directory.
+!!! warning "Do not edit the `.env` file directly"
+    Manual changes to the auto-generated `.env` may produce invalid configurations.
+    Instead, to update your configuration, edit your `nb_config.ini` and rerun `configure-nb`.
 
 #### Launch node
 
@@ -504,16 +505,18 @@ NB_QUERY_APP_BASE_PATH=/query #(2)!
 
 !!! warning "Custom subpaths must include a leading slash `/`"
 
-#### Generate portal runtime config
+#### Generate portal configuration
 
-Run `configure-nb` to generate the runtime configuration files for your deployment
-from the `nb_config.ini` file you created.
+Run `configure-nb` to generate an `.env` file and `local_nb_nodes.json` file for configuring your portal deployment,
+based on your `nb_config.ini` file.
 
 ```bash
 configure-nb
 ```
 
-You should now have two additional files in your deployment recipe directory: `.env` and `local_nb_nodes.json`.
+!!! warning "Do not edit the `.env` or `local_nb_nodes.json` directly"
+    Manual changes to these auto-generated files may produce invalid configurations.
+    Instead, to update your configuration, edit your `nb_config.ini` and rerun `configure-nb`.
 
 #### Launch portal
 
