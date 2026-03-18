@@ -189,6 +189,7 @@ Here is an example minimal `nb_config.ini` for a **node** deployment:
 COMPOSE_PROFILES=node #(1)!
 
 [service:graph]
+NB_GRAPH_SECRETS_PATH=./secrets
 LOCAL_GRAPH_DATA=./data
 
 [service:node-api]
@@ -240,13 +241,13 @@ change the default passwords for these users:
     ```
 
 (Optional) To change the directory where your password files are stored, use the `NB_GRAPH_SECRETS_PATH` variable:
-```ini title="nb_config.ini" hl_lines="6"
+```ini title="nb_config.ini" hl_lines="5"
 [compose]
 COMPOSE_PROFILES=node
 
 [service:graph]
-LOCAL_GRAPH_DATA=./data
 NB_GRAPH_SECRETS_PATH=./secrets
+LOCAL_GRAPH_DATA=./data
 
 [service:node-api]
 NB_RETURN_AGG=true
@@ -279,11 +280,12 @@ To add the dataset JSONLD files for your node, either:
 - place them in the `./data` subdirectory (replacing the example JSONLD file), **or**
 - define a custom path to your JSONLD files using the variable `LOCAL_GRAPH_DATA`:
 
-    ```ini title="nb_config.ini" hl_lines="5"
+    ```ini title="nb_config.ini" hl_lines="6"
     [compose]
     COMPOSE_PROFILES=node
 
     [service:graph]
+    NB_GRAPH_SECRETS_PATH=./secrets
     LOCAL_GRAPH_DATA=./data
 
     [service:node-api]
@@ -303,11 +305,12 @@ the level of detail returned in query results from your node:
 - `NB_RETURN_AGG`: whether to return aggregate counts only, instead of subject-level records
 - `NB_MIN_CELL_SIZE`: minimum matching subject threshold for dataset visibility in queries
 
-```ini title="nb_config.ini" hl_lines="8-9"
+```ini title="nb_config.ini" hl_lines="9-10"
 [compose]
 COMPOSE_PROFILES=node
 
 [service:graph]
+NB_GRAPH_SECRETS_PATH=./secrets
 LOCAL_GRAPH_DATA=./data
 
 [service:node-api]
@@ -327,11 +330,12 @@ Optionally, set `NB_NAPI_BASE_PATH` to host your node API on a subpath of your d
 This is useful when hosting multiple nodes or services on the same domain, because you can use a different subpath for each
 (e.g. `mydomain.org/node1`, `mydomain.org/node2`, ...).
 
-```ini title="nb_config.ini" hl_lines="10-11"
+```ini title="nb_config.ini" hl_lines="11-12"
 [compose]
 COMPOSE_PROFILES=node
 
 [service:graph]
+NB_GRAPH_SECRETS_PATH=./secrets
 LOCAL_GRAPH_DATA=./data
 
 [service:node-api]
