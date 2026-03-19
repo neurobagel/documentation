@@ -44,7 +44,7 @@ For each column, you can:
 
 - **Annotate the assessment tool used to collect the column's data from the "Assessment Tool" list on the right** (if a suitable match exists)
     - For columns about an assessment tool, select the column(s) and then select the corresponding assessment term
-    <!-- TODO: Can include screenshot here of a few columns mapped to a specific assessment term -->
+![Annotation tool column annotation step screenshot - collection variables](../imgs/annotate/multi_column_measures.png)
 
 - **Annotate the data type**
     - To indicate the data type of the selected column(s), use the "Map Data Type" buttons
