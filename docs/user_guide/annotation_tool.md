@@ -59,7 +59,7 @@ Mapping columns to an assessment tool
 - Select the data type
     - To indicate the data type of the selected column(s), use the "Map Data Type" buttons above the columns table
     - Choose "Categorical" if the column contains discrete values, "Continuous" if it contains numerical measurements, or leave it empty if neither applies
-    - Columns mapped to certain standardized variables will have their data type inferred automatically
+    - Some standardized variables automatically set the data type of any column mapped to them
 
     !!! tip "When to manually annotate data type"
         We recommend manually selecting the data type in two cases:
