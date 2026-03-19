@@ -13,9 +13,9 @@ The Neurobagel annotation tool creates standardized, machine-readable data dicti
 
 ![Annotation tool upload step screenshot](../imgs/annotate/upload.png)
 
-- **Upload your [data table](data_prep.md)** (.tsv file)
+- Upload your [data table](data_prep.md) (.tsv file)
     - Can be `participants.tsv` from a BIDS dataset
-- **Optional**: Upload an existing data dictionary (.json file) for extra context
+- Optional: Upload an existing data dictionary (.json file) for extra context
     - Can use `participants.json` from a BIDS dataset
     - Or continue previous Neurobagel annotation work
 
@@ -33,21 +33,31 @@ Select a column to annotate it.
 
 For each column, you can:
 
-- **Add a description**
-- **Annotate the [standardized variable](../data_models/variables.md) that best describes the column from the "Standardized Variables" list on the right** (if a suitable match exists)
-    - To map one or more columns to a specific standardized variable, select the column(s) and then select the corresponding variable name
+- Add a description
+- Select the [standardized variable](../data_models/variables.md) that best describes the column (if a suitable match exists)
+    - First select the column(s) to map, and then select the corresponding variable name
+    from the "Standardized Variables" list on the right
     - The number next to a standardized variable (:material-numeric-1-circle:) indicates how many columns are currently mapped to it
 
     !!! info "Some standardized variables only allow 1 mapped column"
         A standardized variable with a limit of 1 mapped column will appear disabled in the right sidebar once a column has been mapped to it.
         To map a different column to the variable, first clear the mapping for the old column.
 
-- **Annotate the assessment tool used to collect the column's data from the "Assessment Tool" list on the right** (if a suitable match exists)
-    - For columns about an assessment tool, select the column(s) and then select the corresponding assessment term
-![Annotation tool column annotation step screenshot - collection variables](../imgs/annotate/multi_column_measures.png)
+- Select the assessment tool used to collect the column's data (if a suitable match exists)
+    - If a column contains information from an assessment, you can map it to a corresponding assessment term from the "Assessment Tool" list on the right
+    - First select the column(s) about the assessment, and then select the corresponding assessment term
 
-- **Annotate the data type**
-    - To indicate the data type of the selected column(s), use the "Map Data Type" buttons
+    !!! tip "Can't find a matching assessment term?"
+        The available assessment vocabulary may not cover all assessments collected in your data. If no suitable match exists, consider providing the full assessment name in the "Description" field of the
+        relevant column(s) instead, for future reference.
+
+![Annotation tool column annotation step screenshot - collection variables](../imgs/annotate/multi_column_measures.png)
+/// caption
+Mapping columns to an assessment tool
+///
+
+- Select the data type
+    - To indicate the data type of the selected column(s), use the "Map Data Type" buttons above the columns table
     - Choose "Categorical" if the column contains discrete values, "Continuous" if it contains numerical measurements, or leave it empty if neither applies
     - Columns mapped to certain standardized variables will have their data type inferred automatically
 
@@ -111,9 +121,9 @@ For each unique column value, you can:
 ## 4. Download data dictionary
 ![Annotation tool download step screenshot](../imgs/annotate/download.png)
 
-- **Preview** your annotated data dictionary
-- **Download** the data dictionary `.json` file
-- **Annotate a new dataset** if desired
+- Preview your annotated data dictionary
+- Download the data dictionary `.json` file
+- Annotate a new dataset if desired
 
 !!! tip
     If you see a warning about "Incomplete Annotations", you will need to return to the Value Annotation page to complete any missing annotations before your data dictionary is valid for downstream Neurobagel tools.
