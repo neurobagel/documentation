@@ -48,8 +48,9 @@ For each column, you can:
     - First select the column(s) about the assessment, and then select the corresponding assessment term
 
     !!! tip "Can't find a matching assessment term?"
-        The available assessment vocabulary may not cover all assessments collected in your data. If no suitable match exists, consider providing the full assessment name in the "Description" field of the
-        relevant column(s) instead, for future reference.
+        The available assessment vocabulary may not cover all assessments collected in your data.
+        If no suitable match exists, consider providing the full assessment name in the "Description"
+        field of the relevant column(s) instead, for future reference.
 
 ![Annotation tool column annotation step screenshot - collection variables](../imgs/annotate/multi_column_measures.png)
 /// caption
