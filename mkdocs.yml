@@ -53,6 +53,7 @@ markdown_extensions:
       custom_checkbox: true
       clickable_checkbox: true
   - pymdownx.keys
+  - pymdownx.blocks.caption
 
 plugins:
   - search
