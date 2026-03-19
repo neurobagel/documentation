@@ -7,3 +7,4 @@ mkdocs-redirects
 mkdocs-table-reader-plugin>=3.0.0
 mkdocs-yamp
 pre-commit
+pymdown-extensions>=10.12
