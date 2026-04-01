@@ -85,7 +85,7 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
 ### Graph database
 **Used interchangeably with**: knowledge graph store, graph store, graph
 
-:   A type of database, in the same way that a relational databases is a type of database.
+:   A type of database, in the same way that a relational database is a type of database.
     The main distinguishing feature of graph databases is that they
     represent entities as nodes in a graph,
     and relationships between entities as edges between these nodes.

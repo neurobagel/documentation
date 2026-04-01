@@ -8,7 +8,7 @@
 To use the Neurobagel annotation tool,
 you must prepare the tabular data for your dataset as a single tab-separated values (`.tsv`) file.
 
-Within Neurobagel, tabular (or phenotypic) data  refers to any demographic, clinical/behavioural, cognitive, or other non-imaging-derived data of participants
+Within Neurobagel, tabular (or phenotypic) data refers to any demographic, clinical/behavioural, cognitive, or other non-imaging-derived data of participants
 which are typically stored in a tabular format.
 
 ## Requirements for the phenotypic TSV
