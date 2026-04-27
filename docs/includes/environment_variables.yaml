@@ -1,0 +1,265 @@
+- name: NB_GRAPH_USERNAME
+  description: >-
+    Username to set for the graph database user.
+  default: DBUSER
+  ini_section: "service:graph"
+  deployment_profiles:
+    - quickstart
+    - node
+
+- name: NB_GRAPH_SECRETS_PATH
+  description: >-
+    Path to files containing the secure passwords to set for the admin user (NB_GRAPH_ADMIN_PASSWORD.txt) and graph database user (NB_GRAPH_PASSWORD.txt).
+  default: ./secrets
+  ini_section: "service:graph"
+  deployment_profiles:
+    - quickstart
+    - node
+
+- name: NB_GRAPH_DB
+  description: >-
+    Name for your your graph database, in the format `repositories/{database_name}`.
+  default: repositories/my_db
+  ini_section: "service:graph"
+  deployment_profiles:
+    - quickstart
+    - node
+
+- name: LOCAL_GRAPH_DATA
+  description: >-
+    Path on your filesystem to the JSONLD files you want to upload to the graph database.
+  default: ./data
+  ini_section: "service:graph"
+  deployment_profiles:
+    - quickstart
+    - node
+
+- name: NB_GRAPH_PORT_HOST
+  description: >-
+    Port number on the host machine to map the graph server container port to.
+  default: 7200
+  ini_section: "service:graph"
+  deployment_profiles:
+    - quickstart
+  testing_only: true
+
+- name: NB_GRAPH_MEMORY
+  description: >-
+    The maximum amount of memory that can be used by graph.
+    Equivalent to setting the `-Xmx` parameter on the JVM.
+    Value should be a number followed by a letter denoting the unit.
+  default: 2G
+  ini_section: "service:graph"
+  deployment_profiles:
+    - quickstart
+    - node
+
+- name: NB_NAPI_TAG
+  description: >-
+    Docker image tag for the Neurobagel node API.
+  default: latest
+  ini_section: "service:node-api"
+  deployment_profiles:
+    - quickstart
+    - node
+
+- name: NB_RETURN_AGG
+  description: >-
+    Whether to return only aggregate, dataset-level query results (excluding subject/session-level attributes).
+    One of [`true`, `false`]
+  default: true
+  ini_section: "service:node-api"
+  deployment_profiles:
+    - quickstart
+    - node
+
+- name: NB_MIN_CELL_SIZE
+  description: >-
+    Minimum number of matching subjects required for a dataset to be returned as a query match.
+    Datasets with matching subjects <= this number will be excluded from query results.
+  default: 0
+  ini_section: "service:node-api"
+  deployment_profiles:
+    - quickstart
+    - node
+
+- name: NB_NAPI_DOMAIN
+  description: >-
+    The domain name where the n-API will be hosted from.
+  default: ""
+  ini_section: "service:node-api"
+  deployment_profiles:
+    - node
+
+- name: NB_NAPI_BASE_PATH
+  description: >-
+    The URL path (path segment after the domain) where the node API should be served from.
+    If set to a custom value, must include a leading slash.
+  default: ""
+  ini_section: "service:node-api"
+  deployment_profiles:
+    - node
+
+- name: NB_NAPI_PORT_HOST
+  description: >-
+    Port number on the host machine to map the Neurobagel node API container port to.
+  default: "8000"
+  ini_section: "service:node-api"
+  deployment_profiles:
+    - quickstart
+  testing_only: true
+
+- name: NB_CONFIG
+  description: >-
+    Name of the Neurobagel community configuration to load, if the node uses a community's custom vocabularies.
+  default: Neurobagel
+  ini_section: "service:node-api"
+  deployment_profiles:
+    - quickstart
+    - node
+
+- name: NB_FAPI_TAG
+  description: >-
+    Docker image tag for the Neurobagel federation API.
+  default: latest
+  ini_section: "service:federation-api"
+  deployment_profiles:
+    - quickstart
+    - portal
+
+- name: NB_FEDERATE_REMOTE_PUBLIC_NODES
+  description: >-
+    If `true`, include public nodes in federation.
+    If `false`, only locally specified nodes in `local_nb_nodes.json` are queried.
+  default: true
+  ini_section: "service:federation-api"
+  deployment_profiles:
+    - quickstart
+    - portal
+
+- name: NB_FAPI_DOMAIN
+  description: >-
+    The domain name where the f-API will be hosted from.
+  default: ""
+  ini_section: "service:federation-api"
+  deployment_profiles:
+    - portal
+
+- name: NB_FAPI_BASE_PATH
+  description: >-
+    The URL path (path segment after the domain) where the federation API should be served from.
+    If set to a custom value, must include a leading slash.
+  default: ""
+  ini_section: "service:federation-api"
+  deployment_profiles:
+    - portal
+
+- name: NB_FAPI_PORT_HOST
+  description: >-
+    Port number on the host machine to map the Neurobagel federation API container port to.
+  default: 8080
+  ini_section: "service:federation-api"
+  deployment_profiles:
+    - quickstart
+  testing_only: true
+
+- name: NB_QUERY_TAG
+  description: >-
+    Docker image tag for the query tool.
+  default: latest
+  ini_section: "service:query"
+  deployment_profiles:
+    - quickstart
+    - portal
+
+- name: NB_API_QUERY_URL
+  description: >-
+    URL of the Neurobagel f-API that the query tool will send its requests to.
+    The query tool sends requests from a user's machine, so ensure the API URL is provided *as a user would access it from their own machine*.
+    Ignored in a production deployment.
+  default: http://localhost:8080
+  ini_section: "service:query"
+  deployment_profiles:
+    - quickstart
+  testing_only: true
+
+- name: NB_QUERY_DOMAIN
+  description: >-
+    The domain name where the query tool will be hosted from.
+  default: ""
+  ini_section: "service:query"
+  deployment_profiles:
+    - portal
+
+- name: NB_QUERY_APP_BASE_PATH
+  description: >-
+    The URL path (path segment after the domain) where the query tool should be served from.
+    Must include a leading slash.
+  default: /
+  ini_section: "service:query"
+  deployment_profiles:
+    - portal
+
+- name: NB_QUERY_PORT_HOST
+  description: >-
+    Port number on the host machine to map the query tool container port to.
+  default: 3000
+  ini_section: "service:query"
+  deployment_profiles:
+    - quickstart
+  testing_only: true
+
+- name: NB_QUERY_HEADER_SCRIPT
+  description: >-
+    Custom script to add to the header section of the query tool site, such as for a GDPR-aware analytics tool.
+  default: null
+  ini_section: "service:query"
+  developer_only: true  # double check
+  deployment_profiles:
+    - quickstart
+    - portal
+
+- name: COMPOSE_PROFILES
+  description: >-
+    Selects the production launch profile to use: `node` or `portal`.
+    If not specified, will default to a testing deployment.
+    See the [production deployment documentation](https://neurobagel.org/user_guide/production_deployment) for details.
+  default: N/A
+  ini_section: "compose"
+  deployment_profiles:
+    - node
+    - portal
+
+- name: COMPOSE_PROJECT_NAME
+  description: >-
+    (Used only by Docker Compose) Prefix for container names in the deployment;
+    useful when running multiple deployments on the same machine.
+    This name will be set by default depending on the value of `COMPOSE_PROFILES`, but can be overridden if desired.
+  default: neurobagel_quickstart
+  ini_section: "compose"
+  deployment_profiles:
+    - quickstart
+    - node
+    - portal
+
+- name: NB_ENABLE_AUTH
+  description: >-
+    Whether to enable authentication for cohort queries. One of [`true`, `false`].
+  default: false
+  ini_section: "service:experimental"
+  experimental: true
+  deployment_profiles:  # Do we want to specify these for this variable?
+    - quickstart
+    - node
+    - portal
+
+- name: NB_QUERY_CLIENT_ID
+  description: >-
+    OAuth client ID for the query tool. Required if `NB_ENABLE_AUTH` is set to `true`.
+  default: null
+  ini_section: "service:experimental"
+  experimental: true
+  deployment_profiles:
+    - quickstart
+    - node
+    - portal
