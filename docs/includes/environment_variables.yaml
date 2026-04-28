@@ -9,7 +9,7 @@
 
 - name: NB_GRAPH_SECRETS_PATH
   description: >-
-    Path to files containing the secure passwords to set for the admin user (NB_GRAPH_ADMIN_PASSWORD.txt) and graph database user (NB_GRAPH_PASSWORD.txt).
+    Path to files containing the secure passwords to set for the admin user (`NB_GRAPH_ADMIN_PASSWORD.txt`) and graph database user (`NB_GRAPH_PASSWORD.txt`).
   default: ./secrets
   ini_section: "service:graph"
   deployment_profiles:
