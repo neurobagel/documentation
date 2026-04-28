@@ -61,7 +61,7 @@ def define_env(env):
 
     @env.macro
     def create_env_var_reference() -> str:
-        """Generate a reference section for all available environment variables as markdown."""
+        """Generate the full reference markdown for all available environment variables."""
         reference_lines = []
         for var in env_vars:
             reference_lines.append(create_env_reference_section(var["name"]))
