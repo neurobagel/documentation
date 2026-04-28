@@ -11,7 +11,7 @@ module.exports = {
         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
         'fade-in': 'fadeIn 1s ease-out forwards',
         'spin-slow': 'spin 20s linear infinite',
-        'aurora': 'aurora 8s ease infinite',
+        'aurora': 'aurora 4s ease-in-out infinite',
       },
       keyframes: {
         float: {
