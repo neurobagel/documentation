@@ -41,7 +41,6 @@
   ini_section: "service:graph"
   deployment_profiles:
     - quickstart
-  testing_only: true
 
 - name: NB_GRAPH_MEMORY
   description: >-
@@ -107,7 +106,6 @@
   ini_section: "service:node-api"
   deployment_profiles:
     - quickstart
-  testing_only: true
 
 - name: NB_CONFIG
   description: >-
@@ -161,7 +159,6 @@
   ini_section: "service:federation-api"
   deployment_profiles:
     - quickstart
-  testing_only: true
 
 - name: NB_QUERY_TAG
   description: >-
@@ -181,7 +178,6 @@
   ini_section: "service:query"
   deployment_profiles:
     - quickstart
-  testing_only: true
 
 - name: NB_QUERY_DOMAIN
   description: >-
@@ -207,14 +203,14 @@
   ini_section: "service:query"
   deployment_profiles:
     - quickstart
-  testing_only: true
 
 - name: NB_QUERY_HEADER_SCRIPT
   description: >-
     Custom script to add to the header section of the query tool site, such as for a GDPR-aware analytics tool.
-  default: null
+  default: None
   ini_section: "service:query"
-  developer_only: true  # double check
+  flags:
+    - dev-only
   deployment_profiles:
     - quickstart
     - portal
@@ -222,9 +218,8 @@
 - name: COMPOSE_PROFILES
   description: >-
     Selects the production launch profile to use: `node` or `portal`.
-    If not specified, will default to a testing deployment.
+    If not specified, will default to a test deployment.
     See the [production deployment documentation](https://neurobagel.org/user_guide/production_deployment) for details.
-  default: N/A
   ini_section: "compose"
   deployment_profiles:
     - node
@@ -247,7 +242,8 @@
     Whether to enable authentication for cohort queries. One of [`true`, `false`].
   default: false
   ini_section: "service:experimental"
-  experimental: true
+  flags:
+    - experimental
   deployment_profiles:  # Do we want to specify these for this variable?
     - quickstart
     - node
@@ -256,9 +252,10 @@
 - name: NB_QUERY_CLIENT_ID
   description: >-
     OAuth client ID for the query tool. Required if `NB_ENABLE_AUTH` is set to `true`.
-  default: null
+  default: None
   ini_section: "service:experimental"
-  experimental: true
+  flags:
+    - experimental
   deployment_profiles:
     - quickstart
     - node
