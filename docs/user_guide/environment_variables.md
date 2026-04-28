@@ -15,4 +15,4 @@
 Below are all possible configuration variables for a Neurobagel deployment.
 Note that `quickstart` indicates whether the variable has an effect in a default test deployment.
 
-{{ define_all_env_vars() }}
+{{ create_env_var_reference() }}

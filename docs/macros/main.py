@@ -2,16 +2,16 @@ import yaml
 from pathlib import Path
 from typing import Any
 
+FLAG_ADMONITIONS = {
+    "experimental": {"type": "example", "title": "Experimental"},
+    "dev-only": {"type": "warning", "title": "For development environments only"},
+}
+
 
 def define_env(env):
-    flag_admonitions = {
-        "experimental": {"type": "example", "title": "Experimental"},
-        "dev-only": {"type": "warning", "title": "For development environments only"},
-    }
     data_path = (
         Path(env.project_dir) / "docs" / "includes" / "environment_variables.yaml"
     )
-
     env_vars: list[dict[str, Any]] = yaml.safe_load(
         data_path.read_text(encoding="utf-8")
     )
@@ -34,7 +34,7 @@ def define_env(env):
         return f'!!! {admonition_type} "{title}"'
 
     @env.macro
-    def define_env_var(name: str) -> str:
+    def create_env_reference_section(name: str) -> str:
         """Generate a reference section for a single environment variable as markdown."""
         var = vars_by_name.get(name)
 
@@ -42,7 +42,7 @@ def define_env(env):
         var_reference_lines.append(as_heading(var["name"]))
 
         for flag in get_yaml_list(var.get("flags")):
-            flag_admonition = flag_admonitions.get(flag)
+            flag_admonition = FLAG_ADMONITIONS.get(flag)
             if flag_admonition:
                 var_reference_lines.append(
                     f"{as_admonition(flag_admonition['type'], flag_admonition['title'])}"
@@ -60,9 +60,9 @@ def define_env(env):
         return "  \n".join(var_reference_lines)
 
     @env.macro
-    def define_all_env_vars() -> str:
+    def create_env_var_reference() -> str:
         """Generate a reference section for all available environment variables as markdown."""
         reference_lines = []
         for var in env_vars:
-            reference_lines.append(define_env_var(var["name"]))
+            reference_lines.append(create_env_reference_section(var["name"]))
         return "\n".join(reference_lines)
