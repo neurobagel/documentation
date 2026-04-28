@@ -26,7 +26,7 @@ Harmonized data are provided as standardized vocabulary-derived labels for reada
 Each row corresponds to a single matching subject session, except for [datasets configured to only return aggregate results](#protected-subject-level-results-for-aggregate-datasets).
 
 ??? abstract "Example query result TSV"
-    {{ read_table('./repos/neurobagel_examples/query-tool-results/neurobagel-query-results_YYYYMMDDHHMMSS.tsv') }}
+    {{ read_table('./repos/neurobagel_examples/query-tool-results/neurobagel-query-results_YYYYMMDDHHMMSS.tsv') | add_indentation(spaces=4) }}
 
 Columns in the TSV are described below:
 `*` = required values
@@ -59,7 +59,7 @@ A machine-optimized version of the query results, containing [URIs](https://www.
 Each row corresponds to a single matching subject session, except for [datasets configured to only return aggregate results](#protected-subject-level-results-for-aggregate-datasets).
 
 ??? abstract "Example query result TSV"
-    {{ read_table('./repos/neurobagel_examples/query-tool-results/neurobagel-query-results-with-URIs_YYYYMMDDHHMMSS.tsv') }}
+    {{ read_table('./repos/neurobagel_examples/query-tool-results/neurobagel-query-results-with-URIs_YYYYMMDDHHMMSS.tsv') | add_indentation(spaces=4) }}
 
 This file contains the same columns and data as the [descriptive query results TSV](#harmonized-tsv-data-with-descriptive-labels).
 However, the harmonized terms in the following columns are provided in their raw URI form instead of as descriptive labels:

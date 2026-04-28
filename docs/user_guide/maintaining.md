@@ -29,9 +29,13 @@ docker compose pull
     docker image inspect neurobagel/api:latest
     ```
     or, to view only the labels:
+
+    {% raw %}
     ```bash
     docker image inspect --format='{{json .Config.Labels}}' neurobagel/api:latest
     ```
+    {% endraw %}
+
     In either case, you should see something like this in the output:
 
     ```bash
