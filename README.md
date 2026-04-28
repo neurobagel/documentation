@@ -39,7 +39,7 @@ Information on excluding markdown sections or pages from macro rendering can be 
 
 ## Build
 
-To spin up the side locally while you edit it, run:
+To spin up the site locally while you edit it, run:
 
 `mkdocs serve`
 
@@ -87,7 +87,7 @@ pre-commit install
 
 After this the style guide will be enforced every time you commit:
 some pre-commit 'hooks' will try to fix some of the errors they find,
-so you may have to restaage your file before committing.
+so you may have to restage your file before committing.
 
 For markdownlint, you can also use
 the [VS-code extension](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
