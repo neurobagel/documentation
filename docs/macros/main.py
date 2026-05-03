@@ -1,10 +1,19 @@
 import yaml
 from pathlib import Path
 from typing import Any
+from collections import defaultdict
 
 FLAG_ADMONITIONS = {
     "experimental": {"type": "example", "title": "Experimental"},
     "dev-only": {"type": "warning", "title": "For development environments only"},
+}
+INI_SECTION_MD_HEADINGS = {
+    "service:graph": "Graph store",
+    "service:node-api": "Node API",
+    "service:federation-api": "Federation API",
+    "service:query": "Query tool",
+    "service:experimental": "Experimental settings",
+    "compose": "Docker Compose configuration",
 }
 
 
@@ -16,13 +25,19 @@ def define_env(env):
         data_path.read_text(encoding="utf-8")
     )
     vars_by_name = {var["name"]: var for var in env_vars}
+    vars_by_ini_section = defaultdict(list)
+    for var in env_vars:
+        vars_by_ini_section[var["ini_section"]].append(var)
 
     def get_yaml_list(value: Any) -> list:
         if value is None:
             return []
         return value if isinstance(value, list) else [value]
 
-    def as_heading(value: str) -> str:
+    def as_section_heading(value: str) -> str:
+        return f"## {value}"
+
+    def as_variable_heading(value: str) -> str:
         return f"### {value}"
 
     def as_inline_code(value: Any) -> str:
@@ -39,7 +54,7 @@ def define_env(env):
         var = vars_by_name.get(name)
 
         var_reference_lines = []
-        var_reference_lines.append(as_heading(var["name"]))
+        var_reference_lines.append(as_variable_heading(var["name"]))
 
         for flag in get_yaml_list(var.get("flags")):
             flag_admonition = FLAG_ADMONITIONS.get(flag)
@@ -63,6 +78,11 @@ def define_env(env):
     def create_env_var_reference() -> str:
         """Generate the full reference markdown for all available environment variables."""
         reference_lines = []
-        for var in env_vars:
-            reference_lines.append(create_env_reference_section(var["name"]))
+
+        for ini_section, section_md_heading in INI_SECTION_MD_HEADINGS.items():
+            section_vars = vars_by_ini_section[ini_section]
+            reference_lines.append(as_section_heading(section_md_heading))
+            for var in section_vars:
+                reference_lines.append(create_env_reference_section(var["name"]))
+
         return "\n".join(reference_lines)
