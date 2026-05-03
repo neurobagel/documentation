@@ -35,6 +35,9 @@ To update the metadata for a variable, directly edit the source yaml file.
 
 To update the formatting of the rendered markdown reference sections, edit the macro functions inside the macro module directly.
 
+**Variable ordering**: The order of variable sections is defined in the macro module.
+For a given `ini_section`, variables appear in the order they are defined in the yaml file.
+
 Information on excluding markdown sections or pages from macro rendering can be found [here](https://mkdocs-macros-plugin.readthedocs.io/en/latest/rendering/#solutions).
 
 ## Build
