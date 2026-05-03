@@ -61,10 +61,10 @@
 </section>
 
 <!-- Use Cases Carousel -->
-<section class="py-16 bg-gray-50 overflow-hidden">
+<section class="py-16 bg-white overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
 
-        
+
         <div class="relative mt-8">
             <!-- Slides Container -->
             <div id="carousel-slides" class="grid w-full">
@@ -75,7 +75,7 @@
                         <p class="text-slate-600 text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                     </div>
                     <div class="w-full lg:w-1/2 flex justify-center">
-                            <img src="assets/img/use_case_make_data_discoverable.svg" alt="Use Case 1" class="w-full h-full object-cover rounded-xl shadow-lg">
+                            <img src="assets/img/use_case_make_data_discoverable.svg" alt="Use Case 1" class="w-full h-auto object-contain">
                     </div>
                 </div>
                 <!-- Slide 2 -->
@@ -85,7 +85,7 @@
                         <p class="text-slate-600 text-lg">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                     </div>
                     <div class="w-full lg:w-1/2 flex justify-center">
-                            <img src="assets/img/use_case_find_subject_level_data.svg" alt="Use Case 2" class="w-full h-full object-cover rounded-xl shadow-lg">
+                            <img src="assets/img/use_case_find_subject_level_data.svg" alt="Use Case 2" class="w-full h-auto object-contain">
                     </div>
                 </div>
                 <!-- Slide 3 -->
@@ -95,7 +95,7 @@
                         <p class="text-slate-600 text-lg">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
                     </div>
                     <div class="w-full lg:w-1/2 flex justify-center">
-                            <img src="assets/img/use_case_standards.svg" alt="Use Case 3" class="w-full h-full object-cover rounded-xl shadow-lg">
+                            <img src="assets/img/use_case_standards.svg" alt="Use Case 3" class="w-full h-auto object-contain">
                     </div>
                 </div>
                 <!-- Slide 4 -->
@@ -105,7 +105,7 @@
                         <p class="text-slate-600 text-lg">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est.</p>
                     </div>
                     <div class="w-full lg:w-1/2 flex justify-center">
-                            <img src="imgs/neurobagel_local_node.jpg" alt="Use Case 4" class="w-full h-full object-cover rounded-xl shadow-lg">
+                            <img src="imgs/neurobagel_local_node.jpg" alt="Use Case 4" class="w-full h-auto object-contain">
                     </div>
                 </div>
                 <!-- Slide 5 -->
@@ -115,7 +115,7 @@
                         <p class="text-slate-600 text-lg">Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit.</p>
                     </div>
                     <div class="w-full lg:w-1/2 flex justify-center">
-                            <img src="assets/img/use_case_catalog_data.svg" alt="Use Case 5" class="w-full h-full object-cover rounded-xl shadow-lg">
+                            <img src="assets/img/use_case_catalog_data.svg" alt="Use Case 5" class="w-full h-auto object-contain">
                     </div>
                 </div>
             </div>
@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <!-- Second Hero -->
-<div class="bg-whit py-5 sm:py-12">
+<div class="bg-white py-5 sm:py-12">
     <div class="mx-auto my-16 max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:text-center">
             <p class="mt-2 text-3xl font-bold tracking-tight text-slate-1000 sm:text-3xl">
@@ -423,7 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="w-full rounded-xl bg-white border border-gray-200 p-6 sm:p-8 shadow-2xl relative min-h-[300px] flex flex-col">
                     <!-- Glass reflection -->
                     <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-black/5 to-transparent"></div>
-                    
+
                     <!-- Terminal Header -->
                     <div class="flex items-center gap-2 mb-4 border-b border-gray-100 pb-4">
                         <div class="rounded-full bg-red-500" style="background-color: #ff5f56; width: 12px; height: 12px; border-radius: 50%;"></div>
@@ -431,7 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="rounded-full bg-green-500" style="background-color: #27c93f; width: 12px; height: 12px; border-radius: 50%;"></div>
                         <div class="ml-4 flex-1 flex text-sm text-slate-500 font-mono font-medium">bash</div>
                     </div>
-                    
+
                     <!-- Terminal Content -->
                     <div id="term-lines" class="flex flex-col gap-2 font-mono text-[13px] sm:text-sm">
                         <!-- Injected via JS -->
@@ -461,7 +461,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                         const el = document.createElement('div');
                                         el.className = `${line.color || ''} min-h-[24px] flex items-center whitespace-pre-wrap`;
                                         container.appendChild(el);
-                                        
+
                                         if (line.type === 'type') {
                                             el.innerHTML = line.prefix;
                                             const textNode = document.createTextNode('');
@@ -490,7 +490,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 
 <!-- Team -->
-<div class="bg-whit py-5 sm:py-12">
+<div class="bg-white py-5 sm:py-12">
     <div class="mx-auto max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:text-center">
             <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-3xl">Our team</p>
