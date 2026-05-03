@@ -205,7 +205,7 @@ NB_NAPI_BASE_PATH=/node
 
 !!! info
     For more details on all available environment variables,
-    see the [Environment variable reference](maintaining.md#environment-variables-reference).
+    see the [Environment variable reference](environment_variables.md).
 
 The following sections describe the node configuration options in more detail.
 
@@ -413,7 +413,7 @@ NB_QUERY_APP_BASE_PATH=/
 
 !!! info
     For more details on all available environment variables,
-    see the [Environment variable reference](maintaining.md#environment-variables-reference).
+    see the [Environment variable reference](environment_variables.md).
 
 The following sections describe the portal configuration options in more detail.
 
@@ -462,7 +462,7 @@ For simplicity, we recommend using numeric IDs such as `[node:1]`, `[node:2]`, e
     By default, every new f-API will look up this list
     on startup and include it in its internal list of nodes to
     federate over
-    (this can be disabled by setting the variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](maintaining.md#environment-variables-reference) in `nb_config.ini`).
+    (this can be disabled by setting the variable [`NB_FEDERATE_REMOTE_PUBLIC_NODES`](environment_variables.md#nb_federate_remote_public_nodes) in `nb_config.ini`).
     This means that you do not have to manually define these public nodes in `nb_config.ini`.
 
 !!! danger "Do not include URLs of federation APIs as `API_URL`"

@@ -146,7 +146,7 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
     for enabling or disabling experimental settings.
 
     For information on all available configuration options,
-    see the [Environment variables reference](user_guide/maintaining.md#environment-variables-reference).
+    see the [Environment variables reference](user_guide/environment_variables.md#local_graph_data).
 
 ### Node API
 **Used interchangeably with**: n-API
