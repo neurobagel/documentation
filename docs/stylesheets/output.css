@@ -871,16 +871,6 @@ video {
   animation: marquee 30s linear infinite;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin-slow {
-  animation: spin 20s linear infinite;
-}
-
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
@@ -1121,8 +1111,18 @@ video {
   );
 }
 
+.bg-gradient-to-b {
+  background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
+}
+
 .bg-gradient-to-r {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+
+.from-\[\#7e56c2\] {
+  --tw-gradient-from: #7e56c2 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(126 86 194 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
 .from-fuchsia-400 {
@@ -1674,6 +1674,11 @@ video {
   background-color: rgb(255 255 255 / 0.1);
 }
 
+.hover\:text-indigo-500:hover {
+  --tw-text-opacity: 1;
+  color: rgb(99 102 241 / var(--tw-text-opacity, 1));
+}
+
 .hover\:shadow-\[0_0_25px_rgba\(192\2c 38\2c 211\2c 0\.4\)\]:hover {
   --tw-shadow: 0 0 25px rgba(192, 38, 211, 0.4);
   --tw-shadow-colored: 0 0 25px var(--tw-shadow-color);
@@ -1766,11 +1771,6 @@ video {
   .sm\:py-32 {
     padding-top: 8rem;
     padding-bottom: 8rem;
-  }
-
-  .sm\:text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
   }
 
   .sm\:text-4xl {
