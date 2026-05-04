@@ -12,6 +12,7 @@ module.exports = {
         'fade-in': 'fadeIn 1s ease-out forwards',
         'spin-slow': 'spin 20s linear infinite',
         'aurora': 'aurora 4s ease-in-out infinite',
+        'marquee': 'marquee 30s linear infinite',
       },
       keyframes: {
         float: {
@@ -29,6 +30,10 @@ module.exports = {
         aurora: {
           '0%, 100%': { backgroundPosition: '0% 50%' },
           '50%': { backgroundPosition: '100% 50%' },
+        },
+        marquee: {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(calc(-100% - 2.5rem))' }, // -100% of its own width, plus the gap if any. We can just use -100% if we use a seamless loop approach. Let's use -100%. Actually let's use -100%
         }
       }
     },

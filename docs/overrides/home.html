@@ -379,21 +379,6 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
 </div>
 
-<!-- Team -->
-<div class="bg-white py-5 sm:py-12">
-    <div class="mx-auto max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8">
-        <div class="mx-auto max-w-2xl lg:text-center">
-            <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-3xl">Our team</p>
-            <p class="mt-6 text-lg leading-8 text-slate-800">
-                Neurobagel is a collaborative effort based in the ORIGAMI Lab at the Montreal Neurological Institute in
-                collaboration with the Douglas Research Centre.
-                Visit <a href="/contributing/team" class="text-indigo-600">this page</a> to learn more about the project
-                team.
-            </p>
-        </div>
-    </div>
-</div>
-
 
 <!-- Icons: https://heroicons.com/ -->
 
@@ -456,32 +441,50 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- TODO: add links to their sites -->
 <div class="bg-white py-8 sm:py-12">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <h2 class="text-center text-lg font-semibold leading-8 text-gray-900">The development of Neurobagel is supported
-            by</h2>
-        <div
-            class="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
-            <img draggable="false" col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="assets/img/conp.png"
-                alt="Transistor" width="158" height="48">
-            <img draggable="false" col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                src="assets/img/hbhl_logo_en_pantone.png" alt="Reform" width="158" height="48">
-            <img draggable="false" col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                src="assets/img/Logo-Quebec-Parkinson-Network-scaled-e1628013005302.jpg" alt="Tuple" width="158"
-                height="48">
-            <img draggable="false" col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
-                src="assets/img/logo_douglas_2945_G.png" alt="SavvyCal" width="158" height="48">
-            <img draggable="false" col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto
-                lg:col-span-1" src="assets/img/logobraincanadabil.png" alt="Statamic" width="158" height="48">
-            <img draggable="false" col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto
-                lg:col-span-1" src="assets/img/McGill sig_red_rgb.png" alt="Statamic" width="158" height="48">
-            <img draggable="false" col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto
-                lg:col-span-1" src="assets/img/neuro_logo_horiz_rgb_eng.png" alt="Statamic" width="158" height="48">
-            <img draggable="false" col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto
-                lg:col-span-1" src="assets/img/neurohub.png" alt="Statamic" width="158" height="48">
-            <img draggable="false" col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto
-                lg:col-span-1" src="assets/img/repronim-logo-web.png" alt="Statamic" width="158" height="48">
-            <img draggable="false" col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto
-                lg:col-span-1" src="assets/img/The_Michael_J._Fox_Foundation_logo.svg.png" alt="Statamic" width="158"
-                height="48">
+        <h2 class="text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Adoption</h2>
+        <div class="mt-14 flex overflow-hidden group [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)] gap-10">
+            <!-- First list of logos -->
+            <div class="flex min-w-full shrink-0 animate-marquee items-center justify-around gap-10 group-hover:[animation-play-state:paused]">
+                <img draggable="false" class="max-h-12 w-auto object-contain" src="assets/img/conp.png" alt="CONP">
+                <img draggable="false" class="max-h-12 w-auto object-contain" src="assets/img/hbhl_logo_en_pantone.png" alt="HBHL">
+                <img draggable="false" class="max-h-12 w-auto object-contain" src="assets/img/Logo-Quebec-Parkinson-Network-scaled-e1628013005302.jpg" alt="QPN">
+                <img draggable="false" class="max-h-12 w-auto object-contain" src="assets/img/logo_douglas_2945_G.png" alt="Douglas">
+                <img draggable="false" class="max-h-12 w-auto object-contain" src="assets/img/logobraincanadabil.png" alt="Brain Canada">
+                <img draggable="false" class="max-h-12 w-auto object-contain" src="assets/img/McGill sig_red_rgb.png" alt="McGill">
+                <img draggable="false" class="max-h-12 w-auto object-contain" src="assets/img/neuro_logo_horiz_rgb_eng.png" alt="The Neuro">
+                <img draggable="false" class="max-h-12 w-auto object-contain" src="assets/img/neurohub.png" alt="Neurohub">
+                <img draggable="false" class="max-h-12 w-auto object-contain" src="assets/img/repronim-logo-web.png" alt="ReproNim">
+                <img draggable="false" class="max-h-12 w-auto object-contain" src="assets/img/The_Michael_J._Fox_Foundation_logo.svg.png" alt="Michael J Fox Foundation">
+            </div>
+
+            <!-- Duplicate list of logos -->
+            <div aria-hidden="true" class="flex min-w-full shrink-0 animate-marquee items-center justify-around gap-10 group-hover:[animation-play-state:paused]">
+                <img draggable="false" class="max-h-12 w-auto object-contain" src="assets/img/conp.png" alt="CONP">
+                <img draggable="false" class="max-h-12 w-auto object-contain" src="assets/img/hbhl_logo_en_pantone.png" alt="HBHL">
+                <img draggable="false" class="max-h-12 w-auto object-contain" src="assets/img/Logo-Quebec-Parkinson-Network-scaled-e1628013005302.jpg" alt="QPN">
+                <img draggable="false" class="max-h-12 w-auto object-contain" src="assets/img/logo_douglas_2945_G.png" alt="Douglas">
+                <img draggable="false" class="max-h-12 w-auto object-contain" src="assets/img/logobraincanadabil.png" alt="Brain Canada">
+                <img draggable="false" class="max-h-12 w-auto object-contain" src="assets/img/McGill sig_red_rgb.png" alt="McGill">
+                <img draggable="false" class="max-h-12 w-auto object-contain" src="assets/img/neuro_logo_horiz_rgb_eng.png" alt="The Neuro">
+                <img draggable="false" class="max-h-12 w-auto object-contain" src="assets/img/neurohub.png" alt="Neurohub">
+                <img draggable="false" class="max-h-12 w-auto object-contain" src="assets/img/repronim-logo-web.png" alt="ReproNim">
+                <img draggable="false" class="max-h-12 w-auto object-contain" src="assets/img/The_Michael_J._Fox_Foundation_logo.svg.png" alt="Michael J Fox Foundation">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Team -->
+<div class="bg-white py-5 sm:py-12">
+    <div class="mx-auto max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl lg:text-center">
+            <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-3xl">Our team</p>
+            <p class="mt-6 text-lg leading-8 text-slate-800">
+                Neurobagel is a collaborative effort based in the ORIGAMI Lab at the Montreal Neurological Institute in
+                collaboration with the Douglas Research Centre.
+                Visit <a href="/contributing/team" class="text-indigo-600">this page</a> to learn more about the project
+                team.
+            </p>
         </div>
     </div>
 </div>
