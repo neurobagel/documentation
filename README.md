@@ -27,9 +27,22 @@ Each subdirectory can then itself contain a `.nav.yml` to organize the pages wit
 
 Note: Both relative and absolute paths can be used to specify files or directories in `.nav.yml`.
 
+## Updating the environment variables reference
+
+The environment variables reference is auto-rendered from the file `docs/includes/environment_variables.yaml` using a [macro](https://mkdocs-macros-plugin.readthedocs.io/en/latest/) stored in `docs/macros/main.py`.
+
+To update the metadata for a variable, directly edit the source yaml file.
+
+To update the formatting of the rendered markdown reference sections, edit the macro functions inside the macro module directly.
+
+**Variable ordering**: The order of variable sections is defined in the macro module.
+For a given `ini_section`, variables appear in the order they are defined in the yaml file.
+
+Information on excluding markdown sections or pages from macro rendering can be found [here](https://mkdocs-macros-plugin.readthedocs.io/en/latest/rendering/#solutions).
+
 ## Build
 
-To spin up the side locally while you edit it, run:
+To spin up the site locally while you edit it, run:
 
 `mkdocs serve`
 
@@ -77,7 +90,7 @@ pre-commit install
 
 After this the style guide will be enforced every time you commit:
 some pre-commit 'hooks' will try to fix some of the errors they find,
-so you may have to restaage your file before committing.
+so you may have to restage your file before committing.
 
 For markdownlint, you can also use
 the [VS-code extension](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)

@@ -26,7 +26,7 @@ Harmonized data are provided as standardized vocabulary-derived labels for reada
 Each row corresponds to a single matching subject session, except for [datasets configured to only return aggregate results](#protected-subject-level-results-for-aggregate-datasets).
 
 ??? abstract "Example query result TSV"
-    {{ read_table('./repos/neurobagel_examples/query-tool-results/neurobagel-query-results_YYYYMMDDHHMMSS.tsv') }}
+    {{ read_table('./repos/neurobagel_examples/query-tool-results/neurobagel-query-results_YYYYMMDDHHMMSS.tsv') | add_indentation(spaces=4) }}
 
 Columns in the TSV are described below:
 `*` = required values
@@ -59,7 +59,7 @@ A machine-optimized version of the query results, containing [URIs](https://www.
 Each row corresponds to a single matching subject session, except for [datasets configured to only return aggregate results](#protected-subject-level-results-for-aggregate-datasets).
 
 ??? abstract "Example query result TSV"
-    {{ read_table('./repos/neurobagel_examples/query-tool-results/neurobagel-query-results-with-URIs_YYYYMMDDHHMMSS.tsv') }}
+    {{ read_table('./repos/neurobagel_examples/query-tool-results/neurobagel-query-results-with-URIs_YYYYMMDDHHMMSS.tsv') | add_indentation(spaces=4) }}
 
 This file contains the same columns and data as the [descriptive query results TSV](#harmonized-tsv-data-with-descriptive-labels).
 However, the harmonized terms in the following columns are provided in their raw URI form instead of as descriptive labels:
@@ -82,7 +82,7 @@ However, the harmonized terms in the following columns are provided in their raw
 
 A row in a query result TSV may show `protected` for all columns except for `DatasetName`, `RepositoryURL`, `AccessLink` and other dataset-level columns. This means the source graph database (node) has been configured (via its corresponding Neurobagel node API) to return only aggregate information about matching subjects e.g., for data privacy reasons.
 
-More information on this configuration setting, called `NB_RETURN_AGG`, and how to change it for a node can be found [here](maintaining.md#environment-variables-reference).
+This setting for a node can be changed using the environment variable [`NB_RETURN_AGG`](environment_variables.md#nb_return_agg).
 
 ## Testing
 

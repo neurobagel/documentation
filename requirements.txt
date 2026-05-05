@@ -1,5 +1,6 @@
 mkdocs-awesome-nav
 mkdocs-include-markdown-plugin[cache]
+mkdocs-macros-plugin
 mkdocs-madlibs
 mkdocs-material>=9.5.0
 mkdocs-open-in-new-tab
@@ -8,3 +9,4 @@ mkdocs-table-reader-plugin>=3.0.0
 mkdocs-yamp
 pre-commit
 pymdown-extensions>=10.12
+pyyaml

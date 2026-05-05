@@ -359,7 +359,7 @@ contain any `MissingValues`.
 
 For the above example, this would be:
 
-| particpant_id | updrs_1 | updrs_2 |
+| participant_id | updrs_1 | updrs_2 |
 | ------------- | ------- | ------- |
 | sub-01 | 2 | |
 | sub-02 | 1 | 1 |
@@ -367,7 +367,7 @@ For the above example, this would be:
 
 Therefore:
 
-| particpant_id | updrs_available |
+| participant_id | updrs_available |
 | ------------- | --------------- |
 | sub-01 | True |
 | sub-02 | True |

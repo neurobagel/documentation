@@ -37,3 +37,9 @@ repos:
     rev: v0.47.0
     hooks:
     - id: markdownlint
+  - repo: https://github.com/psf/black-pre-commit-mirror
+    rev: 26.1.0
+    hooks:
+      - id: black
+        args:
+          - --safe

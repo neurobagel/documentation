@@ -85,7 +85,7 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
 ### Graph database
 **Used interchangeably with**: knowledge graph store, graph store, graph
 
-:   A type of database, in the same way that a relational databases is a type of database.
+:   A type of database, in the same way that a relational database is a type of database.
     The main distinguishing feature of graph databases is that they
     represent entities as nodes in a graph,
     and relationships between entities as edges between these nodes.
@@ -146,7 +146,7 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
     for enabling or disabling experimental settings.
 
     For information on all available configuration options,
-    see the [Environment variables reference](user_guide/maintaining.md#environment-variables-reference).
+    see the [Environment variables reference](user_guide/environment_variables.md#local_graph_data).
 
 ### Node API
 **Used interchangeably with**: n-API

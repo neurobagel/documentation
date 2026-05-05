@@ -84,7 +84,7 @@ Docker Compose recipe and template configuration files for setting up a local Ne
 
 !!! info "Production deployments require additional configuration"
 
-    This section provide a minimal configuration for launching Neurobagel
+    This section provides a minimal configuration for launching Neurobagel
     so you can get started quickly with trying out all services locally.
     In most cases, particularly when deploying Neurobagel for other users,
     additional configurations are necessary.
@@ -140,7 +140,7 @@ docker compose up -d
 This will:
 
 - pull the required Docker images (if you haven't pulled them before)
-- launch the containers for all [the Neurobagel services](production_deployment.md#services)
+- launch the containers for all the [Neurobagel services](production_deployment.md#deployable-services)
 - automatically set up and configure the services based on your configuration files
 - automatically upload example data to the Neurobagel graph
 

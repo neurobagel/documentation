@@ -47,7 +47,7 @@ Begin by following the default setup instructions for your
 
 Neurobagel node services run inside Docker containers. Each service listens on an *internal port* within its container and
 exposes a *host port* that makes it accessible from the host machine. Below, we list the default *host ports* for each service
-along with the [environment variables](maintaining.md#environment-variables-reference) that can be used to configure them.
+along with the [environment variables](environment_variables.md) that can be used to configure them.
 
 - `api` (the node API)
     - environment variable: `NB_NAPI_PORT_HOST`
