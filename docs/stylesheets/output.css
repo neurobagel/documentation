@@ -1228,11 +1228,6 @@ video {
     "Courier New", monospace;
 }
 
-.text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
-}
-
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
@@ -1586,6 +1581,20 @@ video {
 
 .\[service\:query\] {
   service: query;
+}
+
+.highlight .madlibs-editable {
+  color: var(--md-primary-fg-color);
+  font-style: italic;
+  font-weight: bold;
+  border-bottom: 0.15em dotted var(--md-primary-fg-color);
+}
+
+.madlibs-editable-icon {
+  fill: var(--md-primary-fg-color);
+  width: 1em;
+  height: 1em;
+  margin-left: 0.3em;
 }
 
 .hover\:-translate-y-0\.5:hover {
