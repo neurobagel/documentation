@@ -169,23 +169,39 @@
                 </div>
             </div>
 
-            <!-- Navigation Dots -->
-            <div class="flex justify-center gap-3 mt-10">
-                <button class="carousel-dot w-3 h-3 rounded-full transition-colors duration-300"
-                    style="background-color: var(--md-primary-fg-color);" aria-label="Go to slide 1"
-                    data-index="0"></button>
-                <button
-                    class="carousel-dot w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400 transition-colors duration-300"
-                    aria-label="Go to slide 2" data-index="1"></button>
-                <button
-                    class="carousel-dot w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400 transition-colors duration-300"
-                    aria-label="Go to slide 3" data-index="2"></button>
-                <button
-                    class="carousel-dot w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400 transition-colors duration-300"
-                    aria-label="Go to slide 4" data-index="3"></button>
-                <button
-                    class="carousel-dot w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400 transition-colors duration-300"
-                    aria-label="Go to slide 5" data-index="4"></button>
+            <!-- Text Navigation Carousel -->
+            <div class="relative flex items-center justify-center mt-10 w-full max-w-4xl mx-auto">
+                <!-- Left Arrow -->
+                <button class="text-gray-400 hover:text-gray-900 transition-colors p-2 flex-shrink-0" id="carousel-prev" aria-label="Previous slide">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+
+                <!-- Nav Items Container -->
+                <div class="relative flex items-center gap-6 sm:gap-10 overflow-x-auto no-scrollbar mx-2" id="carousel-nav-container" style="scrollbar-width: none; -ms-overflow-style: none;">
+                    <style>
+                        #carousel-nav-container::-webkit-scrollbar { display: none; }
+                    </style>
+                    <button class="carousel-dot flex-shrink-0 whitespace-nowrap text-base font-medium transition-all duration-300"
+                        style="color: var(--md-primary-fg-color);" aria-label="Go to slide 1"
+                        data-index="0">Make data discoverable</button>
+                    <button
+                        class="carousel-dot flex-shrink-0 whitespace-nowrap text-sm font-normal text-slate-500 hover:text-slate-700 translate-y-0.5 transition-all duration-300"
+                        aria-label="Go to slide 2" data-index="1">Find subject data</button>
+                    <button
+                        class="carousel-dot flex-shrink-0 whitespace-nowrap text-sm font-normal text-slate-500 hover:text-slate-700 translate-y-0.5 transition-all duration-300"
+                        aria-label="Go to slide 3" data-index="2">Standardize data</button>
+                    <button
+                        class="carousel-dot flex-shrink-0 whitespace-nowrap text-sm font-normal text-slate-500 hover:text-slate-700 translate-y-0.5 transition-all duration-300"
+                        aria-label="Go to slide 4" data-index="3">Secure network</button>
+                    <button
+                        class="carousel-dot flex-shrink-0 whitespace-nowrap text-sm font-normal text-slate-500 hover:text-slate-700 translate-y-0.5 transition-all duration-300"
+                        aria-label="Go to slide 5" data-index="4">Catalog data</button>
+                </div>
+
+                <!-- Right Arrow -->
+                <button class="text-gray-400 hover:text-gray-900 transition-colors p-2 flex-shrink-0" id="carousel-next" aria-label="Next slide">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
             </div>
         </div>
     </div>
@@ -194,15 +210,41 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const slides = document.querySelectorAll('.carousel-slide');
-        const dots = document.querySelectorAll('.carousel-dot');
         let currentSlide = 0;
         let autoPlayInterval;
         const intervalTime = 5000; // 5 seconds
 
-        function showSlide(index) {
+        const navContainer = document.getElementById('carousel-nav-container');
+        const originalDots = Array.from(document.querySelectorAll('.carousel-dot'));
+        const totalSlides = originalDots.length;
+
+        // Clone dots to allow long continuous scrolling without "rewind" snapping
+        // 10 sets left, 10 right = 21 sets total (105 buttons). Plenty for standard usage.
+        const numSets = 10;
+        for (let j = 0; j < numSets; j++) {
+            originalDots.forEach((dot) => {
+                const clone = dot.cloneNode(true);
+                navContainer.insertBefore(clone, originalDots[0]);
+            });
+            originalDots.forEach((dot) => {
+                const clone = dot.cloneNode(true);
+                navContainer.appendChild(clone);
+            });
+        }
+
+        const allDots = document.querySelectorAll('.carousel-dot');
+        let absoluteDotIndex = numSets * totalSlides; // Start exactly in the middle set
+
+        function showAbsoluteSlide(absIndex, smooth = true) {
+            // Prevent going out of bounds
+            if (absIndex < 0 || absIndex >= allDots.length) return;
+
+            // Calculate actual slide index (0 to 4)
+            const slideIndex = ((absIndex % totalSlides) + totalSlides) % totalSlides;
+
             // Hide all slides
             slides.forEach((slide, i) => {
-                if (i === index) {
+                if (i === slideIndex) {
                     slide.classList.remove('opacity-0', 'pointer-events-none');
                     slide.classList.add('opacity-100');
                 } else {
@@ -211,22 +253,47 @@
                 }
             });
 
-            // Update dots
-            dots.forEach((dot, i) => {
-                if (i === index) {
-                    dot.classList.remove('bg-gray-300', 'hover:bg-gray-400');
-                    dot.style.backgroundColor = 'var(--md-primary-fg-color)';
+            // Update all dots (buttons)
+            allDots.forEach((dot, i) => {
+                if (i === absIndex) {
+                    dot.className = 'carousel-dot flex-shrink-0 whitespace-nowrap text-base font-medium transition-all duration-300';
+                    dot.style.color = 'var(--md-primary-fg-color)';
+
+                    const targetScrollLeft = dot.offsetLeft - (navContainer.clientWidth / 2) + (dot.clientWidth / 2);
+                    if (smooth) {
+                        navContainer.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
+                    } else {
+                        // Precise mathematical center for initial load
+                        navContainer.scrollLeft = targetScrollLeft;
+                    }
                 } else {
-                    dot.style.backgroundColor = '';
-                    dot.classList.add('bg-gray-300', 'hover:bg-gray-400');
+                    dot.className = 'carousel-dot flex-shrink-0 whitespace-nowrap text-sm font-normal text-slate-500 hover:text-slate-700 translate-y-0.5 transition-all duration-300';
+                    dot.style.color = '';
                 }
             });
 
-            currentSlide = index;
+            currentSlide = slideIndex;
+            absoluteDotIndex = absIndex;
         }
 
+        // Initialize perfectly on load
+        function centerInitialSlide() {
+            showAbsoluteSlide(absoluteDotIndex, false);
+        }
+
+        // Try it immediately, but also wait for full window load (including fonts)
+        // to ensure the scroll position is perfectly calculated by the browser.
+        requestAnimationFrame(centerInitialSlide);
+        window.addEventListener('load', () => {
+            setTimeout(centerInitialSlide, 50);
+        });
+
         function nextSlide() {
-            showSlide((currentSlide + 1) % slides.length);
+            showAbsoluteSlide(absoluteDotIndex + 1);
+        }
+
+        function prevSlide() {
+            showAbsoluteSlide(absoluteDotIndex - 1);
         }
 
         function startAutoPlay() {
@@ -238,12 +305,23 @@
             startAutoPlay();
         }
 
-        // Add click listeners to dots
-        dots.forEach((dot, i) => {
+        // Add click listeners to all cloned dots
+        allDots.forEach((dot, i) => {
             dot.addEventListener('click', () => {
-                showSlide(i);
+                showAbsoluteSlide(i);
                 resetAutoPlay();
             });
+        });
+
+        // Add click listeners to arrows
+        document.getElementById('carousel-prev').addEventListener('click', () => {
+            prevSlide();
+            resetAutoPlay();
+        });
+
+        document.getElementById('carousel-next').addEventListener('click', () => {
+            nextSlide();
+            resetAutoPlay();
         });
 
         // Start autoplay
