@@ -255,7 +255,7 @@
                         dictionary for messy tabular data?</h2>
                     <p class="mt-6 text-base leading-7 text-gray-600">Describe phenotypic data using a harmonized data
                         model completely in the browser.</p>
-                    <div class="flex flex-col sm:flex-row flex-wrap items-center justify-start gap-4 mt-10">
+                    <div class="flex flex-col sm:flex-row flex-wrap items-center justify-start gap-2 mt-10">
                         <!-- Primary Button -->
                         <a href="https://annotate.neurobagel.org"
                             class="group relative z-0 inline-flex p-[2px] rounded-full w-full sm:w-auto flex-shrink-0 overflow-hidden shadow-md hover:shadow-[0_0_25px_rgba(192,38,211,0.4)] transition-all duration-300 hover:-translate-y-1">
@@ -264,7 +264,7 @@
                                 class="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,#d946ef_50%,#f97316_100%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                             <!-- Button surface -->
                             <div
-                                class="relative flex items-center justify-center w-full gap-2 px-6 py-3.5 text-sm font-bold text-white transition-colors duration-300 bg-gray-950 rounded-full group-hover:bg-gray-900 z-10 whitespace-nowrap">
+                                class="relative flex items-center justify-center w-full gap-2 px-4 py-3.5 text-sm font-bold text-white transition-colors duration-300 bg-gray-950 rounded-full group-hover:bg-gray-900 z-10 whitespace-nowrap">
                                 Annotation tool
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 text-fuchsia-400"
@@ -276,7 +276,7 @@
                         </a>
                         <!-- Secondary Button -->
                         <a href="/user_guide/annotation_tool/"
-                            class="group w-full sm:w-auto flex-shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-gray-900 transition-all duration-300 rounded-full bg-gray-100 border border-gray-200 hover:bg-gray-200 hover:-translate-y-0.5 whitespace-nowrap">
+                            class="group w-full sm:w-auto flex-shrink-0 inline-flex items-center justify-center gap-2 px-4 py-3.5 text-sm font-bold text-gray-900 transition-all duration-300 rounded-full bg-gray-100 border border-gray-200 hover:bg-gray-200 hover:-translate-y-0.5 whitespace-nowrap">
                             Annotation guide
                             <span aria-hidden="true"
                                 class="transition-transform duration-200 group-hover:translate-x-1">→</span>
@@ -285,8 +285,11 @@
                 </div>
             </div>
             <div class="flex items-center justify-end">
-                <img src="assets/img/annotation_tool.png" alt="Annotation Tool Screenshot"
-                    class="w-full h-auto max-h-[36rem] rounded-2xl shadow-xl ring-1 ring-gray-400/10 object-cover object-left-top">
+                <video autoplay loop muted playsinline
+                    class="w-full h-auto max-h-[36rem] shadow-xl ring-1 ring-gray-400/10 object-cover object-left-top">
+                    <source src="assets/vid/annotation-tool.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
         </div>
     </div>
@@ -299,8 +302,11 @@
             class="mx-auto grid max-w-2xl grid-cols-1 gap-x-16 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-center">
             <!-- Order-last on mobile means the text comes first, then the image. Order-first on lg means image is on the left. -->
             <div class="flex items-center justify-start lg:order-first order-last">
-                <img src="assets/img/query_tool.png" alt="Query Tool Screenshot"
-                    class="w-full h-auto max-h-[36rem] rounded-2xl shadow-xl ring-1 ring-gray-400/10 object-cover object-left-top">
+                <video autoplay loop muted playsinline
+                    class="w-full h-auto max-h-[36rem] shadow-xl ring-1 ring-gray-400/10 object-cover object-left-top">
+                    <source src="assets/vid/query-tool.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
             <div class="lg:pl-8">
                 <div class="lg:max-w-lg mx-auto lg:mx-0">
@@ -308,13 +314,13 @@
                         your study?</h2>
                     <p class="mt-6 text-base leading-7 text-gray-600">Run a federated query to create your own
                         cross-dataset subject cohort based on clinical-demographic and imaging parameters.</p>
-                    <div class="flex flex-col sm:flex-row flex-wrap items-center justify-start gap-4 mt-10">
+                    <div class="flex flex-col sm:flex-row flex-wrap items-center justify-start gap-2 mt-10">
                         <a href="https://query.neurobagel.org"
                             class="group relative z-0 inline-flex p-[2px] rounded-full w-full sm:w-auto flex-shrink-0 overflow-hidden shadow-md hover:shadow-[0_0_25px_rgba(192,38,211,0.4)] transition-all duration-300 hover:-translate-y-1">
                             <span
                                 class="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,#d946ef_50%,#f97316_100%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                             <div
-                                class="relative flex items-center justify-center w-full gap-2 px-6 py-3.5 text-sm font-bold text-white transition-colors duration-300 bg-gray-950 rounded-full group-hover:bg-gray-900 z-10 whitespace-nowrap">
+                                class="relative flex items-center justify-center w-full gap-2 px-4 py-3.5 text-sm font-bold text-white transition-colors duration-300 bg-gray-950 rounded-full group-hover:bg-gray-900 z-10 whitespace-nowrap">
                                 Public query tool
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 text-fuchsia-400"
@@ -325,7 +331,7 @@
                             </div>
                         </a>
                         <a href="/user_guide/query_tool/"
-                            class="group w-full sm:w-auto flex-shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-gray-900 transition-all duration-300 rounded-full bg-gray-100 border border-gray-200 hover:bg-gray-200 hover:-translate-y-0.5 whitespace-nowrap">
+                            class="group w-full sm:w-auto flex-shrink-0 inline-flex items-center justify-center gap-2 px-4 py-3.5 text-sm font-bold text-gray-900 transition-all duration-300 rounded-full bg-gray-100 border border-gray-200 hover:bg-gray-200 hover:-translate-y-0.5 whitespace-nowrap">
                             Query tool guide
                             <span aria-hidden="true"
                                 class="transition-transform duration-200 group-hover:translate-x-1">→</span>
