@@ -32,14 +32,21 @@
                 <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mt-10">
                     <!-- Primary Button -->
                     <a href="/user_guide/getting_started"
-                        class="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-bold text-gray-950 transition-all duration-300 bg-white rounded-full hover:bg-gray-50 hover:-translate-y-0.5 shadow-md hover:shadow-lg">
-                        Get started
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 text-fuchsia-600"
-                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
+                        class="group relative z-0 inline-flex p-[2px] rounded-full w-full sm:w-auto flex-shrink-0 overflow-hidden shadow-md hover:shadow-[0_0_25px_rgba(192,38,211,0.4)] transition-all duration-300 hover:-translate-y-1">
+                        <!-- Spinning edge beam (Shimmer) -->
+                        <span
+                            class="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,#d946ef_50%,#f97316_100%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                        <!-- Button surface -->
+                        <div
+                            class="relative flex items-center justify-center w-full gap-2 px-8 py-3.5 text-sm font-bold text-gray-950 transition-colors duration-300 bg-white rounded-full group-hover:bg-gray-50 z-10 whitespace-nowrap">
+                            Get started
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 text-fuchsia-600"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </div>
                     </a>
                     <!-- Secondary Button -->
                     <a href="https://2b0ac664.sibforms.com/serve/MUIFAGN41TZby6SgxI7eQyUevVgGPjMujrCwZu7plP3WOxGbvBxgP2rFCxF6dPKNe-l8IoczAYTKkSmXmDSR9_NOfAe1RIf1nbfqExLbji7XKd4bQcptpG7PHwHQU5Y1-PGw2EkqxX7nFuOh0tcbAMZ1Jbs2gh02J8-ya9bIjuLzfdfi0kdkESFrDw2rt7BWMEwJRQd9DfGzU016"
@@ -78,7 +85,7 @@
                     class="carousel-slide col-start-1 row-start-1 opacity-100 transition-opacity duration-700 flex flex-col lg:flex-row items-center gap-8">
                     <div class="w-full lg:w-1/2">
                         <h3 class="text-2xl font-bold text-slate-900 mb-4">Local control, global discovery</h3>
-                        <p class="text-slate-600 text-lg">Share your datasets without uploading them to a central
+                        <p class="text-slate-600 text-base">Share your datasets without uploading them to a central
                             location. Your raw data stays local and secure, and you control exactly what information
                             researchers can see about your data.</p>
                     </div>
@@ -93,7 +100,8 @@
                     <div class="w-full lg:w-1/2">
                         <h3 class="text-2xl font-bold text-slate-900 mb-4">Find subject data for your next study, across
                             datasets</h3>
-                        <p class="text-slate-600 text-lg">Run federated searches across globally distributed datasets to
+                        <p class="text-slate-600 text-base">Run federated searches across globally distributed datasets
+                            to
                             discover subjects matching your study or validation sample criteria. Then learn how to
                             access the data no matter where it lives, all in one place.</p>
                     </div>
@@ -108,7 +116,8 @@
                     <div class="w-full lg:w-1/2">
                         <h3 class="text-2xl font-bold text-slate-900 mb-4">Make datasets interoperable through shared
                             vocabularies</h3>
-                        <p class="text-slate-600 text-lg">Make your data ready for sharing by standardizing metadata and
+                        <p class="text-slate-600 text-base">Make your data ready for sharing by standardizing metadata
+                            and
                             variable names using curated vocabularies and community standards, without technical
                             expertise.</p>
                     </div>
@@ -123,7 +132,8 @@
                     <div class="w-full lg:w-1/2">
                         <h3 class="text-2xl font-bold text-slate-900 mb-4">Enable collaboration without compromising
                             privacy</h3>
-                        <p class="text-slate-600 text-lg">Join a worldwide network of researchers to query subject-level
+                        <p class="text-slate-600 text-base">Join a worldwide network of researchers to query
+                            subject-level
                             metadata without moving sensitive files. Foster large-scale, multi-site studies while
                             strictly adhering to your local privacy policies.</p>
                     </div>
@@ -138,7 +148,8 @@
                     <div class="w-full lg:w-1/2">
                         <h3 class="text-2xl font-bold text-slate-900 mb-4">Build a secure data catalog across multiple
                             sites</h3>
-                        <p class="text-slate-600 text-lg">Aggregate metadata from distributed locations into a unified,
+                        <p class="text-slate-600 text-base">Aggregate metadata from distributed locations into a
+                            unified,
                             searchable index. Empower your consortium to seamlessly discover available datasets while
                             maintaining independent local data governance.</p>
                     </div>
@@ -240,21 +251,21 @@
             class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:gap-x-28 lg:items-center">
             <div>
                 <div class="lg:max-w-lg">
-                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Need to create a data
+                    <h2 class="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">Need to create a data
                         dictionary for messy tabular data?</h2>
-                    <p class="mt-6 text-lg leading-8 text-gray-600">Describe phenotypic data using a harmonized data
+                    <p class="mt-6 text-base leading-7 text-gray-600">Describe phenotypic data using a harmonized data
                         model completely in the browser.</p>
-                    <div class="flex flex-col sm:flex-row items-center justify-start gap-4 mt-10">
+                    <div class="flex flex-col sm:flex-row flex-wrap items-center justify-start gap-4 mt-10">
                         <!-- Primary Button -->
                         <a href="https://annotate.neurobagel.org"
-                            class="group relative z-0 inline-flex p-[2px] rounded-full w-full sm:w-auto overflow-hidden shadow-md hover:shadow-[0_0_25px_rgba(192,38,211,0.4)] transition-all duration-300 hover:-translate-y-1">
+                            class="group relative z-0 inline-flex p-[2px] rounded-full w-full sm:w-auto flex-shrink-0 overflow-hidden shadow-md hover:shadow-[0_0_25px_rgba(192,38,211,0.4)] transition-all duration-300 hover:-translate-y-1">
                             <!-- Spinning edge beam (Shimmer) -->
                             <span
                                 class="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,#d946ef_50%,#f97316_100%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                             <!-- Button surface -->
                             <div
-                                class="relative flex items-center justify-center w-full gap-2 px-8 py-3.5 text-sm font-bold text-white transition-colors duration-300 bg-gray-950 rounded-full group-hover:bg-gray-900 z-10 block">
-                                Visit the Annotation Tool
+                                class="relative flex items-center justify-center w-full gap-2 px-6 py-3.5 text-sm font-bold text-white transition-colors duration-300 bg-gray-950 rounded-full group-hover:bg-gray-900 z-10 whitespace-nowrap">
+                                Annotation tool
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 text-fuchsia-400"
                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -265,8 +276,8 @@
                         </a>
                         <!-- Secondary Button -->
                         <a href="/user_guide/annotation_tool/"
-                            class="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-bold text-gray-900 transition-all duration-300 rounded-full bg-gray-100 border border-gray-200 hover:bg-gray-200 hover:-translate-y-0.5">
-                            Annotation Guide
+                            class="group w-full sm:w-auto flex-shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-gray-900 transition-all duration-300 rounded-full bg-gray-100 border border-gray-200 hover:bg-gray-200 hover:-translate-y-0.5 whitespace-nowrap">
+                            Annotation guide
                             <span aria-hidden="true"
                                 class="transition-transform duration-200 group-hover:translate-x-1">→</span>
                         </a>
@@ -293,18 +304,18 @@
             </div>
             <div class="lg:pl-8">
                 <div class="lg:max-w-lg mx-auto lg:mx-0">
-                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Looking for data(sets) for
+                    <h2 class="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">Looking for data for
                         your study?</h2>
-                    <p class="mt-6 text-lg leading-8 text-gray-600">Run a federated query to create your own
+                    <p class="mt-6 text-base leading-7 text-gray-600">Run a federated query to create your own
                         cross-dataset subject cohort based on clinical-demographic and imaging parameters.</p>
-                    <div class="flex flex-col sm:flex-row items-center justify-start gap-4 mt-10">
+                    <div class="flex flex-col sm:flex-row flex-wrap items-center justify-start gap-4 mt-10">
                         <a href="https://query.neurobagel.org"
-                            class="group relative z-0 inline-flex p-[2px] rounded-full w-full sm:w-auto overflow-hidden shadow-md hover:shadow-[0_0_25px_rgba(192,38,211,0.4)] transition-all duration-300 hover:-translate-y-1">
+                            class="group relative z-0 inline-flex p-[2px] rounded-full w-full sm:w-auto flex-shrink-0 overflow-hidden shadow-md hover:shadow-[0_0_25px_rgba(192,38,211,0.4)] transition-all duration-300 hover:-translate-y-1">
                             <span
                                 class="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,#d946ef_50%,#f97316_100%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                             <div
-                                class="relative flex items-center justify-center w-full gap-2 px-8 py-3.5 text-sm font-bold text-white transition-colors duration-300 bg-gray-950 rounded-full group-hover:bg-gray-900 z-10 block">
-                                Launch Query Tool
+                                class="relative flex items-center justify-center w-full gap-2 px-6 py-3.5 text-sm font-bold text-white transition-colors duration-300 bg-gray-950 rounded-full group-hover:bg-gray-900 z-10 whitespace-nowrap">
+                                Public query tool
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 text-fuchsia-400"
                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -314,8 +325,8 @@
                             </div>
                         </a>
                         <a href="/user_guide/query_tool/"
-                            class="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-bold text-gray-900 transition-all duration-300 rounded-full bg-gray-100 border border-gray-200 hover:bg-gray-200 hover:-translate-y-0.5">
-                            Query Tool Guide
+                            class="group w-full sm:w-auto flex-shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-gray-900 transition-all duration-300 rounded-full bg-gray-100 border border-gray-200 hover:bg-gray-200 hover:-translate-y-0.5 whitespace-nowrap">
+                            Query tool guide
                             <span aria-hidden="true"
                                 class="transition-transform duration-200 group-hover:translate-x-1">→</span>
                         </a>
@@ -333,20 +344,19 @@
             class="mx-auto grid max-w-2xl grid-cols-1 gap-x-16 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-center">
             <div class="lg:pr-8">
                 <div class="lg:max-w-lg">
-                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Ready to host data in your
+                    <h2 class="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">Ready to host data in your
                         own
                         Neurobagel node?</h2>
-                    <p class="mt-6 text-lg leading-8 text-gray-600">Spin up a local graph database with our
-                        containerized architecture to join the federated network. Maintain complete control over your
-                        datasets while contributing to global discovery.</p>
-                    <div class="flex flex-col sm:flex-row items-center justify-start gap-4 mt-10">
+                    <p class="mt-6 text-base leading-7 text-gray-600">Want to host a local knowledge graph store at your
+                        institute? docker compose up, and you're in business.</p>
+                    <div class="flex flex-col sm:flex-row flex-wrap items-center justify-start gap-4 mt-10">
                         <a href="/user_guide/getting_started"
-                            class="group relative z-0 inline-flex p-[2px] rounded-full w-full sm:w-auto overflow-hidden shadow-md hover:shadow-[0_0_25px_rgba(192,38,211,0.4)] transition-all duration-300 hover:-translate-y-1">
+                            class="group relative z-0 inline-flex p-[2px] rounded-full w-full sm:w-auto flex-shrink-0 overflow-hidden shadow-md hover:shadow-[0_0_25px_rgba(192,38,211,0.4)] transition-all duration-300 hover:-translate-y-1">
                             <span
                                 class="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,#d946ef_50%,#f97316_100%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                             <div
-                                class="relative flex items-center justify-center w-full gap-2 px-8 py-3.5 text-sm font-bold text-white transition-colors duration-300 bg-gray-950 rounded-full group-hover:bg-gray-900 z-10 block">
-                                View Setup Guide
+                                class="relative flex items-center justify-center w-full gap-2 px-6 py-3.5 text-sm font-bold text-white transition-colors duration-300 bg-gray-950 rounded-full group-hover:bg-gray-900 z-10 whitespace-nowrap">
+                                Node deployment guide
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 text-fuchsia-400"
                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -355,12 +365,6 @@
                                 </svg>
                             </div>
                         </a>
-                        <a href="/user_guide/cli"
-                            class="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-bold text-gray-900 transition-all duration-300 rounded-full bg-gray-100 border border-gray-200 hover:bg-gray-200 hover:-translate-y-0.5">
-                            CLI Documentation
-                            <span aria-hidden="true"
-                                class="transition-transform duration-200 group-hover:translate-x-1">→</span>
-                        </a>
                     </div>
                 </div>
             </div>
@@ -368,7 +372,7 @@
             <div class="flex items-center justify-center w-full">
                 <!-- Magic UI Style Terminal -->
                 <div
-                    class="w-full max-w-lg rounded-xl bg-white border border-gray-200 p-6 sm:p-8 shadow-2xl relative min-h-[380px] sm:min-h-[420px] flex flex-col">
+                    class="w-full max-w-lg rounded-xl bg-white border border-gray-200 p-6 sm:p-8 shadow-2xl relative min-h-[420px] sm:min-h-[460px] flex flex-col">
                     <!-- Glass reflection -->
                     <div
                         class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-black/5 to-transparent">
@@ -593,7 +597,7 @@
     <div class="mx-auto max-w-4xl gap-x-8 gap-y-20 px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:text-center">
             <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Contact</h2>
-            <p class="mt-6 text-lg leading-8 text-slate-800">
+            <p class="mt-6 text-base leading-7 text-slate-800">
                 Neurobagel is a collaborative effort based in the <a href="https://neurodatascience.github.io/"
                     class="text-indigo-600 hover:text-indigo-500">ORIGAMI Lab</a>.<br>
                 Learn more about our core team <a href="/contributing/team"
