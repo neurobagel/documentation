@@ -181,19 +181,20 @@
                     <style>
                         #carousel-nav-container::-webkit-scrollbar { display: none; }
                     </style>
-                    <button class="carousel-dot flex-shrink-0 whitespace-nowrap text-base font-bold text-slate-800 transition-all duration-300"
-                        aria-label="Go to slide 1" data-index="0">Make data discoverable</button>
+                    <button class="carousel-dot flex-shrink-0 whitespace-nowrap text-base font-bold transition-all duration-300"
+                        style="color: var(--md-primary-fg-color);" aria-label="Go to slide 1"
+                        data-index="0">Make data discoverable</button>
                     <button
-                        class="carousel-dot flex-shrink-0 whitespace-nowrap text-sm font-normal text-slate-500 hover:text-slate-700 translate-y-0.5 transition-all duration-300"
+                        class="carousel-dot flex-shrink-0 whitespace-nowrap text-base font-normal text-slate-500 hover:text-slate-700 translate-y-0.5 transition-all duration-300"
                         aria-label="Go to slide 2" data-index="1">Find subject data</button>
                     <button
-                        class="carousel-dot flex-shrink-0 whitespace-nowrap text-sm font-normal text-slate-500 hover:text-slate-700 translate-y-0.5 transition-all duration-300"
+                        class="carousel-dot flex-shrink-0 whitespace-nowrap text-base font-normal text-slate-500 hover:text-slate-700 translate-y-0.5 transition-all duration-300"
                         aria-label="Go to slide 3" data-index="2">Standardize data</button>
                     <button
-                        class="carousel-dot flex-shrink-0 whitespace-nowrap text-sm font-normal text-slate-500 hover:text-slate-700 translate-y-0.5 transition-all duration-300"
+                        class="carousel-dot flex-shrink-0 whitespace-nowrap text-base font-normal text-slate-500 hover:text-slate-700 translate-y-0.5 transition-all duration-300"
                         aria-label="Go to slide 4" data-index="3">Secure network</button>
                     <button
-                        class="carousel-dot flex-shrink-0 whitespace-nowrap text-sm font-normal text-slate-500 hover:text-slate-700 translate-y-0.5 transition-all duration-300"
+                        class="carousel-dot flex-shrink-0 whitespace-nowrap text-base font-normal text-slate-500 hover:text-slate-700 translate-y-0.5 transition-all duration-300"
                         aria-label="Go to slide 5" data-index="4">Catalog data</button>
                 </div>
 
@@ -230,11 +231,12 @@
             // Update dots (buttons)
             allDots.forEach((dot, i) => {
                 if (i === index) {
-                    dot.className = 'carousel-dot flex-shrink-0 whitespace-nowrap text-base font-bold text-slate-800 transition-all duration-300';
+                    dot.className = 'carousel-dot flex-shrink-0 whitespace-nowrap text-base font-bold transition-all duration-300';
+                    dot.style.color = 'var(--md-primary-fg-color)';
                 } else {
-                    dot.className = 'carousel-dot flex-shrink-0 whitespace-nowrap text-sm font-normal text-slate-500 hover:text-slate-700 translate-y-0.5 transition-all duration-300';
+                    dot.className = 'carousel-dot flex-shrink-0 whitespace-nowrap text-base font-normal text-slate-500 hover:text-slate-700 translate-y-0.5 transition-all duration-300';
+                    dot.style.color = '';
                 }
-                dot.style.color = '';
             });
 
             currentSlide = index;
