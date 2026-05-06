@@ -214,37 +214,12 @@
         let autoPlayInterval;
         const intervalTime = 5000; // 5 seconds
 
-        const navContainer = document.getElementById('carousel-nav-container');
-        const originalDots = Array.from(document.querySelectorAll('.carousel-dot'));
-        const totalSlides = originalDots.length;
+        const allDots = Array.from(document.querySelectorAll('.carousel-dot'));
 
-        // Clone dots to allow long continuous scrolling without "rewind" snapping
-        // 10 sets left, 10 right = 21 sets total (105 buttons). Plenty for standard usage.
-        const numSets = 10;
-        for (let j = 0; j < numSets; j++) {
-            originalDots.forEach((dot) => {
-                const clone = dot.cloneNode(true);
-                navContainer.insertBefore(clone, originalDots[0]);
-            });
-            originalDots.forEach((dot) => {
-                const clone = dot.cloneNode(true);
-                navContainer.appendChild(clone);
-            });
-        }
-
-        const allDots = document.querySelectorAll('.carousel-dot');
-        let absoluteDotIndex = numSets * totalSlides; // Start exactly in the middle set
-
-        function showAbsoluteSlide(absIndex, smooth = true) {
-            // Prevent going out of bounds
-            if (absIndex < 0 || absIndex >= allDots.length) return;
-
-            // Calculate actual slide index (0 to 4)
-            const slideIndex = ((absIndex % totalSlides) + totalSlides) % totalSlides;
-
+        function showSlide(index) {
             // Hide all slides
             slides.forEach((slide, i) => {
-                if (i === slideIndex) {
+                if (i === index) {
                     slide.classList.remove('opacity-0', 'pointer-events-none');
                     slide.classList.add('opacity-100');
                 } else {
@@ -253,47 +228,29 @@
                 }
             });
 
-            // Update all dots (buttons)
+            // Update dots (buttons)
             allDots.forEach((dot, i) => {
-                if (i === absIndex) {
+                if (i === index) {
                     dot.className = 'carousel-dot flex-shrink-0 whitespace-nowrap text-base font-medium transition-all duration-300';
                     dot.style.color = 'var(--md-primary-fg-color)';
-
-                    const targetScrollLeft = dot.offsetLeft - (navContainer.clientWidth / 2) + (dot.clientWidth / 2);
-                    if (smooth) {
-                        navContainer.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
-                    } else {
-                        // Precise mathematical center for initial load
-                        navContainer.scrollLeft = targetScrollLeft;
-                    }
                 } else {
                     dot.className = 'carousel-dot flex-shrink-0 whitespace-nowrap text-sm font-normal text-slate-500 hover:text-slate-700 translate-y-0.5 transition-all duration-300';
                     dot.style.color = '';
                 }
             });
 
-            currentSlide = slideIndex;
-            absoluteDotIndex = absIndex;
+            currentSlide = index;
         }
 
-        // Initialize perfectly on load
-        function centerInitialSlide() {
-            showAbsoluteSlide(absoluteDotIndex, false);
-        }
-
-        // Try it immediately, but also wait for full window load (including fonts)
-        // to ensure the scroll position is perfectly calculated by the browser.
-        requestAnimationFrame(centerInitialSlide);
-        window.addEventListener('load', () => {
-            setTimeout(centerInitialSlide, 50);
-        });
+        // Initialize first slide perfectly on load
+        showSlide(0);
 
         function nextSlide() {
-            showAbsoluteSlide(absoluteDotIndex + 1);
+            showSlide((currentSlide + 1) % slides.length);
         }
 
         function prevSlide() {
-            showAbsoluteSlide(absoluteDotIndex - 1);
+            showSlide((currentSlide - 1 + slides.length) % slides.length);
         }
 
         function startAutoPlay() {
@@ -305,10 +262,10 @@
             startAutoPlay();
         }
 
-        // Add click listeners to all cloned dots
+        // Add click listeners to dots
         allDots.forEach((dot, i) => {
             dot.addEventListener('click', () => {
-                showAbsoluteSlide(i);
+                showSlide(i);
                 resetAutoPlay();
             });
         });
