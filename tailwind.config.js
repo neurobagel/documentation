@@ -12,7 +12,7 @@ module.exports = {
         'fade-in': 'fadeIn 1s ease-out forwards',
         'spin-slow': 'spin 20s linear infinite',
         'aurora': 'aurora 4s ease-in-out infinite',
-        'marquee': 'marquee 30s linear infinite',
+        'marquee': 'marquee 50s linear infinite',
       },
       keyframes: {
         float: {
