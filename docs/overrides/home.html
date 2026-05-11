@@ -10,346 +10,422 @@
 {{ super() }}
 
 <!-- Header -->
-<!-- via-[#2CCCD3] -->
-<section class="bg-gradient-to-b from-[#7e56c2] to-transparent min-h-[calc(100vh-4.5rem)] xl:min-h-[calc(100vh-7rem)]">
-    <div class="relative items-center w-full px-5 py-24 mx-auto md:px-12 lg:px-16 max-w-5xl">
-        <div class="relative flex-col items-start m-auto align-middle">
-            <div class="px-55 grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-24">
-                <div class="relative items-center gap-12 m-auto lg:inline-flex md:order-first">
-                    <div class="max-w-xl text-center lg:text-left">
-                        <div>
-                            <p class="text-3xl font-bold tracking-tight text-slate-200 sm:text-3xl">
-                                An ecosystem for distributed dataset harmonization and search.<br>
-                            </p>
-                            <p class="max-w-xl mt-4 text-base tracking-tight text-slate-200">
-                                Neurobagel allows you to connect a local neuroimaging dataset with others in a decentralized framework
-                                using linked data principles.
-                            </p>
+<!-- Account for MkDocs sticky header height. xl breakpoint subtracts more (7rem) because the horizontal tabs bar appears on desktop. -->
+<section
+    class="relative z-0 bg-gradient-to-b from-[#7e56c2] to-transparent min-h-[calc(100vh-4.5rem)] xl:min-h-[calc(100vh-7rem)] overflow-hidden">
+
+    <div class="relative w-full px-5 pt-12 pb-24 mx-auto md:px-12 lg:px-16 max-w-5xl animate-fade-in-up">
+        <div class="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8 items-center">
+            <!-- Text Content -->
+            <div class="lg:col-span-8 max-w-3xl text-center lg:text-left mx-auto lg:mx-0">
+                <h1 class="text-4xl font-extrabold tracking-tighter text-white sm:text-4xl lg:text-5xl leading-[1.1]">
+                    Neurobagel
+                </h1>
+                <p class="mt-3 text-lg sm:text-xl font-semibold text-white/90 leading-[1.2]">
+                    An open ecosystem for decentralized dataset<br /> harmonization and search
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mt-10">
+                    <!-- Primary Button -->
+                    <a href="/user_guide/getting_started"
+                        class="group relative z-0 inline-flex rounded-full w-full sm:w-auto flex-shrink-0 overflow-hidden shadow-md transition-all duration-300 hover:-translate-y-1">
+                        <!-- Button surface -->
+                        <div
+                            class="relative flex items-center justify-center w-full gap-2 px-8 py-3.5 text-sm font-bold text-gray-950 transition-colors duration-300 bg-white rounded-full group-hover:bg-gray-50 z-10 whitespace-nowrap">
+                            Get started
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 text-fuchsia-600"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
                         </div>
-                        <div class="flex flex-col items-center justify-center gap-3 mt-10 lg:flex-row lg:justify-start">
-                            <a href="/user_guide/getting_started"
-                                class="items-center justify-center w-full px-6 py-2.5 text-center text-white duration-200 bg-gradient-to-bl from-fuchsia-600 to-orange-300 border-2 border-white  rounded-full inline-flex hover:bg-transparent hover:border-black hover:text-black text-sm lg:w-auto">
-                                Get started
-                            </a>
-                            <a href="https://2b0ac664.sibforms.com/serve/MUIFAGN41TZby6SgxI7eQyUevVgGPjMujrCwZu7plP3WOxGbvBxgP2rFCxF6dPKNe-l8IoczAYTKkSmXmDSR9_NOfAe1RIf1nbfqExLbji7XKd4bQcptpG7PHwHQU5Y1-PGw2EkqxX7nFuOh0tcbAMZ1Jbs2gh02J8-ya9bIjuLzfdfi0kdkESFrDw2rt7BWMEwJRQd9DfGzU016"
-                                class="items-center justify-center w-full px-6 py-2.5 text-center text-white duration-200 bg-gradient-to-tr from-fuchsia-600 to-orange-300 border-2 border-white rounded-full inline-flex hover:bg-transparent hover:border-black hover:text-black lg:w-auto text-sm">
-                                Stay updated
-                            </a>
-                        </div>
-                    </div>
+                    </a>
+                    <!-- Secondary Button -->
+                    <a href="https://2b0ac664.sibforms.com/serve/MUIFAGN41TZby6SgxI7eQyUevVgGPjMujrCwZu7plP3WOxGbvBxgP2rFCxF6dPKNe-l8IoczAYTKkSmXmDSR9_NOfAe1RIf1nbfqExLbji7XKd4bQcptpG7PHwHQU5Y1-PGw2EkqxX7nFuOh0tcbAMZ1Jbs2gh02J8-ya9bIjuLzfdfi0kdkESFrDw2rt7BWMEwJRQd9DfGzU016"
+                        class="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-bold text-gray-900 transition-all duration-300 rounded-full bg-white/40 border border-white/50 shadow-sm backdrop-blur-md hover:bg-gray-50 hover:border-gray-50 hover:-translate-y-1">
+                        Stay updated
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-4 h-4 text-gray-600 transition-colors duration-300 group-hover:text-gray-900"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                    </a>
                 </div>
-                <div class="relative px-20 items-center gap-12 m-auto lg:inline-flex md:order-first">
-                    <!-- TODO: replace with new logo when ready. -->
-                    <img src="../imgs/logo/neurobagel_logo.png" alt="Neurobagel logo"
-                            class="mx-auto w-[24rem] my-2 sm:w-[40rem]"Get started
-                            width="400" height="400">
-                </div>
+            </div>
+
+            <!-- Hero Image/Logo -->
+            <div class="lg:col-span-4 relative flex items-center justify-center lg:justify-end">
+                <img src="assets/img/logo.svg" alt="Neurobagel logo"
+                    class="relative w-48 sm:w-56 lg:w-64 drop-shadow-2xl" width="256" height="256">
             </div>
         </div>
     </div>
 </section>
+</section>
 
-<!-- Second Hero -->
-<div class="bg-whit py-5 sm:py-12">
-    <div class="mx-auto my-16 max-w-7xl px-6 lg:px-8">
-        <div class="mx-auto max-w-2xl lg:text-center">
-            <p class="mt-2 text-3xl font-bold tracking-tight text-slate-1000 sm:text-3xl">
-                Federated data integration, local control
-            </p>
-            <p class="mt-6 text-lg leading-8 text-slate-800">
-                Our aim is to allow researchers and data owners to harmonize and integrate their datasets <i>without uploading them to a central database</i>.
-                Neurobagel provides reusable data schemas and intuitive tools for local data annotation,
-                enabling <i>participant-level cohort search across harmonized datasets</i>.
+<!-- Use Cases Carousel -->
+<section class="py-8 bg-white overflow-hidden">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 relative">
+
+
+        <div class="relative mt-8">
+            <!-- Slides Container -->
+            <div id="carousel-slides" class="grid w-full">
+                <!-- Slide 1 -->
+                <div
+                    class="carousel-slide col-start-1 row-start-1 opacity-100 transition-opacity duration-700 flex flex-col lg:flex-row items-center gap-8">
+                    <div class="w-full lg:w-1/2">
+                        <h3 class="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl mb-4">
+                            Local control, global discovery
+                        </h3>
+                        <p class="text-slate-600 text-base leading-7">
+                            Share your datasets without uploading them to a central location.
+                            Your raw data stays local and secure,
+                            and you control exactly what information researchers can discover about your data.
+                        </p>
+                    </div>
+                    <div class="w-full lg:w-1/2 flex justify-center">
+                        <img src="assets/img/use_case_make_data_discoverable.jpg" alt="Use Case 1"
+                            class="w-full h-auto object-contain">
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div
+                    class="carousel-slide col-start-1 row-start-1 opacity-0 pointer-events-none transition-opacity duration-700 flex flex-col lg:flex-row items-center gap-8">
+                    <div class="w-full lg:w-1/2">
+                        <h3 class="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl mb-4">
+                            Find participant data for your next study
+                        </h3>
+                        <p class="text-slate-600 text-base leading-7">
+                            Run federated searches across globally distributed datasets to discover participants
+                            matching your cohort inclusion criteria.
+                            Then learn how to access the data no matter where it lives, all in one place.
+                        </p>
+                    </div>
+                    <div class="w-full lg:w-1/2 flex justify-center">
+                        <img src="assets/img/use_case_find_subject_level_data.jpg" alt="Use Case 2"
+                            class="w-full h-auto object-contain">
+                    </div>
+                </div>
+                <!-- Slide 3 -->
+                <div
+                    class="carousel-slide col-start-1 row-start-1 opacity-0 pointer-events-none transition-opacity duration-700 flex flex-col lg:flex-row items-center gap-8">
+                    <div class="w-full lg:w-1/2">
+                        <h3 class="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl mb-4">
+                            Make datasets interoperable through shared vocabularies
+                        </h3>
+                        <p class="text-slate-600 text-base leading-7">
+                            Make your data ready for sharing by standardizing metadata and variable names with FAIR
+                            vocabularies and community standards through an intuitive graphical interface.
+                        </p>
+                    </div>
+                    <div class="w-full lg:w-1/2 flex justify-center">
+                        <img src="assets/img/use_case_standards.svg" alt="Use Case 3"
+                            class="w-full h-auto object-contain">
+                    </div>
+                </div>
+                <!-- Slide 4 -->
+                <div
+                    class="carousel-slide col-start-1 row-start-1 opacity-0 pointer-events-none transition-opacity duration-700 flex flex-col lg:flex-row items-center gap-8">
+                    <div class="w-full lg:w-1/2">
+                        <h3 class="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl mb-4">
+                            Connect to a global data network
+                        </h3>
+                        <p class="text-slate-600 text-base leading-7">
+                            Connect your datasets to a growing international community of data providers using
+                            Neurobagel,
+                            and make your data more visible to researchers worldwide.
+                        </p>
+                    </div>
+                    <div class="w-full lg:w-1/2 flex justify-center">
+                        <img src="assets/img/use_case_global_network.svg" alt="Use Case 4"
+                            class="w-full h-auto object-contain">
+                    </div>
+                </div>
+                <!-- Slide 5 -->
+                <div
+                    class="carousel-slide col-start-1 row-start-1 opacity-0 pointer-events-none transition-opacity duration-700 flex flex-col lg:flex-row items-center gap-8">
+                    <div class="w-full lg:w-1/2">
+                        <h3 class="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl mb-4">
+                            Create a secure data catalog across sites
+                        </h3>
+                        <p class="text-slate-600 text-base leading-7">
+                            Quickly learn about and explore data availability across sites in your consortium,
+                            even before full data transfer is possible.
+                        </p>
+                    </div>
+                    <div class="w-full lg:w-1/2 flex justify-center">
+                        <img src="assets/img/use_case_catalog_data.svg" alt="Use Case 5"
+                            class="w-full h-auto object-contain">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text Navigation Carousel -->
+            <div class="relative flex items-center justify-center mt-10 w-full max-w-4xl mx-auto">
+                <!-- Nav Items Container -->
+                <div class="relative flex items-center gap-4 sm:gap-6 overflow-x-auto no-scrollbar mx-2 w-full justify-between"
+                    id="carousel-nav-container" style="scrollbar-width: none; -ms-overflow-style: none;">
+                    <style>
+                        #carousel-nav-container::-webkit-scrollbar {
+                            display: none;
+                        }
+                    </style>
+                    <button
+                        class="carousel-tab flex-shrink-0 whitespace-nowrap text-base font-bold transition-all duration-300"
+                        style="color: var(--md-primary-fg-color);" aria-label="Go to slide 1" data-index="0">Make data
+                        discoverable</button>
+                    <button
+                        class="carousel-tab flex-shrink-0 whitespace-nowrap text-base font-normal text-slate-500 hover:text-slate-700 translate-y-0.5 transition-all duration-300"
+                        aria-label="Go to slide 2" data-index="1">Find participant data</button>
+                    <button
+                        class="carousel-tab flex-shrink-0 whitespace-nowrap text-base font-normal text-slate-500 hover:text-slate-700 translate-y-0.5 transition-all duration-300"
+                        aria-label="Go to slide 3" data-index="2">Standardize data</button>
+                    <button
+                        class="carousel-tab flex-shrink-0 whitespace-nowrap text-base font-normal text-slate-500 hover:text-slate-700 translate-y-0.5 transition-all duration-300"
+                        aria-label="Go to slide 4" data-index="3">Global network</button>
+                    <button
+                        class="carousel-tab flex-shrink-0 whitespace-nowrap text-base font-normal text-slate-500 hover:text-slate-700 translate-y-0.5 transition-all duration-300"
+                        aria-label="Go to slide 5" data-index="4">Catalog data</button>
+                </div>
+            </div>
         </div>
-        <div class="mx-auto mt-8 max-w-2xl lg:text-center">
-            <img src="assets/img/Neurobagel_Landscape.svg" alt="Product screenshot"
-                class="mx-auto w-[48rem] my-2 rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem]"
-                width="1000" height="1000">
-        </div>
+</section>
 
+<!-- Section C: The Tools Highlight -->
 
-        <div class="mx-auto mt-4 max-w-2xl sm:mt-8 lg:mt-16 lg:max-w-4xl">
-            <dl class="grid  max-w-xl grid-cols-1 gap-x-8 gap-y-4 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
-                <div class="relative pl-16">
-                    <dt class="text-base font-semibold leading-7 text-slate-1000">
-                        <div
-                            class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-white w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-                              </svg>
-                        </div>
-                        Your data, your rules
-                    </dt>
-                    <dd class="mt-2 text-base leading-7 text-slate-800">
-                        Dataset files and access control always remain locally with data owners. This avoids
-                        the usual vendor lock-in of centralized databases.
-                    </dd>
-                </div>
-                <div class="relative pl-16">
-                    <dt class="text-base font-semibold leading-7 text-slate-1000">
-                        <div
-                            class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
-                              </svg>
-
-                        </div>
-                        Open standards for data description
-                    </dt>
-                    <dd class="mt-2 text-base leading-7 text-slate-800">
-                        Subject data are annotated using widely adopted
-                        controlled vocabularies and are represented using semantic
-                        web standards. This allows data to be easily integrated
-                        with other resources.
-                    </dd>
-                </div>
-                <div class="relative pl-16">
-                    <dt class="text-base font-semibold leading-7 text-slate-1000">
-                        <div
-                            class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
-                              </svg>
-
-                        </div>
-                        Ease of use
-                    </dt>
-                    <dd class="mt-2 text-base leading-7 text-slate-800">Web interfaces as well as a modular, containerized software stack allow datasets to be annotated
-                        and queried with as little as no coding experience while remaining highly configurable.
-                        </dd>
-                </div>
-                <!--  bg-slate-100/30 rounded-lg ring-white ring-2 -->
-                <div class="relative pl-16">
-                    <dt class="text-base font-semibold leading-7 text-slate-1000">
-                        <div
-                            class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                              </svg>
-
-                        </div>
-                        Participant-level search
-                    </dt>
-                    <dd class="mt-2 text-base leading-7 text-slate-800">Annotated data supports queries of
-                        phenotypic and imaging properties at the individual subject rather than the dataset level.</dd>
-                </div>
-            </dl>
-        </div>
-    </div>
-</div>
-
-<!-- Features! -->
-
-<!-- 1: Annotator Feature image right -->
-<div class="bg-white">
-    <div class="mx-auto max-w-7xl py-8 sm:px-6 sm:py-12 lg:px-8">
+<!-- 1. The Annotation Tool (Image Right) -->
+<div class="bg-slate-50 py-12 sm:py-16 border-t border-gray-200">
+    <div class="mx-auto max-w-4xl px-6 lg:px-8">
         <div
-            class="relative isolate overflow-hidden bg-gray-900 px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
-            <svg viewBox="0 0 1024 1024"
-                class="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:left-full sm:-ml-80 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 lg:translate-y-0"
-                aria-hidden="true">
-                <circle cx="512" cy="512" r="512" fill="url(#759c1415-0410-454c-8f7c-9a820de03641)"
-                    fill-opacity="0.7" />
-                <defs>
-                    <radialGradient id="759c1415-0410-454c-8f7c-9a820de03641">
-                        <stop stop-color="#7775D6" />
-                        <stop offset="1" stop-color="#E935C1" />
-                    </radialGradient>
-                </defs>
-            </svg>
+            class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:gap-x-28 lg:items-center">
+            <div>
+                <div class="lg:max-w-lg">
 
-            <div class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
-                <h2 class="text-3xl font-bold tracking-tight text-white sm:text-3xl">Annotate your tabular data</h2>
-                <p class="mt-6 text-lg leading-8 text-gray-300">
-                    Describe phenotypic data using a harmonized data model completely in the browser.
-                </p>
-                <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-                    <a href="https://annotate.neurobagel.org"
-                        class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Try it out
+                    <h2 class="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">
+                        Need to create a data dictionary for messy tabular data?
+                    </h2>
+                    <p class="mt-6 text-base leading-7 text-slate-600">
+                        Describe variables and values in your data tables using a harmonized data model,
+                        completely locally and in the browser.
+                    </p>
+                    <div class="flex flex-col sm:flex-row flex-wrap items-center justify-start gap-2 mt-10">
+                        <!-- Primary Button -->
+                        <a href="https://annotate.neurobagel.org"
+                            class="group relative z-0 inline-flex rounded-full w-full sm:w-auto flex-shrink-0 overflow-hidden shadow-md transition-all duration-300 hover:-translate-y-1">
+                            <!-- Button surface -->
+                            <div
+                                class="relative flex items-center justify-center w-full gap-2 px-4 py-3.5 text-sm font-bold text-gray-900 transition-colors duration-300 bg-gray-200 rounded-full group-hover:bg-gray-300 z-10 whitespace-nowrap">
+                                Annotation tool
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 text-fuchsia-400"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                        d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </div>
                         </a>
-                    <a href="/user_guide/annotation_tool/" class="text-sm font-semibold leading-6 text-white">Learn more <span
-                            aria-hidden="true">→</span></a>
+                        <!-- Secondary Button -->
+                        <a href="/user_guide/annotation_tool/"
+                            class="group w-full sm:w-auto flex-shrink-0 inline-flex items-center justify-center gap-2 px-4 py-3.5 text-sm font-bold text-gray-900 transition-all duration-300 rounded-full bg-gray-100 border border-gray-200 hover:bg-gray-300 hover:border-gray-300 hover:shadow-md hover:-translate-y-1 whitespace-nowrap">
+                            Annotation guide
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 text-gray-400 group-hover:text-fuchsia-400"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
-
-            <div class="relative mt-16 h-80 lg:mt-8">
-                <img class="absolute left-0 top-0 w-[57rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10"
-                    src="assets/img/feature_annotate.png" alt="App screenshot" width="1824" height="1080">
+            <div class="flex items-center justify-end">
+                <video autoplay loop muted playsinline
+                    class="w-full h-auto max-h-[36rem] shadow-xl ring-1 ring-gray-400/10 object-cover object-left-top">
+                    <source src="assets/vid/annotation-tool.mp4" type="video/mp4">
+                    <img src="assets/img/annotation_tool.png" alt="Annotation tool fallback image"
+                        class="w-full h-auto max-h-[36rem] shadow-xl ring-1 ring-gray-400/10 object-cover object-left-top">
+                </video>
             </div>
-
         </div>
     </div>
 </div>
 
-<!-- 2: Standards Feature image left-->
-<div class="bg-white">
-    <div class="mx-auto max-w-7xl py-8 sm:px-6 sm:py-12 lg:px-8">
+<!-- 2. The Query Tool (Image Left) -->
+<div class="bg-white py-12 sm:py-16 border-t border-gray-100">
+    <div class="mx-auto max-w-4xl px-6 lg:px-8">
         <div
-            class="relative isolate overflow-hidden bg-slate-900 px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:flex-row-reverse lg:gap-x-20 lg:px-24 lg:pt-0">
-            <svg viewBox="0 0 1024 1024"
-                class="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:left-full sm:-ml-80 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 lg:translate-y-0"
-                aria-hidden="true">
-                <circle cx="512" cy="512" r="512" fill="url(#759c1415-0410-454c-8f7c-9a820de03641)"
-                    fill-opacity="0.7" />
-                <defs>
-                    <radialGradient id="759c1415-0410-454c-8f7c-9a820de03641">
-                        <stop stop-color="#7775D6" />
-                        <stop offset="1" stop-color="#E935C1" />
-                    </radialGradient>
-                </defs>
-            </svg>
-
-            <div class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
-                <h2 class="text-3xl font-bold tracking-tight text-white sm:text-3xl">
-                    Work with standardized terminologies
-                </h2>
-                <p class="mt-6 text-lg leading-8 text-gray-300">Reap the benefits of curated vocabularies (e.g., BIDS, SNOMED CT, and NIDM) and linked data, without the implementation expertise.</p>
-                <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-                    <a href="/data_models/dictionaries/" class="text-sm font-semibold leading-6 text-white">Learn more <span
-                            aria-hidden="true">→</span></a>
-                </div>
+            class="mx-auto grid max-w-2xl grid-cols-1 gap-x-16 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-center">
+            <!-- Order-last on mobile means the text comes first, then the image. Order-first on lg means image is on the left. -->
+            <div class="flex items-center justify-start lg:order-first order-last">
+                <video autoplay loop muted playsinline
+                    class="w-full h-auto max-h-[36rem] shadow-xl ring-1 ring-gray-400/10 object-cover object-left-top">
+                    <source src="assets/vid/query-tool.mp4" type="video/mp4">
+                    <img src="assets/img/query_tool.png" alt="Query tool fallback image"
+                        class="w-full h-auto max-h-[36rem] shadow-xl ring-1 ring-gray-400/10 object-cover object-left-top">
+                </video>
             </div>
+            <div class="lg:pl-8">
+                <div class="lg:max-w-lg mx-auto lg:mx-0">
 
-            <div class="relative mt-16 h-80 lg:mt-8">
-                <div class="absolute right-0 top-0 w-[57rem] max-w-none">
-                    <img class="w-full h-full object-cover rounded-md bg-white/5 ring-1 ring-white/10"
-                        src="assets/img/standards_figure.png" alt="App screenshot" width="1824" height="1080">
+                    <h2 class="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">
+                        Looking for data for your study?
+                    </h2>
+                    <p class="mt-6 text-base leading-7 text-slate-600">
+                        Run a federated query to create your own cross-dataset participant cohort based on
+                        clinical-demographic and imaging parameters.
+                    </p>
+                    <div class="flex flex-col sm:flex-row flex-wrap items-center justify-start gap-2 mt-10">
+                        <a href="https://query.neurobagel.org"
+                            class="group relative z-0 inline-flex rounded-full w-full sm:w-auto flex-shrink-0 overflow-hidden shadow-md transition-all duration-300 hover:-translate-y-1">
+                            <div
+                                class="relative flex items-center justify-center w-full gap-2 px-4 py-3.5 text-sm font-bold text-gray-900 transition-colors duration-300 bg-gray-200 rounded-full group-hover:bg-gray-300 z-10 whitespace-nowrap">
+                                Public query tool
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 text-fuchsia-400"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                        d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </div>
+                        </a>
+                        <a href="/user_guide/query_tool/"
+                            class="group w-full sm:w-auto flex-shrink-0 inline-flex items-center justify-center gap-2 px-4 py-3.5 text-sm font-bold text-gray-900 transition-all duration-300 rounded-full bg-gray-100 border border-gray-200 hover:bg-gray-300 hover:border-gray-300 hover:shadow-md hover:-translate-y-1 whitespace-nowrap">
+                            Query tool guide
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 text-gray-400 group-hover:text-fuchsia-400"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- 3: CLI Feature image right -->
-<div class="bg-white">
-    <div class="mx-auto max-w-7xl py-8 sm:px-6 sm:py-12 lg:px-8">
+<!-- 3. Node Deployment (For Admins) -->
+<div class="bg-slate-50 overflow-hidden py-12 sm:py-16 relative isolate border-t border-gray-200">
+    <div class="mx-auto max-w-4xl px-6 lg:px-8">
         <div
-            class="relative isolate overflow-hidden bg-gray-900 px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
-            <svg viewBox="0 0 1024 1024"
-                class="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:left-full sm:-ml-80 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 lg:translate-y-0"
-                aria-hidden="true">
-                <circle cx="512" cy="512" r="512" fill="url(#759c1415-0410-454c-8f7c-9a820de03641)"
-                    fill-opacity="0.7" />
-                <defs>
-                    <radialGradient id="759c1415-0410-454c-8f7c-9a820de03641">
-                        <stop stop-color="#7775D6" />
-                        <stop offset="1" stop-color="#E935C1" />
-                    </radialGradient>
-                </defs>
-            </svg>
+            class="mx-auto grid max-w-2xl grid-cols-1 gap-x-16 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-center">
+            <div class="lg:pr-8">
+                <div class="lg:max-w-lg">
 
-            <div class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
-                <h2 class="text-3xl font-bold tracking-tight text-white sm:text-3xl">Create reproducible, shareable data representations</h2>
-                <p class="mt-6 text-lg leading-8 text-gray-300">
-                    Once a dataset is annotated, harmonized subject data can be updated and regenerated at any time.
-                    These subject-level annotations are added to knowledge graphs,
-                    while your local data files remain the only source of truth about the dataset.
-                </p>
-                <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-                    <a href="/user_guide/cli" class="text-sm font-semibold leading-6 text-white">Learn more <span
-                            aria-hidden="true">→</span></a>
+                    <h2 class="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">
+                        Host your own Neurobagel node!
+                    </h2>
+                    <p class="mt-6 text-base leading-7 text-slate-600">
+                        Deploy a Neurobagel node at your institute to make your local datasets discoverable.
+                        With our ready-to-run production deployment recipes,
+                        simply run <code
+                            class="rounded-md bg-gray-200 px-2 py-1 font-mono text-sm font-semibold text-gray-900">docker compose up</code>,
+                        and you're in business.
+                    </p>
+                    <div class="flex flex-col sm:flex-row flex-wrap items-center justify-start gap-4 mt-10">
+                        <a href="/user_guide/getting_started"
+                            class="group w-full sm:w-auto flex-shrink-0 inline-flex items-center justify-center gap-2 px-4 py-3.5 text-sm font-bold text-gray-900 transition-all duration-300 rounded-full bg-gray-100 border border-gray-200 hover:bg-gray-300 hover:border-gray-300 hover:shadow-md hover:-translate-y-1 whitespace-nowrap">
+                            Node deployment guide
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 text-gray-400 group-hover:text-fuchsia-400"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
 
-            <div class="relative mt-16 h-80 lg:mt-8">
-                <img class="absolute left-0 top-0 w-[57rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10"
-                    src="assets/img/cli_temp.jpg" alt="App screenshot" width="1824" height="1080">
-            </div>
+            <div class="flex items-center justify-center w-full">
+                <!-- Magic UI Style Terminal -->
+                <div
+                    class="w-full max-w-lg rounded-xl bg-white border border-gray-200 p-6 sm:p-8 shadow-2xl relative min-h-[420px] sm:min-h-[460px] flex flex-col">
+                    <!-- Glass reflection -->
+                    <div
+                        class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-black/5 to-transparent">
+                    </div>
 
-        </div>
-    </div>
-</div>
+                    <!-- Terminal Header -->
+                    <div class="flex items-center gap-2 mb-4 border-b border-gray-100 pb-4">
+                        <div class="rounded-full bg-red-500"
+                            style="background-color: #ff5f56; width: 12px; height: 12px; border-radius: 50%;"></div>
+                        <div class="rounded-full bg-yellow-500"
+                            style="background-color: #ffbd2e; width: 12px; height: 12px; border-radius: 50%;"></div>
+                        <div class="rounded-full bg-green-500"
+                            style="background-color: #27c93f; width: 12px; height: 12px; border-radius: 50%;"></div>
+                        <div class="ml-4 flex-1 flex text-sm text-slate-500 font-mono font-medium">bash</div>
+                    </div>
 
-<!-- 4: Graph Feature image left-->
-<div class="bg-white">
-    <div class="mx-auto max-w-7xl py-8 sm:px-6 sm:py-12 lg:px-8">
-        <div
-            class="relative isolate overflow-hidden bg-slate-900 px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:flex-row-reverse lg:gap-x-20 lg:px-24 lg:pt-0">
-            <svg viewBox="0 0 1024 1024"
-                class="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:left-full sm:-ml-80 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 lg:translate-y-0"
-                aria-hidden="true">
-                <circle cx="512" cy="512" r="512" fill="url(#759c1415-0410-454c-8f7c-9a820de03641)"
-                    fill-opacity="0.7" />
-                <defs>
-                    <radialGradient id="759c1415-0410-454c-8f7c-9a820de03641">
-                        <stop stop-color="#7775D6" />
-                        <stop offset="1" stop-color="#E935C1" />
-                    </radialGradient>
-                </defs>
-            </svg>
-
-            <div class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
-                <h2 class="text-3xl font-bold tracking-tight text-white sm:text-3xl">
-                    Easy local deployments
-                </h2>
-                <p class="mt-6 text-lg leading-8 text-gray-300">
-                    Want to host a local knowledge graph store at your institute? docker compose up, and you're in business.
-                </p>
-                <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-                    <a href="/user_guide/getting_started" class="text-sm font-semibold leading-6 text-white">Learn more <span
-                            aria-hidden="true">→</span></a>
+                    <!-- Terminal Content -->
+                    <div id="term-lines" class="flex flex-col gap-2 font-mono text-[13px] sm:text-sm">
+                        <!-- Injected via JS -->
+                    </div>
                 </div>
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                        const lines = [
+                            { type: 'type', prefix: '<span class="text-fuchsia-600 font-bold">$&nbsp;&nbsp;</span>', text: 'git clone https://github.com/neurobagel/recipes', delay: 500, color: 'text-slate-800' },
+                            { type: 'static', content: 'Cloning into \'recipes\'...', delay: 1800, color: 'text-slate-500' },
+                            { type: 'type', prefix: '<span class="text-fuchsia-600 font-bold">$&nbsp;&nbsp;</span>', text: 'cd recipes', delay: 2400, color: 'text-slate-800' },
+                            { type: 'type', prefix: '<span class="text-fuchsia-600 font-bold">$&nbsp;&nbsp;</span>', text: 'docker compose up -d', delay: 3100, color: 'text-slate-800' },
+                            { type: 'static', content: '<span class="text-emerald-600 font-bold">✔&nbsp;&nbsp;</span>Network recipes_default&nbsp;&nbsp;<span class="text-slate-400">Created</span>', delay: 4200, color: 'text-slate-800' },
+                            { type: 'static', content: '<span class="text-emerald-600 font-bold">✔&nbsp;&nbsp;</span>Container neurobagel-api&nbsp;&nbsp;<span class="text-slate-400">Started</span>', delay: 4400, color: 'text-slate-800' },
+                            { type: 'static', content: '<span class="text-emerald-600 font-bold">✔&nbsp;&nbsp;</span>Container neurobagel-db&nbsp;&nbsp;<span class="text-slate-400">Started</span>', delay: 4600, color: 'text-slate-800' },
+                        ];
+
+                        const container = document.getElementById('term-lines');
+                        let hasRun = false;
+
+                        function playAnimation() {
+                            container.innerHTML = ''; // Clear existing lines
+
+                            lines.forEach(line => {
+                                setTimeout(() => {
+                                    const el = document.createElement('div');
+                                    el.className = `${line.color || ''} min-h-[24px] flex items-center whitespace-pre-wrap`;
+                                    container.appendChild(el);
+
+                                    if (line.type === 'type') {
+                                        el.innerHTML = line.prefix;
+                                        const textNode = document.createTextNode('');
+                                        el.appendChild(textNode);
+                                        let i = 0;
+                                        const interval = setInterval(() => {
+                                            textNode.nodeValue = line.text.substring(0, i + 1);
+                                            i++;
+                                            if (i >= line.text.length) clearInterval(interval);
+                                        }, 20);
+                                    } else {
+                                        el.innerHTML = line.content;
+                                        el.classList.add('animate-fade-in');
+                                    }
+                                }, line.delay);
+                            });
+
+                            // Calculate delay for next loop (Wait 4 seconds after last line starts)
+                            const lastLineDelay = lines[lines.length - 1].delay;
+                            const loopWait = lastLineDelay + 4000;
+                            setTimeout(playAnimation, loopWait);
+                        }
+
+                        const observer = new IntersectionObserver((entries) => {
+                            if (entries[0].isIntersecting && !hasRun) {
+                                hasRun = true;
+                                playAnimation();
+                            }
+                        }, { threshold: 0.5 });
+
+                        if (container) observer.observe(container);
+                    });
+                </script>
             </div>
-
-            <div class="relative mt-16 h-80 lg:mt-8">
-                <div class="absolute right-0 top-0 w-[57rem] max-w-none">
-                    <img class="w-full h-full object-cover rounded-md bg-white/5 ring-1 ring-white/10"
-                        src="assets/img/deploy_temp.png" alt="App screenshot" width="1824" height="1080">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- 5: Query Feature image right -->
-<div class="bg-white">
-    <div class="mx-auto max-w-7xl py-8 sm:px-6 sm:py-12 lg:px-8">
-        <div
-            class="relative isolate overflow-hidden bg-gray-900 px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
-            <svg viewBox="0 0 1024 1024"
-                class="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:left-full sm:-ml-80 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 lg:translate-y-0"
-                aria-hidden="true">
-                <circle cx="512" cy="512" r="512" fill="url(#759c1415-0410-454c-8f7c-9a820de03641)"
-                    fill-opacity="0.7" />
-                <defs>
-                    <radialGradient id="759c1415-0410-454c-8f7c-9a820de03641">
-                        <stop stop-color="#7775D6" />
-                        <stop offset="1" stop-color="#E935C1" />
-                    </radialGradient>
-                </defs>
-            </svg>
-
-            <div class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
-                <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Search for subjects across datasets</h2>
-                <p class="mt-6 text-lg leading-8 text-gray-300">Easily define your own cross-dataset cohorts based on
-                    clinical-demographic and imaging parameters.
-                </p>
-                <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-                    <a href="https://query.neurobagel.org"
-                        class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Try it out</a>
-                    <a href="/user_guide/query_tool/" class="text-sm font-semibold leading-6 text-white">Learn more <span
-                            aria-hidden="true">→</span></a>
-                </div>
-            </div>
-
-            <div class="relative mt-16 h-80 lg:mt-8">
-                <img class="absolute left-0 top-0 w-[57rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10"
-                    src="assets/img/query_tool.jpg" alt="App screenshot" width="1824" height="1080">
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<!-- Team -->
-<div class="bg-whit py-5 sm:py-12">
-    <div class="mx-auto max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8">
-        <div class="mx-auto max-w-2xl lg:text-center">
-            <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-3xl">Our team</p>
-            <p class="mt-6 text-lg leading-8 text-slate-800">
-                Neurobagel is a collaborative effort based in the ORIGAMI Lab at the Montreal Neurological Institute in collaboration with the Douglas Research Centre.
-                Visit <a href="/contributing/team" class="text-indigo-600">this page</a> to learn more about the project team.
-            </p>
         </div>
     </div>
 </div>
@@ -357,35 +433,134 @@
 
 <!-- Icons: https://heroicons.com/ -->
 
+<!-- Why Choose Neurobagel -->
+<div class="bg-white py-12 sm:py-16 border-t border-gray-100">
+    <div class="mx-auto max-w-4xl px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl text-center">
+            <h2 class="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">Why choose Neurobagel?</h2>
+        </div>
+        <div class="mx-auto mt-12 max-w-2xl sm:mt-16 lg:mt-20 lg:max-w-none">
+            <dl class="grid max-w-xl grid-cols-1 gap-x-6 gap-y-4 sm:max-w-none sm:grid-cols-2 md:grid-cols-3">
+                <!-- Card 1 -->
+                <div
+                    class="flex flex-row items-center bg-white rounded-lg shadow-sm border border-gray-100 border-l-4 border-l-blue-500 px-4 py-3 transition-all hover:shadow-md hover:-translate-y-0.5">
+                    <svg class="h-6 w-6 text-blue-500 flex-shrink-0 mr-3" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+                    </svg>
+                    <h3 class="text-sm font-medium text-gray-800 leading-snug">Share data without moving it</h3>
+                </div>
+                <!-- Card 2 -->
+                <div
+                    class="flex flex-row items-center bg-white rounded-lg shadow-sm border border-gray-100 border-l-4 border-l-emerald-500 px-4 py-3 transition-all hover:shadow-md hover:-translate-y-0.5">
+                    <svg class="h-6 w-6 text-emerald-500 flex-shrink-0 mr-3" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                    </svg>
+                    <h3 class="text-sm font-medium text-gray-800 leading-snug">Set your own data access/visibility rules
+                    </h3>
+                </div>
+                <!-- Card 3 -->
+                <div
+                    class="flex flex-row items-center bg-white rounded-lg shadow-sm border border-gray-100 border-l-4 border-l-amber-500 px-4 py-3 transition-all hover:shadow-md hover:-translate-y-0.5">
+                    <svg class="h-6 w-6 text-amber-500 flex-shrink-0 mr-3" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zm-7.518-.267A8.25 8.25 0 1120.25 10.5M8.288 14.212A5.25 5.25 0 1117.25 10.5" />
+                    </svg>
+                    <h3 class="text-sm font-medium text-gray-800 leading-snug">Minimal setup, intuitive tools</h3>
+                </div>
+                <!-- Card 4 -->
+                <div
+                    class="flex flex-row items-center bg-white rounded-lg shadow-sm border border-gray-100 border-l-4 border-l-rose-500 px-4 py-3 transition-all hover:shadow-md hover:-translate-y-0.5">
+                    <svg class="h-6 w-6 text-rose-500 flex-shrink-0 mr-3" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                    </svg>
+                    <h3 class="text-sm font-medium text-gray-800 leading-snug">Hands-on support</h3>
+                </div>
+                <!-- Card 5 -->
+                <div
+                    class="flex flex-row items-center bg-white rounded-lg shadow-sm border border-gray-100 border-l-4 border-l-purple-500 px-4 py-3 transition-all hover:shadow-md hover:-translate-y-0.5">
+                    <svg class="h-6 w-6 text-purple-500 flex-shrink-0 mr-3" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
+                    </svg>
+                    <h3 class="text-sm font-medium text-gray-800 leading-snug">Built by and for researchers</h3>
+                </div>
+                <!-- Card 6 -->
+                <div
+                    class="flex flex-row items-center bg-white rounded-lg shadow-sm border border-gray-100 border-l-4 border-l-cyan-500 px-4 py-3 transition-all hover:shadow-md hover:-translate-y-0.5">
+                    <svg class="h-6 w-6 text-cyan-500 flex-shrink-0 mr-3" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
+                    </svg>
+                    <h3 class="text-sm font-medium text-gray-800 leading-snug">Interoperable through open standards</h3>
+                </div>
+            </dl>
+        </div>
+    </div>
+</div>
+
 <!-- Funders -->
 <!-- TODO: add links to their sites -->
-<div class="bg-white py-8 sm:py-12">
-    <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <h2 class="text-center text-lg font-semibold leading-8 text-gray-900">The development of Neurobagel is supported
-            by</h2>
-        <div
-            class="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
-            <img draggable="false" col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="assets/img/conp.png"
-                alt="Transistor" width="158" height="48">
-            <img draggable="false" col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                src="assets/img/hbhl_logo_en_pantone.png" alt="Reform" width="158" height="48">
-            <img draggable="false" col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                src="assets/img/Logo-Quebec-Parkinson-Network-scaled-e1628013005302.jpg" alt="Tuple" width="158"
-                height="48">
-            <img draggable="false" col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
-                src="assets/img/logo_douglas_2945_G.png" alt="SavvyCal" width="158" height="48">
-            <img draggable="false" col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
-                src="assets/img/logobraincanadabil.png" alt="Statamic" width="158" height="48">
-            <img draggable="false" col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
-                src="assets/img/McGill sig_red_rgb.png" alt="Statamic" width="158" height="48">
-            <img draggable="false" col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
-                src="assets/img/neuro_logo_horiz_rgb_eng.png" alt="Statamic" width="158" height="48">
-            <img draggable="false" col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
-                src="assets/img/neurohub.png" alt="Statamic" width="158" height="48">
-            <img draggable="false" col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
-                src="assets/img/repronim-logo-web.png" alt="Statamic" width="158" height="48">
-            <img draggable="false" col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
-                src="assets/img/The_Michael_J._Fox_Foundation_logo.svg.png" alt="Statamic" width="158" height="48">
+<div class="bg-white py-8 sm:py-12 border-t border-gray-200">
+    <div class="mx-auto max-w-4xl px-6 lg:px-8">
+        <h2 class="text-center text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">Adoption</h2>
+        <div id="marquee-container"
+            class="mt-14 flex overflow-hidden group [-webkit-mask-image:linear-gradient(to_right,transparent,black_128px,black_calc(100%-128px),transparent)] [mask-image:linear-gradient(to_right,transparent,black_128px,black_calc(100%-128px),transparent)] gap-10">
+            <!-- List of logos -->
+            <div id="marquee-content"
+                class="flex w-max min-w-full shrink-0 animate-marquee items-center justify-around gap-10 group-hover:[animation-play-state:paused]">
+                <img draggable="false" class="max-h-12 w-auto shrink-0 max-w-none object-contain"
+                    src="assets/img/adoption/anc.png" alt="ANC">
+                <img draggable="false" class="max-h-12 w-auto shrink-0 max-w-none object-contain"
+                    src="assets/img/adoption/asmq.png" alt="ASMQ">
+                <img draggable="false" class="max-h-12 w-auto shrink-0 max-w-none object-contain"
+                    src="assets/img/adoption/brainlife.svg" alt="Brainlife">
+                <img draggable="false" class="max-h-12 w-auto shrink-0 max-w-none object-contain"
+                    src="assets/img/adoption/douglas.png" alt="Douglas">
+                <img draggable="false" class="max-h-12 w-auto shrink-0 max-w-none object-contain"
+                    src="assets/img/adoption/ebrains.svg" alt="EBRAINS">
+                <img draggable="false" class="max-h-12 w-auto shrink-0 max-w-none object-contain"
+                    src="assets/img/adoption/enimgapd.png" alt="ENIGMA-PD">
+                <img draggable="false" class="max-h-12 w-auto shrink-0 max-w-none object-contain"
+                    src="assets/img/adoption/indi.png" alt="INDI">
+                <img draggable="false" class="max-h-12 w-auto shrink-0 max-w-none object-contain"
+                    src="assets/img/adoption/nimhans.svg" alt="NIMHANS">
+                <img draggable="false" class="max-h-12 w-auto shrink-0 max-w-none object-contain"
+                    src="assets/img/adoption/obi.png" alt="OBI">
+                <img draggable="false" class="max-h-12 w-auto shrink-0 max-w-none object-contain"
+                    src="assets/img/adoption/openneuro.svg" alt="OpenNeuro">
+                <img draggable="false" class="max-h-12 w-auto shrink-0 max-w-none object-contain"
+                    src="assets/img/adoption/parkinson.svg" alt="Parkinson">
+                <img draggable="false" class="max-h-12 w-auto shrink-0 max-w-none object-contain"
+                    src="assets/img/adoption/qpn.jpg" alt="QPN">
+                <img draggable="false" class="max-h-12 w-auto shrink-0 max-w-none object-contain"
+                    src="assets/img/adoption/shanoir.png" alt="Shanoir">
+                <img draggable="false" class="max-h-12 w-auto shrink-0 max-w-none object-contain"
+                    src="assets/img/adoption/trr379.png" alt="TRR379">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Team -->
+<div class="bg-white py-5 sm:py-12 border-t border-gray-200">
+    <div class="mx-auto max-w-4xl gap-x-8 gap-y-20 px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl lg:text-center">
+            <h2 class="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">About us</h2>
+            <p class="mt-6 text-base leading-7 text-slate-600">
+                Neurobagel is a collaborative effort based in the <a href="https://neurodatascience.github.io/"
+                    class="text-indigo-600 hover:text-indigo-500">ORIGAMI Lab, Montreal Neurological Institute</a>.<br>
+                Learn more about our core team <a href="/contributing/team"
+                    class="text-indigo-600 hover:text-indigo-500">here</a>.
+            </p>
         </div>
     </div>
 </div>
