@@ -615,6 +615,10 @@ video {
   position: relative;
 }
 
+.sticky {
+  position: sticky;
+}
+
 .inset-x-0 {
   left: 0px;
   right: 0px;
@@ -1219,11 +1223,6 @@ video {
     "Courier New", monospace;
 }
 
-.text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
-}
-
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
@@ -1236,6 +1235,11 @@ video {
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
 }
 
 .text-sm {
@@ -1329,6 +1333,11 @@ video {
 .text-fuchsia-600 {
   --tw-text-opacity: 1;
   color: rgb(192 38 211 / var(--tw-text-opacity, 1));
+}
+
+.text-gray-400 {
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
 }
 
 .text-gray-600 {
@@ -1503,10 +1512,6 @@ video {
   transition-duration: 150ms;
 }
 
-.duration-200 {
-  transition-duration: 200ms;
-}
-
 .duration-300 {
   transition-duration: 300ms;
 }
@@ -1515,24 +1520,38 @@ video {
   transition-duration: 700ms;
 }
 
-.\[mask-image\:_linear-gradient\(to_right\2c
-  transparent_0\2c
-  _black_128px\2c
-  _black_calc\(100\%-128px\)\2c
-  transparent_100\%\)\] {
+.\[-webkit-mask-image\:linear-gradient\(to_right\2c
+  transparent\2c
+  black_128px\2c
+  black_calc\(100\%-128px\)\2c
+  transparent\)\] {
   -webkit-mask-image: linear-gradient(
     to right,
-    transparent 0,
+    transparent,
     black 128px,
     black calc(100% - 128px),
-    transparent 100%
+    transparent
+  );
+}
+
+.\[mask-image\:linear-gradient\(to_right\2c
+  transparent\2c
+  black_128px\2c
+  black_calc\(100\%-128px\)\2c
+  transparent\)\] {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 128px,
+    black calc(100% - 128px),
+    transparent
   );
   mask-image: linear-gradient(
     to right,
-    transparent 0,
+    transparent,
     black 128px,
     black calc(100% - 128px),
-    transparent 100%
+    transparent
   );
 }
 
@@ -1592,13 +1611,24 @@ video {
     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.hover\:bg-gray-200:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
+.hover\:border-gray-300:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
 }
 
-.hover\:bg-white\/60:hover {
-  background-color: rgb(255 255 255 / 0.6);
+.hover\:border-gray-50:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(249 250 251 / var(--tw-border-opacity, 1));
+}
+
+.hover\:bg-gray-300:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-gray-50:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:text-indigo-500:hover {
@@ -1635,6 +1665,11 @@ video {
 .group:hover .group-hover\:bg-gray-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+}
+
+.group:hover .group-hover\:text-fuchsia-400 {
+  --tw-text-opacity: 1;
+  color: rgb(232 121 249 / var(--tw-text-opacity, 1));
 }
 
 .group:hover .group-hover\:text-gray-900 {
@@ -1698,11 +1733,6 @@ video {
     line-height: 2rem;
   }
 
-  .sm\:text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-  }
-
   .sm\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem;
@@ -1711,6 +1741,11 @@ video {
   .sm\:text-sm {
     font-size: 0.875rem;
     line-height: 1.25rem;
+  }
+
+  .sm\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
   }
 }
 
@@ -1820,11 +1855,6 @@ video {
 
   .lg\:text-center {
     text-align: center;
-  }
-
-  .lg\:text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
   }
 
   .lg\:text-5xl {
