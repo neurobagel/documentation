@@ -76,24 +76,6 @@ The "Participant ID" standardized variable **must** be mapped to a column that c
 
 For more information, see [this section](data_prep.md#if-your-dataset-has-imaging-bids-data) on preparing the phenotypic data table for a BIDS dataset.
 
-### 2.1 Multi-column measure annotation
-
-!!! info
-    This step is only available if you have mapped columns in your data table to the "Assessment tool" standardized variable.
-
-![Annotation tool multi-column measures step screenshot](../imgs/annotate/multi_column_measures.png)
-
-The card on the right lists all columns from your data table that you have mapped to the "Assessment tool" standardized variable.
-
-1. Create a card for each assessment or instrument represented in your data
-   by clicking :fontawesome-solid-circle-plus: and then selecting the name of the assessment from the dropdown list.
-    - If no suitable match exists, the available standardized vocabulary likely cannot currently represent your assessment.
-    - To avoid incomplete annotations,
-      un-map any column(s) corresponding to missing assessments
-      from the "Assessment tool" standardized variable using the :octicons-x-circle-fill-16: button in the overview card.
-1. Select the column(s) that describe each assessment, grouping together related columns as needed, using the dropdown on the respective assessment card.
-    - You can check remaining, ungrouped columns in the overview on the right.
-
 ## 3. Value Annotation
 
 ![Annotation tool value annotation step screenshot](../imgs/annotate/value_annotation.png)
