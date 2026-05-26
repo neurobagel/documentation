@@ -146,6 +146,7 @@ This glossary compiles some key terms used in the Neurobagel documentation and d
     able to work either directly with a single n-API or with an f-API.
 
 ### Neurobagel configuration file
+
 :    Also known as the `nb_config.ini`.
 
     The user-defined INI configuration file for a Neurobagel deployment.

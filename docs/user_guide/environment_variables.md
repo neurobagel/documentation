@@ -10,7 +10,10 @@
     For more information, see [Docker's environment variable precedence](https://docs.docker.com/compose/environment-variables/envvars-precedence/).
 
 !!! tip
-    After running `configure-nb` to configure your deployment, double check that any variables you have customized are resolved with your expected values by running the command `docker compose config` in the directory with the generated `.env`.
+    After running `configure-nb` to configure your deployment,
+    double check that any variables you have customized are resolved
+    with your expected values by running the command
+    `docker compose config` in the directory with the generated `.env`.
 
 Below are all possible configuration variables for a Neurobagel deployment.
 Note that `quickstart` indicates whether the variable has an effect in a default test deployment.

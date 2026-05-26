@@ -241,6 +241,7 @@ change the default passwords for these users:
     ```
 
 (Optional) To change the directory where your password files are stored, use the `NB_GRAPH_SECRETS_PATH` variable:
+
 ```ini title="nb_config.ini" hl_lines="5"
 [compose]
 COMPOSE_PROFILES=node
