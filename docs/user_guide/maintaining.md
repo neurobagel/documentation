@@ -29,9 +29,13 @@ docker compose pull
     docker image inspect neurobagel/api:latest
     ```
     or, to view only the labels:
+
+    {% raw %}
     ```bash
     docker image inspect --format='{{json .Config.Labels}}' neurobagel/api:latest
     ```
+    {% endraw %}
+
     In either case, you should see something like this in the output:
 
     ```bash
@@ -74,7 +78,7 @@ docker compose up -d
 
 The Neurobagel deployment recipe launches a dedicated graph database that stores the datasets for a single node.
 The data in this graph database is loaded from the path specified in the
-[`LOCAL_GRAPH_DATA` environment variable](#environment-variables-reference),
+[`LOCAL_GRAPH_DATA` environment variable](environment_variables.md#local_graph_data),
 and can be changed at any time.
 
 By default, the graph database will only contain an [example dataset called `BIDS synthetic`](https://github.com/neurobagel/recipes/blob/main/data/example_synthetic_pheno-bids-derivatives.jsonld).
@@ -265,22 +269,3 @@ Some examples of when you might want to do this:
 !!! warning
 
     This action will wipe any graph databases and users you previously created!
-
-## Environment variables reference
-
-??? warning "Ensure that shell variables do not clash with `.env` file"
-
-    If the shell you run `docker compose` from already has any
-    shell variable of the same name set,
-    the shell variable will take precedence over the configuration
-    of `.env`!
-    In this case, make sure to `unset` the local variable first.
-
-    For more information, see [Docker's environment variable precedence](https://docs.docker.com/compose/environment-variables/envvars-precedence/).
-
-!!! tip
-    Double check that any environment variables you have customized in `.env` are resolved with your expected values using the command `docker compose config`.
-
-Below are all the possible Neurobagel environment variables that can be set in `.env`.
-
-{{ read_table('./repos/recipes/docs/neurobagel_environment_variables.tsv') }}
