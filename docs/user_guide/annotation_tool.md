@@ -1,6 +1,8 @@
 # The Neurobagel Annotation Tool
 
-The Neurobagel annotation tool creates standardized, machine-readable data dictionaries for tabular data using curated FAIR vocabularies. The tool helps to harmonize tabular research data and is compatible with BIDS datasets.
+The Neurobagel annotation tool creates standardized,
+machine-readable data dictionaries for tabular data using curated FAIR vocabularies.
+The tool helps to harmonize tabular research data and is compatible with BIDS datasets.
 
 **Workflow summary**:
 
@@ -75,6 +77,7 @@ The "Participant ID" standardized variable **must** be mapped to a column that c
 For more information, see [this section](data_prep.md#if-your-dataset-has-imaging-bids-data) on preparing the phenotypic data table for a BIDS dataset.
 
 ## 3. Value Annotation
+
 ![Annotation tool value annotation step screenshot](../imgs/annotate/value_annotation.png)
 
 The left sidebar displays the standardized variables that are represented in your tabular data, along with the column names that have been mapped to those variables.
@@ -101,7 +104,10 @@ For a column containing continuous data, you can:
     - Note: the column-level view will only display unique values in the column
 
 ??? info "Units vs. Format"
-    **Format** refers to how the numeric values in your data are expressed (e.g., `float` for decimal numbers like 25.5, `range` for numeric ranges like 30-35) whereas **Units** describe what the numbers represent (e.g., "years" for age, "points" for test scores, "mg/dL" for measurements).
+    **Format** refers to how the numeric values in your data are expressed
+    (e.g., `float` for decimal numbers like 25.5, `range` for numeric ranges like 30-35)
+    whereas **Units** describe what the numbers represent
+    (e.g., "years" for age, "points" for test scores, "mg/dL" for measurements).
 
 ### Columns with categorical data
 
@@ -120,6 +126,7 @@ For each unique column value, you can:
     For the value annotation to be considered complete by Neurobagel, all unique values must either be mapped to a standardized term or marked as missing.
 
 ## 4. Download data dictionary
+
 ![Annotation tool download step screenshot](../imgs/annotate/download.png)
 
 - Preview your annotated data dictionary
@@ -127,6 +134,11 @@ For each unique column value, you can:
 - Annotate a new dataset if desired
 
 !!! tip
-    If you see a warning about "Incomplete Annotations", you will need to return to the Value Annotation page to complete any missing annotations before your data dictionary is valid for downstream Neurobagel tools.
+    If you see a warning about "Incomplete Annotations",
+    you will need to return to the Value Annotation page
+    to complete any missing annotations
+    before your data dictionary is valid for downstream Neurobagel tools.
 
-Your downloaded data dictionary is BIDS-compatible and, if you see the confirmation that you have successfully created a Neurobagel data dictionary, it is ready to be used to [generate data for a Neurobagel graph database](https://neurobagel.org/user_guide/cli/).
+Your downloaded data dictionary is BIDS-compatible and,
+if you see the confirmation that you have successfully created a Neurobagel data dictionary,
+it is ready to be used to [generate data for a Neurobagel graph database](https://neurobagel.org/user_guide/cli/).

@@ -8,7 +8,9 @@ We are actively developing support for Neurobagel "community" vocabularies: cust
 This feature allows you to use more detailed or domain-specific standardized terms than are available in the [core set of external ontologies](dictionaries.md) provided by Neurobagel,
 providing more precision when harmonizing phenotypic data across sites in your consortium.
 
-Neurobagel services provide early-stage support for community vocabularies. For example, members of your consortium can use our [beta annotation tool](https://beta-annotate.neurobagel.org/) to annotate their tabular data with your specific community vocabulary.
+Neurobagel services provide early-stage support for community vocabularies.
+For example, members of your consortium can use our [beta annotation tool](https://beta-annotate.neurobagel.org/)
+to annotate their tabular data with your specific community vocabulary.
 
 Example of community vocabulary selection in the beta annotation tool:
 

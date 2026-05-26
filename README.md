@@ -9,10 +9,12 @@ The neurobagel documentation.
 Our docs are built with the [Material Theme](https://squidfunk.github.io/mkdocs-material/) for [MKdocs](https://www.mkdocs.org/).
 
 ## Setup
+
 Create a new virtual environment with `python -m venv venv` and activate it.
 Then install the dependencies with `pip install -r requirements.txt`
 
 ## Adding new pages to the navigation
+
 We use [`mkdocs-awesome-nav`](https://lukasgeiter.github.io/mkdocs-awesome-nav/) to define the navigation structure of the docs.
 
 To add a new page, add it to the `.nav.yml` (structured the same way as the `nav` section of `mkdocs.yml`) of the directory the markdown file lives in.

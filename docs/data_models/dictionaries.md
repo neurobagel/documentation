@@ -1,6 +1,7 @@
 # Neurobagel data dictionaries
 
 ## Overview
+
 When you annotate a phenotypic TSV using the Neurobagel annotation tool
 (see also the [section on the annotation tool](../user_guide/annotation_tool.md)),
 your annotations are automatically stored in a JSON data dictionary.
@@ -8,7 +9,9 @@ A Neurobagel data dictionary essentially describes the meaning and properties of
 using standardized vocabularies.
 
 !!! example
-    A comprehensive example data dictionary containing all currently supported phenotypic attributes and annotations can be found [here](https://github.com/neurobagel/neurobagel_examples/blob/main/data-upload/example_synthetic.json) (corresponding [phenotypic .tsv](https://github.com/neurobagel/neurobagel_examples/blob/main/data-upload/example_synthetic.tsv)).
+    A comprehensive example data dictionary containing all currently supported phenotypic attributes and annotations
+    can be found [here](https://github.com/neurobagel/neurobagel_examples/blob/main/data-upload/example_synthetic.json)
+    (corresponding [phenotypic .tsv](https://github.com/neurobagel/neurobagel_examples/blob/main/data-upload/example_synthetic.tsv)).
 
 Importantly, Neurobagel uses a structure for these data dictionaries that is compatible
 with and expands on
@@ -95,7 +98,9 @@ And here is the same data dictionary augmented with Neurobagel annotations:
 !!! info
     `TermURL` values in Neurobagel data dictionaries are [compact URIs](https://en.wikipedia.org/wiki/CURIE).
 
-A custom Neurobagel namespace, defined by the prefix `nb` (full URI: `http://neurobagel.org/vocab/`), is used for controlled terms that represent attribute classes modelled by Neurobagel, such as `"Age"` and `"Sex"`, even though these terms may have equivalents in other vocabularies used for annotation.
+A custom Neurobagel namespace, defined by the prefix `nb` (full URI: `http://neurobagel.org/vocab/`),
+is used for controlled terms that represent attribute classes modelled by Neurobagel, such as `"Age"` and `"Sex"`,
+even though these terms may have equivalents in other vocabularies used for annotation.
 
 For example, the following terms from the Neurobagel annotations above are conceptually equivalent to terms from the SNOMED CT namespace:
 
@@ -224,7 +229,9 @@ The `IsAbout` relation uses a term from the Neurobagel namespace because
 
 ### Sex
 
-Terms are from the SNOMED-CT ontology, which has controlled terms aligning with BIDS `participants.tsv` descriptions for sex.  Below are the SNOMED terms for the sex values allowed by BIDS:
+Terms are from the SNOMED-CT ontology,
+which has controlled terms aligning with BIDS `participants.tsv` descriptions for sex.
+Below are the SNOMED terms for the sex values allowed by BIDS:
 
 | Sex | Controlled term |
 | --- | --------------- |
@@ -267,6 +274,7 @@ The `IsAbout` relation uses a Neurobagel scoped term for `"Sex"` because
 this is a Neurobagel common data element.
 
 ### Age
+
 Neurobagel has a common data element for `"Age"` describing a continuous column.
 To ensure age values are represented as floats in Neurobagel graphs,
 Neurobagel encodes the format of the raw numerical values in a given age column.
@@ -374,6 +382,7 @@ Therefore:
 | sub-03 | False |
 
 ## Missing values
+
 Missing values are allowed for any phenotypic variable (column) that does not describe a participant or session identifier (e.g., columns like `participant_id` or `session_id`).
 In a Neurobagel data dictionary, missing values for a given column are listed under the `"MissingValues"` annotation for the column (see the [Assessment tool](#assessment-tool) section
 or the [comprehensive example data dictionary](https://github.com/neurobagel/neurobagel_examples/blob/main/data-upload/example_synthetic.json) for examples).
