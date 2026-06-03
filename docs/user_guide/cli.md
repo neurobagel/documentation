@@ -52,7 +52,7 @@ To run the CLI on a dataset, you will need the following files:
 1. This table can be generated automatically using the CLI's [`bids2tsv`](#generate-a-bids-metadata-table) command,
    and will be used to generate harmonized subject imaging data availability.
 1. This file is adapted from the [Nipoppy](https://nipoppy.readthedocs.io/en/latest/index.html) workflow
-   and can be automatically generated using [Nipoppy pipeline trackers](https://nipoppy.readthedocs.io/en/latest/how_to_guides/user_guide/tracking.html).
+   and can be automatically generated using [Nipoppy pipeline trackers](https://nipoppy.readthedocs.io/en/latest/how_to_guides/tracking/index.html).
    It will be used to generate harmonized subject processed imaging data availability.
 
 ## Running the CLI
