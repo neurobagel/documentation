@@ -14,6 +14,6 @@
     { "pattern": "https://www.w3.org/RDF/" }
   ],
   "timeout": "120s",
-  "aliveStatusCodes": [429, 200],
+  "aliveStatusCodes": [429, 200, 202, 403, 405],
   "retryCount": 5
 }
