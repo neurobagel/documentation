@@ -1,6 +1,10 @@
 # Citing Neurobagel
 
-If you use Neurobagel in your research, we recommend citing the Zenodo DOI associated with the Neurobagel tool and version you used.
+If you use Neurobagel in your research, please cite the following [preprint](https://osf.io/preprints/metaarxiv/x64tn_v1):
+
+1. Urchs, S. G. W., Dai, A., Jahanpour, A., Wang, M., Dugré, M., Bhagwat, N., … Poline, J. (2026, May 11). Neurobagel: building an international network for distributed data discovery. Retrieved from osf.io/preprints/metaarxiv/x64tn_v1
+
+We recommend also citing the Zenodo DOI associated with the Neurobagel tool and version you used.
 
 | Tool | Zenodo reference |
 | ---- | ---------------- |
