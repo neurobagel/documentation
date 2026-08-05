@@ -45,7 +45,7 @@ To run the CLI on a dataset, you will need the following files:
 - [ ] [A dataset description JSON](./dataset_description.md) for the dataset
 - [ ] (Optional) A valid [BIDS metadata table](preparing_imaging_data.md), if subjects have neuroimaging data available (1)
 - [ ] (Optional) A TSV of subject statuses for any image processing pipelines that have been run,
-      following the [Nipoppy processing status file schema](https://nipoppy.readthedocs.io/en/latest/schemas/index.html#processing-status-file) (2)
+      following the [Nipoppy processing status file schema](https://nipoppy.readthedocs.io/en/latest/how_to_guides/tracking/index.html) (2)
 
 </div>
 
@@ -279,7 +279,7 @@ run this command to include subjects' imaging data availability to your dataset 
 
 #### 3. Process derived imaging metadata using the `derivatives` command (optional)
 
-If you have a [processing status file from Nipoppy](https://nipoppy.readthedocs.io/en/latest/schemas/index.html#processing-status-file),
+If you have a [processing status file from Nipoppy](https://nipoppy.readthedocs.io/en/latest/how_to_guides/tracking/index.html),
 run this command to add subjects' processing pipeline data availability to the dataset JSONLD:
 
 === "Python"
