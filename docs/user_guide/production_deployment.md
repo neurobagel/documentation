@@ -30,7 +30,7 @@ Neurobagel services that are included in the Docker Compose deployment recipes:
 - **[Neurobagel node API/n-API](api.md)** (`api`): The API that communicates with a single graph store and determines
     how detailed the response to a query should be from that graph.
 - **Graph store** (`graph`): A third-party RDF store that stores Neurobagel-harmonized data to be queried. At the moment our recipe uses the free tier
-    of [GraphDB](https://db-engines.com/en/system/GraphDB) for this.
+    of [GraphDB](https://graphdb.ontotext.com/) for this.
 - **Neurobagel federation/f-API** (`federation`): A special API that can federate over one or more
     Neurobagel nodes to provide a single point of access to multiple distributed databases.
     By default it will federate over all public nodes and any local nodes you specify.
