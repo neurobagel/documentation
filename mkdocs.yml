@@ -52,9 +52,13 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
       clickable_checkbox: true
+  - pymdownx.keys
+  - pymdownx.blocks.caption
 
 plugins:
   - search
+  - macros:
+      module_name: docs/macros/main
   - table-reader
   - yamp:
     # directory within docs dir to add content
@@ -70,15 +74,12 @@ plugins:
       #   default: []
       repos:
         # the git repository URL to clone
-      - url: "https://github.com/neurobagel/recipes"
+      - url: "https://github.com/neurobagel/neurobagel_examples"
         # a list of globs to checkout
         # if empty or not provided, the entire repository is cloned
         # default: [ ]
-        include: [ "docs/neurobagel_environment_variables.tsv"]
-        # the branch of the repository to clone
-        branch: "main"
-      - url: "https://github.com/neurobagel/neurobagel_examples"
         include: [ "query-tool-results" ]
+        # the branch of the repository to clone
         branch: "main"
   - include-markdown
   - open-in-new-tab
@@ -107,3 +108,6 @@ extra:
 
 extra_css:
   - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/home.js

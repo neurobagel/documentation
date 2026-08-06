@@ -1,0 +1,60 @@
+// Example markdownlint configuration with all properties set to their default value
+{
+
+  // Default state for all rules
+  "default": true,
+
+  // Path to configuration file to extend
+  "extends": null,
+
+  // ul-indent Unordered list indentation
+  "MD007": {"indent": 4},
+
+  // no-hard-tabs
+  "MD010": false,
+
+  // MD013/line-length : Line length : https://github.com/DavidAnson/markdownlint/blob/v0.40.0/doc/md013.md
+  "MD013": {
+    // Number of characters
+    "line_length": 215,
+    // Number of characters for headings
+    "heading_line_length": 120,
+    // Number of characters for code blocks
+    "code_block_line_length": 240,
+    // Include code blocks
+    "code_blocks": true,
+    // Include tables
+    "tables": false,
+    // Include headings
+    "headings": true,
+    // Strict length checking
+    "strict": false,
+    // Stern length checking
+    "stern": false
+  },
+
+  // MD033/no-inline-html : Inline HTML : https://github.com/DavidAnson/markdownlint/blob/v0.40.0/doc/md033.md
+  "MD033": false,
+
+  // no-bare-urls
+  "MD034": false,
+
+  // no-emphasis-as-heading
+  "MD036":false,
+
+  // first-line-heading/first-line-h1
+  "MD041" : false,
+
+  // code-block-style
+  "MD046": false,
+
+  // table-pipe-style
+  "MD055": {"style": "consistent"},
+
+  // descriptive-link-text"
+  "MD059": false,
+
+  // table-column-style
+  "MD060": {"style": "compact"}
+
+}

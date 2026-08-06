@@ -22,6 +22,7 @@ AccessLink | RECOMMENDED | string | Primary link for access requests or informat
 
 
 ## Example
+
 ```json
 --8<-- "https://raw.githubusercontent.com/neurobagel/neurobagel_examples/refs/heads/main/data-upload/synthetic_dataset_description.json"
 ```
@@ -56,7 +57,7 @@ json
 }
 ```
 
-After editing, copy and save the contents in a file with the extension `.json`. 
+After editing, copy and save the contents in a file with the extension `.json`.
 We recommend using an informative file name like `DATASETNAME_description.json`.
 
 !!! question "I have a dataset_description.json from my BIDS dataset"
