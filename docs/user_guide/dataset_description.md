@@ -4,6 +4,19 @@ This file is adapted from the `dataset_description.json` from [BIDS](https://bid
 
 Information from the dataset description will be displayed to a user when they discover your dataset in the Neurobagel query tool.
 
+!!! tip
+	You can also generate this file automatically using the [Neurobagel annotation tool](https://annotate.neurobagel.org/).
+
+## Example
+
+```json
+--8<-- "https://raw.githubusercontent.com/neurobagel/neurobagel_examples/refs/heads/main/data-upload/synthetic_dataset_description.json"
+```
+
+How this dataset info will appear in the query tool:
+
+![Example of a dataset card in the Neurobagel query tool](../imgs/query/dataset_card.png)
+
 ## Dataset description fields
 
 Neurobagel recognizes the following fields in the dataset description JSON file. Extra keys are ignored. * indicates a key adopted from the BIDS [`dataset_description.json`](https://bids-specification.readthedocs.io/en/stable/modality-agnostic-files/dataset-description.html).
@@ -19,17 +32,6 @@ AccessInstructions | RECOMMENDED | string | Description of how to access the dat
 AccessType | RECOMMENDED | string, one of: `"public"`, `"registered"`, `"restricted"` | Level of requirements for accessing the data. `public`: Immediately accessible without registration, authentication, or approval. `registered`: Requires authentication or agreement to basic terms of use, but no formal application or review. `restricted`: Requires formal approval or review of a data access request.
 AccessEmail | RECOMMENDED | string (email) | Primary email for access requests.
 AccessLink | RECOMMENDED | string | Primary link for access requests or information.
-
-
-## Example
-
-```json
---8<-- "https://raw.githubusercontent.com/neurobagel/neurobagel_examples/refs/heads/main/data-upload/synthetic_dataset_description.json"
-```
-
-How this dataset info will appear in the query tool:
-
-![Example of a dataset card in the Neurobagel query tool](../imgs/query/dataset_card.png)
 
 ## Editable template
 
@@ -74,4 +76,3 @@ We recommend using an informative file name like `DATASETNAME_description.json`.
 	(These additional fields will not make the `dataset_description.json` invalid and will be safely ignored by the BIDS validator.)
 
 	**NOTE:** The editable template does not include all required keys for a valid BIDS `dataset_description.json`. Do not overwrite your existing BIDS `dataset_description.json` with the template, only add Neurobagel-supported keys as needed.
-
