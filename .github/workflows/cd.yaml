@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up python 3.10
         uses: actions/setup-python@v6
@@ -22,7 +22,7 @@ jobs:
           python-version: "3.10"
 
       - name: Set up cache for output
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           key: ${{ github.ref }}
           path: .cache

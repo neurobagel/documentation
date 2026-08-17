@@ -86,7 +86,7 @@ However, the harmonized terms in the following columns are provided in their raw
     For examples of aggregated matching dataset results, see the last rows of the example query result TSV in the previous two sections.
 
 A row in a query result TSV may show `protected` for all columns except for `DatasetName`, `RepositoryURL`, `AccessLink`
-and other dataset-level columns. This means the source graph database (node) has been configure
+and other dataset-level columns. This means the source graph database (node) has been configured
 (via its corresponding Neurobagel node API) to return only aggregate information about matching subjects e.g., for data privacy reasons.
 
 This setting for a node can be changed using the environment variable [`NB_RETURN_AGG`](environment_variables.md#nb_return_agg).
