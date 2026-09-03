@@ -10,7 +10,7 @@
     { "pattern": "http://purl.bioontology.org/ontology/SNOMEDCT/" },
     { "pattern": "https://www.ontotext.com/knowledgehub/fundamentals/" },
     { "pattern": "overrides/assets/img/" },
-    { "pattern": "https://www.w3.org/RDF/" }
+    { "pattern": "https://www.w3.org/RDF/" },
     { "pattern": "https://en.wikipedia.org/wiki/CURIE" }
   ],
   "timeout": "120s",
