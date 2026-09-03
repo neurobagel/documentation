@@ -2,7 +2,6 @@
   "ignorePatterns": [
     { "pattern": "http://neurobagel.org/vocab/.*" },
     { "pattern": "http://neurobagel.org/graph/" },
-    { "pattern": "http://neurobagel.org/graph/" },
     { "pattern": ".*localhost.*" },
     { "pattern": "https://api.neurobagel.org/.*" },
     { "pattern": "http://purl.org/nidash/nidm#.*" },
@@ -12,6 +11,7 @@
     { "pattern": "https://www.ontotext.com/knowledgehub/fundamentals/" },
     { "pattern": "overrides/assets/img/" },
     { "pattern": "https://www.w3.org/RDF/" }
+    { "pattern": "https://en.wikipedia.org/wiki/CURIE" }
   ],
   "timeout": "120s",
   "aliveStatusCodes": [429, 200, 202, 403, 405],
