@@ -59,7 +59,7 @@ And here is the same data dictionary augmented with Neurobagel annotations:
       },
       "Format": {
         "TermURL": "nb:FromFloat",
-        "Label": "Float"
+        "Label": "Decimal"
       },
       "VariableType": "Continuous"
     }
@@ -282,13 +282,13 @@ This is stored in the `Format` annotation (required for continuous columns) and 
 
 Possible formats:
 
-| TermURL | Label | Examples |
+| TermURL | Description | Examples |
 | ----- | ----- | ----- |
-| `nb:FromFloat` | float value | `31.5`, `31` |
-| `nb:FromEuro` | european decimal value | `31,5` |
-| `nb:FromBounded` | bounded value | `30+` |
-| `nb:FromRange` | a range between a minimum and maximum value | `30-35` |
-| `nb:FromISO8061` | period of time defined according to the ISO8601 standard | `31Y6M` |
+| `nb:FromFloat` | Decimal number, including whole numbers | `31.5`, `31` |
+| `nb:FromEuro` | European decimal number | `31,5` |
+| `nb:FromBounded` | Number representing a lower bound or minimum value | `30+` |
+| `nb:FromRange` | A range between a minimum and maximum value | `30-35` |
+| `nb:FromISO8061` | Period of time expressed according to the ISO 8601 standard | `31Y6M` |
 
 ```json hl_lines="5-13"
 {
@@ -301,7 +301,7 @@ Possible formats:
       },
       "Format": {
         "TermURL": "nb:FromEuro",
-        "Label": "European value decimals"
+        "Label": "European decimal"
       },
       "VariableType": "Continuous"
     }
