@@ -4,6 +4,39 @@ The Neurobagel CLI is a command-line tool that processes a Neurobagel-annotated 
 and produces harmonized subject-level phenotypic and imaging attributes.
 The resulting harmonized data can be directly integrated into a Neurobagel graph store.
 
+## System dependencies
+
+The Neurobagel CLI can be run using Python, Docker, or Apptainer.
+
+=== "Python"
+
+    The CLI requires **Python 3.11 or later**.
+
+    1. [Install Python](https://www.python.org/downloads/).
+
+    2. Verify the installation:
+    ```bash
+    python --version
+    ```
+
+=== "Docker"
+
+    1. [Install Docker](https://docs.docker.com/get-docker/).
+
+    2. Verify the installation:
+    ```bash
+    docker --version
+    ```
+
+=== "Apptainer"
+
+    1. [Install Apptainer](https://apptainer.org/docs/admin/main/installation.html).
+
+    2. Verify the installation:
+    ```bash
+    apptainer --version
+    ```
+
 ## Installation
 
 === "Python"
