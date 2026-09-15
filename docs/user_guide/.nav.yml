@@ -9,6 +9,7 @@ nav:
     - Production deployment: "production_deployment.md"
     - Production deployment with an existing proxy: "production_deployment_with_own_proxy.md"
     - Maintaining a node: "maintaining.md"
+    - Environment variables reference: "environment_variables.md"
   - Annotating your data:
     - Preparing the dataset description: "dataset_description.md"
     - Preparing phenotypic data: "data_prep.md"

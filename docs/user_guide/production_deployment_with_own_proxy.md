@@ -7,7 +7,7 @@ standard deployment steps.
     If you are unfamiliar with managing and
     maintaining a bare-metal reverse proxy, you should use the
     [containerized proxy server](production_deployment.md#proxy-server) provided with Neurobagel deployment recipes instead.
-    
+
     We document how to run Neurobagel with an existing reverse proxy to help
     facilitate integration into established server setups. This type of deployment
     needs a good deal more manual configuration and maintenance.
@@ -42,12 +42,12 @@ Begin by following the default setup instructions for your
     We're providing the default ports as a reference for local deployment, testing, and for scenarios
     where you do not want to use the
     [provided reverse proxy deployment recipes](production_deployment.md#proxy-server).
-    
+
     Where possible, we **strongly recommend** that you avoid opening service ports to a public network.
 
 Neurobagel node services run inside Docker containers. Each service listens on an *internal port* within its container and
 exposes a *host port* that makes it accessible from the host machine. Below, we list the default *host ports* for each service
-along with the [environment variables](maintaining.md#environment-variables-reference) that can be used to configure them.
+along with the [environment variables](environment_variables.md) that can be used to configure them.
 
 - `api` (the node API)
     - environment variable: `NB_NAPI_PORT_HOST`
@@ -75,13 +75,11 @@ along with the [environment variables](maintaining.md#environment-variables-refe
         to reach each service on `localhost` ports
 
 In our modified deployment recipe for an existing proxy server,
-Neurobagel services bind to [default ports](#default-ports-of-services)  
+Neurobagel services bind to [default ports](#default-ports-of-services)
 on the host.
 
-In your `.env` file, you can
-change these ports to avoid conflicts with existing services.
-Simply uncomment and set the relevant `NB_<SERVICE>_PORT_HOST` variables.
-See [default ports](#default-ports-of-services) for the list of port variables.
+You can override the default ports in `nb_config.ini` (e.g., to avoid conflicts with existing services)
+by setting the corresponding `NB_<SERVICE>_PORT_HOST` variable(s) from the list [above](#default-ports-of-services).
 
 ## Configure your existing reverse proxy
 

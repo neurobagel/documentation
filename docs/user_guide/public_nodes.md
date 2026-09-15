@@ -2,13 +2,13 @@ The public query tool at [query.neurobagel.org](https://query.neurobagel.org)
 queries the public Neurobagel federation API at [federate.neurobagel.org](https://federate.neurobagel.org)
 which provides access to all publicly accessible Neurobagel nodes.
 
-To start running your own cohort queries, 
+To start running your own cohort queries,
 all you have to do is visit [query.neurobagel.org](https://query.neurobagel.org),
 enter your cohort criteria into the web interface, and click the "Submit" button.
 
 ## Public Neurobagel Nodes
 
-At the moment, the following public Neurobagel nodes are available 
+At the moment, the following public Neurobagel nodes are available
 (you can query a specific node by selecting it from the dropdown under "Neurobagel graph" in the query tool):
 
 - **OpenNeuro**. This node contains a (growing) subset of the datasets on [OpenNeuro](https://openneuro.org/).
@@ -24,12 +24,12 @@ At the moment, the following public Neurobagel nodes are available
   Unlike the other two public nodes, the Quebec Parkinson Network node will not return participant level details.
 
 All nodes except for the Quebec Parkinson Network node allow you to download both participant-level information
-and the corresponding imaging data (where available) for the cohorts you search. 
+and the corresponding imaging data (where available) for the cohorts you search.
 Downloading of imaging data is performed via [Datalad](https://www.datalad.org/).
 
 ## Private Neurobagel nodes
 
-Nodes that are not purposefully made public are not accessible 
+Nodes that are not purposefully made public are not accessible
 outside of the institute or network where they are deployed.
 If you are interested in deploying a Neurobagel node for your institution,
 please refer to our [deployment documentation](./getting_started.md) for more information.

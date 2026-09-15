@@ -7,6 +7,7 @@ The following list summarizes the variables that can currently be modeled and qu
 **We are actively working to expand our subject data model, and welcome [feedback](https://github.com/orgs/neurobagel/discussions/categories/subject-data-model-requests) on any other variables you would like to be able to query.**
 
 ## Phenotypic
+
 For details on how phenotypic attributes are modeled, see the page on [Neurobagel data dictionaries](dictionaries.md).
 
 - Age
@@ -17,7 +18,9 @@ For details on how phenotypic attributes are modeled, see the page on [Neurobage
 ## Imaging
 
 ### Raw data
+
 - Available MRI acquisition sequences, following the [BIDS specification](https://bids-specification.readthedocs.io/en/stable/modality-specific-files/magnetic-resonance-imaging-data.html#magnetic-resonance-imaging)
 
 ### Derived data
-- Completed processing pipelines, following the [Nipoppy specification](https://nipoppy.readthedocs.io/en/latest/how_to_guides/user_guide/tracking.html)
+
+- Completed processing pipelines, following the [Nipoppy specification](https://nipoppy.readthedocs.io/en/latest/how_to_guides/tracking/index.html)

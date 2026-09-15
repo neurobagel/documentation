@@ -15,8 +15,8 @@ updates:
     labels:
       - "_bot"
       - "dependencies"
-  
-  # We instruct dependabot to open PRs whenever the HEAD of 
+
+  # We instruct dependabot to open PRs whenever the HEAD of
   # of a submodule repository has advanced beyond what our submodule
   # is currently tracking.
   # Note: this configuration will only have an effect in repositories that have
