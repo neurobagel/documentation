@@ -15,7 +15,6 @@ The Neurobagel CLI can be run using Python, Docker, or Apptainer.
     1. [Install Python](https://www.python.org/downloads/).
 
     2. Verify the installation:
-
     ```bash
     python --version
     ```
@@ -25,7 +24,6 @@ The Neurobagel CLI can be run using Python, Docker, or Apptainer.
     1. [Install Docker](https://docs.docker.com/get-docker/).
 
     2. Verify the installation:
-
     ```bash
     docker --version
     ```
@@ -35,7 +33,6 @@ The Neurobagel CLI can be run using Python, Docker, or Apptainer.
     1. [Install Apptainer](https://apptainer.org/docs/admin/main/installation.html).
 
     2. Verify the installation:
-
     ```bash
     apptainer --version
     ```
