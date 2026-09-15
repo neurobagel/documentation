@@ -6,18 +6,15 @@ The resulting harmonized data can be directly integrated into a Neurobagel graph
 
 ## System dependencies
 
-Before installing or running the Neurobagel CLI, ensure the following tools are available on your system.
-
-!!! tip
-    Choose the dependency instructions that match how you plan to run the CLI (native Python, Docker, or Apptainer).
+The Neurobagel CLI can be run using Python, Docker, or Apptainer.
 
 === "Python"
 
-    The CLI requires **Python 3.10 or later**.
+    The CLI requires **Python 3.11 or later**.
 
-    Install Python: [https://www.python.org/downloads/](https://www.python.org/downloads/)
+    1. [Install Python](https://www.python.org/downloads/).
 
-    Verify installation:
+    2. Verify the installation:
 
     ```bash
     python --version
@@ -25,11 +22,9 @@ Before installing or running the Neurobagel CLI, ensure the following tools are 
 
 === "Docker"
 
-    Required if you plan to run the CLI using containers.
+    1. [Install Docker](https://docs.docker.com/get-docker/).
 
-    Install Docker: [https://docs.docker.com/get-docker/](https://docs.docker.com/get-docker/)
-
-    Verify installation:
+    2. Verify the installation:
 
     ```bash
     docker --version
@@ -37,17 +32,13 @@ Before installing or running the Neurobagel CLI, ensure the following tools are 
 
 === "Apptainer"
 
-    Optional container runtime supported by the Neurobagel CLI.
+    1. [Install Apptainer](https://apptainer.org/docs/admin/main/installation.html).
 
-    Installation instructions:
-    [https://apptainer.org/docs/admin/main/installation.html](https://apptainer.org/docs/admin/main/installation.html)
-
-    Verify installation:
+    2. Verify the installation:
 
     ```bash
     apptainer --version
     ```
-
 
 ## Installation
 
