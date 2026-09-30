@@ -1,5 +1,8 @@
 name: Label pull requests from forks
 
+permissions:
+  contents: read
+
 on:
   pull_request_target:
     types: [opened]
