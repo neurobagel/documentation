@@ -90,10 +90,10 @@ to create a data dictionary for the file.
 
 Example TSV:
 
-| participant_id | age | sex | tools |
+| participant_id | age | sex | WAIS_IV_FSIQ |
 | ---- | ---- | ---- | ---- |
-| sub-01 | 22 | female | WASI-2 |
-| sub-02 | 28 | male | Stroop |
+| sub-01 | 22 | female | 115 |
+| sub-02 | 28 | male | 109 |
 | ... | ... | ... | ... |
 
 ### A longitudinal data file
@@ -104,11 +104,11 @@ Each row must describe a unique combination of subject and session.
 
 Example TSV:
 
-| participant_id | session_id | age | tools |
+| participant_id | session_id | age | WAIS_IV_FSIQ |
 | ---- | ---- | ---- | ---- |
-| sub-01 | ses-01 | 22 | WASI-2 |
-| sub-01 | ses-02 | 23 | |
-| sub-02 | ses-01 | 28 | Stroop |
+| sub-01 | ses-01 | 22 | 115 |
+| sub-01 | ses-02 | 23 | 117 |
+| sub-02 | ses-01 | 28 | 109 |
 | ... | ... | ... | ... |
 
 !!! tip
