@@ -1,5 +1,8 @@
 name: Add new issues to project
 
+permissions:
+  contents: read
+
 on:
   issues:
     types:
@@ -9,9 +12,6 @@ jobs:
   add-to-project:
     name: Add issue to project
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      issues: write
 
     steps:
       - name: Generate a token
