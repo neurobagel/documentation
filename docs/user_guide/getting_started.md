@@ -161,6 +161,42 @@ d44d0b7359c8   ontotext/graphdb:10.8.12            "/usr/src/neurobagel…"   8 
 29a61a2d83de   neurobagel/query_tool:latest       "/bin/sh -c 'npm run…"   8 seconds ago   Up 8 seconds   0.0.0.0:3000->5173/tcp, :::3000->5173/tcp             recipes-query_federation-1
 ```
 
+??? failure "`init_data` failed with `No .jsonld files found in the data directory`"
+
+    If the stack fails to come up with an error like
+    `service "init_data" didn't complete successfully: exit 1`, check the logs
+    of the one-time `init_data` service:
+
+    ```bash
+    docker compose logs init_data
+    ```
+
+    If you see `ERROR No .jsonld files found in the data directory`, the
+    directory on your machine that holds your dataset `.jsonld` files was not
+    mounted into the container correctly. This usually means the
+    [`LOCAL_GRAPH_DATA`](environment_variables.md#local_graph_data) path in your
+    `.env` file does not point to the directory containing your `.jsonld` files.
+
+    When `LOCAL_GRAPH_DATA` points to a directory that does not exist on the
+    host, Docker silently creates an **empty** directory at that path and mounts
+    it, so `init_data` finds no files. To confirm the path Docker Compose is
+    actually using:
+
+    ```bash
+    docker compose config | grep -A2 "input_data"
+    ```
+
+    Make sure the `source` path shown is the directory that contains your
+    `.jsonld` files (for the unmodified quickstart recipe this is the `./data`
+    directory inside the cloned `recipes` repository, which contains an example
+    file). If it is not, update `LOCAL_GRAPH_DATA` in your `.env` file
+    accordingly and run `docker compose up -d` again.
+
+    If the path looks correct but the error persists, it may be specific to your
+    operating system or Docker distribution (for example, a community-maintained
+    Docker package). Please [get help](../getting_help.md) and include your OS,
+    Docker version, and Docker Compose version.
+
 ## Next steps
 
 :tada: You are now the proud owner of a running Neurobagel node. Here are some things you can do now:
