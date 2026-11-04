@@ -62,8 +62,8 @@ updates:
   # while still preventing regular version update PRs.
   # See https://docs.github.com/en/code-security/dependabot/dependabot-security-updates/configuring-dependabot-security-updates#overriding-the-default-behavior-with-a-configuration-file
   # Note: this configuration only has an effect in repositories that have
-  # a requirements.txt file / use python / pip.
-  - package-ecosystem: "pip"
+  # a pyproject.toml file and have uv.lock setup
+  - package-ecosystem: "uv"
     directory: "/"
     schedule:
       interval: "weekly"
