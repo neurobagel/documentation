@@ -296,6 +296,14 @@ To add the dataset JSONLD files for your node, either:
     NB_NAPI_BASE_PATH=/node
     ```
 
+!!! warning "Make sure the `LOCAL_GRAPH_DATA` directory exists"
+
+    `LOCAL_GRAPH_DATA` must point to a directory on the host that actually
+    contains your JSONLD files. If the path does not exist, Docker silently
+    creates an empty directory there and mounts it, and the `init_data` service
+    will fail with `No .jsonld files found in the data directory`. You can check
+    the path Docker Compose is using with `docker compose config`.
+
 #### Set node response granularity
 
 !!! danger "This is a security relevant section!"
