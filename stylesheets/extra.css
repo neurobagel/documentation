@@ -1,0 +1,13 @@
+.highlight .madlibs-editable {
+  color: var(--md-primary-fg-color);
+  font-style: italic;
+  font-weight: bold;
+  border-bottom: 0.15em dotted var(--md-primary-fg-color);
+}
+
+.madlibs-editable-icon {
+  fill: var(--md-primary-fg-color);
+  width: 1em;
+  height: 1em;
+  margin-left: 0.3em;
+}
