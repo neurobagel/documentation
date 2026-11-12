@@ -33,7 +33,7 @@ module.exports = {
         },
         marquee: {
           from: { transform: 'translateX(0)' },
-          to: { transform: 'translateX(calc(-100% - 2.5rem))' }, // Shifts left by full width (-100%) plus the gap (-2.5rem) for a seamless loop
+          to: { transform: 'translateX(-100%)' },
         }
       }
     },
